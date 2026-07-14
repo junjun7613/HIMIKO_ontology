@@ -56,6 +56,41 @@ PY=../venv/bin/python
 "$PY" build_webvowl.py --target epig     # → webvowl/data/epig.json
 ```
 
+## GitHub へ push（公開の更新）
+
+リポジトリ: `https://github.com/junjun7613/HIMIKO_ontology`（ブランチ `main`）。
+`main` に push すると GitHub Pages が自動で再ビルドし、1〜2分で公開サイトに反映される。
+
+TTL を編集したら **必ず先に HTML/JSON を再生成**してから push する
+（Pages は生成済みファイルをそのまま配信するため、TTL だけ push しても表示は変わらない）。
+
+```bash
+# リポジトリルートで実行
+cd ..                      # ontology/ にいる場合
+
+# 1. TTL 編集後、生成物を再生成（上記「再生成」参照）
+
+# 2. 変更を確認
+git status
+
+# 3. コミット & push
+git add -A
+git commit -m "Update ontology docs"
+git push                   # origin main へ（初回以降は引数不要）
+```
+
+初回クローン後に remote を張り直す場合:
+
+```bash
+git remote add origin https://github.com/junjun7613/HIMIKO_ontology.git
+git push -u origin main
+```
+
+反映確認: `https://junjun7613.github.io/HIMIKO_ontology/`
+
+> 注意: `venv/`・`.claude/`・`tools/owl2vowl.jar`・`*.bak` 等は `.gitignore` で
+> 除外済み（`git add -A` してもコミットされない）。
+
 ## ローカルサーバーで閲覧
 
 `himiko.html` は `diagrams/` 画像と `webvowl/index.html#template` を、
