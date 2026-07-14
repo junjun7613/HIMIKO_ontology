@@ -32,7 +32,7 @@ hmkp:Text rdfs:comment "The whole text corresponding to a single inscription or 
 
 hmkp:Character rdfs:comment "A single character constituting the text. Its URI is UUID-based (urn:himiko:resource:char:<uuid>), providing a stable reference across edits of the text. hmkp:next links to the following character."@en .
 
-hmkp:Annotation rdfs:comment "An annotation over a character range [start, end). It carries a type (hmkp:kind) such as line numbering, abbreviation expansion, supplement, gap, correction, and so on."@en .
+hmkp:Annotation rdfs:comment "An annotation over a character range [start, end). Fine-grained details derived from a specific format (TEI/EDCS), such as the annotation kind or gap reason, are supplied by the TEI conversion profile (hmktei:)."@en .
 
 hmkp:bears rdfs:comment "The Text that a Source (physical medium) bears."@en .
 
@@ -62,21 +62,7 @@ hmkp:start rdfs:comment "The starting character offset of the annotation range (
 
 hmkp:end rdfs:comment "The ending character offset of the annotation range (exclusive, Python-slice style)."@en .
 
-hmkp:kind rdfs:comment """Type of the annotation. Permitted values include: line (line number, <lb>), expan / abbr / ex (abbreviation expansion), supplied (supplement), gap (missing text), choice (correction), surplus (redundant), seg / other (segments and misc.)."""@en .
-
 hmkp:annotatedText rdfs:comment "The textual content of the range that the annotation targets."@en .
-
-hmkp:reason rdfs:comment "Value of the @reason attribute on gap / supplied (e.g. lost, unknown)."@en .
-
-hmkp:extent rdfs:comment "Value of the @extent attribute on gap (e.g. 'unknown')."@en .
-
-hmkp:quantity rdfs:comment "Value of the @quantity attribute on gap (extent of the missing text)."@en .
-
-hmkp:unit rdfs:comment "Value of the @unit attribute on gap (e.g. 'line', 'character')."@en .
-
-hmkp:sic rdfs:comment "For a choice annotation where the main text adopts corr, this records the original (erroneous) reading."@en .
-
-hmkp:n rdfs:comment "Value of the TEI @n attribute. Used for line numbers, letter section numbers, and so on. Applicable to both Text and Annotation."@en .
 
 hmkp:sourceId rdfs:comment "An external identifier assigned to the source. A generic, database-independent property; the value should carry the prefix of the issuing scheme (e.g. \"EDCS-47400376\" for EDCS, \"HD000001\" for EDH, a Trismegistos ID for papyri). The scheme is inferred from the value prefix or from the project-defined subclass (inscription, letter, etc.)."@en .
 

@@ -1,0 +1,86 @@
+@prefix hmktei: <urn:himiko:ontology:physical:tei:> .
+@prefix hmkp:   <urn:himiko:ontology:physical:> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+#################################################################
+#    Ontology metadata
+#################################################################
+
+<urn:himiko:ontology:physical:tei> a owl:Ontology ;
+    dcterms:title "HIMIKO Physical Layer — TEI Conversion Profile"@en ;
+    dcterms:title "HIMIKO 史料物理層 — TEI 変換プロファイル"@ja ;
+    dcterms:description """HIMIKO 史料物理層 (urn:himiko:ontology:physical) の付属プロファイル。
+TEI/EDCS の要素・属性に由来する、アノテーションの細目プロパティを定義する。
+これらは特定の入力フォーマット (TEI Guidelines) の語彙に対応するものであり、
+史料種別に依存しない抽象的枠組みである物理層コアからは意図的に分離してある。
+各プロパティは hmkp:Annotation を domain とし、対応する TEI の要素・属性を
+rdfs:seeAlso で示す。値そのものは元 TEI の属性値をそのまま保持する。"""@ja ;
+    dcterms:creator "HIMIKO project" ;
+    owl:versionInfo "0.1.0" ;
+    owl:imports <urn:himiko:ontology:physical> ;
+    rdfs:seeAlso <http://www.tei-c.org/ns/1.0> .
+
+#################################################################
+#    Datatype Properties  —  アノテーション種別
+#################################################################
+
+hmktei:kind a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "kind (TEI construct)"@en , "種別 (TEI 構成要素)"@ja ;
+    rdfs:comment """アノテーションが由来する TEI の要素種別。取りうる値:
+line (行番号 <lb>), expan / abbr / ex (略語展開 <expan>/<abbr>/<ex>),
+supplied (補完 <supplied>), gap (欠損 <gap>), choice (訂正 <choice>),
+surplus (余剰 <surplus>), del (削除 <del>),
+seg / opener / closer (書簡の構造ブロック <seg>/<opener>/<closer>)。"""@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <http://www.tei-c.org/ns/1.0> .
+
+#################################################################
+#    Datatype Properties  —  TEI 属性由来の細目
+#################################################################
+
+hmktei:reason a owl:DatatypeProperty ;
+    rdfs:label "reason"@en , "理由"@ja ;
+    rdfs:comment "gap / supplied の @reason 属性値 (例: lost, unknown)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <http://www.tei-c.org/ns/1.0#att.editLike.reason> .
+
+hmktei:extent a owl:DatatypeProperty ;
+    rdfs:label "extent"@en , "範囲"@ja ;
+    rdfs:comment "gap の @extent 属性値 (例: unknown)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <http://www.tei-c.org/ns/1.0#att.dimensions.extent> .
+
+hmktei:quantity a owl:DatatypeProperty ;
+    rdfs:label "quantity"@en , "数量"@ja ;
+    rdfs:comment "gap の @quantity 属性値 (欠損量)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <http://www.tei-c.org/ns/1.0#att.dimensions.quantity> .
+
+hmktei:unit a owl:DatatypeProperty ;
+    rdfs:label "unit"@en , "単位"@ja ;
+    rdfs:comment "gap の @unit 属性値 (例: line, character)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <http://www.tei-c.org/ns/1.0#att.dimensions.unit> .
+
+hmktei:n a owl:DatatypeProperty ;
+    rdfs:label "n"@en , "番号(n)"@ja ;
+    rdfs:comment "TEI の @n 属性値。行番号 (line) や書簡セクション番号などに用いる。Text と Annotation の双方に付与されうる。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( hmkp:Text hmkp:Annotation ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <http://www.tei-c.org/ns/1.0#att.global.n> .
+
+hmktei:sic a owl:DatatypeProperty ;
+    rdfs:label "sic (original reading)"@en , "sic (元の読み)"@ja ;
+    rdfs:comment "choice アノテーションにおいて、本文には corr を採用した際に記録される元の (誤った) 読み。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso <http://www.tei-c.org/ns/1.0#sic> .

@@ -16,12 +16,14 @@
     dcterms:title "HIMIKO Physical Layer (史料物理層) — ATAG-style Standoff Text Annotation Ontology"@en ;
     dcterms:title "HIMIKO 史料物理層 — ATAG風スタンドオフ・テキストアノテーション・オントロジー"@ja ;
     dcterms:description """HIMIKO (Historical Micro Knowledge and Ontology) の史料物理層。
-碑文 (TEI/EDCS) および書簡 (TEI) を RDF に変換するためのオントロジーで、
-テキストを 1 文字 = 1 ノード (hmkp:Character) に分解し、その文字列上に
-オフセットベースのアノテーション (hmkp:Annotation) を載せるスタンドオフ方式を採る。
-ATAG (Annotated Text and Graphs) の考え方に基づく。"""@ja ;
+史料テキストを 1 文字 = 1 ノード (hmkp:Character) に分解し、その文字列上に
+オフセットベースのアノテーション (hmkp:Annotation) を載せるスタンドオフ方式を規定する、
+史料種別・入力フォーマットに依存しない抽象的枠組み。
+ATAG (Annotated Text and Graphs) の考え方に基づく。
+TEI/EDCS など特定フォーマット由来の細目 (アノテーション種別・欠損理由・単位など) は、
+本コアには含めず TEI 変換プロファイル (urn:himiko:ontology:physical:tei, hmktei:) に分離する。"""@ja ;
     dcterms:creator "HIMIKO project" ;
-    owl:versionInfo "1.0.0" .
+    owl:versionInfo "1.1.0" .
 
 #################################################################
 #    Classes
@@ -37,7 +39,7 @@ hmkp:Character a owl:Class ;
 
 hmkp:Annotation a owl:Class ;
     rdfs:label "Annotation"@en , "アノテーション"@ja ;
-    rdfs:comment "文字範囲 [start, end) に対する注釈。行番号・略語展開・補完・欠損・訂正などの種類 (hmkp:kind) を持つ。"@ja ;
+    rdfs:comment "文字範囲 [start, end) に対する注釈。種別や欠損理由など、特定フォーマット (TEI/EDCS) 由来の細目は TEI 変換プロファイル (hmktei:) 側で付与される。"@ja ;
     rdfs:seeAlso oa:Annotation .
 
 hmkp:Source a owl:Class ;
@@ -166,15 +168,12 @@ hmkp:uuid a owl:DatatypeProperty , owl:FunctionalProperty ;
 #################################################################
 #    Datatype Properties  —  hmkp:Annotation
 #################################################################
-
-hmkp:kind a owl:DatatypeProperty , owl:FunctionalProperty ;
-    rdfs:label "kind"@en , "種別"@ja ;
-    rdfs:comment """アノテーションの種類。取りうる値:
-line (行番号 <lb>), expan / abbr / ex (略語展開), supplied (補完),
-gap (欠損), choice (訂正), surplus (余剰),
-seg / opener / closer (書簡の構造ブロック)。"""@ja ;
-    rdfs:domain hmkp:Annotation ;
-    rdfs:range xsd:string .
+#
+#  注: アノテーションの種別 (kind) や、TEI/EDCS の要素・属性に由来する
+#  細目 (reason / extent / quantity / unit / sic / n など) は、抽象的枠組みで
+#  ある物理層コアには含めず、TEI 変換プロファイル himiko_physical_tei.ttl
+#  (名前空間 hmktei:) に分離して定義する。ここには史料種別・入力フォーマットに
+#  依存しない範囲指定 (start / end / startChar / endChar / annotatedText) のみを置く。
 
 hmkp:start a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "start offset"@en , "開始オフセット"@ja ;
@@ -191,41 +190,5 @@ hmkp:end a owl:DatatypeProperty , owl:FunctionalProperty ;
 hmkp:annotatedText a owl:DatatypeProperty ;
     rdfs:label "annotated text"@en , "対象テキスト"@ja ;
     rdfs:comment "アノテーションが対象とする範囲のテキスト内容。"@ja ;
-    rdfs:domain hmkp:Annotation ;
-    rdfs:range xsd:string .
-
-hmkp:n a owl:DatatypeProperty ;
-    rdfs:label "n"@en , "番号(n)"@ja ;
-    rdfs:comment "TEI の @n 属性値。行番号 (line) や書簡セクション番号などに用いる。Text と Annotation の双方に付与されうる。"@ja ;
-    rdfs:domain [ a owl:Class ; owl:unionOf ( hmkp:Text hmkp:Annotation ) ] ;
-    rdfs:range xsd:string .
-
-hmkp:reason a owl:DatatypeProperty ;
-    rdfs:label "reason"@en , "理由"@ja ;
-    rdfs:comment "gap / supplied の @reason 属性値 (例: lost, unknown)。"@ja ;
-    rdfs:domain hmkp:Annotation ;
-    rdfs:range xsd:string .
-
-hmkp:extent a owl:DatatypeProperty ;
-    rdfs:label "extent"@en , "範囲"@ja ;
-    rdfs:comment "gap の @extent 属性値 (例: unknown)。"@ja ;
-    rdfs:domain hmkp:Annotation ;
-    rdfs:range xsd:string .
-
-hmkp:quantity a owl:DatatypeProperty ;
-    rdfs:label "quantity"@en , "数量"@ja ;
-    rdfs:comment "gap の @quantity 属性値 (欠損量)。"@ja ;
-    rdfs:domain hmkp:Annotation ;
-    rdfs:range xsd:string .
-
-hmkp:unit a owl:DatatypeProperty ;
-    rdfs:label "unit"@en , "単位"@ja ;
-    rdfs:comment "gap の @unit 属性値 (例: line, character)。"@ja ;
-    rdfs:domain hmkp:Annotation ;
-    rdfs:range xsd:string .
-
-hmkp:sic a owl:DatatypeProperty ;
-    rdfs:label "sic (original reading)"@en , "sic (元の読み)"@ja ;
-    rdfs:comment "choice アノテーションにおいて、本文には corr を採用した際に記録される元の (誤った) 読み。"@ja ;
     rdfs:domain hmkp:Annotation ;
     rdfs:range xsd:string .

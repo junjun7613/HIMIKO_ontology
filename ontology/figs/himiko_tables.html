@@ -133,7 +133,8 @@ footer { margin-top: 32px; color: var(--muted); font-size: 10.5px; }
     <th>合計</th>
   </tr></thead>
   <tbody>
-<tr><td class="name"><code>hmkp</code> — 史料物理層</td><td>4</td><td>9</td><td>16</td><td><strong>29</strong></td></tr>
+<tr><td class="name"><code>hmkp</code> — 史料物理層</td><td>4</td><td>9</td><td>9</td><td><strong>22</strong></td></tr>
+<tr><td class="name"><code>hmktei</code> — 史料物理層 — TEI 変換プロファイル</td><td>0</td><td>0</td><td>7</td><td><strong>7</strong></td></tr>
 <tr><td class="name"><code>hmki</code> — 史料内在知識層</td><td>2</td><td>13</td><td>3</td><td><strong>18</strong></td></tr>
 <tr><td class="name"><code>hmke</code> — 外在知識層</td><td>5</td><td>9</td><td>9</td><td><strong>23</strong></td></tr>
 <tr><td class="name"><code>hmkia</code> — 解釈行為層</td><td>4</td><td>7</td><td>7</td><td><strong>18</strong></td></tr>
@@ -154,7 +155,7 @@ footer { margin-top: 32px; color: var(--muted); font-size: 10.5px; }
 <table class="ttable">
   <thead><tr><th style="width:16%">QName</th><th style="width:14%">ラベル</th><th style="width:18%">上位クラス</th><th>定義</th></tr></thead>
   <tbody>
-<tr><td class="qname"><code>hmkp:Annotation</code></td><td>アノテーション</td><td class="dr"><span class="none">—</span></td><td class="def">文字範囲 [start, end) に対する注釈。行番号・略語展開・補完・欠損・訂正などの種類 (hmkp:kind) を持つ。</td></tr>
+<tr><td class="qname"><code>hmkp:Annotation</code></td><td>アノテーション</td><td class="dr"><span class="none">—</span></td><td class="def">文字範囲 [start, end) に対する注釈。種別や欠損理由など、特定フォーマット (TEI/EDCS) 由来の細目は TEI 変換プロファイル (hmktei:) 側で付与される。</td></tr>
 <tr><td class="qname"><code>hmkp:Character</code></td><td>文字</td><td class="dr"><span class="none">—</span></td><td class="def">テキストを構成する 1 文字。URI は UUID ベース (urn:himiko:resource:char:&lt;uuid&gt;) で、テキスト編集に対して安定した参照を提供する。hmkp:next で次の文字へ連結する。</td></tr>
 <tr><td class="qname"><code>hmkp:Source</code></td><td>史料</td><td class="dr"><span class="none">—</span></td><td class="def">史料そのものが有する物質的実体 (碑文の石材、パピルス、写本の紙・冊子など)。
 テキスト情報を担う物理的な媒体を表現する。1 つの Source は hmkp:bears によって Text を担う。
@@ -184,32 +185,40 @@ Statement が実際にどの Character 範囲を指しているかは、Statemen
 <tr><td class="qname"><code>hmkp:startChar</code></td><td>開始文字</td><td class="dr">hmkp:Annotation</td><td class="dr">hmkp:Character</td><td class="dr">hmkp:hasRange</td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーション範囲の先頭 (offset = start) にあたる Character。hmkp:hasRange のサブプロパティ。</td></tr>
   </tbody>
 </table>
-<h3>データプロパティ (Datatype Properties) — 16 件</h3>
+<h3>データプロパティ (Datatype Properties) — 9 件</h3>
 <table class="ttable">
   <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
   <tbody>
 <tr><td class="qname"><code>hmkp:annotatedText</code></td><td>対象テキスト</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">アノテーションが対象とする範囲のテキスト内容。</td></tr>
 <tr><td class="qname"><code>hmkp:char</code></td><td>文字値</td><td class="dr">hmkp:Character</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">この Character が表す 1 文字そのもの。</td></tr>
 <tr><td class="qname"><code>hmkp:end</code></td><td>終了オフセット</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:nonNegativeInteger</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーション範囲の終了文字オフセット (排他的、Python スライス終端風)。</td></tr>
-<tr><td class="qname"><code>hmkp:extent</code></td><td>範囲</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @extent 属性値 (例: unknown)。</td></tr>
-<tr><td class="qname"><code>hmkp:kind</code></td><td>種別</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーションの種類。取りうる値:
-line (行番号 &lt;lb&gt;), expan / abbr / ex (略語展開), supplied (補完),
-gap (欠損), choice (訂正), surplus (余剰),
-seg / opener / closer (書簡の構造ブロック)。</td></tr>
-<tr><td class="qname"><code>hmkp:n</code></td><td>番号(n)</td><td class="dr">(hmkp:Text ∪ hmkp:Annotation)</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">TEI の @n 属性値。行番号 (line) や書簡セクション番号などに用いる。Text と Annotation の双方に付与されうる。</td></tr>
 <tr><td class="qname"><code>hmkp:offset</code></td><td>オフセット</td><td class="dr">hmkp:Character</td><td class="dr">xsd:nonNegativeInteger</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">全文テキスト中における 0 始まりの文字位置。</td></tr>
 <tr><td class="qname"><code>hmkp:origPlace</code></td><td>出土地</td><td class="dr">(hmkp:Source ∪ hmkp:Text)</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">史料の出土地・原来地 (現代地名 / 古代地名などの複合表記も許容)。Text にも付与されうる。</td></tr>
-<tr><td class="qname"><code>hmkp:quantity</code></td><td>数量</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @quantity 属性値 (欠損量)。</td></tr>
-<tr><td class="qname"><code>hmkp:reason</code></td><td>理由</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap / supplied の @reason 属性値 (例: lost, unknown)。</td></tr>
-<tr><td class="qname"><code>hmkp:sic</code></td><td>sic (元の読み)</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">choice アノテーションにおいて、本文には corr を採用した際に記録される元の (誤った) 読み。</td></tr>
 <tr><td class="qname"><code>hmkp:sourceId</code></td><td>史料識別子</td><td class="dr">hmkp:Text</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">史料に付与された外部識別子。特定のデータベースに依存しない汎用プロパティで、
 値には識別子を発行した体系の接頭辞を含む形式を推奨する (例: EDCS 由来なら &quot;EDCS-47400376&quot;、
 EDH 由来なら &quot;HD000001&quot;、パピルスなら Trismegistos ID など)。
 どの体系に属する史料かは値の接頭辞または上位クラス (プロジェクト側で定義する碑文・書簡等) で判別する。</td></tr>
 <tr><td class="qname"><code>hmkp:start</code></td><td>開始オフセット</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:nonNegativeInteger</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーション範囲の開始文字オフセット (含む)。</td></tr>
 <tr><td class="qname"><code>hmkp:textContent</code></td><td>全文テキスト</td><td class="dr">hmkp:Text</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">テキストの連結全文。hmkp:Character 列と同一内容を表す冗長コピー。</td></tr>
-<tr><td class="qname"><code>hmkp:unit</code></td><td>単位</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @unit 属性値 (例: line, character)。</td></tr>
 <tr><td class="qname"><code>hmkp:uuid</code></td><td>UUID</td><td class="dr">hmkp:Character</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">Character URI の生成に用いた UUID 文字列。</td></tr>
+  </tbody>
+</table>
+<h2 style="background:#60a5fa">史料物理層 — TEI 変換プロファイル  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmktei:</code></h2>
+<h3>データプロパティ (Datatype Properties) — 7 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmktei:extent</code></td><td>範囲</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @extent 属性値 (例: unknown)。</td></tr>
+<tr><td class="qname"><code>hmktei:kind</code></td><td>種別 (TEI 構成要素)</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーションが由来する TEI の要素種別。取りうる値:
+line (行番号 &lt;lb&gt;), expan / abbr / ex (略語展開 &lt;expan&gt;/&lt;abbr&gt;/&lt;ex&gt;),
+supplied (補完 &lt;supplied&gt;), gap (欠損 &lt;gap&gt;), choice (訂正 &lt;choice&gt;),
+surplus (余剰 &lt;surplus&gt;), del (削除 &lt;del&gt;),
+seg / opener / closer (書簡の構造ブロック &lt;seg&gt;/&lt;opener&gt;/&lt;closer&gt;)。</td></tr>
+<tr><td class="qname"><code>hmktei:n</code></td><td>番号(n)</td><td class="dr">(hmkp:Text ∪ hmkp:Annotation)</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">TEI の @n 属性値。行番号 (line) や書簡セクション番号などに用いる。Text と Annotation の双方に付与されうる。</td></tr>
+<tr><td class="qname"><code>hmktei:quantity</code></td><td>数量</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @quantity 属性値 (欠損量)。</td></tr>
+<tr><td class="qname"><code>hmktei:reason</code></td><td>理由</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap / supplied の @reason 属性値 (例: lost, unknown)。</td></tr>
+<tr><td class="qname"><code>hmktei:sic</code></td><td>sic (元の読み)</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">choice アノテーションにおいて、本文には corr を採用した際に記録される元の (誤った) 読み。</td></tr>
+<tr><td class="qname"><code>hmktei:unit</code></td><td>単位</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @unit 属性値 (例: line, character)。</td></tr>
   </tbody>
 </table>
 <h2 style="background:#f59e0b">史料内在知識層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmki:</code></h2>

@@ -47,6 +47,28 @@ LAYERS = [
         ),
     },
     {
+        "prefix": "hmktei",
+        "uri": "urn:himiko:ontology:physical:tei:",
+        "file": "himiko_physical_tei.ttl",
+        "title_ja": "史料物理層 — TEI 変換プロファイル",
+        "title_en": "Physical Layer — TEI Conversion Profile",
+        "color": "#60a5fa",
+        "intro_ja": (
+            "TEI/EDCS の要素・属性に由来する、アノテーションの細目プロパティを定義するプロファイル。"
+            "アノテーション種別 (kind) や欠損理由 (reason)・単位 (unit) などは特定の入力フォーマット "
+            "(TEI Guidelines) の語彙に対応するものであり、史料種別に依存しない抽象的枠組みである"
+            "物理層コアからは意図的に分離してある。各プロパティは対応する TEI の要素・属性を "
+            "rdfs:seeAlso で示す。"
+        ),
+        "intro_en": (
+            "A profile defining fine-grained annotation properties derived from TEI/EDCS elements and attributes. "
+            "Annotation kind, gap reason, unit, and the like correspond to the vocabulary of a specific input "
+            "format (TEI Guidelines), and are deliberately separated from the physical-layer core, which is a "
+            "source-type-independent abstract framework. Each property points to the corresponding TEI element or "
+            "attribute via rdfs:seeAlso."
+        ),
+    },
+    {
         "prefix": "hmki",
         "uri": "urn:himiko:ontology:intrinsic:",
         "file": "himiko_intrinsic.ttl",
@@ -153,10 +175,12 @@ def qname(g: Graph, uri) -> str:
     if isinstance(uri, BNode):
         return f"_:{uri}"
     s = str(uri)
-    for layer in LAYERS:
+    # 最長一致を優先する。hmktei: の URI (…:physical:tei:) は hmkp: の URI
+    # (…:physical:) を接頭に含むため、単純な先頭一致だと hmkp: に誤マッチする。
+    for layer in sorted(LAYERS, key=lambda l: len(l["uri"]), reverse=True):
         if s.startswith(layer["uri"]):
             return f"{layer['prefix']}:{s[len(layer['uri']):]}"
-    for pref, ns in COMMON_PREFIXES.items():
+    for pref, ns in sorted(COMMON_PREFIXES.items(), key=lambda kv: len(kv[1]), reverse=True):
         if s.startswith(ns):
             return f"{pref}:{s[len(ns):]}"
     return s
@@ -167,7 +191,8 @@ def anchor_id(qn: str) -> str:
 
 
 def local_layer(uri: str):
-    for layer in LAYERS:
+    # 最長一致を優先 (hmktei: の URI は hmkp: の URI を接頭に含むため)。
+    for layer in sorted(LAYERS, key=lambda l: len(l["uri"]), reverse=True):
         if str(uri).startswith(layer["uri"]):
             return layer
     return None

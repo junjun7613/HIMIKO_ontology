@@ -36,6 +36,13 @@ LAYERS = [
         "color": "#3b82f6",
     },
     {
+        "prefix": "hmktei",
+        "uri": "urn:himiko:ontology:physical:tei:",
+        "file": "himiko_physical_tei.ttl",
+        "title_ja": "史料物理層 — TEI 変換プロファイル",
+        "color": "#60a5fa",
+    },
+    {
         "prefix": "hmki",
         "uri": "urn:himiko:ontology:intrinsic:",
         "file": "himiko_intrinsic.ttl",
@@ -87,17 +94,19 @@ def qname(g: Graph, uri) -> str:
     if isinstance(uri, BNode):
         return f"_:{uri}"
     s = str(uri)
-    for layer in LAYERS:
+    # 最長一致を優先 (hmktei: の URI は hmkp: の URI を接頭に含むため)。
+    for layer in sorted(LAYERS, key=lambda l: len(l["uri"]), reverse=True):
         if s.startswith(layer["uri"]):
             return f"{layer['prefix']}:{s[len(layer['uri']):]}"
-    for pref, ns in COMMON_PREFIXES.items():
+    for pref, ns in sorted(COMMON_PREFIXES.items(), key=lambda kv: len(kv[1]), reverse=True):
         if s.startswith(ns):
             return f"{pref}:{s[len(ns):]}"
     return s
 
 
 def local_layer(uri):
-    for layer in LAYERS:
+    # 最長一致を優先 (hmktei: の URI は hmkp: の URI を接頭に含むため)。
+    for layer in sorted(LAYERS, key=lambda l: len(l["uri"]), reverse=True):
         if str(uri).startswith(layer["uri"]):
             return layer
     return None
