@@ -205,7 +205,6 @@ html[lang="en"] img[data-lang="ja"] { display: none; }
     <ul>
       <li class="sub"><a href="#hmkp-annotatedText"><code>hmkp:annotatedText</code></a></li>
       <li class="sub"><a href="#hmkp-char"><code>hmkp:char</code></a></li>
-      <li class="sub"><a href="#hmkp-edcsId"><code>hmkp:edcsId</code></a></li>
       <li class="sub"><a href="#hmkp-end"><code>hmkp:end</code></a></li>
       <li class="sub"><a href="#hmkp-extent"><code>hmkp:extent</code></a></li>
       <li class="sub"><a href="#hmkp-kind"><code>hmkp:kind</code></a></li>
@@ -215,6 +214,7 @@ html[lang="en"] img[data-lang="ja"] { display: none; }
       <li class="sub"><a href="#hmkp-quantity"><code>hmkp:quantity</code></a></li>
       <li class="sub"><a href="#hmkp-reason"><code>hmkp:reason</code></a></li>
       <li class="sub"><a href="#hmkp-sic"><code>hmkp:sic</code></a></li>
+      <li class="sub"><a href="#hmkp-sourceId"><code>hmkp:sourceId</code></a></li>
       <li class="sub"><a href="#hmkp-start"><code>hmkp:start</code></a></li>
       <li class="sub"><a href="#hmkp-textContent"><code>hmkp:textContent</code></a></li>
       <li class="sub"><a href="#hmkp-unit"><code>hmkp:unit</code></a></li>
@@ -635,20 +635,6 @@ Statement が実際にどの Character 範囲を指しているかは、Statemen
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
 </dl>
 </article>
-<article class="entity datatypeproperty" id="hmkp-edcsId" style="border-left-color:#3b82f6">
-<header>
-  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
-  <span class="kind-badge functional">functional</span>
-  <h4><code>hmkp:edcsId</code></h4>
-  <p class="label"><span data-lang="ja">EDCS ID</span><span data-lang="en">EDCS ID</span></p>
-  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:edcsId</code></p>
-</header>
-<p class="comment"><span data-lang="ja">Epigraphik-Datenbank Clauss-Slaby (EDCS) の識別子。EDH-EDCS 対応表またはファイル名から得る。</span><span data-lang="en">Identifier in the Epigraphik-Datenbank Clauss-Slaby (EDCS). Derived from the EDH–EDCS mapping or from the file name.</span></p>
-<dl class="meta">
-  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Text">hmkp:Text</a></dd>
-  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
-</dl>
-</article>
 <article class="entity datatypeproperty" id="hmkp-end" style="border-left-color:#3b82f6">
 <header>
   <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
@@ -769,6 +755,23 @@ seg / opener / closer (書簡の構造ブロック)。</span><span data-lang="en
 <p class="comment"><span data-lang="ja">choice アノテーションにおいて、本文には corr を採用した際に記録される元の (誤った) 読み。</span><span data-lang="en">For a choice annotation where the main text adopts corr, this records the original (erroneous) reading.</span></p>
 <dl class="meta">
   <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-sourceId" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:sourceId</code></h4>
+  <p class="label"><span data-lang="ja">史料識別子</span><span data-lang="en">source identifier</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:sourceId</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料に付与された外部識別子。特定のデータベースに依存しない汎用プロパティで、
+値には識別子を発行した体系の接頭辞を含む形式を推奨する (例: EDCS 由来なら "EDCS-47400376"、
+EDH 由来なら "HD000001"、パピルスなら Trismegistos ID など)。
+どの体系に属する史料かは値の接頭辞または上位クラス (プロジェクト側で定義する碑文・書簡等) で判別する。</span><span data-lang="en">An external identifier assigned to the source. A generic, database-independent property; the value should carry the prefix of the issuing scheme (e.g. "EDCS-47400376" for EDCS, "HD000001" for EDH, a Trismegistos ID for papyri). The scheme is inferred from the value prefix or from the project-defined subclass (inscription, letter, etc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Text">hmkp:Text</a></dd>
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
 </dl>
 </article>

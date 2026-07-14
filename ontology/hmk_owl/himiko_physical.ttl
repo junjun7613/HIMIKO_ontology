@@ -122,9 +122,12 @@ hmkp:textContent a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain hmkp:Text ;
     rdfs:range xsd:string .
 
-hmkp:edcsId a owl:DatatypeProperty , owl:FunctionalProperty ;
-    rdfs:label "EDCS ID"@en , "EDCS ID"@ja ;
-    rdfs:comment "Epigraphik-Datenbank Clauss-Slaby (EDCS) の識別子。EDH-EDCS 対応表またはファイル名から得る。"@ja ;
+hmkp:sourceId a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "source identifier"@en , "史料識別子"@ja ;
+    rdfs:comment """史料に付与された外部識別子。特定のデータベースに依存しない汎用プロパティで、
+値には識別子を発行した体系の接頭辞を含む形式を推奨する (例: EDCS 由来なら "EDCS-47400376"、
+EDH 由来なら "HD000001"、パピルスなら Trismegistos ID など)。
+どの体系に属する史料かは値の接頭辞または上位クラス (プロジェクト側で定義する碑文・書簡等) で判別する。"""@ja ;
     rdfs:domain hmkp:Text ;
     rdfs:range xsd:string .
 

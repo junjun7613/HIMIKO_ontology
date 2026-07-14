@@ -78,7 +78,7 @@ hmkp:sic rdfs:comment "For a choice annotation where the main text adopts corr, 
 
 hmkp:n rdfs:comment "Value of the TEI @n attribute. Used for line numbers, letter section numbers, and so on. Applicable to both Text and Annotation."@en .
 
-hmkp:edcsId rdfs:comment "Identifier in the Epigraphik-Datenbank Clauss-Slaby (EDCS). Derived from the EDH–EDCS mapping or from the file name."@en .
+hmkp:sourceId rdfs:comment "An external identifier assigned to the source. A generic, database-independent property; the value should carry the prefix of the issuing scheme (e.g. \"EDCS-47400376\" for EDCS, \"HD000001\" for EDH, a Trismegistos ID for papyri). The scheme is inferred from the value prefix or from the project-defined subclass (inscription, letter, etc.)."@en .
 
 hmkp:origPlace rdfs:comment "The find-spot or place of origin of the source. Composite modern/ancient place names are allowed. May also be attached to Text."@en .
 
