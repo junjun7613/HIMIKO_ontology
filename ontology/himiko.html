@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>HIMIKO Ontology — Historical Micro Knowledge and Ontology</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bg: #ffffff;
+  --fg: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --code-bg: #f3f4f6;
+  --sidebar-bg: #f9fafb;
+  --link: #2563eb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "Yu Gothic UI", sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.65;
+}
+.wrapper { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+nav.toc {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+  position: sticky; top: 0; align-self: start;
+  height: 100vh; overflow-y: auto;
+  font-size: 14px;
+}
+nav.toc h2 { font-size: 15px; margin: 20px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+nav.toc h2:first-child { margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; margin: 0 0 8px 0; }
+nav.toc li { margin: 3px 0; }
+nav.toc li.sub { padding-left: 12px; font-size: 13px; }
+nav.toc a { color: var(--fg); text-decoration: none; }
+nav.toc a:hover { color: var(--link); text-decoration: underline; }
+nav.toc a code { background: transparent; color: inherit; }
+
+main { padding: 40px 48px; max-width: 1000px; }
+h1 { font-size: 30px; margin: 0 0 8px; }
+h2 { font-size: 24px; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 19px; margin: 28px 0 10px; color: var(--fg); }
+h4 { margin: 0; font-size: 18px; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 0.92em; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.subtitle { color: var(--muted); margin-top: 0; }
+.meta-block { background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px 18px; margin: 20px 0; font-size: 14px; }
+.meta-block dt { font-weight: 600; float: left; width: 130px; color: var(--muted); }
+.meta-block dd { margin: 0 0 4px 130px; }
+table.prefixes { border-collapse: collapse; width: 100%; font-size: 14px; margin: 12px 0; }
+table.prefixes td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+table.prefixes td:first-child { width: 100px; font-weight: 600; }
+table.prefixes code { background: transparent; padding: 0; }
+.diagram-figure { text-align: center; margin: 24px 0; padding: 20px; background: var(--sidebar-bg); border-radius: 8px; border: 1px solid var(--border); }
+.diagram-figure img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+.layer-intro { padding: 12px 18px; border-left: 4px solid; background: var(--sidebar-bg); border-radius: 4px; margin: 12px 0 24px; }
+details.section-group { margin: 20px 0 8px; border-top: 1px solid var(--border); }
+details.section-group[open] { margin-bottom: 20px; }
+details.section-group > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--fg);
+  user-select: none;
+}
+details.section-group > summary::-webkit-details-marker { display: none; }
+details.section-group > summary::before {
+  content: "";
+  display: inline-block;
+  width: 0; height: 0;
+  border-left: 6px solid var(--muted);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+details.section-group[open] > summary::before { transform: rotate(90deg); }
+details.section-group > summary:hover { color: var(--link); }
+details.section-group > summary .count { color: var(--muted); font-weight: 400; font-size: 15px; }
+article.entity {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 5px solid;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+article.entity header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 8px; }
+.kind-badge { display: inline-block; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 3px; font-weight: 600; letter-spacing: .04em; }
+.kind-badge.functional { background: #6b7280; }
+article.entity h4 code { font-size: 17px; background: transparent; padding: 0; }
+article.entity p.label { margin: 0; color: var(--muted); font-size: 14px; flex-basis: 100%; }
+article.entity p.iri { flex-basis: 100%; margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+article.entity p.iri code { font-size: 11px; }
+article.entity .comment { margin: 8px 0; font-size: 15px; }
+article.entity dl.meta { margin: 12px 0 0; font-size: 14px; display: grid; grid-template-columns: 130px 1fr; gap: 4px 12px; }
+article.entity dl.meta dt { font-weight: 600; color: var(--muted); }
+article.entity dl.meta dd { margin: 0; }
+article.entity .none { color: var(--muted); font-style: italic; }
+.summary-row { display: flex; flex-wrap: wrap; gap: 14px; margin: 12px 0 24px; }
+.summary-card { flex: 1 1 200px; padding: 14px 18px; border-radius: 8px; color: #fff; }
+.summary-card h3 { color: #fff; margin: 0 0 6px; font-size: 16px; }
+.summary-card .n { font-size: 26px; font-weight: 700; }
+.summary-card .k { font-size: 13px; opacity: .9; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+
+/* -------- language switch -------- */
+.lang-switch {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: saturate(180%) blur(8px);
+  padding: 10px 0 12px;
+  margin: -40px -48px 24px;
+  padding-left: 48px;
+  padding-right: 48px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px;
+}
+.lang-switch .label { color: var(--muted); }
+.lang-switch button {
+  border: 1px solid var(--border);
+  background: #fff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--fg);
+}
+.lang-switch button.active {
+  background: var(--fg);
+  color: #fff;
+  border-color: var(--fg);
+}
+
+/* Bilingual content visibility (default: JP visible; JS toggles on load) */
+html[lang="ja"] [data-lang="en"] { display: none; }
+html[lang="en"] [data-lang="ja"] { display: none; }
+/* For block-level bilingual chunks that need to keep their own display */
+html[lang="ja"] p[data-lang="en"],
+html[lang="en"] p[data-lang="ja"],
+html[lang="ja"] div[data-lang="en"],
+html[lang="en"] div[data-lang="ja"] { display: none; }
+
+/* Diagram figure: swap picture srcset via <picture>/<source> already handles it,
+   but we also support two <img> approach with data-lang for graceful fallback. */
+html[lang="ja"] img[data-lang="en"],
+html[lang="en"] img[data-lang="ja"] { display: none; }
+
+@media (max-width: 900px) {
+  .wrapper { grid-template-columns: 1fr; }
+  nav.toc { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+  main { padding: 24px; }
+  .lang-switch { margin: -24px -24px 20px; padding-left: 24px; padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <nav class="toc">
+    <h2 style="margin-top:0">HIMIKO</h2>
+    <p style="font-size:12px;color:var(--muted);margin:0 0 12px">v0.2 · Historical Micro Knowledge and Ontology</p>
+    <h2><span data-lang="ja">目次</span><span data-lang="en">Overview</span></h2>
+<ul>
+  <li><a href="#introduction"><span data-lang="ja">はじめに</span><span data-lang="en">Introduction</span></a></li>
+  <li><a href="#namespaces"><span data-lang="ja">名前空間</span><span data-lang="en">Namespaces</span></a></li>
+  <li><a href="#diagram"><span data-lang="ja">概念図</span><span data-lang="en">Concept Diagram</span></a></li>
+  <li><a href="#vowl"><span data-lang="ja">インタラクティブ可視化 (WebVOWL)</span><span data-lang="en">Interactive Ontology (WebVOWL)</span></a></li>
+  <li><a href="#summary"><span data-lang="ja">要約</span><span data-lang="en">Summary</span></a></li>
+</ul>
+<h2 style="color:#3b82f6">hmkp: <span data-lang="ja">史料物理層</span><span data-lang="en">Physical Layer</span></h2>
+<ul>
+  <li><a href="#hmkp-classes"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></a>
+    <ul>
+      <li class="sub"><a href="#hmkp-Annotation"><code>hmkp:Annotation</code></a></li>
+      <li class="sub"><a href="#hmkp-Character"><code>hmkp:Character</code></a></li>
+      <li class="sub"><a href="#hmkp-Source"><code>hmkp:Source</code></a></li>
+      <li class="sub"><a href="#hmkp-Text"><code>hmkp:Text</code></a></li>
+    </ul></li>
+  <li><a href="#hmkp-object-properties"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span></a>
+    <ul>
+      <li class="sub"><a href="#hmkp-bears"><code>hmkp:bears</code></a></li>
+      <li class="sub"><a href="#hmkp-endChar"><code>hmkp:endChar</code></a></li>
+      <li class="sub"><a href="#hmkp-firstChar"><code>hmkp:firstChar</code></a></li>
+      <li class="sub"><a href="#hmkp-hasAnnotation"><code>hmkp:hasAnnotation</code></a></li>
+      <li class="sub"><a href="#hmkp-hasRange"><code>hmkp:hasRange</code></a></li>
+      <li class="sub"><a href="#hmkp-mentions"><code>hmkp:mentions</code></a></li>
+      <li class="sub"><a href="#hmkp-next"><code>hmkp:next</code></a></li>
+      <li class="sub"><a href="#hmkp-refersToEntity"><code>hmkp:refersToEntity</code></a></li>
+      <li class="sub"><a href="#hmkp-startChar"><code>hmkp:startChar</code></a></li>
+    </ul></li>
+  <li><a href="#hmkp-datatype-properties"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span></a>
+    <ul>
+      <li class="sub"><a href="#hmkp-annotatedText"><code>hmkp:annotatedText</code></a></li>
+      <li class="sub"><a href="#hmkp-char"><code>hmkp:char</code></a></li>
+      <li class="sub"><a href="#hmkp-edcsId"><code>hmkp:edcsId</code></a></li>
+      <li class="sub"><a href="#hmkp-end"><code>hmkp:end</code></a></li>
+      <li class="sub"><a href="#hmkp-extent"><code>hmkp:extent</code></a></li>
+      <li class="sub"><a href="#hmkp-kind"><code>hmkp:kind</code></a></li>
+      <li class="sub"><a href="#hmkp-localId"><code>hmkp:localId</code></a></li>
+      <li class="sub"><a href="#hmkp-material"><code>hmkp:material</code></a></li>
+      <li class="sub"><a href="#hmkp-n"><code>hmkp:n</code></a></li>
+      <li class="sub"><a href="#hmkp-offset"><code>hmkp:offset</code></a></li>
+      <li class="sub"><a href="#hmkp-origPlace"><code>hmkp:origPlace</code></a></li>
+      <li class="sub"><a href="#hmkp-quantity"><code>hmkp:quantity</code></a></li>
+      <li class="sub"><a href="#hmkp-reason"><code>hmkp:reason</code></a></li>
+      <li class="sub"><a href="#hmkp-sic"><code>hmkp:sic</code></a></li>
+      <li class="sub"><a href="#hmkp-sourceType"><code>hmkp:sourceType</code></a></li>
+      <li class="sub"><a href="#hmkp-start"><code>hmkp:start</code></a></li>
+      <li class="sub"><a href="#hmkp-teiXmlId"><code>hmkp:teiXmlId</code></a></li>
+      <li class="sub"><a href="#hmkp-textContent"><code>hmkp:textContent</code></a></li>
+      <li class="sub"><a href="#hmkp-unit"><code>hmkp:unit</code></a></li>
+      <li class="sub"><a href="#hmkp-uuid"><code>hmkp:uuid</code></a></li>
+    </ul></li>
+</ul>
+<h2 style="color:#f59e0b">hmki: <span data-lang="ja">史料内在知識層</span><span data-lang="en">Intrinsic Knowledge Layer</span></h2>
+<ul>
+  <li><a href="#hmki-classes"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></a>
+    <ul>
+      <li class="sub"><a href="#hmki-EntityReference"><code>hmki:EntityReference</code></a></li>
+      <li class="sub"><a href="#hmki-Statement"><code>hmki:Statement</code></a></li>
+    </ul></li>
+  <li><a href="#hmki-object-properties"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span></a>
+    <ul>
+      <li class="sub"><a href="#hmki-causedBy"><code>hmki:causedBy</code></a></li>
+      <li class="sub"><a href="#hmki-endChar"><code>hmki:endChar</code></a></li>
+      <li class="sub"><a href="#hmki-generatedBy"><code>hmki:generatedBy</code></a></li>
+      <li class="sub"><a href="#hmki-hasRange"><code>hmki:hasRange</code></a></li>
+      <li class="sub"><a href="#hmki-hasRole"><code>hmki:hasRole</code></a></li>
+      <li class="sub"><a href="#hmki-mentions"><code>hmki:mentions</code></a></li>
+      <li class="sub"><a href="#hmki-precedes"><code>hmki:precedes</code></a></li>
+      <li class="sub"><a href="#hmki-references"><code>hmki:references</code></a></li>
+      <li class="sub"><a href="#hmki-referencesEntity"><code>hmki:referencesEntity</code></a></li>
+      <li class="sub"><a href="#hmki-referencesEntityInContext"><code>hmki:referencesEntityInContext</code></a></li>
+      <li class="sub"><a href="#hmki-relatedTo"><code>hmki:relatedTo</code></a></li>
+      <li class="sub"><a href="#hmki-startChar"><code>hmki:startChar</code></a></li>
+      <li class="sub"><a href="#hmki-statementType"><code>hmki:statementType</code></a></li>
+    </ul></li>
+  <li><a href="#hmki-datatype-properties"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span></a>
+    <ul>
+      <li class="sub"><a href="#hmki-entityType"><code>hmki:entityType</code></a></li>
+      <li class="sub"><a href="#hmki-normalizedForm"><code>hmki:normalizedForm</code></a></li>
+      <li class="sub"><a href="#hmki-surfaceForm"><code>hmki:surfaceForm</code></a></li>
+    </ul></li>
+</ul>
+<h2 style="color:#10b981">hmke: <span data-lang="ja">外在知識層</span><span data-lang="en">Extrinsic Knowledge Layer</span></h2>
+<ul>
+  <li><a href="#hmke-classes"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></a>
+    <ul>
+      <li class="sub"><a href="#hmke-Entity"><code>hmke:Entity</code></a></li>
+      <li class="sub"><a href="#hmke-EntityInContext"><code>hmke:EntityInContext</code></a></li>
+      <li class="sub"><a href="#hmke-Event"><code>hmke:Event</code></a></li>
+      <li class="sub"><a href="#hmke-Location"><code>hmke:Location</code></a></li>
+      <li class="sub"><a href="#hmke-Role"><code>hmke:Role</code></a></li>
+    </ul></li>
+  <li><a href="#hmke-object-properties"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span></a>
+    <ul>
+      <li class="sub"><a href="#hmke-contextualAspectOf"><code>hmke:contextualAspectOf</code></a></li>
+      <li class="sub"><a href="#hmke-eventSince"><code>hmke:eventSince</code></a></li>
+      <li class="sub"><a href="#hmke-eventUntil"><code>hmke:eventUntil</code></a></li>
+      <li class="sub"><a href="#hmke-generatedBy"><code>hmke:generatedBy</code></a></li>
+      <li class="sub"><a href="#hmke-hasLocation"><code>hmke:hasLocation</code></a></li>
+      <li class="sub"><a href="#hmke-hasRole"><code>hmke:hasRole</code></a></li>
+      <li class="sub"><a href="#hmke-memberOf"><code>hmke:memberOf</code></a></li>
+      <li class="sub"><a href="#hmke-mentionedAsPrecedent"><code>hmke:mentionedAsPrecedent</code></a></li>
+      <li class="sub"><a href="#hmke-relatedEntityInContext"><code>hmke:relatedEntityInContext</code></a></li>
+    </ul></li>
+  <li><a href="#hmke-datatype-properties"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span></a>
+    <ul>
+      <li class="sub"><a href="#hmke-absoluteDate"><code>hmke:absoluteDate</code></a></li>
+      <li class="sub"><a href="#hmke-authorityURI"><code>hmke:authorityURI</code></a></li>
+      <li class="sub"><a href="#hmke-entityType"><code>hmke:entityType</code></a></li>
+      <li class="sub"><a href="#hmke-eventLabel"><code>hmke:eventLabel</code></a></li>
+      <li class="sub"><a href="#hmke-label"><code>hmke:label</code></a></li>
+      <li class="sub"><a href="#hmke-lat"><code>hmke:lat</code></a></li>
+      <li class="sub"><a href="#hmke-locationLabel"><code>hmke:locationLabel</code></a></li>
+      <li class="sub"><a href="#hmke-long"><code>hmke:long</code></a></li>
+      <li class="sub"><a href="#hmke-roleLabel"><code>hmke:roleLabel</code></a></li>
+    </ul></li>
+</ul>
+<h2 style="color:#8b5cf6">hmkia: <span data-lang="ja">解釈行為層</span><span data-lang="en">Interpretation Act Layer</span></h2>
+<ul>
+  <li><a href="#hmkia-classes"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></a>
+    <ul>
+      <li class="sub"><a href="#hmkia-Agent"><code>hmkia:Agent</code></a></li>
+      <li class="sub"><a href="#hmkia-InterpretationAct"><code>hmkia:InterpretationAct</code></a></li>
+      <li class="sub"><a href="#hmkia-InterpretationCreationAct"><code>hmkia:InterpretationCreationAct</code></a></li>
+      <li class="sub"><a href="#hmkia-InterpretationUpdateAct"><code>hmkia:InterpretationUpdateAct</code></a></li>
+    </ul></li>
+  <li><a href="#hmkia-object-properties"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span></a>
+    <ul>
+      <li class="sub"><a href="#hmkia-associatedWith"><code>hmkia:associatedWith</code></a></li>
+      <li class="sub"><a href="#hmkia-basedOn"><code>hmkia:basedOn</code></a></li>
+      <li class="sub"><a href="#hmkia-critiques"><code>hmkia:critiques</code></a></li>
+      <li class="sub"><a href="#hmkia-derivedFrom"><code>hmkia:derivedFrom</code></a></li>
+      <li class="sub"><a href="#hmkia-generated"><code>hmkia:generated</code></a></li>
+      <li class="sub"><a href="#hmkia-revises"><code>hmkia:revises</code></a></li>
+      <li class="sub"><a href="#hmkia-supports"><code>hmkia:supports</code></a></li>
+    </ul></li>
+  <li><a href="#hmkia-datatype-properties"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span></a>
+    <ul>
+      <li class="sub"><a href="#hmkia-agentName"><code>hmkia:agentName</code></a></li>
+      <li class="sub"><a href="#hmkia-agentType"><code>hmkia:agentType</code></a></li>
+      <li class="sub"><a href="#hmkia-confidence"><code>hmkia:confidence</code></a></li>
+      <li class="sub"><a href="#hmkia-hasCriterion"><code>hmkia:hasCriterion</code></a></li>
+      <li class="sub"><a href="#hmkia-hasDate"><code>hmkia:hasDate</code></a></li>
+      <li class="sub"><a href="#hmkia-hasType"><code>hmkia:hasType</code></a></li>
+      <li class="sub"><a href="#hmkia-note"><code>hmkia:note</code></a></li>
+    </ul></li>
+</ul>
+  </nav>
+  <main>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <span class="label"><span data-lang="ja">言語:</span><span data-lang="en">Language:</span></span>
+      <button type="button" data-set-lang="ja">日本語</button>
+      <button type="button" data-set-lang="en">English</button>
+    </div>
+
+    <h1>HIMIKO Ontology</h1>
+    <p class="subtitle"><span data-lang="ja">Historical Micro Knowledge and Ontology — 歴史マイクロナレッジのための概念モデル</span><span data-lang="en">Historical Micro Knowledge and Ontology — a conceptual model for historical micro-knowledge</span></p>
+
+    <section id="introduction">
+      <h2><span data-lang="ja">はじめに</span><span data-lang="en">Introduction</span></h2>
+      <div class="meta-block">
+        <dl>
+          <dt><span data-lang="ja">オントロジーIRI</span><span data-lang="en">Ontology IRI</span></dt><dd><code>urn:himiko:ontology</code></dd>
+          <dt><span data-lang="ja">バージョン</span><span data-lang="en">Version</span></dt><dd>0.2 (2026-07-12)</dd>
+          <dt><span data-lang="ja">作成者</span><span data-lang="en">Creator</span></dt><dd>HIMIKO project</dd>
+          <dt><span data-lang="ja">レイヤ</span><span data-lang="en">Layers</span></dt><dd>hmkp (Physical) · hmki (Intrinsic) · hmke (Extrinsic) · hmkia (Interpretation)</dd>
+        </dl>
+      </div>
+      <p data-lang="ja">HIMIKO は、歴史史料に関わる知識を「史料物理層」「史料内在知識層」「外在知識層」の三層に分け、それらを横断する「解釈行為 Interpretation Act」を独立リソースとして位置付けることで、史料の物理的・文字的特徴からその意味内容、外部典拠、そして知識生成に関わる解釈行為までを一貫した知識グラフとして表現する概念モデルである。本ページは、HIMIKO を実装する 4 層のオントロジー (hmkp, hmki, hmke, hmkia) の全クラス・プロパティを Turtle 定義から自動生成した参照ドキュメントである。</p>
+      <p data-lang="en">HIMIKO is a conceptual model that partitions knowledge about historical sources into three layers—Physical, Intrinsic-Knowledge, and Extrinsic-Knowledge—and treats the researcher's Interpretation Act as an independent resource that cuts across all of them. In doing so it represents the physical and textual features of a source, its semantic content, its external references, and the interpretation acts involved in producing that knowledge as a single coherent knowledge graph. This page is a reference document auto-generated from the Turtle definitions of the four ontologies (hmkp, hmki, hmke, hmkia) that implement HIMIKO.</p>
+    </section>
+
+    <section id="namespaces">
+      <h2><span data-lang="ja">名前空間</span><span data-lang="en">Namespaces</span></h2>
+      <table class="prefixes">
+        <thead><tr>
+          <td><strong><span data-lang="ja">プレフィックス</span><span data-lang="en">Prefix</span></strong></td>
+          <td><strong><span data-lang="ja">名前空間URI</span><span data-lang="en">Namespace URI</span></strong></td>
+          <td><strong><span data-lang="ja">説明</span><span data-lang="en">Description</span></strong></td>
+        </tr></thead>
+        <tbody>
+<tr><td><code>hmkp</code></td><td><code>urn:himiko:ontology:physical:</code></td><td><span data-lang="ja">史料物理層</span><span data-lang="en">Physical Layer</span></td></tr>
+<tr><td><code>hmki</code></td><td><code>urn:himiko:ontology:intrinsic:</code></td><td><span data-lang="ja">史料内在知識層</span><span data-lang="en">Intrinsic Knowledge Layer</span></td></tr>
+<tr><td><code>hmke</code></td><td><code>urn:himiko:ontology:extrinsic:</code></td><td><span data-lang="ja">外在知識層</span><span data-lang="en">Extrinsic Knowledge Layer</span></td></tr>
+<tr><td><code>hmkia</code></td><td><code>urn:himiko:ontology:interpretation:</code></td><td><span data-lang="ja">解釈行為層</span><span data-lang="en">Interpretation Act Layer</span></td></tr>
+<tr><td><code>rdf</code></td><td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></td><td></td></tr>
+<tr><td><code>rdfs</code></td><td><code>http://www.w3.org/2000/01/rdf-schema#</code></td><td></td></tr>
+<tr><td><code>owl</code></td><td><code>http://www.w3.org/2002/07/owl#</code></td><td></td></tr>
+<tr><td><code>xsd</code></td><td><code>http://www.w3.org/2001/XMLSchema#</code></td><td></td></tr>
+<tr><td><code>dcterms</code></td><td><code>http://purl.org/dc/terms/</code></td><td></td></tr>
+<tr><td><code>oa</code></td><td><code>http://www.w3.org/ns/oa#</code></td><td></td></tr>
+<tr><td><code>prov</code></td><td><code>http://www.w3.org/ns/prov#</code></td><td></td></tr>
+<tr><td><code>foaf</code></td><td><code>http://xmlns.com/foaf/0.1/</code></td><td></td></tr>
+<tr><td><code>hico</code></td><td><code>http://purl.org/emmedi/hico/</code></td><td></td></tr>
+<tr><td><code>cito</code></td><td><code>http://purl.org/spar/cito/</code></td><td></td></tr>
+<tr><td><code>geo</code></td><td><code>http://www.w3.org/2003/01/geo/wgs84_pos#</code></td><td></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:14px; color:var(--muted)">
+        <span data-lang="ja">インスタンス URI は <code>urn:himiko:resource:</code> 配下に置かれる (例: <code>urn:himiko:resource:text:EDCS-00000007</code>)。</span>
+        <span data-lang="en">Instance URIs are placed under <code>urn:himiko:resource:</code> (e.g. <code>urn:himiko:resource:text:EDCS-00000007</code>).</span>
+      </p>
+    </section>
+
+    <section id="diagram">
+      <h2><span data-lang="ja">概念図</span><span data-lang="en">Concept Diagram</span></h2>
+      <figure class="diagram-figure">
+        <img data-lang="ja" src="diagrams/jp.jpg" alt="HIMIKO 概念図">
+        <img data-lang="en" src="diagrams/en.jpg" alt="HIMIKO conceptual diagram">
+      </figure>
+      <p style="font-size:14px; color:var(--muted)">
+        <span data-lang="ja">破線の Interpretation Act は 3 層をまたぐ形で位置付けられ、Annotation・Statement・EntityInContext などの生成に介在する。</span>
+        <span data-lang="en">The dashed Interpretation Act sits across all three layers and mediates the creation of Annotation, Statement, EntityInContext, and so on.</span>
+      </p>
+    </section>
+
+    <section id="vowl">
+      <h2><span data-lang="ja">インタラクティブ可視化 (WebVOWL)</span><span data-lang="en">Interactive Ontology (WebVOWL)</span></h2>
+      <p data-lang="ja">4 層 (<code>hmkp</code> / <code>hmki</code> / <code>hmke</code> / <code>hmkia</code>) の全クラス・プロパティを統合した VOWL (Visual Notation for OWL Ontologies) 可視化。ドラッグで再配置、要素クリックで詳細をサイドバーに表示できる。</p>
+      <p data-lang="en">A VOWL (Visual Notation for OWL Ontologies) visualisation that merges all classes and properties across the four layers (<code>hmkp</code> / <code>hmki</code> / <code>hmke</code> / <code>hmkia</code>). Drag nodes to reposition, and click any element to inspect details in the side panel.</p>
+      <div style="margin:16px 0; border:1px solid var(--border); border-radius:8px; overflow:hidden; background:#fff;">
+        <iframe
+          src="webvowl/index.html#template"
+          title="HIMIKO Ontology — WebVOWL visualization"
+          style="width:100%; height:720px; border:0; display:block;"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <p style="font-size:13px; color:var(--muted)">
+        <span data-lang="ja">右上の「Ontology」から他語彙 (FOAF, GoodRelations など) との比較や、TTL/OWL ファイルの手動アップロードも可能。可視化元データ: <code>webvowl/data/template.json</code> (<code>hmk_owl/himiko_physical.ttl</code> / <code>himiko_intrinsic.ttl</code> / <code>himiko_extrinsic.ttl</code> / <code>himiko_interpretation.ttl</code> を OWL2VOWL でマージ変換)。VOWL 仕様は <a href="http://vowl.visualdataweb.org/" target="_blank" rel="noopener">vowl.visualdataweb.org</a>。</span>
+        <span data-lang="en">Use the top-right "Ontology" menu to compare with other vocabularies (FOAF, GoodRelations, etc.) or to upload TTL/OWL files manually. Source data: <code>webvowl/data/template.json</code> (merged from <code>hmk_owl/himiko_physical.ttl</code> / <code>himiko_intrinsic.ttl</code> / <code>himiko_extrinsic.ttl</code> / <code>himiko_interpretation.ttl</code> via OWL2VOWL). See <a href="http://vowl.visualdataweb.org/" target="_blank" rel="noopener">vowl.visualdataweb.org</a> for the VOWL specification.</span>
+      </p>
+    </section>
+
+    <section id="summary">
+      <h2><span data-lang="ja">要約</span><span data-lang="en">Summary</span></h2>
+      <div class="summary-row">
+        <div class="summary-card" style="background:#3b82f6"><h3><span data-lang="ja">史料物理層</span><span data-lang="en">Physical Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmkp:</code></h3><div><span class="n">4</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">9</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">20</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
+<div class="summary-card" style="background:#f59e0b"><h3><span data-lang="ja">史料内在知識層</span><span data-lang="en">Intrinsic Knowledge Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmki:</code></h3><div><span class="n">2</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">13</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">3</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
+<div class="summary-card" style="background:#10b981"><h3><span data-lang="ja">外在知識層</span><span data-lang="en">Extrinsic Knowledge Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmke:</code></h3><div><span class="n">5</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">9</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">9</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
+<div class="summary-card" style="background:#8b5cf6"><h3><span data-lang="ja">解釈行為層</span><span data-lang="en">Interpretation Act Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmkia:</code></h3><div><span class="n">4</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">7</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">7</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
+      </div>
+      <p style="font-size:14px; color:var(--muted)">
+        <span data-lang="ja">合計: <strong>15</strong> クラス · <strong>38</strong> オブジェクトプロパティ · <strong>39</strong> データプロパティ</span>
+        <span data-lang="en">Total: <strong>15</strong> classes · <strong>38</strong> object properties · <strong>39</strong> datatype properties</span>
+      </p>
+    </section>
+
+<section id="layer-hmkp">
+<h2 id="hmkp" style="border-bottom-color:#3b82f6"><span data-lang="ja">史料物理層</span><span data-lang="en">Physical Layer</span> — <code>hmkp:</code></h2>
+<div class="layer-intro" style="border-left-color:#3b82f6"><span data-lang="ja">史料そのものの物質的・文字情報的特徴を記述する層。Source (物理的媒体) が bears によって Text (テキスト) を担い、Text は Character の連結リストとして展開される。Annotation は Character 範囲を hasRange (startChar / endChar) で指定する。現行の ATAG 実装で最も稠密に構築されているのがこの層である。</span><span data-lang="en">Layer for describing the material and textual characteristics of the source itself. A Source (physical medium) bears a Text via bears, and Text is expanded as a linked list of Characters. Annotation specifies a Character range via hasRange (startChar / endChar). This layer is the most densely modelled in the current ATAG implementation.</span></div>
+<details class="section-group" id="hmkp-classes">
+  <summary><span data-lang="ja">クラス</span><span data-lang="en">Classes</span> <span class="count">(4)</span></summary>
+<article class="entity class" id="hmkp-Annotation" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkp:Annotation</code></h4>
+  <p class="label"><span data-lang="ja">アノテーション</span><span data-lang="en">Annotation</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:Annotation</code></p>
+</header>
+<p class="comment"><span data-lang="ja">文字範囲 [start, end) に対する注釈。行番号・略語展開・補完・欠損・訂正などの種類 (hmkp:kind) を持つ。</span><span data-lang="en">An annotation over a character range [start, end). It carries a type (hmkp:kind) such as line numbering, abbreviation expansion, supplement, gap, correction, and so on.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://www.w3.org/ns/oa#Annotation" rel="external" target="_blank">oa:Annotation</a></dd>
+</dl>
+</article>
+<article class="entity class" id="hmkp-Character" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkp:Character</code></h4>
+  <p class="label"><span data-lang="ja">文字</span><span data-lang="en">Character</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:Character</code></p>
+</header>
+<p class="comment"><span data-lang="ja">テキストを構成する 1 文字。URI は UUID ベース (urn:himiko:resource:char:<uuid>) で、テキスト編集に対して安定した参照を提供する。hmkp:next で次の文字へ連結する。</span><span data-lang="en">A single character constituting the text. Its URI is UUID-based (urn:himiko:resource:char:<uuid>), providing a stable reference across edits of the text. hmkp:next links to the following character.</span></p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="hmkp-Source" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkp:Source</code></h4>
+  <p class="label"><span data-lang="ja">史料</span><span data-lang="en">Source</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:Source</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料そのものが有する物質的実体 (碑文の石材、パピルス、写本の紙・冊子など)。
+テキスト情報を担う物理的な媒体を表現する。1 つの Source は hmkp:bears によって Text を担う。
+また、hmkp:mentions によって史料内在知識層の Statement (イベント言及) に直接接続される。</span><span data-lang="en">The material embodiment of the source itself (the stone of an inscription, papyrus, or the paper/codex of a manuscript). Represents the physical medium that carries textual information. A Source bears a Text via hmkp:bears, and it is also directly connected to Statements (event mentions) in the intrinsic knowledge layer via hmkp:mentions.</span></p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="hmkp-Text" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkp:Text</code></h4>
+  <p class="label"><span data-lang="ja">テキスト</span><span data-lang="en">Text</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:Text</code></p>
+</header>
+<p class="comment"><span data-lang="ja">1 つの碑文または書簡に相当するテキスト全体。連結された文字列と、その上に載るアノテーションを束ねる。</span><span data-lang="en">The whole text corresponding to a single inscription or letter. It bundles the concatenated character list together with the annotations laid over it.</span></p>
+<dl class="meta">
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmkp-object-properties">
+  <summary><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span> <span class="count">(9)</span></summary>
+<article class="entity objectproperty" id="hmkp-bears" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkp:bears</code></h4>
+  <p class="label"><span data-lang="ja">テキストを担う</span><span data-lang="en">bears (source → text)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:bears</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料 (Source) がその物質的媒体上に担うテキスト (Text)。</span><span data-lang="en">The Text that a Source (physical medium) bears.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Source">hmkp:Source</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Text">hmkp:Text</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkp-endChar" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:endChar</code></h4>
+  <p class="label"><span data-lang="ja">終了文字</span><span data-lang="en">end character</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:endChar</code></p>
+</header>
+<p class="comment"><span data-lang="ja">アノテーション範囲の末尾 (offset = end - 1) にあたる Character。end は排他的境界のため end-1 を指す。hmkp:hasRange のサブプロパティ。</span><span data-lang="en">The Character at the end of the annotation range (offset = end - 1). Since end is an exclusive boundary, this points to end-1. Sub-property of hmkp:hasRange.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmkp-hasRange">hmkp:hasRange</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkp-firstChar" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:firstChar</code></h4>
+  <p class="label"><span data-lang="ja">先頭文字</span><span data-lang="en">first character</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:firstChar</code></p>
+</header>
+<p class="comment"><span data-lang="ja">テキストの先頭にあたる Character への参照。ここから hmkp:next を辿ると全文字を走査できる。</span><span data-lang="en">Reference to the first Character in the text. Following hmkp:next from here iterates over the entire character stream.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Text">hmkp:Text</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkp-hasAnnotation" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkp:hasAnnotation</code></h4>
+  <p class="label"><span data-lang="ja">アノテーションを持つ</span><span data-lang="en">has annotation</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:hasAnnotation</code></p>
+</header>
+<p class="comment"><span data-lang="ja">テキストに属するアノテーションへの参照。</span><span data-lang="en">Reference to an annotation attached to this text.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Text">hmkp:Text</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkp-hasRange" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkp:hasRange</code></h4>
+  <p class="label"><span data-lang="ja">Character 範囲を持つ</span><span data-lang="en">has range (character)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:hasRange</code></p>
+</header>
+<p class="comment"><span data-lang="ja">あるリソース (Annotation、Statement、EntityReference など) がテキスト上の
+特定の Character 範囲を参照することを示す抽象的な参照関係。
+具体的な範囲指定は subPropertyOf として定義される startChar / endChar によって表現される。</span><span data-lang="en">Abstract reference relation indicating that some resource (Annotation, Statement, EntityReference, etc.) refers to a specific Character range in the text. The concrete range boundaries are supplied by sub-properties (hmkp:startChar / hmkp:endChar).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><span class='none'>—</span></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">下位プロパティ</span><span data-lang="en">Sub-property(ies)</span></dt><dd><a href="#hmkp-startChar">hmkp:startChar</a>, <a href="#hmkp-endChar">hmkp:endChar</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkp-mentions" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkp:mentions</code></h4>
+  <p class="label"><span data-lang="ja">言及する</span><span data-lang="en">mentions (source → statement)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:mentions</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Source がその内容として言及するイベント (Statement)。
+史料が物理的レベルで意味的内容 (史料内在知識層の Statement) に接続することを示す抽象的関係。
+Statement が実際にどの Character 範囲を指しているかは、Statement 側の hmki:mentions
+プロパティで表現される (Statement は複数の Character を指すため多重関係)。</span><span data-lang="en">The Statement (event mention) that this Source refers to as part of its content. This is an abstract relation showing that a source connects, at the physical level, to semantic content (a Statement in the intrinsic knowledge layer). The specific Character range that a Statement occupies is expressed at the Statement level via hmki:mentions.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Source">hmkp:Source</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkp-next" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:next</code></h4>
+  <p class="label"><span data-lang="ja">次の文字</span><span data-lang="en">next character</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:next</code></p>
+</header>
+<p class="comment"><span data-lang="ja">文字の連結リストにおける次の Character。最後の文字には付与されない。</span><span data-lang="en">The next Character in the character-linked list. Not set on the final character.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkp-refersToEntity" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkp:refersToEntity</code></h4>
+  <p class="label"><span data-lang="ja">参照するエンティティ言及</span><span data-lang="en">refers to entity reference</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:refersToEntity</code></p>
+</header>
+<p class="comment"><span data-lang="ja">アノテーションが指し示す史料内在知識層のエンティティ言及 (hmki:EntityReference)。
+テキスト範囲 (hmkp:start/end/startChar/endChar) と外部エンティティを結ぶ Annotation で使用する。
+このアノテーションを生成した解釈行為の記述は prov:wasGeneratedBy によって hmkia:InterpretationAct に接続する。</span><span data-lang="en">アノテーションが指し示す史料内在知識層のエンティティ言及 (hmki:EntityReference)。
+テキスト範囲 (hmkp:start/end/startChar/endChar) と外部エンティティを結ぶ Annotation で使用する。
+このアノテーションを生成した解釈行為の記述は prov:wasGeneratedBy によって hmkia:InterpretationAct に接続する。</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkp-startChar" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:startChar</code></h4>
+  <p class="label"><span data-lang="ja">開始文字</span><span data-lang="en">start character</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:startChar</code></p>
+</header>
+<p class="comment"><span data-lang="ja">アノテーション範囲の先頭 (offset = start) にあたる Character。hmkp:hasRange のサブプロパティ。</span><span data-lang="en">The Character at the start (offset = start) of the annotation range. Sub-property of hmkp:hasRange.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmkp-hasRange">hmkp:hasRange</a></dd>
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmkp-datatype-properties">
+  <summary><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span> <span class="count">(20)</span></summary>
+<article class="entity datatypeproperty" id="hmkp-annotatedText" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:annotatedText</code></h4>
+  <p class="label"><span data-lang="ja">対象テキスト</span><span data-lang="en">annotated text</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:annotatedText</code></p>
+</header>
+<p class="comment"><span data-lang="ja">アノテーションが対象とする範囲のテキスト内容。</span><span data-lang="en">The textual content of the range that the annotation targets.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-char" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:char</code></h4>
+  <p class="label"><span data-lang="ja">文字値</span><span data-lang="en">character value</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:char</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この Character が表す 1 文字そのもの。</span><span data-lang="en">The actual single character that this Character represents.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-edcsId" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:edcsId</code></h4>
+  <p class="label"><span data-lang="ja">EDCS ID</span><span data-lang="en">EDCS ID</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:edcsId</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Epigraphik-Datenbank Clauss-Slaby (EDCS) の識別子。EDH-EDCS 対応表またはファイル名から得る。</span><span data-lang="en">Identifier in the Epigraphik-Datenbank Clauss-Slaby (EDCS). Derived from the EDH–EDCS mapping or from the file name.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Text">hmkp:Text</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-end" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:end</code></h4>
+  <p class="label"><span data-lang="ja">終了オフセット</span><span data-lang="en">end offset</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:end</code></p>
+</header>
+<p class="comment"><span data-lang="ja">アノテーション範囲の終了文字オフセット (排他的、Python スライス終端風)。</span><span data-lang="en">The ending character offset of the annotation range (exclusive, Python-slice style).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#nonNegativeInteger" rel="external" target="_blank">xsd:nonNegativeInteger</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-extent" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:extent</code></h4>
+  <p class="label"><span data-lang="ja">範囲</span><span data-lang="en">extent</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:extent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">gap の @extent 属性値 (例: unknown)。</span><span data-lang="en">Value of the @extent attribute on gap (e.g. 'unknown').</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-kind" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:kind</code></h4>
+  <p class="label"><span data-lang="ja">種別</span><span data-lang="en">kind</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:kind</code></p>
+</header>
+<p class="comment"><span data-lang="ja">アノテーションの種類。取りうる値:
+line (行番号 <lb>), expan / abbr / ex (略語展開), supplied (補完),
+gap (欠損), choice (訂正), surplus (余剰),
+seg / opener / closer (書簡の構造ブロック)。</span><span data-lang="en">Type of the annotation. Permitted values include: line (line number, <lb>), expan / abbr / ex (abbreviation expansion), supplied (supplement), gap (missing text), choice (correction), surplus (redundant), seg / other (segments and misc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-localId" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:localId</code></h4>
+  <p class="label"><span data-lang="ja">ローカルID</span><span data-lang="en">local ID</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:localId</code></p>
+</header>
+<p class="comment"><span data-lang="ja">TEI の <idno type='localID'> 由来の識別子 (例: HD000001)。</span><span data-lang="en">Identifier from TEI <idno type='localID'> (e.g. HD000001).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Text">hmkp:Text</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-material" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:material</code></h4>
+  <p class="label"><span data-lang="ja">材質</span><span data-lang="en">material</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:material</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料の材質 (marble / limestone / bronze / papyrus 等)。</span><span data-lang="en">Material of the source (marble / limestone / bronze / papyrus, etc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Source">hmkp:Source</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-n" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:n</code></h4>
+  <p class="label"><span data-lang="ja">番号(n)</span><span data-lang="en">n</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:n</code></p>
+</header>
+<p class="comment"><span data-lang="ja">TEI の @n 属性値。行番号 (line) や書簡セクション番号などに用いる。Text と Annotation の双方に付与されうる。</span><span data-lang="en">Value of the TEI @n attribute. Used for line numbers, letter section numbers, and so on. Applicable to both Text and Annotation.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd>(<a href="#hmkp-Text">hmkp:Text</a> ∪ <a href="#hmkp-Annotation">hmkp:Annotation</a>)</dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-offset" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:offset</code></h4>
+  <p class="label"><span data-lang="ja">オフセット</span><span data-lang="en">offset</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:offset</code></p>
+</header>
+<p class="comment"><span data-lang="ja">全文テキスト中における 0 始まりの文字位置。</span><span data-lang="en">Zero-based character position within the whole text.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#nonNegativeInteger" rel="external" target="_blank">xsd:nonNegativeInteger</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-origPlace" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:origPlace</code></h4>
+  <p class="label"><span data-lang="ja">出土地</span><span data-lang="en">place of origin</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:origPlace</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料の出土地・原来地 (現代地名 / 古代地名などの複合表記も許容)。Text にも付与されうる。</span><span data-lang="en">The find-spot or place of origin of the source. Composite modern/ancient place names are allowed. May also be attached to Text.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd>(<a href="#hmkp-Source">hmkp:Source</a> ∪ <a href="#hmkp-Text">hmkp:Text</a>)</dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-quantity" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:quantity</code></h4>
+  <p class="label"><span data-lang="ja">数量</span><span data-lang="en">quantity</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:quantity</code></p>
+</header>
+<p class="comment"><span data-lang="ja">gap の @quantity 属性値 (欠損量)。</span><span data-lang="en">Value of the @quantity attribute on gap (extent of the missing text).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-reason" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:reason</code></h4>
+  <p class="label"><span data-lang="ja">理由</span><span data-lang="en">reason</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:reason</code></p>
+</header>
+<p class="comment"><span data-lang="ja">gap / supplied の @reason 属性値 (例: lost, unknown)。</span><span data-lang="en">Value of the @reason attribute on gap / supplied (e.g. lost, unknown).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-sic" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:sic</code></h4>
+  <p class="label"><span data-lang="ja">sic (元の読み)</span><span data-lang="en">sic (original reading)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:sic</code></p>
+</header>
+<p class="comment"><span data-lang="ja">choice アノテーションにおいて、本文には corr を採用した際に記録される元の (誤った) 読み。</span><span data-lang="en">For a choice annotation where the main text adopts corr, this records the original (erroneous) reading.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-sourceType" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:sourceType</code></h4>
+  <p class="label"><span data-lang="ja">史料種別</span><span data-lang="en">source type</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:sourceType</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料の物理媒体の種別 (inscription / papyrus / manuscript / ostracon 等)。</span><span data-lang="en">Type of the physical medium of the source (inscription / papyrus / manuscript / ostracon, etc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Source">hmkp:Source</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-start" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:start</code></h4>
+  <p class="label"><span data-lang="ja">開始オフセット</span><span data-lang="en">start offset</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:start</code></p>
+</header>
+<p class="comment"><span data-lang="ja">アノテーション範囲の開始文字オフセット (含む)。</span><span data-lang="en">The starting character offset of the annotation range (inclusive).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#nonNegativeInteger" rel="external" target="_blank">xsd:nonNegativeInteger</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-teiXmlId" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:teiXmlId</code></h4>
+  <p class="label"><span data-lang="ja">TEI xml:id</span><span data-lang="en">TEI xml:id</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:teiXmlId</code></p>
+</header>
+<p class="comment"><span data-lang="ja">元 TEI ソース中の xml:id 値。Text と、xml:id を持つ Annotation (seg など) の双方に付与されうる。</span><span data-lang="en">The xml:id value from the original TEI source. Applicable to Text and to Annotations that carry xml:id (e.g. seg).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd>(<a href="#hmkp-Text">hmkp:Text</a> ∪ <a href="#hmkp-Annotation">hmkp:Annotation</a>)</dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-textContent" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:textContent</code></h4>
+  <p class="label"><span data-lang="ja">全文テキスト</span><span data-lang="en">text content</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:textContent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">テキストの連結全文。hmkp:Character 列と同一内容を表す冗長コピー。</span><span data-lang="en">The concatenated full text. A redundant copy carrying the same content as the hmkp:Character sequence.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Text">hmkp:Text</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-unit" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkp:unit</code></h4>
+  <p class="label"><span data-lang="ja">単位</span><span data-lang="en">unit</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:unit</code></p>
+</header>
+<p class="comment"><span data-lang="ja">gap の @unit 属性値 (例: line, character)。</span><span data-lang="en">Value of the @unit attribute on gap (e.g. 'line', 'character').</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Annotation">hmkp:Annotation</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkp-uuid" style="border-left-color:#3b82f6">
+<header>
+  <span class="kind-badge" style="background:#3b82f6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmkp:uuid</code></h4>
+  <p class="label"><span data-lang="ja">UUID</span><span data-lang="en">UUID</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:physical:uuid</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Character URI の生成に用いた UUID 文字列。</span><span data-lang="en">The UUID string used to construct the Character URI.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+</details>
+</section>
+<section id="layer-hmki">
+<h2 id="hmki" style="border-bottom-color:#f59e0b"><span data-lang="ja">史料内在知識層</span><span data-lang="en">Intrinsic Knowledge Layer</span> — <code>hmki:</code></h2>
+<div class="layer-intro" style="border-left-color:#f59e0b"><span data-lang="ja">史料に記述された意味内容を構造化する層。Statement (イベント言及) を意味内容記述の基本単位とし、その構成要素として EntityReference を用いる。Statement は Character を直接 mentions することで史料上の根拠を保持し、EntityReference は hasRange によって指し示すテキスト範囲を明示する。</span><span data-lang="en">Layer for structuring the semantic content described in a source. Statement (event mention) is the basic unit of semantic description, with EntityReference as its constituent. A Statement directly mentions Characters to preserve textual evidence, and EntityReference makes its referenced text range explicit through hasRange.</span></div>
+<details class="section-group" id="hmki-classes">
+  <summary><span data-lang="ja">クラス</span><span data-lang="en">Classes</span> <span class="count">(2)</span></summary>
+<article class="entity class" id="hmki-EntityReference" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmki:EntityReference</code></h4>
+  <p class="label"><span data-lang="ja">エンティティ言及</span><span data-lang="en">Entity Reference</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:EntityReference</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料中における人物・場所・組織などへの個別の言及。
+史料横断的で普遍的な実体そのもの (hmke:Entity) ではなく、あくまでその史料における一回的な言及として記述される。
+史料上での表記や、史料内での役割 (hmki:hasRole) など、史料固有の情報を保持する。
+史料物理層の Character 範囲を hmki:hasRange によって参照することでテキスト上の位置を指定する。</span><span data-lang="en">An individual mention of a person, place, organisation, and so on in a source. Not the cross-source universal entity itself (hmke:Entity) but a single, source-bound mention. Records the surface form in the source and the role the mention plays within the source (hmki:hasRole).</span></p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="hmki-Statement" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmki:Statement</code></h4>
+  <p class="label"><span data-lang="ja">イベント言及</span><span data-lang="en">Statement</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:Statement</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料中で言及されるイベント (出来事・状態・関係性) の基本単位。
+論文中では MicroKnowledge とも呼ばれる。「出来事」に限定されず、エンティティに付随する
+継続的な状態・属性やエンティティ間の継続的な関係性も含む。
+Statement 同士は時系列・因果などの意味的関係性によって再帰的に接続されうる。
+史料中の Character を hmki:mentions によって直接指し、その根拠を保持する。
+InterpretationUpdateAct によって更新された Statement は新しい URI を持つ別インスタンスとして生成され、
+prov:wasRevisionOf によって前バージョンの Statement を参照する。
+現在の最新版は、他のいかなる Statement からも prov:wasRevisionOf で参照されていないインスタンスである。</span><span data-lang="en">The basic unit of an event (occurrence, state, or relation) mentioned in a source. Called MicroKnowledge in the accompanying papers. Not restricted to "events": it also covers continuous states and attributes of entities, and continuous relations between entities. A Statement holds its textual evidence by mentioning Characters directly, and takes EntityReferences as its constituents.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="http://www.w3.org/ns/prov#Entity" rel="external" target="_blank">prov:Entity</a></dd>
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmki-object-properties">
+  <summary><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span> <span class="count">(13)</span></summary>
+<article class="entity objectproperty" id="hmki-causedBy" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:causedBy</code></h4>
+  <p class="label"><span data-lang="ja">起因する</span><span data-lang="en">caused by</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:causedBy</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この Statement が他の Statement を原因として発生したことを示す。</span><span data-lang="en">Indicates that this Statement was caused by another Statement.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmki-relatedTo">hmki:relatedTo</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-endChar" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmki:endChar</code></h4>
+  <p class="label"><span data-lang="ja">終了文字</span><span data-lang="en">end character</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:endChar</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityReference が指す範囲の末尾 Character。hmki:hasRange のサブプロパティ。</span><span data-lang="en">The last Character of the range that the EntityReference points to. Sub-property of hmki:hasRange.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmki-hasRange">hmki:hasRange</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-generatedBy" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:generatedBy</code></h4>
+  <p class="label"><span data-lang="ja">解釈行為による生成</span><span data-lang="en">generated by (interpretation act)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:generatedBy</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この Statement / EntityReference を生成した解釈行為 (hmkia:InterpretationAct)。</span><span data-lang="en">The interpretation act (hmkia:InterpretationAct) that generated this Statement or EntityReference.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd>(<a href="#hmki-Statement">hmki:Statement</a> ∪ <a href="#hmki-EntityReference">hmki:EntityReference</a>)</dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-hasRange" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:hasRange</code></h4>
+  <p class="label"><span data-lang="ja">Character 範囲を指す</span><span data-lang="en">has range (character)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:hasRange</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityReference が指し示す史料上の Character 範囲。
+これによりエンティティ言及は Character レベルの根拠を持つ。
+より詳細な範囲 (先頭・末尾) はサブプロパティ hmki:startChar / hmki:endChar で表現しうる。</span><span data-lang="en">The Character range in the source that this EntityReference points to, giving each entity mention a Character-level textual foothold. Finer-grained boundaries (start / end) are provided by the sub-properties hmki:startChar / hmki:endChar.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">下位プロパティ</span><span data-lang="en">Sub-property(ies)</span></dt><dd><a href="#hmki-startChar">hmki:startChar</a>, <a href="#hmki-endChar">hmki:endChar</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-hasRole" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:hasRole</code></h4>
+  <p class="label"><span data-lang="ja">史料内での役割</span><span data-lang="en">has role</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:hasRole</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料中の当該言及が担う役割 (例: 恵与の主体、受益者、証人など)。
+FPO における fpo:hasRole と対応する。</span><span data-lang="en">The role played by this in-source mention (e.g. benefactor, beneficiary, witness). Corresponds to fpo:hasRole in the FPO ontology.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-mentions" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:mentions</code></h4>
+  <p class="label"><span data-lang="ja">言及する (Statement → Character)</span><span data-lang="en">mentions (statement → character)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:mentions</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Statement が指し示す史料上の Character (テキスト範囲)。
+Statement は複数の Character を同時に mentions することによって、
+テキスト上の複数箇所にまたがるイベント言及を表現できる。</span><span data-lang="en">The Characters (text range) in the source that this Statement points to. A Statement can mention multiple Characters at once, allowing event mentions that span several non-contiguous locations in the text.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-precedes" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:precedes</code></h4>
+  <p class="label"><span data-lang="ja">先行する</span><span data-lang="en">precedes</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:precedes</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この Statement が時系列的に他の Statement に先立つことを示す。</span><span data-lang="en">Indicates that this Statement chronologically precedes another Statement.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmki-relatedTo">hmki:relatedTo</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-references" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:references</code></h4>
+  <p class="label"><span data-lang="ja">参照する (エンティティ言及)</span><span data-lang="en">references (entity reference)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:references</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Statement を構成する EntityReference への参照。1 つの Statement は複数の EntityReference を参照しうる。</span><span data-lang="en">Reference to an EntityReference that constitutes this Statement. A single Statement may reference multiple EntityReferences.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-referencesEntity" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:referencesEntity</code></h4>
+  <p class="label"><span data-lang="ja">参照する実体 (普遍)</span><span data-lang="en">references entity</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:referencesEntity</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityReference が指し示す、史料外部の普遍的実体 (hmke:Entity)。従来のエンティティ・リンキングに対応する。</span><span data-lang="en">The external universal entity (hmke:Entity) that the EntityReference points to. Corresponds to conventional entity linking.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Entity">hmke:Entity</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-referencesEntityInContext" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:referencesEntityInContext</code></h4>
+  <p class="label"><span data-lang="ja">参照する文脈付き実体</span><span data-lang="en">references entity in context</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:referencesEntityInContext</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityReference が指し示す、歴史的コンテキストを伴った実体 (hmke:EntityInContext)。
+これにより、単なる普遍的実体への対応付けではなく、時間的・社会的・地理的文脈を伴った言及として記述される。</span><span data-lang="en">The historically contextualised entity (hmke:EntityInContext) that the EntityReference points to. Rather than a plain link to a universal entity, this expresses the mention together with its temporal, social, and geographical context.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-relatedTo" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:relatedTo</code></h4>
+  <p class="label"><span data-lang="ja">関連する Statement</span><span data-lang="en">related to (statement)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:relatedTo</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Statement 同士の再帰的接続。時系列関係・因果関係などのより具体的な関係を表す
+サブプロパティ (precedes, causedBy 等) を将来的に追加することができる。</span><span data-lang="en">A recursive connection between Statements. Sub-properties for finer-grained relations (temporal ordering, causal relations, etc., e.g. precedes, causedBy) can be added in the future.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">下位プロパティ</span><span data-lang="en">Sub-property(ies)</span></dt><dd><a href="#hmki-precedes">hmki:precedes</a>, <a href="#hmki-causedBy">hmki:causedBy</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-startChar" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmki:startChar</code></h4>
+  <p class="label"><span data-lang="ja">開始文字</span><span data-lang="en">start character</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:startChar</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityReference が指す範囲の先頭 Character。hmki:hasRange のサブプロパティ。</span><span data-lang="en">The first Character of the range that the EntityReference points to. Sub-property of hmki:hasRange.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkp-Character">hmkp:Character</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmki-hasRange">hmki:hasRange</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmki-statementType" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmki:statementType</code></h4>
+  <p class="label"><span data-lang="ja">イベント言及の種別</span><span data-lang="en">statement type</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:statementType</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Statement の種別を示す。HIMIKO は概念モデルであり、具体的な種別語彙
+(例: 恵与 Benefaction、経歴 CareerEvent、奉献 Dedication、婚姻 Marriage 等) は
+個々のプロジェクトが対象史料に応じて独自に定義することを想定する。
+値には種別を示す URI (プロジェクト独自クラス、SKOS Concept、CIDOC CRM の crm:E55_Type など) を取る。
+1 つの Statement に複数の種別を多重付与することを妨げない。</span><span data-lang="en">Indicates the type of a Statement. HIMIKO is a conceptual model; concrete type vocabularies (e.g. Benefaction, CareerEvent, Dedication, Marriage, and so on) are provided by individual projects according to their target domain.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmki-datatype-properties">
+  <summary><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span> <span class="count">(3)</span></summary>
+<article class="entity datatypeproperty" id="hmki-entityType" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmki:entityType</code></h4>
+  <p class="label"><span data-lang="ja">エンティティ種別</span><span data-lang="en">entity type</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:entityType</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityReference が指すエンティティの種別 (person / place / organization / object / time など)。</span><span data-lang="en">The type of entity that the EntityReference points to (person / place / organization / object / time, etc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmki-normalizedForm" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmki:normalizedForm</code></h4>
+  <p class="label"><span data-lang="ja">正規化表記</span><span data-lang="en">normalized form</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:normalizedForm</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityReference の正規化された表記 (略語展開後、標準綴りに戻したもの)。</span><span data-lang="en">The normalised form of the EntityReference (with abbreviations expanded and returned to standard spelling).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmki-surfaceForm" style="border-left-color:#f59e0b">
+<header>
+  <span class="kind-badge" style="background:#f59e0b"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmki:surfaceForm</code></h4>
+  <p class="label"><span data-lang="ja">史料上の表記</span><span data-lang="en">surface form</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:intrinsic:surfaceForm</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityReference の史料上での表記 (綴り字そのまま)。異形・略記なども含めて記録する。</span><span data-lang="en">The form of the EntityReference as it appears in the source (verbatim spelling). Records variant forms and abbreviated forms as-is.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+</details>
+</section>
+<section id="layer-hmke">
+<h2 id="hmke" style="border-bottom-color:#10b981"><span data-lang="ja">外在知識層</span><span data-lang="en">Extrinsic Knowledge Layer</span> — <code>hmke:</code></h2>
+<div class="layer-intro" style="border-left-color:#10b981"><span data-lang="ja">史料中の言及を史料外部の知識体系と接続する層。EntityReference — EntityInContext — Entity という三段階の構造を採り、単なるエンティティ・リンキングでは失われる歴史的コンテキスト (時間・社会・地理) を保持する。EntityInContext は eventSince / eventUntil によって時間的範囲を持ち、hasLocation / hasRole / memberOf などで文脈的属性を保持する。</span><span data-lang="en">Layer that connects in-source mentions to external knowledge systems. It employs a three-tier structure of EntityReference — EntityInContext — Entity, preserving the historical context (temporal, social, geographical) that plain entity linking would lose. EntityInContext carries a temporal span via eventSince / eventUntil and contextual attributes such as hasLocation / hasRole / memberOf.</span></div>
+<details class="section-group" id="hmke-classes">
+  <summary><span data-lang="ja">クラス</span><span data-lang="en">Classes</span> <span class="count">(5)</span></summary>
+<article class="entity class" id="hmke-Entity" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmke:Entity</code></h4>
+  <p class="label"><span data-lang="ja">普遍的実体</span><span data-lang="en">Entity</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:Entity</code></p>
+</header>
+<p class="comment"><span data-lang="ja">史料外部に存在する普遍的な実体。Wikidata・VIAF・GeoNames・Pleiades などの
+典拠データにおいて永続的識別子 (URI) をもって表現される、時代を通じて一意に識別される実体。
+史料横断的な検索・分析の基盤となる。</span><span data-lang="en">A universal entity that exists outside the source. Represented by a persistent identifier (URI) in authority datasets such as Wikidata, VIAF, GeoNames, Pleiades, and so on—an entity that can be identified uniquely across time. The basis for cross-source search and analysis.</span></p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="hmke-EntityInContext" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmke:EntityInContext</code></h4>
+  <p class="label"><span data-lang="ja">文脈付き実体</span><span data-lang="en">Entity In Context</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:EntityInContext</code></p>
+</header>
+<p class="comment"><span data-lang="ja">特定の歴史的コンテキストに位置付けられた実体。単なる人物や場所ではなく、
+「ある特定の歴史的文脈における人物」「ある特定の状況下にある場所」を表現する。
+普遍的実体 (hmke:Entity) とは独立したリソースとして扱われ、一つの Entity に対して
+複数の EntityInContext を併存させることで、時期による属性の変化や複数の解釈を表現できる。
+時間的範囲 (eventSince / eventUntil) を持ち、社会的地位・官職・所属集団・活動地域などの属性を保持しうる。</span><span data-lang="en">An entity placed within a specific historical context. Rather than a bare person or place, this expresses "a person in a particular historical context" or "a place under a particular set of circumstances". Treated as a resource independent of the universal entity (hmke:Entity); a single Entity may have multiple EntityInContext instances.</span></p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="hmke-Event" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmke:Event</code></h4>
+  <p class="label"><span data-lang="ja">歴史的出来事 (時間基準点)</span><span data-lang="en">Event (chronological anchor)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:Event</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityInContext の時間的範囲を規定するための歴史的出来事。
+「ある人物が執政官に就任した」「ある都市が属州都となった」といった相対的な時間基準点として用いられる。
+絶対年代が不確実な場合であっても、Event 同士の前後関係 (mentionedAsPrecedent) に基づいて
+歴史的コンテキストの時間関係を記述できる。</span><span data-lang="en">A historical event used to delimit the temporal span of an EntityInContext. Serves as a relative chronological anchor point—e.g. "the moment X assumed the consulship", "the moment a city became a provincial capital". Even when the absolute date is uncertain, the relative ordering between Events can still be recorded.</span></p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="hmke-Location" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmke:Location</code></h4>
+  <p class="label"><span data-lang="ja">場所</span><span data-lang="en">Location</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:Location</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityInContext の属性として付与される地理的場所。地理座標や地名を保持する。</span><span data-lang="en">A geographical place attached as an attribute of an EntityInContext. Carries geographic coordinates or a place name.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing" rel="external" target="_blank">geo:SpatialThing</a></dd>
+</dl>
+</article>
+<article class="entity class" id="hmke-Role" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmke:Role</code></h4>
+  <p class="label"><span data-lang="ja">地位・役職</span><span data-lang="en">Role / Position</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:Role</code></p>
+</header>
+<p class="comment"><span data-lang="ja">社会的地位・官職・所属集団における役割など、EntityInContext に付与されうる社会的属性。</span><span data-lang="en">Social attributes that may be attached to an EntityInContext—social status, magistracies, roles held within a community, and so on.</span></p>
+<dl class="meta">
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmke-object-properties">
+  <summary><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span> <span class="count">(9)</span></summary>
+<article class="entity objectproperty" id="hmke-contextualAspectOf" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>hmke:contextualAspectOf</code></h4>
+  <p class="label"><span data-lang="ja">文脈的側面</span><span data-lang="en">contextual aspect of</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:contextualAspectOf</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityInContext が、どの普遍的実体 (Entity) の特定コンテキストにおける側面であるかを示す。
+一つの Entity は複数の EntityInContext を持ちうるが、EntityInContext は必ず 1 つの Entity と対応付けられる。</span><span data-lang="en">Links an EntityInContext to the universal entity (Entity) whose particular context it captures. A single Entity may have multiple EntityInContext instances, but each EntityInContext points to exactly one Entity.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Entity">hmke:Entity</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-eventSince" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:eventSince</code></h4>
+  <p class="label"><span data-lang="ja">開始基準となる出来事</span><span data-lang="en">event since</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:eventSince</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。</span><span data-lang="en">The Event that marks the temporal starting point at which the context of this EntityInContext takes effect.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-eventUntil" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:eventUntil</code></h4>
+  <p class="label"><span data-lang="ja">終了基準となる出来事</span><span data-lang="en">event until</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:eventUntil</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。</span><span data-lang="en">The Event that marks the temporal endpoint at which the context of this EntityInContext ceases.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-generatedBy" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:generatedBy</code></h4>
+  <p class="label"><span data-lang="ja">解釈行為による生成</span><span data-lang="en">generated by (interpretation act)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:generatedBy</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この EntityInContext / Entity / Event を生成した解釈行為 (hmkia:InterpretationAct)。</span><span data-lang="en">The interpretation act (hmkia:InterpretationAct) that generated this EntityInContext, Entity, or Event.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd>(<a href="#hmke-EntityInContext">hmke:EntityInContext</a> ∪ <a href="#hmke-Entity">hmke:Entity</a> ∪ <a href="#hmke-Event">hmke:Event</a>)</dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-hasLocation" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:hasLocation</code></h4>
+  <p class="label"><span data-lang="ja">所在地</span><span data-lang="en">has location</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:hasLocation</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityInContext が有する地理的場所 (滞在地・活動地域など)。</span><span data-lang="en">The geographical location that the EntityInContext holds (place of residence, area of activity, etc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Location">hmke:Location</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-hasRole" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:hasRole</code></h4>
+  <p class="label"><span data-lang="ja">社会的地位・官職</span><span data-lang="en">has role / position</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:hasRole</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityInContext が有する社会的地位・官職・所属集団における役割など。</span><span data-lang="en">A social status, magistracy, or community role held by the EntityInContext.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Role">hmke:Role</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-memberOf" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:memberOf</code></h4>
+  <p class="label"><span data-lang="ja">所属集団</span><span data-lang="en">member of</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:memberOf</code></p>
+</header>
+<p class="comment"><span data-lang="ja">EntityInContext が所属する共同体・政治勢力・家族などの Entity。</span><span data-lang="en">The Entity (community, political grouping, family, etc.) that the EntityInContext belongs to.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Entity">hmke:Entity</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-mentionedAsPrecedent" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:mentionedAsPrecedent</code></h4>
+  <p class="label"><span data-lang="ja">先行する出来事として言及</span><span data-lang="en">mentioned as precedent</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:mentionedAsPrecedent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Event 同士の前後関係。この Event が他の Event よりも時系列的に先行することを示す。
+絶対年代が不明でも相対的な時間関係を記述できる。</span><span data-lang="en">Chronological ordering between Events. Indicates that this Event chronologically precedes another Event. Enables relative temporal reasoning even when the absolute dates are unknown.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-relatedEntityInContext" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:relatedEntityInContext</code></h4>
+  <p class="label"><span data-lang="ja">関連する文脈付き実体</span><span data-lang="en">related entity in context</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:relatedEntityInContext</code></p>
+</header>
+<p class="comment"><span data-lang="ja">他の EntityInContext との関係 (家族関係・主従関係など)。より具体的な関係はサブプロパティで表現する。</span><span data-lang="en">A relation to another EntityInContext (kinship, patron–client, etc.). More specific relations are expressed via sub-properties.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmke-datatype-properties">
+  <summary><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span> <span class="count">(9)</span></summary>
+<article class="entity datatypeproperty" id="hmke-absoluteDate" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:absoluteDate</code></h4>
+  <p class="label"><span data-lang="ja">絶対年代</span><span data-lang="en">absolute date</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:absoluteDate</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Event に絶対年代が推定される場合の年月日。不確実な場合は付与しない。</span><span data-lang="en">The absolute date of an Event when it can be estimated. Omitted when the date is uncertain.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#gYear" rel="external" target="_blank">xsd:gYear</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-authorityURI" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:authorityURI</code></h4>
+  <p class="label"><span data-lang="ja">典拠 URI</span><span data-lang="en">authority URI</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:authorityURI</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Entity が対応付けられる外部典拠データの URI (Wikidata Q番号、VIAF ID、GeoNames ID、Pleiades ID など)。
+複数の典拠に対応付けられる場合は複数値を持ちうる。</span><span data-lang="en">URI of the external authority record to which the Entity is linked (Wikidata Q number, VIAF ID, GeoNames ID, Pleiades ID, etc.). Multiple values are permitted when the entity is linked to several authorities.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Entity">hmke:Entity</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#anyURI" rel="external" target="_blank">xsd:anyURI</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-entityType" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:entityType</code></h4>
+  <p class="label"><span data-lang="ja">実体種別</span><span data-lang="en">entity type</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:entityType</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Entity の種別 (person / place / organization / object など)。</span><span data-lang="en">The type of the Entity (person / place / organization / object, etc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Entity">hmke:Entity</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-eventLabel" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:eventLabel</code></h4>
+  <p class="label"><span data-lang="ja">出来事の記述</span><span data-lang="en">event label</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:eventLabel</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Event の内容を表す自然言語のラベル (例: 'Consulship of X in 121 CE')。</span><span data-lang="en">Natural-language label describing the content of the Event (e.g. 'Consulship of X in 121 CE').</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-label" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:label</code></h4>
+  <p class="label"><span data-lang="ja">正準名</span><span data-lang="en">canonical label</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:label</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Entity の正準的な名称 (現代の研究文献での標準綴り)。言語タグ付き文字列を推奨。</span><span data-lang="en">The canonical name of the Entity (the standard spelling used in modern scholarship). Language-tagged strings recommended.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Entity">hmke:Entity</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-lat" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:lat</code></h4>
+  <p class="label"><span data-lang="ja">緯度</span><span data-lang="en">latitude</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:lat</code></p>
+</header>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Location">hmke:Location</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#decimal" rel="external" target="_blank">xsd:decimal</a></dd>
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://www.w3.org/2003/01/geo/wgs84_pos#lat" rel="external" target="_blank">geo:lat</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-locationLabel" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:locationLabel</code></h4>
+  <p class="label"><span data-lang="ja">場所の名称</span><span data-lang="en">location label</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:locationLabel</code></p>
+</header>
+<p class="comment"><span data-lang="ja">場所の地名 (現代地名 / 古代地名)。</span><span data-lang="en">Place name of the Location (modern and/or ancient name).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Location">hmke:Location</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-long" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:long</code></h4>
+  <p class="label"><span data-lang="ja">経度</span><span data-lang="en">longitude</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:long</code></p>
+</header>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Location">hmke:Location</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#decimal" rel="external" target="_blank">xsd:decimal</a></dd>
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://www.w3.org/2003/01/geo/wgs84_pos#long" rel="external" target="_blank">geo:long</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-roleLabel" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:roleLabel</code></h4>
+  <p class="label"><span data-lang="ja">役職名</span><span data-lang="en">role label</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:roleLabel</code></p>
+</header>
+<p class="comment"><span data-lang="ja">官職名・地位の名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。</span><span data-lang="en">Name of the magistracy or social status (e.g. 'consul', 'aedilis', 'flamen', 'patronus').</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Role">hmke:Role</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+</dl>
+</article>
+</details>
+</section>
+<section id="layer-hmkia">
+<h2 id="hmkia" style="border-bottom-color:#8b5cf6"><span data-lang="ja">解釈行為層</span><span data-lang="en">Interpretation Act Layer</span> — <code>hmkia:</code></h2>
+<div class="layer-intro" style="border-left-color:#8b5cf6"><span data-lang="ja">三層すべてのデータ生成に介在する研究者の「解釈」を独立したリソースとして実体化する層。Annotation・Statement・EntityInContext などは generatedBy によって必ず InterpretationAct を参照する。InterpretationAct 同士は supports / critiques / revises などで再帰的に接続される。基本モデルは HiCO を踏襲する。</span><span data-lang="en">Layer that materialises the researcher&#x27;s interpretation—present in the data generation of all three layers—as an independent resource. Annotation, Statement, EntityInContext, and others always reference an InterpretationAct via generatedBy. Interpretation Acts are recursively linked to each other with supports / critiques / revises. The base model follows HiCO.</span></div>
+<details class="section-group" id="hmkia-classes">
+  <summary><span data-lang="ja">クラス</span><span data-lang="en">Classes</span> <span class="count">(4)</span></summary>
+<article class="entity class" id="hmkia-Agent" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkia:Agent</code></h4>
+  <p class="label"><span data-lang="ja">解釈主体</span><span data-lang="en">Agent</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:Agent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">解釈行為を実施した主体 (研究者・研究チーム・機械学習モデルなど)。</span><span data-lang="en">The agent that carried out the interpretation act (a researcher, research team, machine-learning model, etc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="http://www.w3.org/ns/prov#Agent" rel="external" target="_blank">prov:Agent</a></dd>
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://xmlns.com/foaf/0.1/Agent" rel="external" target="_blank">foaf:Agent</a></dd>
+</dl>
+</article>
+<article class="entity class" id="hmkia-InterpretationAct" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkia:InterpretationAct</code></h4>
+  <p class="label"><span data-lang="ja">解釈行為</span><span data-lang="en">Interpretation Act</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:InterpretationAct</code></p>
+</header>
+<p class="comment"><span data-lang="ja">歴史研究者による解釈行為そのものを実体化したリソース。
+Annotation・Statement・EntityInContext などの知識リソースは、必ずいずれかの InterpretationAct
+から生成される。InterpretationAct 自体は生成主体 (Agent)・生成日時 (Date) を保持し、
+他の InterpretationAct と支持・批判・修正などの関係で接続されうる。HiCO における hico:InterpretationAct を継承する。
+サブクラスとして InterpretationCreationAct (知識リソースの初回生成) と
+InterpretationUpdateAct (既存リソースの更新) を持つ。</span><span data-lang="en">A resource that materialises the interpretation act performed by a historical researcher. Knowledge resources such as Annotation, Statement, and EntityInContext are always generated from some InterpretationAct. Interpretation acts are recursively linked to one another (supports, critiques, revises, etc.), enabling scholarly dialogue and reasoning to be captured as a graph.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="http://purl.org/emmedi/hico/InterpretationAct" rel="external" target="_blank">hico:InterpretationAct</a>, <a href="http://www.w3.org/ns/prov#Activity" rel="external" target="_blank">prov:Activity</a></dd>
+  <dt><span data-lang="ja">下位クラス</span><span data-lang="en">Sub-class(es)</span></dt><dd><a href="#hmkia-InterpretationCreationAct">hmkia:InterpretationCreationAct</a>, <a href="#hmkia-InterpretationUpdateAct">hmkia:InterpretationUpdateAct</a></dd>
+</dl>
+</article>
+<article class="entity class" id="hmkia-InterpretationCreationAct" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkia:InterpretationCreationAct</code></h4>
+  <p class="label"><span data-lang="ja">解釈生成行為</span><span data-lang="en">Interpretation Creation Act</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:InterpretationCreationAct</code></p>
+</header>
+<p class="comment"><span data-lang="ja">知識リソース (Statement, EntityReference など) を初めて生成する解釈行為。
+生成されたリソースは hmki:generatedBy によってこの行為を参照する。</span><span data-lang="en">知識リソース (Statement, EntityReference など) を初めて生成する解釈行為。
+生成されたリソースは hmki:generatedBy によってこの行為を参照する。</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+</dl>
+</article>
+<article class="entity class" id="hmkia-InterpretationUpdateAct" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkia:InterpretationUpdateAct</code></h4>
+  <p class="label"><span data-lang="ja">解釈更新行為</span><span data-lang="en">Interpretation Update Act</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:InterpretationUpdateAct</code></p>
+</header>
+<p class="comment"><span data-lang="ja">既存の知識リソース (Statement など) を更新する解釈行為。
+UpdateAct が生成したリソースは新しい URI を持つ別インスタンスとして生成され、
+prov:wasRevisionOf によって前バージョンのリソースを参照する。
+UpdateAct 自身は hmkia:revises によって先行する InterpretationAct
+(CreationAct または UpdateAct) を参照する。</span><span data-lang="en">既存の知識リソース (Statement など) を更新する解釈行為。
+UpdateAct が生成したリソースは新しい URI を持つ別インスタンスとして生成され、
+prov:wasRevisionOf によって前バージョンのリソースを参照する。
+UpdateAct 自身は hmkia:revises によって先行する InterpretationAct
+(CreationAct または UpdateAct) を参照する。</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmkia-object-properties">
+  <summary><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span> <span class="count">(7)</span></summary>
+<article class="entity objectproperty" id="hmkia-associatedWith" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkia:associatedWith</code></h4>
+  <p class="label"><span data-lang="ja">実施主体</span><span data-lang="en">associated with (agent)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:associatedWith</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この解釈行為を実施した主体 (Agent)。PROV-O の prov:wasAssociatedWith と対応する。</span><span data-lang="en">The agent (Agent) that performed this interpretation act. Corresponds to prov:wasAssociatedWith in PROV-O.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkia-Agent">hmkia:Agent</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="http://www.w3.org/ns/prov#wasAssociatedWith" rel="external" target="_blank">prov:wasAssociatedWith</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkia-basedOn" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkia:basedOn</code></h4>
+  <p class="label"><span data-lang="ja">依拠した資料</span><span data-lang="en">based on</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:basedOn</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この解釈行為が依拠した資料 (原資料・二次研究文献・翻訳など)。HiCO の hico:isExtractedFrom と対応する。</span><span data-lang="en">The materials this interpretation act relied on (primary sources, secondary literature, translations, and so on). Corresponds to hico:isExtractedFrom in HiCO.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://purl.org/emmedi/hico/isExtractedFrom" rel="external" target="_blank">hico:isExtractedFrom</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkia-critiques" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkia:critiques</code></h4>
+  <p class="label"><span data-lang="ja">批判する</span><span data-lang="en">critiques</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:critiques</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この解釈行為が他の解釈行為を批判 (異議申し立て) することを示す。CiTO の cito:disagreesWith に対応する。</span><span data-lang="en">Indicates that this interpretation act critiques (raises objections to) another interpretation act. Corresponds to cito:disagreesWith in CiTO.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="http://purl.org/spar/cito/disagreesWith" rel="external" target="_blank">cito:disagreesWith</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkia-derivedFrom" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkia:derivedFrom</code></h4>
+  <p class="label"><span data-lang="ja">派生元の解釈行為</span><span data-lang="en">derived from (interpretation)</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:derivedFrom</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この解釈行為が他の解釈行為から派生していることを示す。修正・支持・批判の共通上位関係。</span><span data-lang="en">Indicates that this interpretation act is derived from another interpretation act. Common super-relation for revision, support, and critique.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="http://www.w3.org/ns/prov#wasDerivedFrom" rel="external" target="_blank">prov:wasDerivedFrom</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkia-generated" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkia:generated</code></h4>
+  <p class="label"><span data-lang="ja">生成したリソース</span><span data-lang="en">generated</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:generated</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この解釈行為が生成したデータリソース (Annotation, Statement, EntityReference,
+EntityInContext, Entity など)。逆方向は各層で定義される generatedBy プロパティが担う。</span><span data-lang="en">The data resource that this interpretation act produced (Annotation, Statement, EntityReference, EntityInContext, Entity, and so on). The inverse is provided by the generatedBy property defined in each layer.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="http://www.w3.org/ns/prov#generated" rel="external" target="_blank">prov:generated</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkia-revises" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkia:revises</code></h4>
+  <p class="label"><span data-lang="ja">修正する</span><span data-lang="en">revises</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:revises</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この解釈行為が他の解釈行為を修正 (継承しつつ変更) することを示す。
+InterpretationUpdateAct が InterpretationCreationAct または先行する InterpretationUpdateAct を
+修正する場合に使用する。生成されたリソース側では prov:wasRevisionOf によって
+前バージョンのリソースを参照する。</span><span data-lang="en">Indicates that this interpretation act revises another interpretation act (inheriting from it while introducing changes).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmkia-supports" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmkia:supports</code></h4>
+  <p class="label"><span data-lang="ja">支持する</span><span data-lang="en">supports</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:supports</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この解釈行為が他の解釈行為を支持することを示す。CiTO の cito:supports に対応する。</span><span data-lang="en">Indicates that this interpretation act supports another interpretation act. Corresponds to cito:supports in CiTO.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="http://purl.org/spar/cito/agreesWith" rel="external" target="_blank">cito:agreesWith</a></dd>
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmkia-datatype-properties">
+  <summary><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span> <span class="count">(7)</span></summary>
+<article class="entity datatypeproperty" id="hmkia-agentName" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkia:agentName</code></h4>
+  <p class="label"><span data-lang="ja">主体名</span><span data-lang="en">agent name</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:agentName</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Agent の名前 (研究者名・チーム名・モデル名)。</span><span data-lang="en">Name of the Agent (researcher name, team name, or model name).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-Agent">hmkia:Agent</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://xmlns.com/foaf/0.1/name" rel="external" target="_blank">foaf:name</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkia-agentType" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkia:agentType</code></h4>
+  <p class="label"><span data-lang="ja">主体種別</span><span data-lang="en">agent type</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:agentType</code></p>
+</header>
+<p class="comment"><span data-lang="ja">Agent の種別 (person / team / software など)。</span><span data-lang="en">Type of the Agent (person / team / software, etc.).</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-Agent">hmkia:Agent</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkia-confidence" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkia:confidence</code></h4>
+  <p class="label"><span data-lang="ja">確信度</span><span data-lang="en">confidence</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:confidence</code></p>
+</header>
+<p class="comment"><span data-lang="ja">解釈の確信度 (0.0-1.0 の実数、または 'high' / 'medium' / 'low' の質的値)。</span><span data-lang="en">Confidence of the interpretation (a real number between 0.0 and 1.0, or a qualitative value 'high' / 'medium' / 'low').</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkia-hasCriterion" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkia:hasCriterion</code></h4>
+  <p class="label"><span data-lang="ja">解釈基準</span><span data-lang="en">interpretation criterion</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:hasCriterion</code></p>
+</header>
+<p class="comment"><span data-lang="ja">解釈に用いた基準・方法論の記述 (例: 'paleographic analysis', 'prosopographic comparison')。</span><span data-lang="en">Description of the criterion or methodology applied in the interpretation (e.g. 'paleographic analysis', 'prosopographic comparison').</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://purl.org/emmedi/hico/hasInterpretationCriterion" rel="external" target="_blank">hico:hasInterpretationCriterion</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkia-hasDate" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkia:hasDate</code></h4>
+  <p class="label"><span data-lang="ja">解釈日時</span><span data-lang="en">date</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:hasDate</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この解釈行為が実施された日時。ISO 8601 形式を推奨。</span><span data-lang="en">The date and time at which this interpretation act was carried out. ISO 8601 format is recommended.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#dateTime" rel="external" target="_blank">xsd:dateTime</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkia-hasType" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkia:hasType</code></h4>
+  <p class="label"><span data-lang="ja">解釈種別</span><span data-lang="en">interpretation type</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:hasType</code></p>
+</header>
+<p class="comment"><span data-lang="ja">解釈行為の種別 (例: 'transcription', 'restoration', 'identification', 'dating')。</span><span data-lang="en">Type of the interpretation act (e.g. 'transcription', 'restoration', 'identification', 'dating').</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+  <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://purl.org/emmedi/hico/hasInterpretationType" rel="external" target="_blank">hico:hasInterpretationType</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmkia-note" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmkia:note</code></h4>
+  <p class="label"><span data-lang="ja">備考</span><span data-lang="en">note</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:note</code></p>
+</header>
+<p class="comment"><span data-lang="ja">解釈行為に関する自由記述の備考。</span><span data-lang="en">Free-form remarks about the interpretation act.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+</details>
+</section>
+
+    <footer>
+      <span data-lang="ja">生成元: <code>ontology/hmk_owl/*.ttl</code>, ビルダー: <code>build_docs.py</code></span>
+      <span data-lang="en">Generated from <code>ontology/hmk_owl/*.ttl</code> by <code>build_docs.py</code></span>
+      <br>HIMIKO project · 2026
+    </footer>
+  </main>
+</div>
+<script>
+(function () {
+  var KEY = "himiko-lang";
+  function getInitial() {
+    // 1) URL ?lang=...  2) localStorage  3) <html lang>  4) default 'ja'
+    try {
+      var u = new URL(window.location.href);
+      var q = u.searchParams.get("lang");
+      if (q === "ja" || q === "en") return q;
+    } catch (e) {}
+    try {
+      var v = localStorage.getItem(KEY);
+      if (v === "ja" || v === "en") return v;
+    } catch (e) {}
+    var htmlLang = (document.documentElement.lang || "").toLowerCase();
+    if (htmlLang.indexOf("en") === 0) return "en";
+    return "ja";
+  }
+  function apply(lang) {
+    document.documentElement.lang = lang;
+    var btns = document.querySelectorAll(".lang-switch button[data-set-lang]");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].classList.toggle("active", btns[i].getAttribute("data-set-lang") === lang);
+    }
+    try { localStorage.setItem(KEY, lang); } catch (e) {}
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    apply(getInitial());
+    var btns = document.querySelectorAll(".lang-switch button[data-set-lang]");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        apply(this.getAttribute("data-set-lang"));
+      });
+    }
+
+    // Open the enclosing <details> when navigating to an anchor inside it,
+    // so TOC links and direct URL hashes reveal the target instead of
+    // scrolling to a collapsed section.
+    function openAncestors(el) {
+      var node = el;
+      while (node && node !== document.body) {
+        if (node.tagName === "DETAILS") node.open = true;
+        node = node.parentNode;
+      }
+    }
+    function revealHash() {
+      var h = window.location.hash;
+      if (!h || h.length < 2) return;
+      var id;
+      try { id = decodeURIComponent(h.slice(1)); } catch (e) { id = h.slice(1); }
+      var el = document.getElementById(id);
+      if (!el) return;
+      openAncestors(el);
+      // Re-scroll after open so the browser lands on the now-visible target.
+      setTimeout(function () {
+        if (typeof el.scrollIntoView === "function") {
+          el.scrollIntoView({ block: "start" });
+        }
+      }, 0);
+    }
+    revealHash();
+    window.addEventListener("hashchange", revealHash);
+    // Also handle clicks on same-page anchors even when the hash is unchanged.
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var href = a.getAttribute("href");
+      if (!href || href.length < 2) return;
+      var id;
+      try { id = decodeURIComponent(href.slice(1)); } catch (err) { id = href.slice(1); }
+      var el = document.getElementById(id);
+      if (el) openAncestors(el);
+    });
+  });
+})();
+</script>
+</body>
+</html>

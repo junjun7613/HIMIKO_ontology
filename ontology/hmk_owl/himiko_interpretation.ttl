@@ -1,0 +1,175 @@
+@prefix hmkia: <urn:himiko:ontology:interpretation:> .
+@prefix hmkp:  <urn:himiko:ontology:physical:> .
+@prefix hmki:  <urn:himiko:ontology:intrinsic:> .
+@prefix hmke:  <urn:himiko:ontology:extrinsic:> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix hico:  <http://purl.org/emmedi/hico/> .
+@prefix cito:  <http://purl.org/spar/cito/> .
+
+#################################################################
+#    Ontology metadata
+#################################################################
+
+<urn:himiko:ontology:interpretation> a owl:Ontology ;
+    dcterms:title "HIMIKO Interpretation Act Layer (解釈行為層)"@en ;
+    dcterms:title "HIMIKO 解釈行為層"@ja ;
+    dcterms:description """HIMIKO (Historical Micro Knowledge and Ontology) の解釈行為層。
+三層 (史料物理層・史料内在知識層・外在知識層) すべてのデータ生成に介在する研究者の「解釈」を
+独立したリソースとして実体化し、生成コンテキスト (主体・時間) と解釈相互の関係 (支持・批判・修正) を記述する。
+Annotation・Statement・EntityInContext などは generatedBy によって必ず InterpretationAct を参照する。
+基本的な解釈行為記述モデルは HiCO (Historical Context Ontology) を踏襲する。"""@ja ;
+    dcterms:creator "HIMIKO project" ;
+    owl:versionInfo "0.2.0" ;
+    rdfs:seeAlso <http://purl.org/emmedi/hico/> ,
+                 <http://purl.org/spar/cito/> .
+
+#################################################################
+#    Classes
+#################################################################
+
+hmkia:InterpretationAct a owl:Class ;
+    rdfs:label "Interpretation Act"@en , "解釈行為"@ja ;
+    rdfs:comment """歴史研究者による解釈行為そのものを実体化したリソース。
+Annotation・Statement・EntityInContext などの知識リソースは、必ずいずれかの InterpretationAct
+から生成される。InterpretationAct 自体は生成主体 (Agent)・生成日時 (Date) を保持し、
+他の InterpretationAct と支持・批判・修正などの関係で接続されうる。HiCO における hico:InterpretationAct を継承する。
+サブクラスとして InterpretationCreationAct (知識リソースの初回生成) と
+InterpretationUpdateAct (既存リソースの更新) を持つ。"""@ja ;
+    rdfs:subClassOf hico:InterpretationAct ,
+                    prov:Activity .
+
+hmkia:InterpretationCreationAct a owl:Class ;
+    rdfs:label "Interpretation Creation Act"@en , "解釈生成行為"@ja ;
+    rdfs:comment """知識リソース (Statement, EntityReference など) を初めて生成する解釈行為。
+生成されたリソースは hmki:generatedBy によってこの行為を参照する。"""@ja ;
+    rdfs:subClassOf hmkia:InterpretationAct .
+
+hmkia:InterpretationUpdateAct a owl:Class ;
+    rdfs:label "Interpretation Update Act"@en , "解釈更新行為"@ja ;
+    rdfs:comment """既存の知識リソース (Statement など) を更新する解釈行為。
+UpdateAct が生成したリソースは新しい URI を持つ別インスタンスとして生成され、
+prov:wasRevisionOf によって前バージョンのリソースを参照する。
+UpdateAct 自身は hmkia:revises によって先行する InterpretationAct
+(CreationAct または UpdateAct) を参照する。"""@ja ;
+    rdfs:subClassOf hmkia:InterpretationAct .
+
+hmkia:Agent a owl:Class ;
+    rdfs:label "Agent"@en , "解釈主体"@ja ;
+    rdfs:comment "解釈行為を実施した主体 (研究者・研究チーム・機械学習モデルなど)。"@ja ;
+    rdfs:subClassOf prov:Agent ;
+    rdfs:seeAlso foaf:Agent .
+
+#################################################################
+#    Object Properties  —  基本メタデータ
+#################################################################
+
+hmkia:associatedWith a owl:ObjectProperty ;
+    rdfs:label "associated with (agent)"@en , "実施主体"@ja ;
+    rdfs:comment "この解釈行為を実施した主体 (Agent)。PROV-O の prov:wasAssociatedWith と対応する。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range hmkia:Agent ;
+    rdfs:subPropertyOf prov:wasAssociatedWith .
+
+hmkia:generated a owl:ObjectProperty ;
+    rdfs:label "generated"@en , "生成したリソース"@ja ;
+    rdfs:comment """この解釈行為が生成したデータリソース (Annotation, Statement, EntityReference,
+EntityInContext, Entity など)。逆方向は各層で定義される generatedBy プロパティが担う。"""@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:subPropertyOf prov:generated .
+
+hmkia:basedOn a owl:ObjectProperty ;
+    rdfs:label "based on"@en , "依拠した資料"@ja ;
+    rdfs:comment """この解釈行為が依拠した資料 (原資料・二次研究文献・翻訳など)。HiCO の hico:isExtractedFrom と対応する。"""@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:seeAlso hico:isExtractedFrom .
+
+#################################################################
+#    Object Properties  —  解釈行為間の関係 (CiTO ベース)
+#################################################################
+
+hmkia:supports a owl:ObjectProperty ;
+    rdfs:label "supports"@en , "支持する"@ja ;
+    rdfs:comment "この解釈行為が他の解釈行為を支持することを示す。CiTO の cito:supports に対応する。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range hmkia:InterpretationAct ;
+    rdfs:subPropertyOf cito:agreesWith .
+
+hmkia:critiques a owl:ObjectProperty ;
+    rdfs:label "critiques"@en , "批判する"@ja ;
+    rdfs:comment "この解釈行為が他の解釈行為を批判 (異議申し立て) することを示す。CiTO の cito:disagreesWith に対応する。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range hmkia:InterpretationAct ;
+    rdfs:subPropertyOf cito:disagreesWith .
+
+hmkia:revises a owl:ObjectProperty ;
+    rdfs:label "revises"@en , "修正する"@ja ;
+    rdfs:comment """この解釈行為が他の解釈行為を修正 (継承しつつ変更) することを示す。
+InterpretationUpdateAct が InterpretationCreationAct または先行する InterpretationUpdateAct を
+修正する場合に使用する。生成されたリソース側では prov:wasRevisionOf によって
+前バージョンのリソースを参照する。"""@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range hmkia:InterpretationAct .
+
+hmkia:derivedFrom a owl:ObjectProperty ;
+    rdfs:label "derived from (interpretation)"@en , "派生元の解釈行為"@ja ;
+    rdfs:comment "この解釈行為が他の解釈行為から派生していることを示す。修正・支持・批判の共通上位関係。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range hmkia:InterpretationAct ;
+    rdfs:subPropertyOf prov:wasDerivedFrom .
+
+#################################################################
+#    Datatype Properties
+#################################################################
+
+hmkia:hasDate a owl:DatatypeProperty ;
+    rdfs:label "date"@en , "解釈日時"@ja ;
+    rdfs:comment "この解釈行為が実施された日時。ISO 8601 形式を推奨。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range xsd:dateTime .
+
+hmkia:hasCriterion a owl:DatatypeProperty ;
+    rdfs:label "interpretation criterion"@en , "解釈基準"@ja ;
+    rdfs:comment "解釈に用いた基準・方法論の記述 (例: 'paleographic analysis', 'prosopographic comparison')。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso hico:hasInterpretationCriterion .
+
+hmkia:hasType a owl:DatatypeProperty ;
+    rdfs:label "interpretation type"@en , "解釈種別"@ja ;
+    rdfs:comment "解釈行為の種別 (例: 'transcription', 'restoration', 'identification', 'dating')。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range xsd:string ;
+    rdfs:seeAlso hico:hasInterpretationType .
+
+hmkia:confidence a owl:DatatypeProperty ;
+    rdfs:label "confidence"@en , "確信度"@ja ;
+    rdfs:comment "解釈の確信度 (0.0-1.0 の実数、または 'high' / 'medium' / 'low' の質的値)。"@ja ;
+    rdfs:domain hmkia:InterpretationAct .
+
+hmkia:note a owl:DatatypeProperty ;
+    rdfs:label "note"@en , "備考"@ja ;
+    rdfs:comment "解釈行為に関する自由記述の備考。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ;
+    rdfs:range xsd:string .
+
+#################################################################
+#    Agent metadata
+#################################################################
+
+hmkia:agentName a owl:DatatypeProperty ;
+    rdfs:label "agent name"@en , "主体名"@ja ;
+    rdfs:comment "Agent の名前 (研究者名・チーム名・モデル名)。"@ja ;
+    rdfs:domain hmkia:Agent ;
+    rdfs:seeAlso foaf:name .
+
+hmkia:agentType a owl:DatatypeProperty ;
+    rdfs:label "agent type"@en , "主体種別"@ja ;
+    rdfs:comment "Agent の種別 (person / team / software など)。"@ja ;
+    rdfs:domain hmkia:Agent ;
+    rdfs:range xsd:string .

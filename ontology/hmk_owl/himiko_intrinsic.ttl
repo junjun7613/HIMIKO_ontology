@@ -1,0 +1,185 @@
+@prefix hmki:  <urn:himiko:ontology:intrinsic:> .
+@prefix hmkp:  <urn:himiko:ontology:physical:> .
+@prefix hmke:  <urn:himiko:ontology:extrinsic:> .
+@prefix hmkia: <urn:himiko:ontology:interpretation:> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+
+#################################################################
+#    Ontology metadata
+#################################################################
+
+<urn:himiko:ontology:intrinsic> a owl:Ontology ;
+    dcterms:title "HIMIKO Intrinsic Knowledge Layer (史料内在知識層)"@en ;
+    dcterms:title "HIMIKO 史料内在知識層"@ja ;
+    dcterms:description """HIMIKO (Historical Micro Knowledge and Ontology) の史料内在知識層。
+史料に記述された意味内容そのものを構造化する層で、史料中で言及される出来事・状態・関係性を
+Statement (イベント言及) として表現し、その構成要素となる人物・場所・組織などを
+EntityReference (史料中での個別の言及) として記述する。
+Statement は史料物理層の Character を直接 mentions することによって史料上の根拠を保持し、
+EntityReference は hasRange によって Character の範囲を指定する。
+EntityReference は史料横断的な普遍的実体ではなく、あくまでその史料における一回的な言及である。"""@ja ;
+    dcterms:creator "HIMIKO project" ;
+    owl:versionInfo "0.3.0" ;
+    owl:imports <urn:himiko:ontology:physical> .
+
+#################################################################
+#    Classes
+#################################################################
+
+hmki:Statement a owl:Class ;
+    rdfs:label "Statement"@en , "イベント言及"@ja ;
+    rdfs:comment """史料中で言及されるイベント (出来事・状態・関係性) の基本単位。
+論文中では MicroKnowledge とも呼ばれる。「出来事」に限定されず、エンティティに付随する
+継続的な状態・属性やエンティティ間の継続的な関係性も含む。
+Statement 同士は時系列・因果などの意味的関係性によって再帰的に接続されうる。
+史料中の Character を hmki:mentions によって直接指し、その根拠を保持する。
+InterpretationUpdateAct によって更新された Statement は新しい URI を持つ別インスタンスとして生成され、
+prov:wasRevisionOf によって前バージョンの Statement を参照する。
+現在の最新版は、他のいかなる Statement からも prov:wasRevisionOf で参照されていないインスタンスである。"""@ja ;
+    rdfs:subClassOf prov:Entity .
+
+hmki:EntityReference a owl:Class ;
+    rdfs:label "Entity Reference"@en , "エンティティ言及"@ja ;
+    rdfs:comment """史料中における人物・場所・組織などへの個別の言及。
+史料横断的で普遍的な実体そのもの (hmke:Entity) ではなく、あくまでその史料における一回的な言及として記述される。
+史料上での表記や、史料内での役割 (hmki:hasRole) など、史料固有の情報を保持する。
+史料物理層の Character 範囲を hmki:hasRange によって参照することでテキスト上の位置を指定する。"""@ja .
+
+#################################################################
+#    Object Properties  —  Statement
+#################################################################
+
+hmki:mentions a owl:ObjectProperty ;
+    rdfs:label "mentions (statement → character)"@en , "言及する (Statement → Character)"@ja ;
+    rdfs:comment """Statement が指し示す史料上の Character (テキスト範囲)。
+Statement は複数の Character を同時に mentions することによって、
+テキスト上の複数箇所にまたがるイベント言及を表現できる。"""@ja ;
+    rdfs:domain hmki:Statement ;
+    rdfs:range hmkp:Character .
+
+hmki:references a owl:ObjectProperty ;
+    rdfs:label "references (entity reference)"@en , "参照する (エンティティ言及)"@ja ;
+    rdfs:comment "Statement を構成する EntityReference への参照。1 つの Statement は複数の EntityReference を参照しうる。"@ja ;
+    rdfs:domain hmki:Statement ;
+    rdfs:range hmki:EntityReference .
+
+hmki:relatedTo a owl:ObjectProperty ;
+    rdfs:label "related to (statement)"@en , "関連する Statement"@ja ;
+    rdfs:comment """Statement 同士の再帰的接続。時系列関係・因果関係などのより具体的な関係を表す
+サブプロパティ (precedes, causedBy 等) を将来的に追加することができる。"""@ja ;
+    rdfs:domain hmki:Statement ;
+    rdfs:range hmki:Statement .
+
+hmki:precedes a owl:ObjectProperty ;
+    rdfs:label "precedes"@en , "先行する"@ja ;
+    rdfs:comment "この Statement が時系列的に他の Statement に先立つことを示す。"@ja ;
+    rdfs:subPropertyOf hmki:relatedTo ;
+    rdfs:domain hmki:Statement ;
+    rdfs:range hmki:Statement .
+
+hmki:causedBy a owl:ObjectProperty ;
+    rdfs:label "caused by"@en , "起因する"@ja ;
+    rdfs:comment "この Statement が他の Statement を原因として発生したことを示す。"@ja ;
+    rdfs:subPropertyOf hmki:relatedTo ;
+    rdfs:domain hmki:Statement ;
+    rdfs:range hmki:Statement .
+
+hmki:statementType a owl:ObjectProperty ;
+    rdfs:label "statement type"@en , "イベント言及の種別"@ja ;
+    rdfs:comment """Statement の種別を示す。HIMIKO は概念モデルであり、具体的な種別語彙
+(例: 恵与 Benefaction、経歴 CareerEvent、奉献 Dedication、婚姻 Marriage 等) は
+個々のプロジェクトが対象史料に応じて独自に定義することを想定する。
+値には種別を示す URI (プロジェクト独自クラス、SKOS Concept、CIDOC CRM の crm:E55_Type など) を取る。
+1 つの Statement に複数の種別を多重付与することを妨げない。"""@ja ;
+    rdfs:domain hmki:Statement .
+    # range は意図的に未指定: プロジェクト側の種別語彙の URI を自由に取れるようにする
+
+#################################################################
+#    Object Properties  —  EntityReference → Character (テキスト根拠)
+#################################################################
+
+hmki:hasRange a owl:ObjectProperty ;
+    rdfs:label "has range (character)"@en , "Character 範囲を指す"@ja ;
+    rdfs:comment """EntityReference が指し示す史料上の Character 範囲。
+これによりエンティティ言及は Character レベルの根拠を持つ。
+より詳細な範囲 (先頭・末尾) はサブプロパティ hmki:startChar / hmki:endChar で表現しうる。"""@ja ;
+    rdfs:domain hmki:EntityReference ;
+    rdfs:range hmkp:Character .
+
+hmki:startChar a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "start character"@en , "開始文字"@ja ;
+    rdfs:comment "EntityReference が指す範囲の先頭 Character。hmki:hasRange のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmki:hasRange ;
+    rdfs:domain hmki:EntityReference ;
+    rdfs:range hmkp:Character .
+
+hmki:endChar a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "end character"@en , "終了文字"@ja ;
+    rdfs:comment "EntityReference が指す範囲の末尾 Character。hmki:hasRange のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmki:hasRange ;
+    rdfs:domain hmki:EntityReference ;
+    rdfs:range hmkp:Character .
+
+#################################################################
+#    Object Properties  —  EntityReference → 外在層への橋渡し
+#################################################################
+
+hmki:referencesEntity a owl:ObjectProperty ;
+    rdfs:label "references entity"@en , "参照する実体 (普遍)"@ja ;
+    rdfs:comment "EntityReference が指し示す、史料外部の普遍的実体 (hmke:Entity)。従来のエンティティ・リンキングに対応する。"@ja ;
+    rdfs:domain hmki:EntityReference ;
+    rdfs:range hmke:Entity .
+
+hmki:referencesEntityInContext a owl:ObjectProperty ;
+    rdfs:label "references entity in context"@en , "参照する文脈付き実体"@ja ;
+    rdfs:comment """EntityReference が指し示す、歴史的コンテキストを伴った実体 (hmke:EntityInContext)。
+これにより、単なる普遍的実体への対応付けではなく、時間的・社会的・地理的文脈を伴った言及として記述される。"""@ja ;
+    rdfs:domain hmki:EntityReference ;
+    rdfs:range hmke:EntityInContext .
+
+#################################################################
+#    Object Properties  —  EntityReference のコンテキスト情報
+#################################################################
+
+hmki:hasRole a owl:ObjectProperty ;
+    rdfs:label "has role"@en , "史料内での役割"@ja ;
+    rdfs:comment """史料中の当該言及が担う役割 (例: 恵与の主体、受益者、証人など)。
+FPO における fpo:hasRole と対応する。"""@ja ;
+    rdfs:domain hmki:EntityReference .
+
+#################################################################
+#    Object Properties  —  Interpretation Act (三層共通)
+#################################################################
+
+hmki:generatedBy a owl:ObjectProperty ;
+    rdfs:label "generated by (interpretation act)"@en , "解釈行為による生成"@ja ;
+    rdfs:comment "この Statement / EntityReference を生成した解釈行為 (hmkia:InterpretationAct)。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( hmki:Statement hmki:EntityReference ) ] ;
+    rdfs:range hmkia:InterpretationAct .
+
+#################################################################
+#    Datatype Properties  —  EntityReference の表記
+#################################################################
+
+hmki:surfaceForm a owl:DatatypeProperty ;
+    rdfs:label "surface form"@en , "史料上の表記"@ja ;
+    rdfs:comment "EntityReference の史料上での表記 (綴り字そのまま)。異形・略記なども含めて記録する。"@ja ;
+    rdfs:domain hmki:EntityReference ;
+    rdfs:range xsd:string .
+
+hmki:normalizedForm a owl:DatatypeProperty ;
+    rdfs:label "normalized form"@en , "正規化表記"@ja ;
+    rdfs:comment "EntityReference の正規化された表記 (略語展開後、標準綴りに戻したもの)。"@ja ;
+    rdfs:domain hmki:EntityReference ;
+    rdfs:range xsd:string .
+
+hmki:entityType a owl:DatatypeProperty ;
+    rdfs:label "entity type"@en , "エンティティ種別"@ja ;
+    rdfs:comment "EntityReference が指すエンティティの種別 (person / place / organization / object / time など)。"@ja ;
+    rdfs:domain hmki:EntityReference ;
+    rdfs:range xsd:string .

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>HIMIKO オントロジー クラス・プロパティ一覧表</title>
+<style>
+:root {
+  --fg: #1f2937;
+  --muted: #6b7280;
+  --border: #cbd5e1;
+  --border-light: #e5e7eb;
+  --thead-bg: #f3f4f6;
+  --code-bg: #f3f4f6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 32px 40px 48px;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  color: var(--fg);
+  background: #fff;
+  line-height: 1.55;
+  font-size: 12px;
+}
+h1 { font-size: 20px; margin: 0 0 4px; }
+.subtitle { color: var(--muted); margin: 0 0 24px; font-size: 13px; }
+h2 {
+  font-size: 15px;
+  margin: 32px 0 10px;
+  padding: 6px 10px;
+  color: #fff;
+  border-radius: 3px;
+}
+h3 {
+  font-size: 13px;
+  margin: 18px 0 6px;
+  color: var(--fg);
+  font-weight: 700;
+}
+.layer-intro { color: var(--muted); font-size: 11.5px; margin: -4px 0 10px; }
+
+table.ttable {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 11px;
+  margin: 0 0 14px;
+  page-break-inside: auto;
+}
+table.ttable caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 4px 0 6px;
+  color: var(--fg);
+}
+table.ttable thead th {
+  background: var(--thead-bg);
+  border-top: 1.5px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+  padding: 5px 8px;
+  text-align: left;
+  vertical-align: bottom;
+  font-weight: 700;
+  font-size: 11px;
+  white-space: nowrap;
+}
+table.ttable tbody td {
+  border-bottom: 1px solid var(--border-light);
+  padding: 5px 8px;
+  vertical-align: top;
+}
+table.ttable tbody tr:last-child td {
+  border-bottom: 1.5px solid var(--fg);
+}
+table.ttable code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  background: var(--code-bg);
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+table.ttable td.qname { white-space: nowrap; }
+table.ttable td.def { line-height: 1.5; }
+table.ttable td.dr { font-size: 10.5px; }
+table.ttable .none { color: var(--muted); }
+table.ttable .func {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 1px solid var(--muted);
+  border-radius: 2px;
+  font-size: 9.5px;
+  color: var(--muted);
+}
+
+table.summary {
+  border-collapse: collapse;
+  margin: 0 0 24px;
+  font-size: 11.5px;
+}
+table.summary th, table.summary td {
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  text-align: center;
+}
+table.summary th { background: var(--thead-bg); font-weight: 700; }
+table.summary td.name { text-align: left; }
+
+footer { margin-top: 32px; color: var(--muted); font-size: 10.5px; }
+
+@page { size: A4; margin: 20mm 15mm; }
+@media print {
+  body { padding: 0; }
+  h2 { page-break-after: avoid; }
+  h3 { page-break-after: avoid; }
+  table.ttable { page-break-inside: auto; }
+  table.ttable tr { page-break-inside: avoid; page-break-after: auto; }
+  table.ttable thead { display: table-header-group; }
+}
+</style>
+</head>
+<body>
+<h1>HIMIKO オントロジー クラス・プロパティ一覧表</h1>
+<p class="subtitle">Historical Micro Knowledge and Ontology — 論文添付用リファレンス表</p>
+
+<table class="summary">
+  <thead><tr>
+    <th>レイヤー</th>
+    <th>クラス</th>
+    <th>オブジェクトプロパティ</th>
+    <th>データプロパティ</th>
+    <th>合計</th>
+  </tr></thead>
+  <tbody>
+<tr><td class="name"><code>hmkp</code> — 史料物理層</td><td>4</td><td>9</td><td>20</td><td><strong>33</strong></td></tr>
+<tr><td class="name"><code>hmki</code> — 史料内在知識層</td><td>2</td><td>13</td><td>3</td><td><strong>18</strong></td></tr>
+<tr><td class="name"><code>hmke</code> — 外在知識層</td><td>5</td><td>9</td><td>9</td><td><strong>23</strong></td></tr>
+<tr><td class="name"><code>hmkia</code> — 解釈行為層</td><td>4</td><td>7</td><td>7</td><td><strong>18</strong></td></tr>
+<tr style="border-top:1.5px solid var(--fg)"><td class="name"><strong>合計</strong></td><td><strong>15</strong></td><td><strong>38</strong></td><td><strong>39</strong></td><td><strong>92</strong></td></tr>
+  </tbody>
+</table>
+
+<p class="layer-intro">
+凡例 — <strong>QName</strong>: 修飾名 (プレフィックス:ローカル名)。
+<strong>ドメイン/レンジ</strong>: <code>(A ∪ B)</code> は <code>owl:unionOf</code> による直和。
+<strong>属性</strong>: <span class="func">Func</span> は <code>owl:FunctionalProperty</code> (関数的プロパティ) を示す。
+外部語彙のプレフィックス (rdfs, owl, xsd, oa, prov, foaf, hico, cito, geo, owltime, dcterms) は
+省略形のまま表記し、詳細は本編 §名前空間を参照。
+</p>
+
+<h2 style="background:#3b82f6">史料物理層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmkp:</code></h2>
+<h3>クラス (Classes) — 4 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:16%">QName</th><th style="width:14%">ラベル</th><th style="width:18%">上位クラス</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmkp:Annotation</code></td><td>アノテーション</td><td class="dr"><span class="none">—</span></td><td class="def">文字範囲 [start, end) に対する注釈。行番号・略語展開・補完・欠損・訂正などの種類 (hmkp:kind) を持つ。</td></tr>
+<tr><td class="qname"><code>hmkp:Character</code></td><td>文字</td><td class="dr"><span class="none">—</span></td><td class="def">テキストを構成する 1 文字。URI は UUID ベース (urn:himiko:resource:char:&lt;uuid&gt;) で、テキスト編集に対して安定した参照を提供する。hmkp:next で次の文字へ連結する。</td></tr>
+<tr><td class="qname"><code>hmkp:Source</code></td><td>史料</td><td class="dr"><span class="none">—</span></td><td class="def">史料そのものが有する物質的実体 (碑文の石材、パピルス、写本の紙・冊子など)。
+テキスト情報を担う物理的な媒体を表現する。1 つの Source は hmkp:bears によって Text を担う。
+また、hmkp:mentions によって史料内在知識層の Statement (イベント言及) に直接接続される。</td></tr>
+<tr><td class="qname"><code>hmkp:Text</code></td><td>テキスト</td><td class="dr"><span class="none">—</span></td><td class="def">1 つの碑文または書簡に相当するテキスト全体。連結された文字列と、その上に載るアノテーションを束ねる。</td></tr>
+  </tbody>
+</table>
+<h3>オブジェクトプロパティ (Object Properties) — 9 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmkp:bears</code></td><td>テキストを担う</td><td class="dr">hmkp:Source</td><td class="dr">hmkp:Text</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">史料 (Source) がその物質的媒体上に担うテキスト (Text)。</td></tr>
+<tr><td class="qname"><code>hmkp:endChar</code></td><td>終了文字</td><td class="dr">hmkp:Annotation</td><td class="dr">hmkp:Character</td><td class="dr">hmkp:hasRange</td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーション範囲の末尾 (offset = end - 1) にあたる Character。end は排他的境界のため end-1 を指す。hmkp:hasRange のサブプロパティ。</td></tr>
+<tr><td class="qname"><code>hmkp:firstChar</code></td><td>先頭文字</td><td class="dr">hmkp:Text</td><td class="dr">hmkp:Character</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">テキストの先頭にあたる Character への参照。ここから hmkp:next を辿ると全文字を走査できる。</td></tr>
+<tr><td class="qname"><code>hmkp:hasAnnotation</code></td><td>アノテーションを持つ</td><td class="dr">hmkp:Text</td><td class="dr">hmkp:Annotation</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">テキストに属するアノテーションへの参照。</td></tr>
+<tr><td class="qname"><code>hmkp:hasRange</code></td><td>Character 範囲を持つ</td><td class="dr"><span class="none">—</span></td><td class="dr">hmkp:Character</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">あるリソース (Annotation、Statement、EntityReference など) がテキスト上の
+特定の Character 範囲を参照することを示す抽象的な参照関係。
+具体的な範囲指定は subPropertyOf として定義される startChar / endChar によって表現される。</td></tr>
+<tr><td class="qname"><code>hmkp:mentions</code></td><td>言及する</td><td class="dr">hmkp:Source</td><td class="dr">hmki:Statement</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Source がその内容として言及するイベント (Statement)。
+史料が物理的レベルで意味的内容 (史料内在知識層の Statement) に接続することを示す抽象的関係。
+Statement が実際にどの Character 範囲を指しているかは、Statement 側の hmki:mentions
+プロパティで表現される (Statement は複数の Character を指すため多重関係)。</td></tr>
+<tr><td class="qname"><code>hmkp:next</code></td><td>次の文字</td><td class="dr">hmkp:Character</td><td class="dr">hmkp:Character</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">文字の連結リストにおける次の Character。最後の文字には付与されない。</td></tr>
+<tr><td class="qname"><code>hmkp:refersToEntity</code></td><td>参照するエンティティ言及</td><td class="dr">hmkp:Annotation</td><td class="dr">hmki:EntityReference</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">アノテーションが指し示す史料内在知識層のエンティティ言及 (hmki:EntityReference)。
+テキスト範囲 (hmkp:start/end/startChar/endChar) と外部エンティティを結ぶ Annotation で使用する。
+このアノテーションを生成した解釈行為の記述は prov:wasGeneratedBy によって hmkia:InterpretationAct に接続する。</td></tr>
+<tr><td class="qname"><code>hmkp:startChar</code></td><td>開始文字</td><td class="dr">hmkp:Annotation</td><td class="dr">hmkp:Character</td><td class="dr">hmkp:hasRange</td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーション範囲の先頭 (offset = start) にあたる Character。hmkp:hasRange のサブプロパティ。</td></tr>
+  </tbody>
+</table>
+<h3>データプロパティ (Datatype Properties) — 20 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmkp:annotatedText</code></td><td>対象テキスト</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">アノテーションが対象とする範囲のテキスト内容。</td></tr>
+<tr><td class="qname"><code>hmkp:char</code></td><td>文字値</td><td class="dr">hmkp:Character</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">この Character が表す 1 文字そのもの。</td></tr>
+<tr><td class="qname"><code>hmkp:edcsId</code></td><td>EDCS ID</td><td class="dr">hmkp:Text</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">Epigraphik-Datenbank Clauss-Slaby (EDCS) の識別子。EDH-EDCS 対応表またはファイル名から得る。</td></tr>
+<tr><td class="qname"><code>hmkp:end</code></td><td>終了オフセット</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:nonNegativeInteger</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーション範囲の終了文字オフセット (排他的、Python スライス終端風)。</td></tr>
+<tr><td class="qname"><code>hmkp:extent</code></td><td>範囲</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @extent 属性値 (例: unknown)。</td></tr>
+<tr><td class="qname"><code>hmkp:kind</code></td><td>種別</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーションの種類。取りうる値:
+line (行番号 &lt;lb&gt;), expan / abbr / ex (略語展開), supplied (補完),
+gap (欠損), choice (訂正), surplus (余剰),
+seg / opener / closer (書簡の構造ブロック)。</td></tr>
+<tr><td class="qname"><code>hmkp:localId</code></td><td>ローカルID</td><td class="dr">hmkp:Text</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">TEI の &lt;idno type=&#x27;localID&#x27;&gt; 由来の識別子 (例: HD000001)。</td></tr>
+<tr><td class="qname"><code>hmkp:material</code></td><td>材質</td><td class="dr">hmkp:Source</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">史料の材質 (marble / limestone / bronze / papyrus 等)。</td></tr>
+<tr><td class="qname"><code>hmkp:n</code></td><td>番号(n)</td><td class="dr">(hmkp:Text ∪ hmkp:Annotation)</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">TEI の @n 属性値。行番号 (line) や書簡セクション番号などに用いる。Text と Annotation の双方に付与されうる。</td></tr>
+<tr><td class="qname"><code>hmkp:offset</code></td><td>オフセット</td><td class="dr">hmkp:Character</td><td class="dr">xsd:nonNegativeInteger</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">全文テキスト中における 0 始まりの文字位置。</td></tr>
+<tr><td class="qname"><code>hmkp:origPlace</code></td><td>出土地</td><td class="dr">(hmkp:Source ∪ hmkp:Text)</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">史料の出土地・原来地 (現代地名 / 古代地名などの複合表記も許容)。Text にも付与されうる。</td></tr>
+<tr><td class="qname"><code>hmkp:quantity</code></td><td>数量</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @quantity 属性値 (欠損量)。</td></tr>
+<tr><td class="qname"><code>hmkp:reason</code></td><td>理由</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap / supplied の @reason 属性値 (例: lost, unknown)。</td></tr>
+<tr><td class="qname"><code>hmkp:sic</code></td><td>sic (元の読み)</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">choice アノテーションにおいて、本文には corr を採用した際に記録される元の (誤った) 読み。</td></tr>
+<tr><td class="qname"><code>hmkp:sourceType</code></td><td>史料種別</td><td class="dr">hmkp:Source</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">史料の物理媒体の種別 (inscription / papyrus / manuscript / ostracon 等)。</td></tr>
+<tr><td class="qname"><code>hmkp:start</code></td><td>開始オフセット</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:nonNegativeInteger</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">アノテーション範囲の開始文字オフセット (含む)。</td></tr>
+<tr><td class="qname"><code>hmkp:teiXmlId</code></td><td>TEI xml:id</td><td class="dr">(hmkp:Text ∪ hmkp:Annotation)</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">元 TEI ソース中の xml:id 値。Text と、xml:id を持つ Annotation (seg など) の双方に付与されうる。</td></tr>
+<tr><td class="qname"><code>hmkp:textContent</code></td><td>全文テキスト</td><td class="dr">hmkp:Text</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">テキストの連結全文。hmkp:Character 列と同一内容を表す冗長コピー。</td></tr>
+<tr><td class="qname"><code>hmkp:unit</code></td><td>単位</td><td class="dr">hmkp:Annotation</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">gap の @unit 属性値 (例: line, character)。</td></tr>
+<tr><td class="qname"><code>hmkp:uuid</code></td><td>UUID</td><td class="dr">hmkp:Character</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">Character URI の生成に用いた UUID 文字列。</td></tr>
+  </tbody>
+</table>
+<h2 style="background:#f59e0b">史料内在知識層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmki:</code></h2>
+<h3>クラス (Classes) — 2 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:16%">QName</th><th style="width:14%">ラベル</th><th style="width:18%">上位クラス</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmki:EntityReference</code></td><td>エンティティ言及</td><td class="dr"><span class="none">—</span></td><td class="def">史料中における人物・場所・組織などへの個別の言及。
+史料横断的で普遍的な実体そのもの (hmke:Entity) ではなく、あくまでその史料における一回的な言及として記述される。
+史料上での表記や、史料内での役割 (hmki:hasRole) など、史料固有の情報を保持する。
+史料物理層の Character 範囲を hmki:hasRange によって参照することでテキスト上の位置を指定する。</td></tr>
+<tr><td class="qname"><code>hmki:Statement</code></td><td>イベント言及</td><td class="dr">prov:Entity</td><td class="def">史料中で言及されるイベント (出来事・状態・関係性) の基本単位。
+論文中では MicroKnowledge とも呼ばれる。「出来事」に限定されず、エンティティに付随する
+継続的な状態・属性やエンティティ間の継続的な関係性も含む。
+Statement 同士は時系列・因果などの意味的関係性によって再帰的に接続されうる。
+史料中の Character を hmki:mentions によって直接指し、その根拠を保持する。
+InterpretationUpdateAct によって更新された Statement は新しい URI を持つ別インスタンスとして生成され、
+prov:wasRevisionOf によって前バージョンの Statement を参照する。
+現在の最新版は、他のいかなる Statement からも prov:wasRevisionOf で参照されていないインスタンスである。</td></tr>
+  </tbody>
+</table>
+<h3>オブジェクトプロパティ (Object Properties) — 13 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmki:causedBy</code></td><td>起因する</td><td class="dr">hmki:Statement</td><td class="dr">hmki:Statement</td><td class="dr">hmki:relatedTo</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この Statement が他の Statement を原因として発生したことを示す。</td></tr>
+<tr><td class="qname"><code>hmki:endChar</code></td><td>終了文字</td><td class="dr">hmki:EntityReference</td><td class="dr">hmkp:Character</td><td class="dr">hmki:hasRange</td><td style="text-align:center"><span class="func">Func</span></td><td class="def">EntityReference が指す範囲の末尾 Character。hmki:hasRange のサブプロパティ。</td></tr>
+<tr><td class="qname"><code>hmki:generatedBy</code></td><td>解釈行為による生成</td><td class="dr">(hmki:Statement ∪ hmki:EntityReference)</td><td class="dr">hmkia:InterpretationAct</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この Statement / EntityReference を生成した解釈行為 (hmkia:InterpretationAct)。</td></tr>
+<tr><td class="qname"><code>hmki:hasRange</code></td><td>Character 範囲を指す</td><td class="dr">hmki:EntityReference</td><td class="dr">hmkp:Character</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityReference が指し示す史料上の Character 範囲。
+これによりエンティティ言及は Character レベルの根拠を持つ。
+より詳細な範囲 (先頭・末尾) はサブプロパティ hmki:startChar / hmki:endChar で表現しうる。</td></tr>
+<tr><td class="qname"><code>hmki:hasRole</code></td><td>史料内での役割</td><td class="dr">hmki:EntityReference</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">史料中の当該言及が担う役割 (例: 恵与の主体、受益者、証人など)。
+FPO における fpo:hasRole と対応する。</td></tr>
+<tr><td class="qname"><code>hmki:mentions</code></td><td>言及する (Statement → Character)</td><td class="dr">hmki:Statement</td><td class="dr">hmkp:Character</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Statement が指し示す史料上の Character (テキスト範囲)。
+Statement は複数の Character を同時に mentions することによって、
+テキスト上の複数箇所にまたがるイベント言及を表現できる。</td></tr>
+<tr><td class="qname"><code>hmki:precedes</code></td><td>先行する</td><td class="dr">hmki:Statement</td><td class="dr">hmki:Statement</td><td class="dr">hmki:relatedTo</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この Statement が時系列的に他の Statement に先立つことを示す。</td></tr>
+<tr><td class="qname"><code>hmki:references</code></td><td>参照する (エンティティ言及)</td><td class="dr">hmki:Statement</td><td class="dr">hmki:EntityReference</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Statement を構成する EntityReference への参照。1 つの Statement は複数の EntityReference を参照しうる。</td></tr>
+<tr><td class="qname"><code>hmki:referencesEntity</code></td><td>参照する実体 (普遍)</td><td class="dr">hmki:EntityReference</td><td class="dr">hmke:Entity</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityReference が指し示す、史料外部の普遍的実体 (hmke:Entity)。従来のエンティティ・リンキングに対応する。</td></tr>
+<tr><td class="qname"><code>hmki:referencesEntityInContext</code></td><td>参照する文脈付き実体</td><td class="dr">hmki:EntityReference</td><td class="dr">hmke:EntityInContext</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityReference が指し示す、歴史的コンテキストを伴った実体 (hmke:EntityInContext)。
+これにより、単なる普遍的実体への対応付けではなく、時間的・社会的・地理的文脈を伴った言及として記述される。</td></tr>
+<tr><td class="qname"><code>hmki:relatedTo</code></td><td>関連する Statement</td><td class="dr">hmki:Statement</td><td class="dr">hmki:Statement</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Statement 同士の再帰的接続。時系列関係・因果関係などのより具体的な関係を表す
+サブプロパティ (precedes, causedBy 等) を将来的に追加することができる。</td></tr>
+<tr><td class="qname"><code>hmki:startChar</code></td><td>開始文字</td><td class="dr">hmki:EntityReference</td><td class="dr">hmkp:Character</td><td class="dr">hmki:hasRange</td><td style="text-align:center"><span class="func">Func</span></td><td class="def">EntityReference が指す範囲の先頭 Character。hmki:hasRange のサブプロパティ。</td></tr>
+<tr><td class="qname"><code>hmki:statementType</code></td><td>イベント言及の種別</td><td class="dr">hmki:Statement</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Statement の種別を示す。HIMIKO は概念モデルであり、具体的な種別語彙
+(例: 恵与 Benefaction、経歴 CareerEvent、奉献 Dedication、婚姻 Marriage 等) は
+個々のプロジェクトが対象史料に応じて独自に定義することを想定する。
+値には種別を示す URI (プロジェクト独自クラス、SKOS Concept、CIDOC CRM の crm:E55_Type など) を取る。
+1 つの Statement に複数の種別を多重付与することを妨げない。</td></tr>
+  </tbody>
+</table>
+<h3>データプロパティ (Datatype Properties) — 3 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmki:entityType</code></td><td>エンティティ種別</td><td class="dr">hmki:EntityReference</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityReference が指すエンティティの種別 (person / place / organization / object / time など)。</td></tr>
+<tr><td class="qname"><code>hmki:normalizedForm</code></td><td>正規化表記</td><td class="dr">hmki:EntityReference</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityReference の正規化された表記 (略語展開後、標準綴りに戻したもの)。</td></tr>
+<tr><td class="qname"><code>hmki:surfaceForm</code></td><td>史料上の表記</td><td class="dr">hmki:EntityReference</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityReference の史料上での表記 (綴り字そのまま)。異形・略記なども含めて記録する。</td></tr>
+  </tbody>
+</table>
+<h2 style="background:#10b981">外在知識層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmke:</code></h2>
+<h3>クラス (Classes) — 5 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:16%">QName</th><th style="width:14%">ラベル</th><th style="width:18%">上位クラス</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmke:Entity</code></td><td>普遍的実体</td><td class="dr"><span class="none">—</span></td><td class="def">史料外部に存在する普遍的な実体。Wikidata・VIAF・GeoNames・Pleiades などの
+典拠データにおいて永続的識別子 (URI) をもって表現される、時代を通じて一意に識別される実体。
+史料横断的な検索・分析の基盤となる。</td></tr>
+<tr><td class="qname"><code>hmke:EntityInContext</code></td><td>文脈付き実体</td><td class="dr"><span class="none">—</span></td><td class="def">特定の歴史的コンテキストに位置付けられた実体。単なる人物や場所ではなく、
+「ある特定の歴史的文脈における人物」「ある特定の状況下にある場所」を表現する。
+普遍的実体 (hmke:Entity) とは独立したリソースとして扱われ、一つの Entity に対して
+複数の EntityInContext を併存させることで、時期による属性の変化や複数の解釈を表現できる。
+時間的範囲 (eventSince / eventUntil) を持ち、社会的地位・官職・所属集団・活動地域などの属性を保持しうる。</td></tr>
+<tr><td class="qname"><code>hmke:Event</code></td><td>歴史的出来事 (時間基準点)</td><td class="dr"><span class="none">—</span></td><td class="def">EntityInContext の時間的範囲を規定するための歴史的出来事。
+「ある人物が執政官に就任した」「ある都市が属州都となった」といった相対的な時間基準点として用いられる。
+絶対年代が不確実な場合であっても、Event 同士の前後関係 (mentionedAsPrecedent) に基づいて
+歴史的コンテキストの時間関係を記述できる。</td></tr>
+<tr><td class="qname"><code>hmke:Location</code></td><td>場所</td><td class="dr"><span class="none">—</span></td><td class="def">EntityInContext の属性として付与される地理的場所。地理座標や地名を保持する。</td></tr>
+<tr><td class="qname"><code>hmke:Role</code></td><td>地位・役職</td><td class="dr"><span class="none">—</span></td><td class="def">社会的地位・官職・所属集団における役割など、EntityInContext に付与されうる社会的属性。</td></tr>
+  </tbody>
+</table>
+<h3>オブジェクトプロパティ (Object Properties) — 9 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmke:contextualAspectOf</code></td><td>文脈的側面</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Entity</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">EntityInContext が、どの普遍的実体 (Entity) の特定コンテキストにおける側面であるかを示す。
+一つの Entity は複数の EntityInContext を持ちうるが、EntityInContext は必ず 1 つの Entity と対応付けられる。</td></tr>
+<tr><td class="qname"><code>hmke:eventSince</code></td><td>開始基準となる出来事</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。</td></tr>
+<tr><td class="qname"><code>hmke:eventUntil</code></td><td>終了基準となる出来事</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。</td></tr>
+<tr><td class="qname"><code>hmke:generatedBy</code></td><td>解釈行為による生成</td><td class="dr">(hmke:EntityInContext ∪ hmke:Entity ∪ hmke:Event)</td><td class="dr">hmkia:InterpretationAct</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext / Entity / Event を生成した解釈行為 (hmkia:InterpretationAct)。</td></tr>
+<tr><td class="qname"><code>hmke:hasLocation</code></td><td>所在地</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Location</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityInContext が有する地理的場所 (滞在地・活動地域など)。</td></tr>
+<tr><td class="qname"><code>hmke:hasRole</code></td><td>社会的地位・官職</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Role</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityInContext が有する社会的地位・官職・所属集団における役割など。</td></tr>
+<tr><td class="qname"><code>hmke:memberOf</code></td><td>所属集団</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Entity</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityInContext が所属する共同体・政治勢力・家族などの Entity。</td></tr>
+<tr><td class="qname"><code>hmke:mentionedAsPrecedent</code></td><td>先行する出来事として言及</td><td class="dr">hmke:Event</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Event 同士の前後関係。この Event が他の Event よりも時系列的に先行することを示す。
+絶対年代が不明でも相対的な時間関係を記述できる。</td></tr>
+<tr><td class="qname"><code>hmke:relatedEntityInContext</code></td><td>関連する文脈付き実体</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:EntityInContext</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">他の EntityInContext との関係 (家族関係・主従関係など)。より具体的な関係はサブプロパティで表現する。</td></tr>
+  </tbody>
+</table>
+<h3>データプロパティ (Datatype Properties) — 9 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmke:absoluteDate</code></td><td>絶対年代</td><td class="dr">hmke:Event</td><td class="dr">xsd:gYear</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Event に絶対年代が推定される場合の年月日。不確実な場合は付与しない。</td></tr>
+<tr><td class="qname"><code>hmke:authorityURI</code></td><td>典拠 URI</td><td class="dr">hmke:Entity</td><td class="dr">xsd:anyURI</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Entity が対応付けられる外部典拠データの URI (Wikidata Q番号、VIAF ID、GeoNames ID、Pleiades ID など)。
+複数の典拠に対応付けられる場合は複数値を持ちうる。</td></tr>
+<tr><td class="qname"><code>hmke:entityType</code></td><td>実体種別</td><td class="dr">hmke:Entity</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Entity の種別 (person / place / organization / object など)。</td></tr>
+<tr><td class="qname"><code>hmke:eventLabel</code></td><td>出来事の記述</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Event の内容を表す自然言語のラベル (例: &#x27;Consulship of X in 121 CE&#x27;)。</td></tr>
+<tr><td class="qname"><code>hmke:label</code></td><td>正準名</td><td class="dr">hmke:Entity</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Entity の正準的な名称 (現代の研究文献での標準綴り)。言語タグ付き文字列を推奨。</td></tr>
+<tr><td class="qname"><code>hmke:lat</code></td><td>緯度</td><td class="dr">hmke:Location</td><td class="dr">xsd:decimal</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def"><span class="none">—</span></td></tr>
+<tr><td class="qname"><code>hmke:locationLabel</code></td><td>場所の名称</td><td class="dr">hmke:Location</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">場所の地名 (現代地名 / 古代地名)。</td></tr>
+<tr><td class="qname"><code>hmke:long</code></td><td>経度</td><td class="dr">hmke:Location</td><td class="dr">xsd:decimal</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def"><span class="none">—</span></td></tr>
+<tr><td class="qname"><code>hmke:roleLabel</code></td><td>役職名</td><td class="dr">hmke:Role</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">官職名・地位の名称 (例: &#x27;consul&#x27;, &#x27;aedilis&#x27;, &#x27;flamen&#x27;, &#x27;patronus&#x27;)。</td></tr>
+  </tbody>
+</table>
+<h2 style="background:#8b5cf6">解釈行為層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmkia:</code></h2>
+<h3>クラス (Classes) — 4 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:16%">QName</th><th style="width:14%">ラベル</th><th style="width:18%">上位クラス</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmkia:Agent</code></td><td>解釈主体</td><td class="dr">prov:Agent</td><td class="def">解釈行為を実施した主体 (研究者・研究チーム・機械学習モデルなど)。</td></tr>
+<tr><td class="qname"><code>hmkia:InterpretationAct</code></td><td>解釈行為</td><td class="dr">hico:InterpretationAct, prov:Activity</td><td class="def">歴史研究者による解釈行為そのものを実体化したリソース。
+Annotation・Statement・EntityInContext などの知識リソースは、必ずいずれかの InterpretationAct
+から生成される。InterpretationAct 自体は生成主体 (Agent)・生成日時 (Date) を保持し、
+他の InterpretationAct と支持・批判・修正などの関係で接続されうる。HiCO における hico:InterpretationAct を継承する。
+サブクラスとして InterpretationCreationAct (知識リソースの初回生成) と
+InterpretationUpdateAct (既存リソースの更新) を持つ。</td></tr>
+<tr><td class="qname"><code>hmkia:InterpretationCreationAct</code></td><td>解釈生成行為</td><td class="dr">hmkia:InterpretationAct</td><td class="def">知識リソース (Statement, EntityReference など) を初めて生成する解釈行為。
+生成されたリソースは hmki:generatedBy によってこの行為を参照する。</td></tr>
+<tr><td class="qname"><code>hmkia:InterpretationUpdateAct</code></td><td>解釈更新行為</td><td class="dr">hmkia:InterpretationAct</td><td class="def">既存の知識リソース (Statement など) を更新する解釈行為。
+UpdateAct が生成したリソースは新しい URI を持つ別インスタンスとして生成され、
+prov:wasRevisionOf によって前バージョンのリソースを参照する。
+UpdateAct 自身は hmkia:revises によって先行する InterpretationAct
+(CreationAct または UpdateAct) を参照する。</td></tr>
+  </tbody>
+</table>
+<h3>オブジェクトプロパティ (Object Properties) — 7 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmkia:associatedWith</code></td><td>実施主体</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">hmkia:Agent</td><td class="dr">prov:wasAssociatedWith</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この解釈行為を実施した主体 (Agent)。PROV-O の prov:wasAssociatedWith と対応する。</td></tr>
+<tr><td class="qname"><code>hmkia:basedOn</code></td><td>依拠した資料</td><td class="dr">hmkia:InterpretationAct</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この解釈行為が依拠した資料 (原資料・二次研究文献・翻訳など)。HiCO の hico:isExtractedFrom と対応する。</td></tr>
+<tr><td class="qname"><code>hmkia:critiques</code></td><td>批判する</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">cito:disagreesWith</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この解釈行為が他の解釈行為を批判 (異議申し立て) することを示す。CiTO の cito:disagreesWith に対応する。</td></tr>
+<tr><td class="qname"><code>hmkia:derivedFrom</code></td><td>派生元の解釈行為</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">prov:wasDerivedFrom</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この解釈行為が他の解釈行為から派生していることを示す。修正・支持・批判の共通上位関係。</td></tr>
+<tr><td class="qname"><code>hmkia:generated</code></td><td>生成したリソース</td><td class="dr">hmkia:InterpretationAct</td><td class="dr"><span class="none">—</span></td><td class="dr">prov:generated</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この解釈行為が生成したデータリソース (Annotation, Statement, EntityReference,
+EntityInContext, Entity など)。逆方向は各層で定義される generatedBy プロパティが担う。</td></tr>
+<tr><td class="qname"><code>hmkia:revises</code></td><td>修正する</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">hmkia:InterpretationAct</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この解釈行為が他の解釈行為を修正 (継承しつつ変更) することを示す。
+InterpretationUpdateAct が InterpretationCreationAct または先行する InterpretationUpdateAct を
+修正する場合に使用する。生成されたリソース側では prov:wasRevisionOf によって
+前バージョンのリソースを参照する。</td></tr>
+<tr><td class="qname"><code>hmkia:supports</code></td><td>支持する</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">cito:agreesWith</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この解釈行為が他の解釈行為を支持することを示す。CiTO の cito:supports に対応する。</td></tr>
+  </tbody>
+</table>
+<h3>データプロパティ (Datatype Properties) — 7 件</h3>
+<table class="ttable">
+  <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
+  <tbody>
+<tr><td class="qname"><code>hmkia:agentName</code></td><td>主体名</td><td class="dr">hmkia:Agent</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Agent の名前 (研究者名・チーム名・モデル名)。</td></tr>
+<tr><td class="qname"><code>hmkia:agentType</code></td><td>主体種別</td><td class="dr">hmkia:Agent</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Agent の種別 (person / team / software など)。</td></tr>
+<tr><td class="qname"><code>hmkia:confidence</code></td><td>確信度</td><td class="dr">hmkia:InterpretationAct</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">解釈の確信度 (0.0-1.0 の実数、または &#x27;high&#x27; / &#x27;medium&#x27; / &#x27;low&#x27; の質的値)。</td></tr>
+<tr><td class="qname"><code>hmkia:hasCriterion</code></td><td>解釈基準</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">解釈に用いた基準・方法論の記述 (例: &#x27;paleographic analysis&#x27;, &#x27;prosopographic comparison&#x27;)。</td></tr>
+<tr><td class="qname"><code>hmkia:hasDate</code></td><td>解釈日時</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">xsd:dateTime</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この解釈行為が実施された日時。ISO 8601 形式を推奨。</td></tr>
+<tr><td class="qname"><code>hmkia:hasType</code></td><td>解釈種別</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">解釈行為の種別 (例: &#x27;transcription&#x27;, &#x27;restoration&#x27;, &#x27;identification&#x27;, &#x27;dating&#x27;)。</td></tr>
+<tr><td class="qname"><code>hmkia:note</code></td><td>備考</td><td class="dr">hmkia:InterpretationAct</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">解釈行為に関する自由記述の備考。</td></tr>
+  </tbody>
+</table>
+
+<footer>
+自動生成元: <code>ontology/hmk_owl/*.ttl</code> · ビルダー: <code>ontology/build_tables.py</code>
+</footer>
+</body>
+</html>

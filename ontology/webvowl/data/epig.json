@@ -1,0 +1,2231 @@
+{
+  "_comment": "Created with OWL2VOWL (version 0.2.0), http://vowl.visualdataweb.org",
+  "namespace": [],
+  "header": {
+    "languages": [
+      "IRI-based",
+      "ja",
+      "en"
+    ],
+    "title": {
+      "ja": "碑文経歴オントロジー",
+      "en": "Epigraphic Careers Ontology"
+    },
+    "uri": "http://epigraphic-careers.org/ontology",
+    "version": "2.0.0",
+    "author": [
+      "inscription_llm pipeline"
+    ],
+    "description": {
+      "ja": "ローマ碑文 (EDCS) から LLM で抽出した人物・経歴・寄進・共同体・\n人物間関係を記述するオントロジー。EDCS 由来の「事実」と LLM 由来の「解釈」を\nNamed Graph で分離し、生成来歴を PROV-O で追跡する。\nHIMIKO 上位オントロジー (hmkp / hmki / hmkia) を参照し、史料物理層・\n史料内在知識層・解釈行為層との整合を保つ。"
+    },
+    "seeAlso": [
+      "http://www.w3.org/ns/prov#"
+    ],
+    "iri": "http://epigraphic-careers.org/ontology",
+    "baseIri": "http://epigraphic-careers.org/ontology"
+  },
+  "metrics": {
+    "classCount": 15,
+    "datatypeCount": 57,
+    "objectPropertyCount": 12,
+    "datatypePropertyCount": 57,
+    "propertyCount": 69,
+    "nodeCount": 72,
+    "axiomCount": 430,
+    "individualCount": 0
+  },
+  "class": [
+    {
+      "id": "class8",
+      "type": "externalclass"
+    },
+    {
+      "id": "class4",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class9",
+      "type": "externalclass"
+    },
+    {
+      "id": "class5",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class15",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class7",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class3",
+      "type": "externalclass"
+    },
+    {
+      "id": "class12",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class2",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class11",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class14",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class6",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class13",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class10",
+      "type": "externalclass"
+    },
+    {
+      "id": "class1",
+      "type": "owl:Class"
+    },
+    {
+      "id": "thing1",
+      "type": "owl:Thing"
+    },
+    {
+      "id": "class16",
+      "type": "owl:unionOf"
+    },
+    {
+      "id": "class17",
+      "type": "owl:unionOf"
+    }
+  ],
+  "classAttribute": [
+    {
+      "id": "class8",
+      "label": {
+        "ja": "エンティティ言及",
+        "en": "Entity Reference"
+      },
+      "iri": "urn:himiko:ontology:intrinsic:EntityReference",
+      "comment": {
+        "ja": "史料中における人物・場所・組織などへの個別の言及。\n史料横断的で普遍的な実体そのもの (hmke:Entity) ではなく、あくまでその史料における一回的な言及として記述される。\n史料上での表記や、史料内での役割 (hmki:hasRole) など、史料固有の情報を保持する。\n史料物理層の Character 範囲を hmki:hasRange によって参照することでテキスト上の位置を指定する。"
+      },
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class15",
+        "class2"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class4",
+      "label": {
+        "IRI-based": "RelationshipStatement",
+        "ja": "関係言及",
+        "en": "Relationship Statement"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#RelationshipStatement",
+      "comment": {
+        "ja": "碑文中で言及される人物間・人物-共同体間の関係。hmki:Statement のサブクラス。"
+      },
+      "superClasses": [
+        "class9"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class9",
+      "label": {
+        "ja": "イベント言及",
+        "en": "Statement"
+      },
+      "iri": "urn:himiko:ontology:intrinsic:Statement",
+      "comment": {
+        "ja": "史料中で言及されるイベント (出来事・状態・関係性) の基本単位。\n論文中では MicroKnowledge とも呼ばれる。「出来事」に限定されず、エンティティに付随する\n継続的な状態・属性やエンティティ間の継続的な関係性も含む。\nStatement 同士は時系列・因果などの意味的関係性によって再帰的に接続されうる。\n史料中の Character を hmki:mentions によって直接指し、その根拠を保持する。\nInterpretationUpdateAct によって更新された Statement は新しい URI を持つ別インスタンスとして生成され、\nprov:wasRevisionOf によって前バージョンの Statement を参照する。\n現在の最新版は、他のいかなる Statement からも prov:wasRevisionOf で参照されていないインスタンスである。"
+      },
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class12",
+        "class6",
+        "class4"
+      ],
+      "superClasses": [
+        "class10"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class5",
+      "label": {
+        "IRI-based": "Province",
+        "ja": "属州",
+        "en": "Province"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#Province",
+      "comment": {
+        "ja": "ローマ属州。"
+      },
+      "annotations": {
+        "seeAlso": [
+          {
+            "identifier": "seeAlso",
+            "language": "undefined",
+            "value": "https://schema.org/Place",
+            "type": "iri"
+          }
+        ]
+      },
+      "instances": 0
+    },
+    {
+      "id": "class15",
+      "label": {
+        "IRI-based": "CommunityReference",
+        "ja": "共同体言及",
+        "en": "Community Reference"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#CommunityReference",
+      "comment": {
+        "ja": "碑文中における共同体への一回的な言及。hmki:EntityReference のサブクラス。"
+      },
+      "superClasses": [
+        "class8"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class7",
+      "label": {
+        "IRI-based": "SocialStatus",
+        "ja": "社会的身分",
+        "en": "Social Status"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#SocialStatus",
+      "comment": {
+        "ja": "人物の社会的身分の共有リソース (例: decurio)。"
+      },
+      "instances": 0
+    },
+    {
+      "id": "class3",
+      "label": {},
+      "iri": "urn:himiko:ontology:physical:Source",
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class14"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class12",
+      "label": {
+        "IRI-based": "BenefactionStatement",
+        "ja": "寄進言及",
+        "en": "Benefaction Statement"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#BenefactionStatement",
+      "comment": {
+        "ja": "碑文中で言及される寄進・恩恵行為。hmki:Statement のサブクラス。"
+      },
+      "superClasses": [
+        "class9"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class2",
+      "label": {
+        "IRI-based": "PersonReference",
+        "ja": "人物言及",
+        "en": "Person Reference"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#PersonReference",
+      "comment": {
+        "ja": "碑文中における人物への一回的な言及。hmki:EntityReference のサブクラス。"
+      },
+      "superClasses": [
+        "class8"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class11",
+      "label": {
+        "IRI-based": "ExternalDatabaseLink",
+        "ja": "外部DBリンク",
+        "en": "External Database Link"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#ExternalDatabaseLink",
+      "comment": {
+        "ja": "EDCS や SIRAR など外部データベースへの参照リソース。"
+      },
+      "instances": 0
+    },
+    {
+      "id": "class14",
+      "label": {
+        "IRI-based": "Inscription",
+        "ja": "碑文",
+        "en": "Inscription"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#Inscription",
+      "comment": {
+        "ja": "EDCS 由来の 1 碑文。hmkp:Source のサブクラスとして史料物理層に位置付けられる。"
+      },
+      "superClasses": [
+        "class3"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class6",
+      "label": {
+        "IRI-based": "CareerStatement",
+        "ja": "経歴言及",
+        "en": "Career Statement"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#CareerStatement",
+      "comment": {
+        "ja": "碑文中で言及される経歴・役職保持の出来事。hmki:Statement のサブクラス。"
+      },
+      "superClasses": [
+        "class9"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class13",
+      "label": {
+        "IRI-based": "Place",
+        "ja": "地名",
+        "en": "Place"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#Place",
+      "comment": {
+        "ja": "碑文の出土地。可能なら owl:sameAs で Pleiades に連結される。"
+      },
+      "annotations": {
+        "seeAlso": [
+          {
+            "identifier": "seeAlso",
+            "language": "undefined",
+            "value": "https://schema.org/Place",
+            "type": "iri"
+          }
+        ]
+      },
+      "instances": 0
+    },
+    {
+      "id": "class10",
+      "label": {
+        "IRI-based": "Entity"
+      },
+      "iri": "http://www.w3.org/ns/prov#Entity",
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class9"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class1",
+      "label": {
+        "IRI-based": "DivinityType",
+        "ja": "神格タイプ",
+        "en": "Divinity Type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#DivinityType",
+      "comment": {
+        "ja": "神格化された人物の分類 (enrich divinity が生成)。"
+      },
+      "instances": 0
+    },
+    {
+      "id": "thing1",
+      "label": {
+        "undefined": "Thing"
+      },
+      "iri": "http://www.w3.org/2002/07/owl#Thing",
+      "instances": 0
+    },
+    {
+      "id": "class16",
+      "label": {
+        "IRI-based": "anonymous"
+      },
+      "instances": 0,
+      "union": [
+        "class2",
+        "class15"
+      ]
+    },
+    {
+      "id": "class17",
+      "label": {
+        "IRI-based": "anonymous"
+      },
+      "instances": 0,
+      "union": [
+        "class4",
+        "class15"
+      ]
+    }
+  ],
+  "datatype": [
+    {
+      "id": "datatype20",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype21",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype24",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype25",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype22",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype23",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype28",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype29",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype26",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype27",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype53",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype10",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype54",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype51",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype52",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype13",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype57",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype14",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype11",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype55",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype12",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype56",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype17",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype18",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype15",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype16",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype19",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype1",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype50",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype3",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype2",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype5",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype42",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype4",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype43",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype7",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype40",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype6",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype41",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype9",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype46",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype8",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype47",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype44",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype45",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype48",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype49",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype31",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype32",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype30",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype35",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype36",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype33",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype34",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype39",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype37",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype38",
+      "type": "rdfs:Datatype"
+    }
+  ],
+  "datatypeAttribute": [
+    {
+      "id": "datatype20",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype21",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype24",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype25",
+      "label": {
+        "IRI-based": "boolean"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    {
+      "id": "datatype22",
+      "label": {
+        "IRI-based": "integer"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "id": "datatype23",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype28",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype29",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype26",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype27",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype53",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype10",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype54",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype51",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype52",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype13",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype57",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype14",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype11",
+      "label": {
+        "IRI-based": "integer"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "id": "datatype55",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype12",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype56",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype17",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype18",
+      "label": {
+        "IRI-based": "integer"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "id": "datatype15",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype16",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype19",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype1",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype50",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype3",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype2",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype5",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype42",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype4",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype43",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype7",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype40",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype6",
+      "label": {
+        "IRI-based": "integer"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "id": "datatype41",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype9",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype46",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype8",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype47",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype44",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype45",
+      "label": {
+        "IRI-based": "integer"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    {
+      "id": "datatype48",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype49",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype31",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype32",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype30",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype35",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype36",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype33",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype34",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype39",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype37",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "datatype38",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    }
+  ],
+  "property": [
+    {
+      "id": "property72",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property15",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property19",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property60",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property64",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property26",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property2",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property11",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property1",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property4",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property3",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property13",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property66",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property8",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property12",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property21",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property39",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property32",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property9",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property33",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property30",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property20",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property31",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property37",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property43",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property65",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property23",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property45",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property36",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property54",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property76",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property56",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property22",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property44",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property49",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property35",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property55",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property70",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property51",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property75",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property38",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property53",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property67",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property34",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property25",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property41",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property61",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property14",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property27",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property46",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property47",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property17",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property40",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property68",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property10",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property42",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property48",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property52",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property50",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property28",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property6",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property5",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property63",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property7",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property24",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property71",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property69",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property18",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property62",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property58",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property73",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property16",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property29",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property74",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property59",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property57",
+      "type": "owl:datatypeProperty"
+    }
+  ],
+  "propertyAttribute": [
+    {
+      "id": "property72",
+      "label": {
+        "IRI-based": "activityType",
+        "ja": "アクティビティ種別",
+        "en": "activity type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#activityType",
+      "comment": {
+        "ja": "InterpretationAct の実装レベル種別ラベル。\nInterpretationCreationAct: extract, reextract_relationships など。\nInterpretationUpdateAct: enrich_cost, enrich_career_location, enrich_divinity,\nenrich_vital_events, enrich_benef_objects, enrich_benef_recipients, schema_fix など。"
+      },
+      "domain": "thing1",
+      "range": "datatype53"
+    },
+    {
+      "id": "property15",
+      "label": {
+        "IRI-based": "findspot",
+        "ja": "出土地",
+        "en": "findspot"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#findspot",
+      "domain": "class14",
+      "range": "class13"
+    },
+    {
+      "id": "property19",
+      "label": {
+        "ja": "参照する (エンティティ言及)",
+        "en": "references (entity reference)"
+      },
+      "iri": "urn:himiko:ontology:intrinsic:references",
+      "comment": {
+        "ja": "Statement を構成する EntityReference への参照。1 つの Statement は複数の EntityReference を参照しうる。"
+      },
+      "attributes": [
+        "external"
+      ],
+      "domain": "class9",
+      "range": "class8",
+      "subproperty": [
+        "property8",
+        "property13",
+        "property10",
+        "property11",
+        "property16"
+      ]
+    },
+    {
+      "id": "property60",
+      "label": {
+        "IRI-based": "birthPlaceNormalized",
+        "ja": "出生地(正規化)",
+        "en": "birth place (normalized)"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#birthPlaceNormalized",
+      "domain": "class2",
+      "range": "datatype41"
+    },
+    {
+      "id": "property64",
+      "label": {
+        "IRI-based": "datingTo",
+        "ja": "年代上限",
+        "en": "dating to"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#datingTo",
+      "domain": "class14",
+      "range": "datatype45"
+    },
+    {
+      "id": "property26",
+      "label": {
+        "IRI-based": "divinityClassificationReasoning",
+        "ja": "神格分類の根拠",
+        "en": "divinity classification reasoning"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#divinityClassificationReasoning",
+      "domain": "class2",
+      "range": "datatype7"
+    },
+    {
+      "id": "property2",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class2",
+      "range": "class8"
+    },
+    {
+      "id": "property11",
+      "label": {
+        "IRI-based": "subject",
+        "ja": "主体人物言及",
+        "en": "subject"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#subject",
+      "comment": {
+        "ja": "CareerStatement の主体となる人物言及。hmki:references のサブプロパティ。"
+      },
+      "domain": "class6",
+      "range": "class2",
+      "superproperty": [
+        "property19"
+      ]
+    },
+    {
+      "id": "property1",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class15",
+      "range": "class8"
+    },
+    {
+      "id": "property4",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class6",
+      "range": "class9"
+    },
+    {
+      "id": "property3",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class12",
+      "range": "class9"
+    },
+    {
+      "id": "property13",
+      "label": {
+        "IRI-based": "recipient",
+        "ja": "受益者言及",
+        "en": "recipient"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#recipient",
+      "comment": {
+        "ja": "BenefactionStatement の受益者となる言及。hmki:references のサブプロパティ。"
+      },
+      "domain": "class12",
+      "range": "class16",
+      "superproperty": [
+        "property19"
+      ]
+    },
+    {
+      "id": "property66",
+      "label": {
+        "IRI-based": "benefactionType",
+        "ja": "寄進種別",
+        "en": "benefaction type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#benefactionType",
+      "domain": "class12",
+      "range": "datatype47"
+    },
+    {
+      "id": "property8",
+      "label": {
+        "IRI-based": "agent",
+        "ja": "恵与主体言及",
+        "en": "agent"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#agent",
+      "comment": {
+        "ja": "BenefactionStatement の実施主体となる言及。hmki:references のサブプロパティ。"
+      },
+      "domain": "class12",
+      "range": "class16",
+      "superproperty": [
+        "property19"
+      ]
+    },
+    {
+      "id": "property12",
+      "label": {
+        "IRI-based": "interpretsInscription",
+        "ja": "碑文を解釈する",
+        "en": "interprets inscription"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#interpretsInscription",
+      "comment": {
+        "ja": "LLM 解釈グラフ (prov:Entity) から対象碑文へのリンク。"
+      },
+      "domain": "class10",
+      "range": "class14"
+    },
+    {
+      "id": "property21",
+      "label": {
+        "IRI-based": "deathPlaceEvidence",
+        "ja": "没地の根拠",
+        "en": "death place evidence"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#deathPlaceEvidence",
+      "domain": "class2",
+      "range": "datatype2"
+    },
+    {
+      "id": "property39",
+      "label": {
+        "IRI-based": "benefactionText",
+        "ja": "寄進テキスト",
+        "en": "benefaction text"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#benefactionText",
+      "domain": "class12",
+      "range": "datatype20"
+    },
+    {
+      "id": "property32",
+      "label": {
+        "IRI-based": "notes",
+        "ja": "注記",
+        "en": "notes"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#notes",
+      "comment": {
+        "ja": "寄進・共同体・関係などに付随する自由記述の注記。"
+      },
+      "domain": "thing1",
+      "range": "datatype13"
+    },
+    {
+      "id": "property9",
+      "label": {
+        "IRI-based": "province",
+        "ja": "属州",
+        "en": "province"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#province",
+      "domain": "class14",
+      "range": "class5"
+    },
+    {
+      "id": "property33",
+      "label": {
+        "IRI-based": "deathPlaceSource",
+        "ja": "没地の出典",
+        "en": "death place source"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#deathPlaceSource",
+      "domain": "class2",
+      "range": "datatype14"
+    },
+    {
+      "id": "property30",
+      "label": {
+        "IRI-based": "order",
+        "ja": "順序",
+        "en": "order"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#order",
+      "comment": {
+        "ja": "経歴中での役職の並び順 (0 始まり)。"
+      },
+      "attributes": [
+        "functional"
+      ],
+      "domain": "class6",
+      "range": "datatype11"
+    },
+    {
+      "id": "property20",
+      "label": {
+        "IRI-based": "praenomen",
+        "ja": "プラエノーメン",
+        "en": "praenomen"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#praenomen",
+      "domain": "class2",
+      "range": "datatype1"
+    },
+    {
+      "id": "property31",
+      "label": {
+        "IRI-based": "objectText",
+        "ja": "対象物(原文)",
+        "en": "object text"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#objectText",
+      "domain": "class12",
+      "range": "datatype12"
+    },
+    {
+      "id": "property37",
+      "label": {
+        "IRI-based": "costNumeric",
+        "ja": "費用(数値)",
+        "en": "cost (numeric)"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#costNumeric",
+      "comment": {
+        "ja": "enrich (cost) が付与した換算数値。"
+      },
+      "domain": "class12",
+      "range": "datatype18"
+    },
+    {
+      "id": "property43",
+      "label": {
+        "IRI-based": "pleiadesId",
+        "ja": "Pleiades ID",
+        "en": "Pleiades ID"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#pleiadesId",
+      "comment": {
+        "ja": "出土地に対応する Pleiades 地名典拠の数値 ID (例: 315223)。対応する典拠 URI は https://pleiades.stoa.org/places/<id> で構成される。"
+      },
+      "domain": "class13",
+      "range": "datatype24"
+    },
+    {
+      "id": "property65",
+      "label": {
+        "IRI-based": "objectDescription",
+        "ja": "対象物の説明",
+        "en": "object description"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#objectDescription",
+      "domain": "class12",
+      "range": "datatype46"
+    },
+    {
+      "id": "property23",
+      "label": {
+        "IRI-based": "positionDescription",
+        "ja": "役職の説明",
+        "en": "position description"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#positionDescription",
+      "domain": "class6",
+      "range": "datatype4"
+    },
+    {
+      "id": "property45",
+      "label": {
+        "IRI-based": "nomen",
+        "ja": "ノーメン",
+        "en": "nomen"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#nomen",
+      "domain": "class2",
+      "range": "datatype26"
+    },
+    {
+      "id": "property36",
+      "label": {
+        "IRI-based": "positionNormalized",
+        "ja": "役職名(正規化)",
+        "en": "position (normalized)"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#positionNormalized",
+      "domain": "class6",
+      "range": "datatype17"
+    },
+    {
+      "id": "property54",
+      "label": {
+        "IRI-based": "gender",
+        "ja": "性別",
+        "en": "gender"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#gender",
+      "domain": "class2",
+      "range": "datatype35"
+    },
+    {
+      "id": "property76",
+      "label": {
+        "IRI-based": "genderEvidence",
+        "ja": "性別の根拠",
+        "en": "gender evidence"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#genderEvidence",
+      "domain": "class2",
+      "range": "datatype57"
+    },
+    {
+      "id": "property56",
+      "label": {
+        "IRI-based": "costOriginalText",
+        "ja": "費用の原文",
+        "en": "cost original text"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#costOriginalText",
+      "domain": "class12",
+      "range": "datatype37"
+    },
+    {
+      "id": "property22",
+      "label": {
+        "IRI-based": "objectType",
+        "ja": "対象物種別",
+        "en": "object type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#objectType",
+      "domain": "class12",
+      "range": "datatype3"
+    },
+    {
+      "id": "property44",
+      "label": {
+        "IRI-based": "isDivinity",
+        "ja": "神格化されているか",
+        "en": "is divinity"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#isDivinity",
+      "domain": "class2",
+      "range": "datatype25"
+    },
+    {
+      "id": "property49",
+      "label": {
+        "IRI-based": "edcsId",
+        "ja": "EDCS ID",
+        "en": "EDCS ID"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#edcsId",
+      "attributes": [
+        "functional"
+      ],
+      "domain": "class14",
+      "range": "datatype30"
+    },
+    {
+      "id": "property35",
+      "label": {
+        "IRI-based": "deathPlace",
+        "ja": "没地",
+        "en": "death place"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#deathPlace",
+      "domain": "class2",
+      "range": "datatype16"
+    },
+    {
+      "id": "property55",
+      "label": {
+        "IRI-based": "normalizedName",
+        "ja": "正規化名",
+        "en": "normalized name"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#normalizedName",
+      "domain": "class16",
+      "range": "datatype36"
+    },
+    {
+      "id": "property70",
+      "label": {
+        "IRI-based": "personName",
+        "ja": "人名",
+        "en": "person name"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#personName",
+      "domain": "class2",
+      "range": "datatype51"
+    },
+    {
+      "id": "property51",
+      "label": {
+        "IRI-based": "locationNormalized",
+        "ja": "役職地(正規化)",
+        "en": "location (normalized)"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#locationNormalized",
+      "domain": "class6",
+      "range": "datatype32"
+    },
+    {
+      "id": "property75",
+      "label": {
+        "IRI-based": "positionAbstract",
+        "ja": "役職(抽象化)",
+        "en": "position (abstract)"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#positionAbstract",
+      "domain": "class6",
+      "range": "datatype56"
+    },
+    {
+      "id": "property38",
+      "label": {
+        "IRI-based": "communityDescription",
+        "ja": "共同体の説明",
+        "en": "community description"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#communityDescription",
+      "domain": "class15",
+      "range": "datatype19"
+    },
+    {
+      "id": "property53",
+      "label": {
+        "IRI-based": "ageAtDeathEvidence",
+        "ja": "没年齢の根拠",
+        "en": "age at death evidence"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#ageAtDeathEvidence",
+      "domain": "class2",
+      "range": "datatype34"
+    },
+    {
+      "id": "property67",
+      "label": {
+        "IRI-based": "location",
+        "ja": "役職地",
+        "en": "location"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#location",
+      "comment": {
+        "ja": "enrich (career_location) が付与。役職を務めた場所。"
+      },
+      "domain": "class6",
+      "range": "datatype48"
+    },
+    {
+      "id": "property34",
+      "label": {
+        "IRI-based": "cognomen",
+        "ja": "コグノーメン",
+        "en": "cognomen"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#cognomen",
+      "domain": "class2",
+      "range": "datatype15"
+    },
+    {
+      "id": "property25",
+      "label": {
+        "IRI-based": "ageAtDeath",
+        "ja": "没年齢",
+        "en": "age at death"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#ageAtDeath",
+      "domain": "class2",
+      "range": "datatype6"
+    },
+    {
+      "id": "property41",
+      "label": {
+        "IRI-based": "datingFrom",
+        "ja": "年代下限",
+        "en": "dating from"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#datingFrom",
+      "comment": {
+        "ja": "碑文年代の始点 (年、負値で紀元前)。"
+      },
+      "domain": "class14",
+      "range": "datatype22"
+    },
+    {
+      "id": "property61",
+      "label": {
+        "IRI-based": "locationEvidence",
+        "ja": "役職地の根拠",
+        "en": "location evidence"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#locationEvidence",
+      "domain": "class6",
+      "range": "datatype42"
+    },
+    {
+      "id": "property14",
+      "label": {
+        "IRI-based": "externalLink",
+        "ja": "外部DBリンク",
+        "en": "external link"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#externalLink",
+      "domain": "class14",
+      "range": "class11"
+    },
+    {
+      "id": "property27",
+      "label": {
+        "IRI-based": "positionType",
+        "ja": "役職種別",
+        "en": "position type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#positionType",
+      "domain": "class6",
+      "range": "datatype8"
+    },
+    {
+      "id": "property46",
+      "label": {
+        "IRI-based": "interpretationNotes",
+        "ja": "解釈注記",
+        "en": "interpretation notes"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#interpretationNotes",
+      "domain": "class14",
+      "range": "datatype27"
+    },
+    {
+      "id": "property47",
+      "label": {
+        "IRI-based": "script",
+        "ja": "スクリプト",
+        "en": "script"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#script",
+      "comment": {
+        "ja": "prov:Activity / hmkia:InterpretationAct を生成したスクリプトのファイル名。"
+      },
+      "domain": "thing1",
+      "range": "datatype28"
+    },
+    {
+      "id": "property17",
+      "label": {
+        "IRI-based": "socialStatus",
+        "ja": "社会的身分",
+        "en": "social status"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#socialStatus",
+      "domain": "class2",
+      "range": "class7"
+    },
+    {
+      "id": "property40",
+      "label": {
+        "IRI-based": "birthPlaceEvidence",
+        "ja": "出生地の根拠",
+        "en": "birth place evidence"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#birthPlaceEvidence",
+      "domain": "class2",
+      "range": "datatype21"
+    },
+    {
+      "id": "property68",
+      "label": {
+        "IRI-based": "birthPlace",
+        "ja": "出生地",
+        "en": "birth place"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#birthPlace",
+      "domain": "class2",
+      "range": "datatype49"
+    },
+    {
+      "id": "property10",
+      "label": {
+        "IRI-based": "source",
+        "ja": "関係起点言及",
+        "en": "source"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#source",
+      "comment": {
+        "ja": "RelationshipStatement の起点となる言及。hmki:references のサブプロパティ。"
+      },
+      "domain": "class4",
+      "range": "class2",
+      "superproperty": [
+        "property19"
+      ]
+    },
+    {
+      "id": "property42",
+      "label": {
+        "IRI-based": "database",
+        "ja": "データベース名",
+        "en": "database"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#database",
+      "domain": "class11",
+      "range": "datatype23"
+    },
+    {
+      "id": "property48",
+      "label": {
+        "IRI-based": "costConversionReasoning",
+        "ja": "費用換算の根拠",
+        "en": "cost conversion reasoning"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#costConversionReasoning",
+      "domain": "class12",
+      "range": "datatype29"
+    },
+    {
+      "id": "property52",
+      "label": {
+        "IRI-based": "ethnicity",
+        "ja": "民族",
+        "en": "ethnicity"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#ethnicity",
+      "domain": "class2",
+      "range": "datatype33"
+    },
+    {
+      "id": "property50",
+      "label": {
+        "IRI-based": "costUnit",
+        "ja": "費用単位",
+        "en": "cost unit"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#costUnit",
+      "domain": "class12",
+      "range": "datatype31"
+    },
+    {
+      "id": "property28",
+      "label": {
+        "IRI-based": "evidence",
+        "ja": "根拠テキスト",
+        "en": "evidence"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#evidence",
+      "comment": {
+        "ja": "碑文中の根拠となるテキスト。"
+      },
+      "domain": "class17",
+      "range": "datatype9"
+    },
+    {
+      "id": "property6",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class14",
+      "range": "class3"
+    },
+    {
+      "id": "property5",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class4",
+      "range": "class9"
+    },
+    {
+      "id": "property63",
+      "label": {
+        "IRI-based": "inscriptionType",
+        "ja": "碑文種別",
+        "en": "inscription type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#inscriptionType",
+      "comment": {
+        "ja": "EDCS の status 値 (墓碑・奉献等)。複数値をとりうる。"
+      },
+      "domain": "class14",
+      "range": "datatype44"
+    },
+    {
+      "id": "property7",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class9",
+      "range": "class10"
+    },
+    {
+      "id": "property24",
+      "label": {
+        "IRI-based": "relationshipProperty",
+        "ja": "関係プロパティ",
+        "en": "relationship property"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#relationshipProperty",
+      "domain": "class4",
+      "range": "datatype5"
+    },
+    {
+      "id": "property71",
+      "label": {
+        "IRI-based": "positionText",
+        "ja": "役職名(原文)",
+        "en": "position text"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#positionText",
+      "domain": "class6",
+      "range": "datatype52"
+    },
+    {
+      "id": "property69",
+      "label": {
+        "IRI-based": "publication",
+        "ja": "刊行情報",
+        "en": "publication"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#publication",
+      "comment": {
+        "ja": "CIL 等の刊行参照 (例: CIL 08 23112)。"
+      },
+      "domain": "class14",
+      "range": "datatype50"
+    },
+    {
+      "id": "property18",
+      "label": {
+        "IRI-based": "divinityType",
+        "ja": "神格タイプ",
+        "en": "divinity type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#divinityType",
+      "domain": "class2",
+      "range": "class1"
+    },
+    {
+      "id": "property62",
+      "label": {
+        "IRI-based": "relationshipType",
+        "ja": "関係種別",
+        "en": "relationship type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#relationshipType",
+      "domain": "class4",
+      "range": "datatype43"
+    },
+    {
+      "id": "property58",
+      "label": {
+        "IRI-based": "deathPlaceNormalized",
+        "ja": "没地(正規化)",
+        "en": "death place (normalized)"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#deathPlaceNormalized",
+      "domain": "class2",
+      "range": "datatype39"
+    },
+    {
+      "id": "property73",
+      "label": {
+        "IRI-based": "inscriptionText",
+        "ja": "碑文テキスト",
+        "en": "inscription text"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#inscriptionText",
+      "domain": "class14",
+      "range": "datatype54"
+    },
+    {
+      "id": "property16",
+      "label": {
+        "IRI-based": "target",
+        "ja": "関係対象言及",
+        "en": "target"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#target",
+      "comment": {
+        "ja": "RelationshipStatement の対象となる言及。hmki:references のサブプロパティ。"
+      },
+      "domain": "class4",
+      "range": "class16",
+      "superproperty": [
+        "property19"
+      ]
+    },
+    {
+      "id": "property29",
+      "label": {
+        "IRI-based": "socialStatusEvidence",
+        "ja": "身分の根拠",
+        "en": "social status evidence"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#socialStatusEvidence",
+      "domain": "class2",
+      "range": "datatype10"
+    },
+    {
+      "id": "property74",
+      "label": {
+        "IRI-based": "externalId",
+        "ja": "外部ID",
+        "en": "external ID"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#externalId",
+      "domain": "class11",
+      "range": "datatype55"
+    },
+    {
+      "id": "property59",
+      "label": {
+        "IRI-based": "ethnicityEvidence",
+        "ja": "民族の根拠",
+        "en": "ethnicity evidence"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#ethnicityEvidence",
+      "domain": "class2",
+      "range": "datatype40"
+    },
+    {
+      "id": "property57",
+      "label": {
+        "IRI-based": "communityType",
+        "ja": "共同体種別",
+        "en": "community type"
+      },
+      "iri": "http://epigraphic-careers.org/ontology#communityType",
+      "domain": "class15",
+      "range": "datatype38"
+    }
+  ]
+}

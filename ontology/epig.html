@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Epigraphic Careers Ontology (epig:)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bg: #ffffff;
+  --fg: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --code-bg: #f3f4f6;
+  --sidebar-bg: #f9fafb;
+  --link: #2563eb;
+  --accent: #0ea5e9;
+  --hmki-color: #f59e0b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  line-height: 1.65;
+}
+.wrapper { display: grid; grid-template-columns: 270px 1fr; min-height: 100vh; }
+nav.toc {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+  position: sticky; top: 0; align-self: start;
+  height: 100vh; overflow-y: auto;
+  font-size: 14px;
+}
+nav.toc h2 { font-size: 15px; margin: 20px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+nav.toc h2:first-child { margin-top: 0; }
+nav.toc ul { list-style: none; padding: 0; margin: 0 0 8px 0; }
+nav.toc li { margin: 3px 0; }
+nav.toc li.sub { padding-left: 12px; font-size: 13px; }
+nav.toc a { color: var(--fg); text-decoration: none; }
+nav.toc a:hover { color: var(--link); text-decoration: underline; }
+nav.toc a code { background: transparent; color: inherit; }
+
+main { padding: 40px 48px; max-width: 1000px; }
+h1 { font-size: 30px; margin: 0 0 8px; }
+h2 { font-size: 24px; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+h3 { font-size: 19px; margin: 28px 0 10px; color: var(--fg); }
+h4 { margin: 0; font-size: 18px; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 0.92em; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.subtitle { color: var(--muted); margin-top: 0; }
+.meta-block { background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px 18px; margin: 20px 0; font-size: 14px; }
+.meta-block dt { font-weight: 600; float: left; width: 130px; color: var(--muted); }
+.meta-block dd { margin: 0 0 4px 130px; }
+table.prefixes { border-collapse: collapse; width: 100%; font-size: 14px; margin: 12px 0; }
+table.prefixes td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+table.prefixes td:first-child { width: 100px; font-weight: 600; }
+table.prefixes code { background: transparent; padding: 0; }
+.layer-intro { padding: 12px 18px; border-left: 4px solid; background: var(--sidebar-bg); border-radius: 4px; margin: 12px 0 24px; font-size: 14px; }
+article.entity {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 5px solid;
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+article.entity header { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 8px; }
+.kind-badge { display: inline-block; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 3px; font-weight: 600; letter-spacing: .04em; }
+.kind-badge.functional { background: #6b7280; }
+article.entity h4 code { font-size: 17px; background: transparent; padding: 0; }
+article.entity p.label { margin: 0; color: var(--muted); font-size: 14px; flex-basis: 100%; }
+article.entity p.iri { flex-basis: 100%; margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+article.entity p.iri code { font-size: 11px; }
+article.entity .comment { margin: 8px 0; font-size: 15px; }
+article.entity dl.meta { margin: 12px 0 0; font-size: 14px; display: grid; grid-template-columns: 130px 1fr; gap: 4px 12px; }
+article.entity dl.meta dt { font-weight: 600; color: var(--muted); }
+article.entity dl.meta dd { margin: 0; }
+article.entity .none { color: var(--muted); font-style: italic; }
+.summary-row { display: flex; flex-wrap: wrap; gap: 14px; margin: 12px 0 24px; }
+.summary-card { flex: 1 1 200px; padding: 14px 18px; border-radius: 8px; color: #fff; }
+.summary-card h3 { color: #fff; margin: 0 0 6px; font-size: 16px; }
+.summary-card .n { font-size: 26px; font-weight: 700; }
+.summary-card .k { font-size: 13px; opacity: .9; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+@media (max-width: 900px) {
+  .wrapper { grid-template-columns: 1fr; }
+  nav.toc { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+  main { padding: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <nav class="toc">
+    <h2 style="margin-top:0">epig:</h2>
+<p style="font-size:12px;color:var(--muted);margin:0 0 12px">v2.0 · Epigraphic Careers Ontology</p>
+<h2>Contents</h2>
+<ul>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#namespaces">Namespaces</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#vowl">Interactive Ontology (WebVOWL)</a></li>
+</ul>
+<h2 style="color:var(--accent)">epig: Classes</h2>
+<ul>
+  <li class="sub"><a href="#epig-BenefactionStatement"><code>epig:BenefactionStatement</code></a></li>
+  <li class="sub"><a href="#epig-CareerStatement"><code>epig:CareerStatement</code></a></li>
+  <li class="sub"><a href="#epig-CommunityReference"><code>epig:CommunityReference</code></a></li>
+  <li class="sub"><a href="#epig-DivinityType"><code>epig:DivinityType</code></a></li>
+  <li class="sub"><a href="#epig-ExternalDatabaseLink"><code>epig:ExternalDatabaseLink</code></a></li>
+  <li class="sub"><a href="#epig-Inscription"><code>epig:Inscription</code></a></li>
+  <li class="sub"><a href="#epig-PersonReference"><code>epig:PersonReference</code></a></li>
+  <li class="sub"><a href="#epig-Place"><code>epig:Place</code></a></li>
+  <li class="sub"><a href="#epig-Province"><code>epig:Province</code></a></li>
+  <li class="sub"><a href="#epig-RelationshipStatement"><code>epig:RelationshipStatement</code></a></li>
+  <li class="sub"><a href="#epig-SocialStatus"><code>epig:SocialStatus</code></a></li>
+</ul>
+<h2 style="color:#6366f1">epig: Object Properties</h2>
+<ul>
+  <li class="sub"><a href="#epig-agent"><code>epig:agent</code></a></li>
+  <li class="sub"><a href="#epig-divinityType"><code>epig:divinityType</code></a></li>
+  <li class="sub"><a href="#epig-externalLink"><code>epig:externalLink</code></a></li>
+  <li class="sub"><a href="#epig-findspot"><code>epig:findspot</code></a></li>
+  <li class="sub"><a href="#epig-interpretsInscription"><code>epig:interpretsInscription</code></a></li>
+  <li class="sub"><a href="#epig-province"><code>epig:province</code></a></li>
+  <li class="sub"><a href="#epig-recipient"><code>epig:recipient</code></a></li>
+  <li class="sub"><a href="#epig-socialStatus"><code>epig:socialStatus</code></a></li>
+  <li class="sub"><a href="#epig-source"><code>epig:source</code></a></li>
+  <li class="sub"><a href="#epig-subject"><code>epig:subject</code></a></li>
+  <li class="sub"><a href="#epig-target"><code>epig:target</code></a></li>
+</ul>
+<h2 style="color:#10b981">epig: Datatype Properties</h2>
+<ul>
+  <li class="sub"><a href="#epig-activityType"><code>epig:activityType</code></a></li>
+  <li class="sub"><a href="#epig-ageAtDeath"><code>epig:ageAtDeath</code></a></li>
+  <li class="sub"><a href="#epig-ageAtDeathEvidence"><code>epig:ageAtDeathEvidence</code></a></li>
+  <li class="sub"><a href="#epig-benefactionText"><code>epig:benefactionText</code></a></li>
+  <li class="sub"><a href="#epig-benefactionType"><code>epig:benefactionType</code></a></li>
+  <li class="sub"><a href="#epig-birthPlace"><code>epig:birthPlace</code></a></li>
+  <li class="sub"><a href="#epig-birthPlaceEvidence"><code>epig:birthPlaceEvidence</code></a></li>
+  <li class="sub"><a href="#epig-birthPlaceNormalized"><code>epig:birthPlaceNormalized</code></a></li>
+  <li class="sub"><a href="#epig-cognomen"><code>epig:cognomen</code></a></li>
+  <li class="sub"><a href="#epig-communityDescription"><code>epig:communityDescription</code></a></li>
+  <li class="sub"><a href="#epig-communityType"><code>epig:communityType</code></a></li>
+  <li class="sub"><a href="#epig-costConversionReasoning"><code>epig:costConversionReasoning</code></a></li>
+  <li class="sub"><a href="#epig-costNumeric"><code>epig:costNumeric</code></a></li>
+  <li class="sub"><a href="#epig-costOriginalText"><code>epig:costOriginalText</code></a></li>
+  <li class="sub"><a href="#epig-costUnit"><code>epig:costUnit</code></a></li>
+  <li class="sub"><a href="#epig-database"><code>epig:database</code></a></li>
+  <li class="sub"><a href="#epig-datingFrom"><code>epig:datingFrom</code></a></li>
+  <li class="sub"><a href="#epig-datingTo"><code>epig:datingTo</code></a></li>
+  <li class="sub"><a href="#epig-deathPlace"><code>epig:deathPlace</code></a></li>
+  <li class="sub"><a href="#epig-deathPlaceEvidence"><code>epig:deathPlaceEvidence</code></a></li>
+  <li class="sub"><a href="#epig-deathPlaceNormalized"><code>epig:deathPlaceNormalized</code></a></li>
+  <li class="sub"><a href="#epig-deathPlaceSource"><code>epig:deathPlaceSource</code></a></li>
+  <li class="sub"><a href="#epig-divinityClassificationReasoning"><code>epig:divinityClassificationReasoning</code></a></li>
+  <li class="sub"><a href="#epig-edcsId"><code>epig:edcsId</code></a></li>
+  <li class="sub"><a href="#epig-ethnicity"><code>epig:ethnicity</code></a></li>
+  <li class="sub"><a href="#epig-ethnicityEvidence"><code>epig:ethnicityEvidence</code></a></li>
+  <li class="sub"><a href="#epig-evidence"><code>epig:evidence</code></a></li>
+  <li class="sub"><a href="#epig-externalId"><code>epig:externalId</code></a></li>
+  <li class="sub"><a href="#epig-gender"><code>epig:gender</code></a></li>
+  <li class="sub"><a href="#epig-genderEvidence"><code>epig:genderEvidence</code></a></li>
+  <li class="sub"><a href="#epig-inscriptionText"><code>epig:inscriptionText</code></a></li>
+  <li class="sub"><a href="#epig-inscriptionType"><code>epig:inscriptionType</code></a></li>
+  <li class="sub"><a href="#epig-interpretationNotes"><code>epig:interpretationNotes</code></a></li>
+  <li class="sub"><a href="#epig-isDivinity"><code>epig:isDivinity</code></a></li>
+  <li class="sub"><a href="#epig-location"><code>epig:location</code></a></li>
+  <li class="sub"><a href="#epig-locationEvidence"><code>epig:locationEvidence</code></a></li>
+  <li class="sub"><a href="#epig-locationNormalized"><code>epig:locationNormalized</code></a></li>
+  <li class="sub"><a href="#epig-nomen"><code>epig:nomen</code></a></li>
+  <li class="sub"><a href="#epig-normalizedName"><code>epig:normalizedName</code></a></li>
+  <li class="sub"><a href="#epig-notes"><code>epig:notes</code></a></li>
+  <li class="sub"><a href="#epig-objectDescription"><code>epig:objectDescription</code></a></li>
+  <li class="sub"><a href="#epig-objectText"><code>epig:objectText</code></a></li>
+  <li class="sub"><a href="#epig-objectType"><code>epig:objectType</code></a></li>
+  <li class="sub"><a href="#epig-order"><code>epig:order</code></a></li>
+  <li class="sub"><a href="#epig-personName"><code>epig:personName</code></a></li>
+  <li class="sub"><a href="#epig-pleiadesId"><code>epig:pleiadesId</code></a></li>
+  <li class="sub"><a href="#epig-positionAbstract"><code>epig:positionAbstract</code></a></li>
+  <li class="sub"><a href="#epig-positionDescription"><code>epig:positionDescription</code></a></li>
+  <li class="sub"><a href="#epig-positionNormalized"><code>epig:positionNormalized</code></a></li>
+  <li class="sub"><a href="#epig-positionText"><code>epig:positionText</code></a></li>
+  <li class="sub"><a href="#epig-positionType"><code>epig:positionType</code></a></li>
+  <li class="sub"><a href="#epig-praenomen"><code>epig:praenomen</code></a></li>
+  <li class="sub"><a href="#epig-publication"><code>epig:publication</code></a></li>
+  <li class="sub"><a href="#epig-relationshipProperty"><code>epig:relationshipProperty</code></a></li>
+  <li class="sub"><a href="#epig-relationshipType"><code>epig:relationshipType</code></a></li>
+  <li class="sub"><a href="#epig-script"><code>epig:script</code></a></li>
+  <li class="sub"><a href="#epig-socialStatusEvidence"><code>epig:socialStatusEvidence</code></a></li>
+</ul>
+<h2 style="color:var(--hmki-color)">Related — hmki:</h2>
+<ul>
+  <li class="sub"><a href="#hmki-EntityReference"><code>hmki:EntityReference</code></a></li>
+  <li class="sub"><a href="#hmki-Statement"><code>hmki:Statement</code></a></li>
+  <li class="sub"><a href="#hmki-references"><code>hmki:references</code></a></li>
+</ul>
+  </nav>
+  <main>
+    <h1>Epigraphic Careers Ontology</h1>
+    <p class="subtitle">A vocabulary for describing persons, careers, benefactions, and communities recorded in Roman inscriptions.</p>
+
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <div class="meta-block">
+        <dl>
+          <dt>Ontology IRI</dt><dd><code>http://epigraphic-careers.org/ontology</code></dd>
+          <dt>Version</dt><dd>2.0.0</dd>
+          <dt>Creator</dt><dd>inscription_llm pipeline</dd>
+          <dt>Imports</dt><dd><code>hmkp:</code>, <code>hmki:</code>, <code>hmkia:</code>, <code>prov:</code></dd>
+        </dl>
+      </div>
+      <p>ローマ碑文 (EDCS) から LLM で抽出した人物・経歴・寄進・共同体・
+人物間関係を記述するオントロジー。EDCS 由来の「事実」と LLM 由来の「解釈」を
+Named Graph で分離し、生成来歴を PROV-O で追跡する。
+HIMIKO 上位オントロジー (hmkp / hmki / hmkia) を参照し、史料物理層・
+史料内在知識層・解釈行為層との整合を保つ。</p>
+      <p style="font-size:13px; color:var(--muted)">This page is auto-generated from <code>ontology/epig_ontology.ttl</code>. Entities marked with <code>owl:deprecated true</code> are omitted.</p>
+    </section>
+
+    <section id="namespaces">
+      <h2>Namespaces</h2>
+      <table class="prefixes">
+        <thead><tr>
+          <td><strong>Prefix</strong></td>
+          <td><strong>Namespace URI</strong></td>
+        </tr></thead>
+        <tbody>
+<tr><td><code>rdf</code></td><td><code>http://www.w3.org/1999/02/22-rdf-syntax-ns#</code></td></tr>
+<tr><td><code>rdfs</code></td><td><code>http://www.w3.org/2000/01/rdf-schema#</code></td></tr>
+<tr><td><code>owl</code></td><td><code>http://www.w3.org/2002/07/owl#</code></td></tr>
+<tr><td><code>xsd</code></td><td><code>http://www.w3.org/2001/XMLSchema#</code></td></tr>
+<tr><td><code>dcterms</code></td><td><code>http://purl.org/dc/terms/</code></td></tr>
+<tr><td><code>prov</code></td><td><code>http://www.w3.org/ns/prov#</code></td></tr>
+<tr><td><code>schema</code></td><td><code>https://schema.org/</code></td></tr>
+<tr><td><code>skos</code></td><td><code>http://www.w3.org/2004/02/skos/core#</code></td></tr>
+<tr><td><code>foaf</code></td><td><code>http://xmlns.com/foaf/0.1/</code></td></tr>
+<tr><td><code>hmkp</code></td><td><code>urn:himiko:ontology:physical:</code></td></tr>
+<tr><td><code>hmki</code></td><td><code>urn:himiko:ontology:intrinsic:</code></td></tr>
+<tr><td><code>hmkia</code></td><td><code>urn:himiko:ontology:interpretation:</code></td></tr>
+<tr><td><code>hmke</code></td><td><code>urn:himiko:ontology:extrinsic:</code></td></tr>
+<tr><td><code>epig</code></td><td><code>http://epigraphic-careers.org/ontology#</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <div class="summary-row">
+        <div class="summary-card" style="background:var(--accent)"><h3>Classes</h3><div><span class="n">11</span> <span class="k">owl:Class</span></div></div><div class="summary-card" style="background:#6366f1"><h3>Object Properties</h3><div><span class="n">11</span> <span class="k">owl:ObjectProperty</span></div></div><div class="summary-card" style="background:#10b981"><h3>Datatype Properties</h3><div><span class="n">57</span> <span class="k">owl:DatatypeProperty</span></div></div><div class="summary-card" style="background:var(--hmki-color)"><h3>Related hmki</h3><div><span class="n">3</span> <span class="k">imported entities</span></div></div>
+      </div>
+    </section>
+
+    <section id="vowl">
+      <h2>Interactive Ontology (WebVOWL)</h2>
+      <p>A VOWL (Visual Notation for OWL Ontologies) visualisation of <code>epig:</code>, with the referenced <code>hmki:</code> vocabulary merged in. Drag nodes to reposition, and click any element to inspect details in the side panel.</p>
+      <div style="margin:16px 0; border:1px solid var(--border); border-radius:8px; overflow:hidden; background:#fff;">
+        <iframe
+          src="webvowl/index.html#epig"
+          title="Epigraphic Careers Ontology — WebVOWL visualization"
+          style="width:100%; height:720px; border:0; display:block;"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <p style="font-size:13px; color:var(--muted)">
+        Source: <code>webvowl/data/epig.json</code>, generated from <code>ontology/epig_ontology.ttl</code> plus the referenced fragments of <code>hmk_owl/himiko_intrinsic.ttl</code> via OWL2VOWL 0.2.0. Regenerate with <code>python ontology/build_webvowl.py --target epig</code>. See <a href="http://vowl.visualdataweb.org/" target="_blank" rel="noopener">vowl.visualdataweb.org</a> for the VOWL specification.
+      </p>
+    </section>
+
+<section id="epig-classes">
+<h2 style="border-bottom-color:var(--accent)">Classes — epig:</h2>
+<div class="layer-intro" style="border-left-color:var(--accent)">Core classes of the epigraphic careers ontology. <code>foaf:Person</code> and other external classes referenced by <code>epig:</code> properties are shown inline in Domain/Range fields.</div>
+<article class="entity class" id="epig-BenefactionStatement" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:BenefactionStatement</code></h4>
+  <p class="label">Benefaction Statement</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#BenefactionStatement</code></p>
+</header>
+<p class="comment">碑文中で言及される寄進・恩恵行為。hmki:Statement のサブクラス。</p>
+<dl class="meta">
+  <dt>Super-class</dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+</dl>
+</article>
+<article class="entity class" id="epig-CareerStatement" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:CareerStatement</code></h4>
+  <p class="label">Career Statement</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#CareerStatement</code></p>
+</header>
+<p class="comment">碑文中で言及される経歴・役職保持の出来事。hmki:Statement のサブクラス。</p>
+<dl class="meta">
+  <dt>Super-class</dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+</dl>
+</article>
+<article class="entity class" id="epig-CommunityReference" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:CommunityReference</code></h4>
+  <p class="label">Community Reference</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#CommunityReference</code></p>
+</header>
+<p class="comment">碑文中における共同体への一回的な言及。hmki:EntityReference のサブクラス。</p>
+<dl class="meta">
+  <dt>Super-class</dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+</dl>
+</article>
+<article class="entity class" id="epig-DivinityType" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:DivinityType</code></h4>
+  <p class="label">Divinity Type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#DivinityType</code></p>
+</header>
+<p class="comment">神格化された人物の分類 (enrich divinity が生成)。</p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="epig-ExternalDatabaseLink" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:ExternalDatabaseLink</code></h4>
+  <p class="label">External Database Link</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#ExternalDatabaseLink</code></p>
+</header>
+<p class="comment">EDCS や SIRAR など外部データベースへの参照リソース。</p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="epig-Inscription" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:Inscription</code></h4>
+  <p class="label">Inscription</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#Inscription</code></p>
+</header>
+<p class="comment">EDCS 由来の 1 碑文。hmkp:Source のサブクラスとして史料物理層に位置付けられる。</p>
+<dl class="meta">
+  <dt>Super-class</dt><dd><a href="urn:himiko:ontology:physical:Source" rel="external" target="_blank">hmkp:Source</a></dd>
+</dl>
+</article>
+<article class="entity class" id="epig-PersonReference" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:PersonReference</code></h4>
+  <p class="label">Person Reference</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#PersonReference</code></p>
+</header>
+<p class="comment">碑文中における人物への一回的な言及。hmki:EntityReference のサブクラス。</p>
+<dl class="meta">
+  <dt>Super-class</dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+</dl>
+</article>
+<article class="entity class" id="epig-Place" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:Place</code></h4>
+  <p class="label">Place</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#Place</code></p>
+</header>
+<p class="comment">碑文の出土地。可能なら owl:sameAs で Pleiades に連結される。</p>
+<dl class="meta">
+  <dt>See also</dt><dd><a href="https://schema.org/Place" rel="external" target="_blank">schema:Place</a></dd>
+</dl>
+</article>
+<article class="entity class" id="epig-Province" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:Province</code></h4>
+  <p class="label">Province</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#Province</code></p>
+</header>
+<p class="comment">ローマ属州。</p>
+<dl class="meta">
+  <dt>See also</dt><dd><a href="https://schema.org/Place" rel="external" target="_blank">schema:Place</a></dd>
+</dl>
+</article>
+<article class="entity class" id="epig-RelationshipStatement" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:RelationshipStatement</code></h4>
+  <p class="label">Relationship Statement</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#RelationshipStatement</code></p>
+</header>
+<p class="comment">碑文中で言及される人物間・人物-共同体間の関係。hmki:Statement のサブクラス。</p>
+<dl class="meta">
+  <dt>Super-class</dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+</dl>
+</article>
+<article class="entity class" id="epig-SocialStatus" style="border-left-color:var(--accent)">
+<header>
+  <span class="kind-badge" style="background:var(--accent)">Class</span>
+  <h4><code>epig:SocialStatus</code></h4>
+  <p class="label">Social Status</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#SocialStatus</code></p>
+</header>
+<p class="comment">人物の社会的身分の共有リソース (例: decurio)。</p>
+<dl class="meta">
+</dl>
+</article>
+</section>
+
+<section id="epig-object-properties">
+<h2 style="border-bottom-color:#6366f1">Object Properties — epig:</h2>
+<div class="layer-intro" style="border-left-color:#6366f1">Object properties (link nodes to nodes).</div>
+<article class="entity objectproperty" id="epig-agent" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:agent</code></h4>
+  <p class="label">agent</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#agent</code></p>
+</header>
+<p class="comment">BenefactionStatement の実施主体となる言及。hmki:references のサブプロパティ。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd>(<a href="#epig-PersonReference">epig:PersonReference</a> ∪ <a href="#epig-CommunityReference">epig:CommunityReference</a>)</dd>
+  <dt>Super-property</dt><dd><a href="#hmki-references">hmki:references</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-divinityType" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:divinityType</code></h4>
+  <p class="label">divinity type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#divinityType</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="#epig-DivinityType">epig:DivinityType</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-externalLink" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:externalLink</code></h4>
+  <p class="label">external link</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#externalLink</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="#epig-ExternalDatabaseLink">epig:ExternalDatabaseLink</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-findspot" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:findspot</code></h4>
+  <p class="label">findspot</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#findspot</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="#epig-Place">epig:Place</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-interpretsInscription" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:interpretsInscription</code></h4>
+  <p class="label">interprets inscription</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#interpretsInscription</code></p>
+</header>
+<p class="comment">LLM 解釈グラフ (prov:Entity) から対象碑文へのリンク。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="http://www.w3.org/ns/prov#Entity" rel="external" target="_blank">prov:Entity</a></dd>
+  <dt>Range</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-province" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:province</code></h4>
+  <p class="label">province</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#province</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="#epig-Province">epig:Province</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-recipient" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:recipient</code></h4>
+  <p class="label">recipient</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#recipient</code></p>
+</header>
+<p class="comment">BenefactionStatement の受益者となる言及。hmki:references のサブプロパティ。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd>(<a href="#epig-PersonReference">epig:PersonReference</a> ∪ <a href="#epig-CommunityReference">epig:CommunityReference</a>)</dd>
+  <dt>Super-property</dt><dd><a href="#hmki-references">hmki:references</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-socialStatus" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:socialStatus</code></h4>
+  <p class="label">social status</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#socialStatus</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="#epig-SocialStatus">epig:SocialStatus</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-source" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:source</code></h4>
+  <p class="label">source</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#source</code></p>
+</header>
+<p class="comment">RelationshipStatement の起点となる言及。hmki:references のサブプロパティ。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-RelationshipStatement">epig:RelationshipStatement</a></dd>
+  <dt>Range</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Super-property</dt><dd><a href="#hmki-references">hmki:references</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-subject" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:subject</code></h4>
+  <p class="label">subject</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#subject</code></p>
+</header>
+<p class="comment">CareerStatement の主体となる人物言及。hmki:references のサブプロパティ。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Super-property</dt><dd><a href="#hmki-references">hmki:references</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="epig-target" style="border-left-color:#6366f1">
+<header>
+  <span class="kind-badge" style="background:#6366f1">Object Property</span>
+  <h4><code>epig:target</code></h4>
+  <p class="label">target</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#target</code></p>
+</header>
+<p class="comment">RelationshipStatement の対象となる言及。hmki:references のサブプロパティ。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-RelationshipStatement">epig:RelationshipStatement</a></dd>
+  <dt>Range</dt><dd>(<a href="#epig-PersonReference">epig:PersonReference</a> ∪ <a href="#epig-CommunityReference">epig:CommunityReference</a>)</dd>
+  <dt>Super-property</dt><dd><a href="#hmki-references">hmki:references</a></dd>
+</dl>
+</article>
+</section>
+
+<section id="epig-datatype-properties">
+<h2 style="border-bottom-color:#10b981">Datatype Properties — epig:</h2>
+<div class="layer-intro" style="border-left-color:#10b981">Datatype properties (attach literal values to nodes).</div>
+<article class="entity datatypeproperty" id="epig-activityType" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:activityType</code></h4>
+  <p class="label">activity type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#activityType</code></p>
+</header>
+<p class="comment">InterpretationAct の実装レベル種別ラベル。
+InterpretationCreationAct: extract, reextract_relationships など。
+InterpretationUpdateAct: enrich_cost, enrich_career_location, enrich_divinity,
+enrich_vital_events, enrich_benef_objects, enrich_benef_recipients, schema_fix など。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="urn:himiko:ontology:interpretation:InterpretationAct" rel="external" target="_blank">hmkia:InterpretationAct</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-ageAtDeath" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:ageAtDeath</code></h4>
+  <p class="label">age at death</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#ageAtDeath</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#integer" rel="external" target="_blank">xsd:integer</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-ageAtDeathEvidence" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:ageAtDeathEvidence</code></h4>
+  <p class="label">age at death evidence</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#ageAtDeathEvidence</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-benefactionText" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:benefactionText</code></h4>
+  <p class="label">benefaction text</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#benefactionText</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-benefactionType" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:benefactionType</code></h4>
+  <p class="label">benefaction type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#benefactionType</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-birthPlace" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:birthPlace</code></h4>
+  <p class="label">birth place</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#birthPlace</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-birthPlaceEvidence" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:birthPlaceEvidence</code></h4>
+  <p class="label">birth place evidence</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#birthPlaceEvidence</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-birthPlaceNormalized" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:birthPlaceNormalized</code></h4>
+  <p class="label">birth place (normalized)</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#birthPlaceNormalized</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-cognomen" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:cognomen</code></h4>
+  <p class="label">cognomen</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#cognomen</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-communityDescription" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:communityDescription</code></h4>
+  <p class="label">community description</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#communityDescription</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CommunityReference">epig:CommunityReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-communityType" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:communityType</code></h4>
+  <p class="label">community type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#communityType</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CommunityReference">epig:CommunityReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-costConversionReasoning" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:costConversionReasoning</code></h4>
+  <p class="label">cost conversion reasoning</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#costConversionReasoning</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-costNumeric" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:costNumeric</code></h4>
+  <p class="label">cost (numeric)</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#costNumeric</code></p>
+</header>
+<p class="comment">enrich (cost) が付与した換算数値。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#integer" rel="external" target="_blank">xsd:integer</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-costOriginalText" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:costOriginalText</code></h4>
+  <p class="label">cost original text</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#costOriginalText</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-costUnit" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:costUnit</code></h4>
+  <p class="label">cost unit</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#costUnit</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-database" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:database</code></h4>
+  <p class="label">database</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#database</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-ExternalDatabaseLink">epig:ExternalDatabaseLink</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-datingFrom" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:datingFrom</code></h4>
+  <p class="label">dating from</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#datingFrom</code></p>
+</header>
+<p class="comment">碑文年代の始点 (年、負値で紀元前)。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#integer" rel="external" target="_blank">xsd:integer</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-datingTo" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:datingTo</code></h4>
+  <p class="label">dating to</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#datingTo</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#integer" rel="external" target="_blank">xsd:integer</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-deathPlace" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:deathPlace</code></h4>
+  <p class="label">death place</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#deathPlace</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-deathPlaceEvidence" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:deathPlaceEvidence</code></h4>
+  <p class="label">death place evidence</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#deathPlaceEvidence</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-deathPlaceNormalized" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:deathPlaceNormalized</code></h4>
+  <p class="label">death place (normalized)</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#deathPlaceNormalized</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-deathPlaceSource" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:deathPlaceSource</code></h4>
+  <p class="label">death place source</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#deathPlaceSource</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-divinityClassificationReasoning" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:divinityClassificationReasoning</code></h4>
+  <p class="label">divinity classification reasoning</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#divinityClassificationReasoning</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-edcsId" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>epig:edcsId</code></h4>
+  <p class="label">EDCS ID</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#edcsId</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-ethnicity" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:ethnicity</code></h4>
+  <p class="label">ethnicity</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#ethnicity</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-ethnicityEvidence" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:ethnicityEvidence</code></h4>
+  <p class="label">ethnicity evidence</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#ethnicityEvidence</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-evidence" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:evidence</code></h4>
+  <p class="label">evidence</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#evidence</code></p>
+</header>
+<p class="comment">碑文中の根拠となるテキスト。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd>(<a href="#epig-CommunityReference">epig:CommunityReference</a> ∪ <a href="#epig-RelationshipStatement">epig:RelationshipStatement</a>)</dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-externalId" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:externalId</code></h4>
+  <p class="label">external ID</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#externalId</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-ExternalDatabaseLink">epig:ExternalDatabaseLink</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-gender" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:gender</code></h4>
+  <p class="label">gender</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#gender</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-genderEvidence" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:genderEvidence</code></h4>
+  <p class="label">gender evidence</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#genderEvidence</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-inscriptionText" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:inscriptionText</code></h4>
+  <p class="label">inscription text</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#inscriptionText</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-inscriptionType" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:inscriptionType</code></h4>
+  <p class="label">inscription type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#inscriptionType</code></p>
+</header>
+<p class="comment">EDCS の status 値 (墓碑・奉献等)。複数値をとりうる。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-interpretationNotes" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:interpretationNotes</code></h4>
+  <p class="label">interpretation notes</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#interpretationNotes</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-isDivinity" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:isDivinity</code></h4>
+  <p class="label">is divinity</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#isDivinity</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#boolean" rel="external" target="_blank">xsd:boolean</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-location" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:location</code></h4>
+  <p class="label">location</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#location</code></p>
+</header>
+<p class="comment">enrich (career_location) が付与。役職を務めた場所。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-locationEvidence" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:locationEvidence</code></h4>
+  <p class="label">location evidence</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#locationEvidence</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-locationNormalized" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:locationNormalized</code></h4>
+  <p class="label">location (normalized)</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#locationNormalized</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-nomen" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:nomen</code></h4>
+  <p class="label">nomen</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#nomen</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-normalizedName" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:normalizedName</code></h4>
+  <p class="label">normalized name</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#normalizedName</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd>(<a href="#epig-PersonReference">epig:PersonReference</a> ∪ <a href="#epig-CommunityReference">epig:CommunityReference</a>)</dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-notes" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:notes</code></h4>
+  <p class="label">notes</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#notes</code></p>
+</header>
+<p class="comment">寄進・共同体・関係などに付随する自由記述の注記。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><span class='none'>—</span></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-objectDescription" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:objectDescription</code></h4>
+  <p class="label">object description</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#objectDescription</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-objectText" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:objectText</code></h4>
+  <p class="label">object text</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#objectText</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-objectType" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:objectType</code></h4>
+  <p class="label">object type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#objectType</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-order" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <span class="kind-badge functional">functional</span>
+  <h4><code>epig:order</code></h4>
+  <p class="label">order</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#order</code></p>
+</header>
+<p class="comment">経歴中での役職の並び順 (0 始まり)。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#integer" rel="external" target="_blank">xsd:integer</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-personName" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:personName</code></h4>
+  <p class="label">person name</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#personName</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-pleiadesId" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:pleiadesId</code></h4>
+  <p class="label">Pleiades ID</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#pleiadesId</code></p>
+</header>
+<p class="comment">出土地に対応する Pleiades 地名典拠の数値 ID (例: 315223)。対応する典拠 URI は https://pleiades.stoa.org/places/<id> で構成される。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Place">epig:Place</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-positionAbstract" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:positionAbstract</code></h4>
+  <p class="label">position (abstract)</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#positionAbstract</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-positionDescription" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:positionDescription</code></h4>
+  <p class="label">position description</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#positionDescription</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-positionNormalized" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:positionNormalized</code></h4>
+  <p class="label">position (normalized)</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#positionNormalized</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-positionText" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:positionText</code></h4>
+  <p class="label">position text</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#positionText</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-positionType" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:positionType</code></h4>
+  <p class="label">position type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#positionType</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-CareerStatement">epig:CareerStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-praenomen" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:praenomen</code></h4>
+  <p class="label">praenomen</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#praenomen</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-publication" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:publication</code></h4>
+  <p class="label">publication</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#publication</code></p>
+</header>
+<p class="comment">CIL 等の刊行参照 (例: CIL 08 23112)。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-Inscription">epig:Inscription</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-relationshipProperty" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:relationshipProperty</code></h4>
+  <p class="label">relationship property</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#relationshipProperty</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-RelationshipStatement">epig:RelationshipStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-relationshipType" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:relationshipType</code></h4>
+  <p class="label">relationship type</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#relationshipType</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-RelationshipStatement">epig:RelationshipStatement</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-script" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:script</code></h4>
+  <p class="label">script</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#script</code></p>
+</header>
+<p class="comment">prov:Activity / hmkia:InterpretationAct を生成したスクリプトのファイル名。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="urn:himiko:ontology:interpretation:InterpretationAct" rel="external" target="_blank">hmkia:InterpretationAct</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-socialStatusEvidence" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:socialStatusEvidence</code></h4>
+  <p class="label">social status evidence</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#socialStatusEvidence</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+</section>
+
+<section id="hmki-related">
+<h2 style="border-bottom-color:var(--hmki-color)">Related Vocabulary — hmki: (imported)</h2>
+<div class="layer-intro" style="border-left-color:var(--hmki-color)">HIMIKO Intrinsic Knowledge Layer (<code>hmki:</code>) entities referenced by <code>epig:</code>. The full <code>hmki</code> layer is documented in <a href="himiko.html">himiko.html</a>; only the fragments touched by <code>epig:</code> are reproduced here for context.</div>
+<h3>Classes</h3>
+<article class="entity class" id="hmki-EntityReference" style="border-left-color:var(--hmki-color)">
+<header>
+  <span class="kind-badge" style="background:var(--hmki-color)">Class</span>
+  <h4><code>hmki:EntityReference</code></h4>
+  <p class="label">Entity Reference</p>
+  <p class="iri"><span class="k">IRI:</span> <code>urn:himiko:ontology:intrinsic:EntityReference</code></p>
+</header>
+<p class="comment">史料中における人物・場所・組織などへの個別の言及。
+史料横断的で普遍的な実体そのもの (hmke:Entity) ではなく、あくまでその史料における一回的な言及として記述される。
+史料上での表記や、史料内での役割 (hmki:hasRole) など、史料固有の情報を保持する。
+史料物理層の Character 範囲を hmki:hasRange によって参照することでテキスト上の位置を指定する。</p>
+<dl class="meta">
+</dl>
+</article>
+<article class="entity class" id="hmki-Statement" style="border-left-color:var(--hmki-color)">
+<header>
+  <span class="kind-badge" style="background:var(--hmki-color)">Class</span>
+  <h4><code>hmki:Statement</code></h4>
+  <p class="label">Statement</p>
+  <p class="iri"><span class="k">IRI:</span> <code>urn:himiko:ontology:intrinsic:Statement</code></p>
+</header>
+<p class="comment">史料中で言及されるイベント (出来事・状態・関係性) の基本単位。
+論文中では MicroKnowledge とも呼ばれる。「出来事」に限定されず、エンティティに付随する
+継続的な状態・属性やエンティティ間の継続的な関係性も含む。
+Statement 同士は時系列・因果などの意味的関係性によって再帰的に接続されうる。
+史料中の Character を hmki:mentions によって直接指し、その根拠を保持する。
+InterpretationUpdateAct によって更新された Statement は新しい URI を持つ別インスタンスとして生成され、
+prov:wasRevisionOf によって前バージョンの Statement を参照する。
+現在の最新版は、他のいかなる Statement からも prov:wasRevisionOf で参照されていないインスタンスである。</p>
+<dl class="meta">
+  <dt>Super-class</dt><dd><a href="http://www.w3.org/ns/prov#Entity" rel="external" target="_blank">prov:Entity</a></dd>
+</dl>
+</article>
+<h3>Object Properties</h3>
+<article class="entity objectproperty" id="hmki-references" style="border-left-color:var(--hmki-color)">
+<header>
+  <span class="kind-badge" style="background:var(--hmki-color)">Object Property</span>
+  <h4><code>hmki:references</code></h4>
+  <p class="label">references (entity reference)</p>
+  <p class="iri"><span class="k">IRI:</span> <code>urn:himiko:ontology:intrinsic:references</code></p>
+</header>
+<p class="comment">Statement を構成する EntityReference への参照。1 つの Statement は複数の EntityReference を参照しうる。</p>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#hmki-Statement">hmki:Statement</a></dd>
+  <dt>Range</dt><dd><a href="#hmki-EntityReference">hmki:EntityReference</a></dd>
+</dl>
+</article>
+</section>
+
+    <footer>
+      Generated from <code>ontology/epig_ontology.ttl</code> (and referenced fragments of <code>hmk_owl/himiko_intrinsic.ttl</code>) by <code>build_epig_docs.py</code>.
+    </footer>
+  </main>
+</div>
+</body>
+</html>

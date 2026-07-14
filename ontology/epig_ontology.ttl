@@ -1,0 +1,598 @@
+@prefix epig:    <http://epigraphic-careers.org/ontology#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix schema:  <https://schema.org/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix hmkp:    <urn:himiko:ontology:physical:> .
+@prefix hmki:    <urn:himiko:ontology:intrinsic:> .
+@prefix hmkia:   <urn:himiko:ontology:interpretation:> .
+
+#################################################################
+#    Ontology metadata
+#################################################################
+
+<http://epigraphic-careers.org/ontology> a owl:Ontology ;
+    dcterms:title "Epigraphic Careers Ontology"@en ;
+    dcterms:title "碑文経歴オントロジー"@ja ;
+    dcterms:description """ローマ碑文 (EDCS) から LLM で抽出した人物・経歴・寄進・共同体・
+人物間関係を記述するオントロジー。EDCS 由来の「事実」と LLM 由来の「解釈」を
+Named Graph で分離し、生成来歴を PROV-O で追跡する。
+HIMIKO 上位オントロジー (hmkp / hmki / hmkia) を参照し、史料物理層・
+史料内在知識層・解釈行為層との整合を保つ。"""@ja ;
+    dcterms:creator "inscription_llm pipeline" ;
+    owl:versionInfo "2.0.0" ;
+    owl:imports <http://www.w3.org/ns/prov-o#> ;
+    owl:imports <urn:himiko:ontology:physical> ;
+    owl:imports <urn:himiko:ontology:intrinsic> ;
+    owl:imports <urn:himiko:ontology:interpretation> ;
+    rdfs:seeAlso <http://www.w3.org/ns/prov#> .
+
+#################################################################
+#    Classes  —  史料物理層
+#################################################################
+
+epig:Inscription a owl:Class ;
+    rdfs:label "Inscription"@en , "碑文"@ja ;
+    rdfs:comment "EDCS 由来の 1 碑文。hmkp:Source のサブクラスとして史料物理層に位置付けられる。"@ja ;
+    rdfs:subClassOf hmkp:Source .
+
+#################################################################
+#    Classes  —  史料内在知識層: EntityReference
+#################################################################
+
+epig:PersonReference a owl:Class ;
+    rdfs:label "Person Reference"@en , "人物言及"@ja ;
+    rdfs:comment "碑文中における人物への一回的な言及。hmki:EntityReference のサブクラス。"@ja ;
+    rdfs:subClassOf hmki:EntityReference .
+
+epig:CommunityReference a owl:Class ;
+    rdfs:label "Community Reference"@en , "共同体言及"@ja ;
+    rdfs:comment "碑文中における共同体への一回的な言及。hmki:EntityReference のサブクラス。"@ja ;
+    rdfs:subClassOf hmki:EntityReference .
+
+#################################################################
+#    Classes  —  史料内在知識層: Statement
+#################################################################
+
+epig:CareerStatement a owl:Class ;
+    rdfs:label "Career Statement"@en , "経歴言及"@ja ;
+    rdfs:comment "碑文中で言及される経歴・役職保持の出来事。hmki:Statement のサブクラス。"@ja ;
+    rdfs:subClassOf hmki:Statement .
+
+epig:BenefactionStatement a owl:Class ;
+    rdfs:label "Benefaction Statement"@en , "寄進言及"@ja ;
+    rdfs:comment "碑文中で言及される寄進・恩恵行為。hmki:Statement のサブクラス。"@ja ;
+    rdfs:subClassOf hmki:Statement .
+
+epig:RelationshipStatement a owl:Class ;
+    rdfs:label "Relationship Statement"@en , "関係言及"@ja ;
+    rdfs:comment "碑文中で言及される人物間・人物-共同体間の関係。hmki:Statement のサブクラス。"@ja ;
+    rdfs:subClassOf hmki:Statement .
+
+#################################################################
+#    Classes  —  deprecated (旧スタイル RDF 用; create_rdf.py が使用)
+#################################################################
+
+epig:Person a owl:Class ;
+    rdfs:label "Person"@en , "人物"@ja ;
+    rdfs:comment "碑文中に言及される個人 (旧スタイル RDF)。HIMIKO 対応版では epig:PersonReference を使用。"@ja ;
+    rdfs:seeAlso foaf:Person ;
+    owl:deprecated true .
+
+epig:Community a owl:Class ;
+    rdfs:label "Community"@en , "共同体"@ja ;
+    rdfs:comment "碑文中に言及される共同体 (旧スタイル RDF)。HIMIKO 対応版では epig:CommunityReference を使用。"@ja ;
+    owl:deprecated true .
+
+epig:CareerPosition a owl:Class ;
+    rdfs:label "Career Position"@en , "経歴役職"@ja ;
+    rdfs:comment "ある人物が保持した官職・役職 (旧スタイル RDF)。HIMIKO 対応版では epig:CareerStatement を使用。"@ja ;
+    owl:deprecated true .
+
+epig:Benefaction a owl:Class ;
+    rdfs:label "Benefaction"@en , "寄進行為"@ja ;
+    rdfs:comment "人物または共同体による寄進・恩恵行為 (旧スタイル RDF)。HIMIKO 対応版では epig:BenefactionStatement を使用。"@ja ;
+    owl:deprecated true .
+
+epig:BenefactionObject a owl:Class ;
+    rdfs:label "Benefaction Object"@en , "寄進対象物"@ja ;
+    rdfs:comment "寄進行為の対象となった具体的な物 (旧スタイル RDF)。"@ja ;
+    owl:deprecated true .
+
+epig:PersonRelationship a owl:Class ;
+    rdfs:label "Person Relationship"@en , "人物間関係"@ja ;
+    rdfs:comment "2 者間の関係を表す再具象化ノード (旧スタイル RDF)。HIMIKO 対応版では epig:RelationshipStatement を使用。"@ja ;
+    owl:deprecated true .
+
+epig:RelationshipVersion a owl:Class ;
+    rdfs:label "Relationship Version"@en , "関係バージョン"@ja ;
+    rdfs:comment "関係グラフのバージョンを表すメタノード (旧スタイル RDF)。"@ja ;
+    rdfs:seeAlso prov:Entity ;
+    owl:deprecated true .
+
+#################################################################
+#    Classes  —  共有リソース (両スタイル共通)
+#################################################################
+
+epig:Province a owl:Class ;
+    rdfs:label "Province"@en , "属州"@ja ;
+    rdfs:comment "ローマ属州。"@ja ;
+    rdfs:seeAlso schema:Place .
+
+epig:Place a owl:Class ;
+    rdfs:label "Place"@en , "地名"@ja ;
+    rdfs:comment "碑文の出土地。可能なら owl:sameAs で Pleiades に連結される。"@ja ;
+    rdfs:seeAlso schema:Place .
+
+epig:SocialStatus a owl:Class ;
+    rdfs:label "Social Status"@en , "社会的身分"@ja ;
+    rdfs:comment "人物の社会的身分の共有リソース (例: decurio)。"@ja .
+
+epig:DivinityType a owl:Class ;
+    rdfs:label "Divinity Type"@en , "神格タイプ"@ja ;
+    rdfs:comment "神格化された人物の分類 (enrich divinity が生成)。"@ja .
+
+epig:ExternalDatabaseLink a owl:Class ;
+    rdfs:label "External Database Link"@en , "外部DBリンク"@ja ;
+    rdfs:comment "EDCS や SIRAR など外部データベースへの参照リソース。"@ja .
+
+#################################################################
+#    Object Properties  —  Inscription / Source 側
+#################################################################
+
+epig:province a owl:ObjectProperty ;
+    rdfs:label "province"@en , "属州"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range epig:Province .
+
+epig:findspot a owl:ObjectProperty ;
+    rdfs:label "findspot"@en , "出土地"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range epig:Place .
+
+epig:externalLink a owl:ObjectProperty ;
+    rdfs:label "external link"@en , "外部DBリンク"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range epig:ExternalDatabaseLink .
+
+epig:interpretsInscription a owl:ObjectProperty ;
+    rdfs:label "interprets inscription"@en , "碑文を解釈する"@ja ;
+    rdfs:comment "LLM 解釈グラフ (prov:Entity) から対象碑文へのリンク。"@ja ;
+    rdfs:domain prov:Entity ; rdfs:range epig:Inscription .
+
+#################################################################
+#    Object Properties  —  Statement → EntityReference (HIMIKO 版)
+#################################################################
+
+epig:subject a owl:ObjectProperty ;
+    rdfs:label "subject"@en , "主体人物言及"@ja ;
+    rdfs:comment "CareerStatement の主体となる人物言及。hmki:references のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmki:references ;
+    rdfs:domain epig:CareerStatement ;
+    rdfs:range epig:PersonReference .
+
+epig:agent a owl:ObjectProperty ;
+    rdfs:label "agent"@en , "恵与主体言及"@ja ;
+    rdfs:comment "BenefactionStatement の実施主体となる言及。hmki:references のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmki:references ;
+    rdfs:domain epig:BenefactionStatement ;
+    rdfs:range [ a owl:Class ; owl:unionOf ( epig:PersonReference epig:CommunityReference ) ] .
+
+epig:recipient a owl:ObjectProperty ;
+    rdfs:label "recipient"@en , "受益者言及"@ja ;
+    rdfs:comment "BenefactionStatement の受益者となる言及。hmki:references のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmki:references ;
+    rdfs:domain epig:BenefactionStatement ;
+    rdfs:range [ a owl:Class ; owl:unionOf ( epig:PersonReference epig:CommunityReference ) ] .
+
+epig:source a owl:ObjectProperty ;
+    rdfs:label "source"@en , "関係起点言及"@ja ;
+    rdfs:comment "RelationshipStatement の起点となる言及。hmki:references のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmki:references ;
+    rdfs:domain epig:RelationshipStatement ;
+    rdfs:range epig:PersonReference .
+
+epig:target a owl:ObjectProperty ;
+    rdfs:label "target"@en , "関係対象言及"@ja ;
+    rdfs:comment "RelationshipStatement の対象となる言及。hmki:references のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmki:references ;
+    rdfs:domain epig:RelationshipStatement ;
+    rdfs:range [ a owl:Class ; owl:unionOf ( epig:PersonReference epig:CommunityReference ) ] .
+
+#################################################################
+#    Object Properties  —  PersonReference / CommunityReference
+#################################################################
+
+epig:socialStatus a owl:ObjectProperty ;
+    rdfs:label "social status"@en , "社会的身分"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range epig:SocialStatus .
+
+epig:divinityType a owl:ObjectProperty ;
+    rdfs:label "divinity type"@en , "神格タイプ"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range epig:DivinityType .
+
+#################################################################
+#    Object Properties  —  旧スタイル用 (deprecated)
+#################################################################
+
+epig:mentionedIn a owl:ObjectProperty ;
+    rdfs:label "mentioned in"@en , "言及元碑文"@ja ;
+    rdfs:comment "人物・共同体が言及されている碑文 (旧スタイル RDF)。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( epig:Person epig:Community ) ] ;
+    rdfs:range epig:Inscription ;
+    owl:deprecated true .
+
+epig:hasCareerPosition a owl:ObjectProperty ;
+    rdfs:label "has career position"@en , "経歴役職を持つ"@ja ;
+    rdfs:domain epig:Person ; rdfs:range epig:CareerPosition ;
+    owl:deprecated true .
+
+epig:heldBy a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "held by"@en , "保持者"@ja ;
+    owl:inverseOf epig:hasCareerPosition ;
+    rdfs:domain epig:CareerPosition ; rdfs:range epig:Person ;
+    owl:deprecated true .
+
+epig:previousPosition a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "previous position"@en , "前の役職"@ja ;
+    rdfs:domain epig:CareerPosition ; rdfs:range epig:CareerPosition ;
+    owl:deprecated true .
+
+epig:hasBenefaction a owl:ObjectProperty ;
+    rdfs:label "has benefaction"@en , "寄進を行う"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( epig:Person epig:Community ) ] ;
+    rdfs:range epig:Benefaction ;
+    owl:deprecated true .
+
+epig:byPerson a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "by person"@en , "寄進者"@ja ;
+    rdfs:domain epig:Benefaction ; rdfs:range epig:Person ;
+    owl:deprecated true .
+
+epig:hasObject a owl:ObjectProperty ;
+    rdfs:label "has object"@en , "寄進対象物を持つ"@ja ;
+    rdfs:domain epig:Benefaction ; rdfs:range epig:BenefactionObject ;
+    owl:deprecated true .
+
+epig:recipientCommunity a owl:ObjectProperty ;
+    rdfs:label "recipient community"@en , "受益共同体"@ja ;
+    rdfs:domain epig:Benefaction ; rdfs:range epig:Community ;
+    owl:deprecated true .
+
+epig:mentionsRelationship a owl:ObjectProperty ;
+    rdfs:label "mentions relationship"@en , "関係を言及する"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range epig:PersonRelationship ;
+    owl:deprecated true .
+
+#################################################################
+#    Datatype Properties  —  Inscription
+#################################################################
+
+epig:edcsId a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "EDCS ID"@en , "EDCS ID"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range xsd:string .
+
+epig:inscriptionText a owl:DatatypeProperty ;
+    rdfs:label "inscription text"@en , "碑文テキスト"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range xsd:string .
+
+epig:datingFrom a owl:DatatypeProperty ;
+    rdfs:label "dating from"@en , "年代下限"@ja ;
+    rdfs:comment "碑文年代の始点 (年、負値で紀元前)。"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range xsd:integer .
+
+epig:datingTo a owl:DatatypeProperty ;
+    rdfs:label "dating to"@en , "年代上限"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range xsd:integer .
+
+epig:publication a owl:DatatypeProperty ;
+    rdfs:label "publication"@en , "刊行情報"@ja ;
+    rdfs:comment "CIL 等の刊行参照 (例: CIL 08 23112)。"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range xsd:string .
+
+epig:inscriptionType a owl:DatatypeProperty ;
+    rdfs:label "inscription type"@en , "碑文種別"@ja ;
+    rdfs:comment "EDCS の status 値 (墓碑・奉献等)。複数値をとりうる。"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range xsd:string .
+
+epig:interpretationNotes a owl:DatatypeProperty ;
+    rdfs:label "interpretation notes"@en , "解釈注記"@ja ;
+    rdfs:domain epig:Inscription ; rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  PersonReference
+#################################################################
+
+epig:personName a owl:DatatypeProperty ;
+    rdfs:label "person name"@en , "人名"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:praenomen a owl:DatatypeProperty ;
+    rdfs:label "praenomen"@en , "プラエノーメン"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:nomen a owl:DatatypeProperty ;
+    rdfs:label "nomen"@en , "ノーメン"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:cognomen a owl:DatatypeProperty ;
+    rdfs:label "cognomen"@en , "コグノーメン"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:gender a owl:DatatypeProperty ;
+    rdfs:label "gender"@en , "性別"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:ethnicity a owl:DatatypeProperty ;
+    rdfs:label "ethnicity"@en , "民族"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:ageAtDeath a owl:DatatypeProperty ;
+    rdfs:label "age at death"@en , "没年齢"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:integer .
+
+epig:isDivinity a owl:DatatypeProperty ;
+    rdfs:label "is divinity"@en , "神格化されているか"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:boolean .
+
+epig:divinityClassificationReasoning a owl:DatatypeProperty ;
+    rdfs:label "divinity classification reasoning"@en , "神格分類の根拠"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:birthPlace a owl:DatatypeProperty ;
+    rdfs:label "birth place"@en , "出生地"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:birthPlaceNormalized a owl:DatatypeProperty ;
+    rdfs:label "birth place (normalized)"@en , "出生地(正規化)"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:birthPlaceEvidence a owl:DatatypeProperty ;
+    rdfs:label "birth place evidence"@en , "出生地の根拠"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:deathPlace a owl:DatatypeProperty ;
+    rdfs:label "death place"@en , "没地"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:deathPlaceNormalized a owl:DatatypeProperty ;
+    rdfs:label "death place (normalized)"@en , "没地(正規化)"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:deathPlaceSource a owl:DatatypeProperty ;
+    rdfs:label "death place source"@en , "没地の出典"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:deathPlaceEvidence a owl:DatatypeProperty ;
+    rdfs:label "death place evidence"@en , "没地の根拠"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:socialStatusEvidence a owl:DatatypeProperty ;
+    rdfs:label "social status evidence"@en , "身分の根拠"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:genderEvidence a owl:DatatypeProperty ;
+    rdfs:label "gender evidence"@en , "性別の根拠"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:ethnicityEvidence a owl:DatatypeProperty ;
+    rdfs:label "ethnicity evidence"@en , "民族の根拠"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:ageAtDeathEvidence a owl:DatatypeProperty ;
+    rdfs:label "age at death evidence"@en , "没年齢の根拠"@ja ;
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  CareerStatement
+#################################################################
+
+epig:positionText a owl:DatatypeProperty ;
+    rdfs:label "position text"@en , "役職名(原文)"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+epig:positionNormalized a owl:DatatypeProperty ;
+    rdfs:label "position (normalized)"@en , "役職名(正規化)"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+epig:positionAbstract a owl:DatatypeProperty ;
+    rdfs:label "position (abstract)"@en , "役職(抽象化)"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+epig:positionType a owl:DatatypeProperty ;
+    rdfs:label "position type"@en , "役職種別"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+epig:positionDescription a owl:DatatypeProperty ;
+    rdfs:label "position description"@en , "役職の説明"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+epig:order a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "order"@en , "順序"@ja ;
+    rdfs:comment "経歴中での役職の並び順 (0 始まり)。"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:integer .
+
+epig:location a owl:DatatypeProperty ;
+    rdfs:label "location"@en , "役職地"@ja ;
+    rdfs:comment "enrich (career_location) が付与。役職を務めた場所。"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+epig:locationNormalized a owl:DatatypeProperty ;
+    rdfs:label "location (normalized)"@en , "役職地(正規化)"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+epig:locationEvidence a owl:DatatypeProperty ;
+    rdfs:label "location evidence"@en , "役職地の根拠"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  BenefactionStatement
+#################################################################
+
+epig:benefactionType a owl:DatatypeProperty ;
+    rdfs:label "benefaction type"@en , "寄進種別"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:string .
+
+epig:benefactionText a owl:DatatypeProperty ;
+    rdfs:label "benefaction text"@en , "寄進テキスト"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:string .
+
+epig:objectText a owl:DatatypeProperty ;
+    rdfs:label "object text"@en , "対象物(原文)"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:string .
+
+epig:objectType a owl:DatatypeProperty ;
+    rdfs:label "object type"@en , "対象物種別"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:string .
+
+epig:objectDescription a owl:DatatypeProperty ;
+    rdfs:label "object description"@en , "対象物の説明"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:string .
+
+epig:costOriginalText a owl:DatatypeProperty ;
+    rdfs:label "cost original text"@en , "費用の原文"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:string .
+
+epig:costNumeric a owl:DatatypeProperty ;
+    rdfs:label "cost (numeric)"@en , "費用(数値)"@ja ;
+    rdfs:comment "enrich (cost) が付与した換算数値。"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:integer .
+
+epig:costUnit a owl:DatatypeProperty ;
+    rdfs:label "cost unit"@en , "費用単位"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:string .
+
+epig:costConversionReasoning a owl:DatatypeProperty ;
+    rdfs:label "cost conversion reasoning"@en , "費用換算の根拠"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range xsd:string .
+
+epig:costEnrichedBy a owl:ObjectProperty ;
+    rdfs:label "cost enriched by"@en , "費用enrich元activity"@ja ;
+    rdfs:comment "旧スタイル: バージョン付き Statement + prov:wasRevisionOf に移行済み。"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range hmkia:InterpretationAct ;
+    owl:deprecated true .
+
+epig:objectsEnrichedBy a owl:ObjectProperty ;
+    rdfs:label "objects enriched by"@en , "対象物enrich元activity"@ja ;
+    rdfs:comment "旧スタイル: バージョン付き Statement + prov:wasRevisionOf に移行済み。"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range hmkia:InterpretationAct ;
+    owl:deprecated true .
+
+epig:recipientsEnrichedBy a owl:ObjectProperty ;
+    rdfs:label "recipients enriched by"@en , "受益者enrich元activity"@ja ;
+    rdfs:comment "旧スタイル: バージョン付き Statement + prov:wasRevisionOf に移行済み。"@ja ;
+    rdfs:domain epig:BenefactionStatement ; rdfs:range hmkia:InterpretationAct ;
+    owl:deprecated true .
+
+#################################################################
+#    Datatype Properties  —  RelationshipStatement
+#################################################################
+
+epig:relationshipType a owl:DatatypeProperty ;
+    rdfs:label "relationship type"@en , "関係種別"@ja ;
+    rdfs:domain epig:RelationshipStatement ; rdfs:range xsd:string .
+
+epig:relationshipProperty a owl:DatatypeProperty ;
+    rdfs:label "relationship property"@en , "関係プロパティ"@ja ;
+    rdfs:domain epig:RelationshipStatement ; rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  PersonReference / CommunityReference 共通
+#################################################################
+
+epig:normalizedName a owl:DatatypeProperty ;
+    rdfs:label "normalized name"@en , "正規化名"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( epig:PersonReference epig:CommunityReference ) ] ;
+    rdfs:range xsd:string .
+
+epig:evidence a owl:DatatypeProperty ;
+    rdfs:label "evidence"@en , "根拠テキスト"@ja ;
+    rdfs:comment "碑文中の根拠となるテキスト。"@ja ;
+    rdfs:domain [ a owl:Class ;
+        owl:unionOf ( epig:CommunityReference epig:RelationshipStatement ) ] ;
+    rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  CommunityReference
+#################################################################
+
+epig:communityType a owl:DatatypeProperty ;
+    rdfs:label "community type"@en , "共同体種別"@ja ;
+    rdfs:domain epig:CommunityReference ; rdfs:range xsd:string .
+
+epig:communityDescription a owl:DatatypeProperty ;
+    rdfs:label "community description"@en , "共同体の説明"@ja ;
+    rdfs:domain epig:CommunityReference ; rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  cross-cutting
+#################################################################
+
+epig:notes a owl:DatatypeProperty ;
+    rdfs:label "notes"@en , "注記"@ja ;
+    rdfs:comment "寄進・共同体・関係などに付随する自由記述の注記。"@ja ;
+    rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  ExternalDatabaseLink
+#################################################################
+
+epig:database a owl:DatatypeProperty ;
+    rdfs:label "database"@en , "データベース名"@ja ;
+    rdfs:domain epig:ExternalDatabaseLink ; rdfs:range xsd:string .
+
+epig:externalId a owl:DatatypeProperty ;
+    rdfs:label "external ID"@en , "外部ID"@ja ;
+    rdfs:domain epig:ExternalDatabaseLink ; rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  Place
+#################################################################
+
+epig:pleiadesId a owl:DatatypeProperty ;
+    rdfs:label "Pleiades ID"@en , "Pleiades ID"@ja ;
+    rdfs:comment "出土地に対応する Pleiades 地名典拠の数値 ID (例: 315223)。対応する典拠 URI は https://pleiades.stoa.org/places/<id> で構成される。"@ja ;
+    rdfs:domain epig:Place ; rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  Provenance (Activity / Agent)
+#################################################################
+
+epig:script a owl:DatatypeProperty ;
+    rdfs:label "script"@en , "スクリプト"@ja ;
+    rdfs:comment "prov:Activity / hmkia:InterpretationAct を生成したスクリプトのファイル名。"@ja ;
+    rdfs:domain hmkia:InterpretationAct ; rdfs:range xsd:string .
+
+epig:activityType a owl:DatatypeProperty ;
+    rdfs:label "activity type"@en , "アクティビティ種別"@ja ;
+    rdfs:comment """InterpretationAct の実装レベル種別ラベル。
+InterpretationCreationAct: extract, reextract_relationships など。
+InterpretationUpdateAct: enrich_cost, enrich_career_location, enrich_divinity,
+enrich_vital_events, enrich_benef_objects, enrich_benef_recipients, schema_fix など。"""@ja ;
+    rdfs:domain hmkia:InterpretationAct ; rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  旧スタイル用 (deprecated)
+#################################################################
+
+epig:position a owl:DatatypeProperty ;
+    rdfs:label "position"@en , "役職名"@ja ;
+    rdfs:domain epig:CareerPosition ; rdfs:range xsd:string ;
+    owl:deprecated true .
+
+epig:cost a owl:DatatypeProperty ;
+    rdfs:label "cost (raw)"@en , "費用(原文)"@ja ;
+    rdfs:domain epig:Benefaction ; rdfs:range xsd:string ;
+    owl:deprecated true .
+
+epig:object a owl:DatatypeProperty ;
+    rdfs:label "object"@en , "対象物"@ja ;
+    rdfs:domain epig:Benefaction ; rdfs:range xsd:string ;
+    owl:deprecated true .
+
+epig:versionLabel a owl:DatatypeProperty ;
+    rdfs:label "version label"@en , "バージョンラベル"@ja ;
+    rdfs:domain epig:RelationshipVersion ; rdfs:range xsd:string ;
+    owl:deprecated true .

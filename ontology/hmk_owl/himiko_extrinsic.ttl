@@ -1,0 +1,198 @@
+@prefix hmke:  <urn:himiko:ontology:extrinsic:> .
+@prefix hmki:  <urn:himiko:ontology:intrinsic:> .
+@prefix hmkia: <urn:himiko:ontology:interpretation:> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owltime: <http://www.w3.org/2006/time#> .
+@prefix geo:   <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+
+#################################################################
+#    Ontology metadata
+#################################################################
+
+<urn:himiko:ontology:extrinsic> a owl:Ontology ;
+    dcterms:title "HIMIKO Extrinsic Knowledge Layer (外在知識層)"@en ;
+    dcterms:title "HIMIKO 外在知識層"@ja ;
+    dcterms:description """HIMIKO (Historical Micro Knowledge and Ontology) の外在知識層。
+史料内の言及を史料外部の知識体系と接続するとともに、その歴史的コンテキストを表現する。
+中核となるのは EntityReference — EntityInContext — Entity の三段階構造であり、
+これによって史料中での具体的言及、歴史的コンテキスト、普遍的実体という三つの異なるレベルを
+明確に区別しつつ、Linked Data として相互接続する。"""@ja ;
+    dcterms:creator "HIMIKO project" ;
+    owl:versionInfo "0.1.1" .
+
+#################################################################
+#    Classes
+#################################################################
+
+hmke:Entity a owl:Class ;
+    rdfs:label "Entity"@en , "普遍的実体"@ja ;
+    rdfs:comment """史料外部に存在する普遍的な実体。Wikidata・VIAF・GeoNames・Pleiades などの
+典拠データにおいて永続的識別子 (URI) をもって表現される、時代を通じて一意に識別される実体。
+史料横断的な検索・分析の基盤となる。"""@ja .
+
+hmke:EntityInContext a owl:Class ;
+    rdfs:label "Entity In Context"@en , "文脈付き実体"@ja ;
+    rdfs:comment """特定の歴史的コンテキストに位置付けられた実体。単なる人物や場所ではなく、
+「ある特定の歴史的文脈における人物」「ある特定の状況下にある場所」を表現する。
+普遍的実体 (hmke:Entity) とは独立したリソースとして扱われ、一つの Entity に対して
+複数の EntityInContext を併存させることで、時期による属性の変化や複数の解釈を表現できる。
+時間的範囲 (eventSince / eventUntil) を持ち、社会的地位・官職・所属集団・活動地域などの属性を保持しうる。"""@ja .
+
+hmke:Event a owl:Class ;
+    rdfs:label "Event (chronological anchor)"@en , "歴史的出来事 (時間基準点)"@ja ;
+    rdfs:comment """EntityInContext の時間的範囲を規定するための歴史的出来事。
+「ある人物が執政官に就任した」「ある都市が属州都となった」といった相対的な時間基準点として用いられる。
+絶対年代が不確実な場合であっても、Event 同士の前後関係 (mentionedAsPrecedent) に基づいて
+歴史的コンテキストの時間関係を記述できる。"""@ja .
+
+hmke:Location a owl:Class ;
+    rdfs:label "Location"@en , "場所"@ja ;
+    rdfs:comment "EntityInContext の属性として付与される地理的場所。地理座標や地名を保持する。"@ja ;
+    rdfs:seeAlso geo:SpatialThing .
+
+hmke:Role a owl:Class ;
+    rdfs:label "Role / Position"@en , "地位・役職"@ja ;
+    rdfs:comment "社会的地位・官職・所属集団における役割など、EntityInContext に付与されうる社会的属性。"@ja .
+
+#################################################################
+#    Object Properties  —  EntityInContext ↔ Entity
+#################################################################
+
+hmke:contextualAspectOf a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "contextual aspect of"@en , "文脈的側面"@ja ;
+    rdfs:comment """EntityInContext が、どの普遍的実体 (Entity) の特定コンテキストにおける側面であるかを示す。
+一つの Entity は複数の EntityInContext を持ちうるが、EntityInContext は必ず 1 つの Entity と対応付けられる。"""@ja ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Entity .
+
+#################################################################
+#    Object Properties  —  EntityInContext の時間的範囲
+#################################################################
+
+hmke:eventSince a owl:ObjectProperty ;
+    rdfs:label "event since"@en , "開始基準となる出来事"@ja ;
+    rdfs:comment "この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。"@ja ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Event .
+
+hmke:eventUntil a owl:ObjectProperty ;
+    rdfs:label "event until"@en , "終了基準となる出来事"@ja ;
+    rdfs:comment "この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。"@ja ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Event .
+
+hmke:mentionedAsPrecedent a owl:ObjectProperty ;
+    rdfs:label "mentioned as precedent"@en , "先行する出来事として言及"@ja ;
+    rdfs:comment """Event 同士の前後関係。この Event が他の Event よりも時系列的に先行することを示す。
+絶対年代が不明でも相対的な時間関係を記述できる。"""@ja ;
+    rdfs:domain hmke:Event ;
+    rdfs:range hmke:Event .
+
+#################################################################
+#    Object Properties  —  EntityInContext の属性 (社会的・地理的コンテキスト)
+#################################################################
+
+hmke:hasLocation a owl:ObjectProperty ;
+    rdfs:label "has location"@en , "所在地"@ja ;
+    rdfs:comment "EntityInContext が有する地理的場所 (滞在地・活動地域など)。"@ja ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Location .
+
+hmke:hasRole a owl:ObjectProperty ;
+    rdfs:label "has role / position"@en , "社会的地位・官職"@ja ;
+    rdfs:comment "EntityInContext が有する社会的地位・官職・所属集団における役割など。"@ja ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Role .
+
+hmke:memberOf a owl:ObjectProperty ;
+    rdfs:label "member of"@en , "所属集団"@ja ;
+    rdfs:comment "EntityInContext が所属する共同体・政治勢力・家族などの Entity。"@ja ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Entity .
+
+hmke:relatedEntityInContext a owl:ObjectProperty ;
+    rdfs:label "related entity in context"@en , "関連する文脈付き実体"@ja ;
+    rdfs:comment "他の EntityInContext との関係 (家族関係・主従関係など)。より具体的な関係はサブプロパティで表現する。"@ja ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:EntityInContext .
+
+#################################################################
+#    Object Properties  —  Interpretation Act
+#################################################################
+
+hmke:generatedBy a owl:ObjectProperty ;
+    rdfs:label "generated by (interpretation act)"@en , "解釈行為による生成"@ja ;
+    rdfs:comment "この EntityInContext / Entity / Event を生成した解釈行為 (hmkia:InterpretationAct)。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( hmke:EntityInContext hmke:Entity hmke:Event ) ] ;
+    rdfs:range hmkia:InterpretationAct .
+
+#################################################################
+#    Datatype Properties  —  Entity 典拠リンク
+#################################################################
+
+hmke:authorityURI a owl:DatatypeProperty ;
+    rdfs:label "authority URI"@en , "典拠 URI"@ja ;
+    rdfs:comment """Entity が対応付けられる外部典拠データの URI (Wikidata Q番号、VIAF ID、GeoNames ID、Pleiades ID など)。
+複数の典拠に対応付けられる場合は複数値を持ちうる。"""@ja ;
+    rdfs:domain hmke:Entity ;
+    rdfs:range xsd:anyURI .
+
+hmke:entityType a owl:DatatypeProperty ;
+    rdfs:label "entity type"@en , "実体種別"@ja ;
+    rdfs:comment "Entity の種別 (person / place / organization / object など)。"@ja ;
+    rdfs:domain hmke:Entity ;
+    rdfs:range xsd:string .
+
+hmke:label a owl:DatatypeProperty ;
+    rdfs:label "canonical label"@en , "正準名"@ja ;
+    rdfs:comment "Entity の正準的な名称 (現代の研究文献での標準綴り)。言語タグ付き文字列を推奨。"@ja ;
+    rdfs:domain hmke:Entity .
+
+#################################################################
+#    Datatype Properties  —  Event
+#################################################################
+
+hmke:eventLabel a owl:DatatypeProperty ;
+    rdfs:label "event label"@en , "出来事の記述"@ja ;
+    rdfs:comment "Event の内容を表す自然言語のラベル (例: 'Consulship of X in 121 CE')。"@ja ;
+    rdfs:domain hmke:Event .
+
+hmke:absoluteDate a owl:DatatypeProperty ;
+    rdfs:label "absolute date"@en , "絶対年代"@ja ;
+    rdfs:comment "Event に絶対年代が推定される場合の年月日。不確実な場合は付与しない。"@ja ;
+    rdfs:domain hmke:Event ;
+    rdfs:range xsd:gYear .
+
+#################################################################
+#    Datatype Properties  —  Location
+#################################################################
+
+hmke:locationLabel a owl:DatatypeProperty ;
+    rdfs:label "location label"@en , "場所の名称"@ja ;
+    rdfs:comment "場所の地名 (現代地名 / 古代地名)。"@ja ;
+    rdfs:domain hmke:Location .
+
+hmke:lat a owl:DatatypeProperty ;
+    rdfs:label "latitude"@en , "緯度"@ja ;
+    rdfs:domain hmke:Location ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso geo:lat .
+
+hmke:long a owl:DatatypeProperty ;
+    rdfs:label "longitude"@en , "経度"@ja ;
+    rdfs:domain hmke:Location ;
+    rdfs:range xsd:decimal ;
+    rdfs:seeAlso geo:long .
+
+#################################################################
+#    Datatype Properties  —  Role
+#################################################################
+
+hmke:roleLabel a owl:DatatypeProperty ;
+    rdfs:label "role label"@en , "役職名"@ja ;
+    rdfs:comment "官職名・地位の名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。"@ja ;
+    rdfs:domain hmke:Role .

@@ -1,0 +1,216 @@
+@prefix hmkp:  <urn:himiko:ontology:physical:> .
+@prefix hmki:  <urn:himiko:ontology:intrinsic:> .
+@prefix hmke:  <urn:himiko:ontology:extrinsic:> .
+@prefix hmkia: <urn:himiko:ontology:interpretation:> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+#################################################################
+#  HIMIKO — English translations of rdfs:comment (i18n overlay)
+#
+#  This file supplies English rdfs:comment values for HIMIKO
+#  classes and properties whose canonical Turtle sources
+#  (himiko_physical.ttl, himiko_intrinsic.ttl, himiko_extrinsic.ttl,
+#  himiko_interpretation.ttl) currently carry Japanese-only
+#  comments. It is loaded in addition to those sources by
+#  build_docs.py and build_webvowl.py.
+#
+#  Translation policy:
+#   - Preserve the Japanese-original meaning, technical precision,
+#     and cross-references (property IRIs, layer names).
+#   - Keep terminology consistent with existing "@en" rdfs:label
+#     values (e.g. Statement, EntityReference, EntityInContext).
+#################################################################
+
+
+#################################################################
+#  hmkp — Physical Layer
+#################################################################
+
+hmkp:Source rdfs:comment """The material embodiment of the source itself (the stone of an inscription, papyrus, or the paper/codex of a manuscript). Represents the physical medium that carries textual information. A Source bears a Text via hmkp:bears, and it is also directly connected to Statements (event mentions) in the intrinsic knowledge layer via hmkp:mentions."""@en .
+
+hmkp:Text rdfs:comment "The whole text corresponding to a single inscription or letter. It bundles the concatenated character list together with the annotations laid over it."@en .
+
+hmkp:Character rdfs:comment "A single character constituting the text. Its URI is UUID-based (urn:himiko:resource:char:<uuid>), providing a stable reference across edits of the text. hmkp:next links to the following character."@en .
+
+hmkp:Annotation rdfs:comment "An annotation over a character range [start, end). It carries a type (hmkp:kind) such as line numbering, abbreviation expansion, supplement, gap, correction, and so on."@en .
+
+hmkp:bears rdfs:comment "The Text that a Source (physical medium) bears."@en .
+
+hmkp:firstChar rdfs:comment "Reference to the first Character in the text. Following hmkp:next from here iterates over the entire character stream."@en .
+
+hmkp:hasAnnotation rdfs:comment "Reference to an annotation attached to this text."@en .
+
+hmkp:next rdfs:comment "The next Character in the character-linked list. Not set on the final character."@en .
+
+hmkp:hasRange rdfs:comment """Abstract reference relation indicating that some resource (Annotation, Statement, EntityReference, etc.) refers to a specific Character range in the text. The concrete range boundaries are supplied by sub-properties (hmkp:startChar / hmkp:endChar)."""@en .
+
+hmkp:startChar rdfs:comment "The Character at the start (offset = start) of the annotation range. Sub-property of hmkp:hasRange."@en .
+
+hmkp:endChar rdfs:comment "The Character at the end of the annotation range (offset = end - 1). Since end is an exclusive boundary, this points to end-1. Sub-property of hmkp:hasRange."@en .
+
+hmkp:mentions rdfs:comment """The Statement (event mention) that this Source refers to as part of its content. This is an abstract relation showing that a source connects, at the physical level, to semantic content (a Statement in the intrinsic knowledge layer). The specific Character range that a Statement occupies is expressed at the Statement level via hmki:mentions."""@en .
+
+hmkp:char rdfs:comment "The actual single character that this Character represents."@en .
+
+hmkp:offset rdfs:comment "Zero-based character position within the whole text."@en .
+
+hmkp:uuid rdfs:comment "The UUID string used to construct the Character URI."@en .
+
+hmkp:textContent rdfs:comment "The concatenated full text. A redundant copy carrying the same content as the hmkp:Character sequence."@en .
+
+hmkp:start rdfs:comment "The starting character offset of the annotation range (inclusive)."@en .
+
+hmkp:end rdfs:comment "The ending character offset of the annotation range (exclusive, Python-slice style)."@en .
+
+hmkp:kind rdfs:comment """Type of the annotation. Permitted values include: line (line number, <lb>), expan / abbr / ex (abbreviation expansion), supplied (supplement), gap (missing text), choice (correction), surplus (redundant), seg / other (segments and misc.)."""@en .
+
+hmkp:annotatedText rdfs:comment "The textual content of the range that the annotation targets."@en .
+
+hmkp:reason rdfs:comment "Value of the @reason attribute on gap / supplied (e.g. lost, unknown)."@en .
+
+hmkp:extent rdfs:comment "Value of the @extent attribute on gap (e.g. 'unknown')."@en .
+
+hmkp:quantity rdfs:comment "Value of the @quantity attribute on gap (extent of the missing text)."@en .
+
+hmkp:unit rdfs:comment "Value of the @unit attribute on gap (e.g. 'line', 'character')."@en .
+
+hmkp:sic rdfs:comment "For a choice annotation where the main text adopts corr, this records the original (erroneous) reading."@en .
+
+hmkp:n rdfs:comment "Value of the TEI @n attribute. Used for line numbers, letter section numbers, and so on. Applicable to both Text and Annotation."@en .
+
+hmkp:teiXmlId rdfs:comment "The xml:id value from the original TEI source. Applicable to Text and to Annotations that carry xml:id (e.g. seg)."@en .
+
+hmkp:localId rdfs:comment "Identifier from TEI <idno type='localID'> (e.g. HD000001)."@en .
+
+hmkp:edcsId rdfs:comment "Identifier in the Epigraphik-Datenbank Clauss-Slaby (EDCS). Derived from the EDH–EDCS mapping or from the file name."@en .
+
+hmkp:material rdfs:comment "Material of the source (marble / limestone / bronze / papyrus, etc.)."@en .
+
+hmkp:origPlace rdfs:comment "The find-spot or place of origin of the source. Composite modern/ancient place names are allowed. May also be attached to Text."@en .
+
+hmkp:sourceType rdfs:comment "Type of the physical medium of the source (inscription / papyrus / manuscript / ostracon, etc.)."@en .
+
+
+#################################################################
+#  hmki — Intrinsic Knowledge Layer
+#################################################################
+
+hmki:Statement rdfs:comment """The basic unit of an event (occurrence, state, or relation) mentioned in a source. Called MicroKnowledge in the accompanying papers. Not restricted to \"events\": it also covers continuous states and attributes of entities, and continuous relations between entities. A Statement holds its textual evidence by mentioning Characters directly, and takes EntityReferences as its constituents."""@en .
+
+hmki:EntityReference rdfs:comment """An individual mention of a person, place, organisation, and so on in a source. Not the cross-source universal entity itself (hmke:Entity) but a single, source-bound mention. Records the surface form in the source and the role the mention plays within the source (hmki:hasRole)."""@en .
+
+hmki:mentions rdfs:comment """The Characters (text range) in the source that this Statement points to. A Statement can mention multiple Characters at once, allowing event mentions that span several non-contiguous locations in the text."""@en .
+
+hmki:references rdfs:comment "Reference to an EntityReference that constitutes this Statement. A single Statement may reference multiple EntityReferences."@en .
+
+hmki:hasRange rdfs:comment """The Character range in the source that this EntityReference points to, giving each entity mention a Character-level textual foothold. Finer-grained boundaries (start / end) are provided by the sub-properties hmki:startChar / hmki:endChar."""@en .
+
+hmki:startChar rdfs:comment "The first Character of the range that the EntityReference points to. Sub-property of hmki:hasRange."@en .
+
+hmki:endChar rdfs:comment "The last Character of the range that the EntityReference points to. Sub-property of hmki:hasRange."@en .
+
+hmki:hasRole rdfs:comment "The role played by this in-source mention (e.g. benefactor, beneficiary, witness). Corresponds to fpo:hasRole in the FPO ontology."@en .
+
+hmki:referencesEntity rdfs:comment "The external universal entity (hmke:Entity) that the EntityReference points to. Corresponds to conventional entity linking."@en .
+
+hmki:referencesEntityInContext rdfs:comment """The historically contextualised entity (hmke:EntityInContext) that the EntityReference points to. Rather than a plain link to a universal entity, this expresses the mention together with its temporal, social, and geographical context."""@en .
+
+hmki:statementType rdfs:comment """Indicates the type of a Statement. HIMIKO is a conceptual model; concrete type vocabularies (e.g. Benefaction, CareerEvent, Dedication, Marriage, and so on) are provided by individual projects according to their target domain."""@en .
+
+hmki:relatedTo rdfs:comment """A recursive connection between Statements. Sub-properties for finer-grained relations (temporal ordering, causal relations, etc., e.g. precedes, causedBy) can be added in the future."""@en .
+
+hmki:precedes rdfs:comment "Indicates that this Statement chronologically precedes another Statement."@en .
+
+hmki:causedBy rdfs:comment "Indicates that this Statement was caused by another Statement."@en .
+
+hmki:generatedBy rdfs:comment "The interpretation act (hmkia:InterpretationAct) that generated this Statement or EntityReference."@en .
+
+hmki:surfaceForm rdfs:comment "The form of the EntityReference as it appears in the source (verbatim spelling). Records variant forms and abbreviated forms as-is."@en .
+
+hmki:normalizedForm rdfs:comment "The normalised form of the EntityReference (with abbreviations expanded and returned to standard spelling)."@en .
+
+hmki:entityType rdfs:comment "The type of entity that the EntityReference points to (person / place / organization / object / time, etc.)."@en .
+
+
+#################################################################
+#  hmke — Extrinsic Knowledge Layer
+#################################################################
+
+hmke:Entity rdfs:comment """A universal entity that exists outside the source. Represented by a persistent identifier (URI) in authority datasets such as Wikidata, VIAF, GeoNames, Pleiades, and so on—an entity that can be identified uniquely across time. The basis for cross-source search and analysis."""@en .
+
+hmke:EntityInContext rdfs:comment """An entity placed within a specific historical context. Rather than a bare person or place, this expresses \"a person in a particular historical context\" or \"a place under a particular set of circumstances\". Treated as a resource independent of the universal entity (hmke:Entity); a single Entity may have multiple EntityInContext instances."""@en .
+
+hmke:Event rdfs:comment """A historical event used to delimit the temporal span of an EntityInContext. Serves as a relative chronological anchor point—e.g. \"the moment X assumed the consulship\", \"the moment a city became a provincial capital\". Even when the absolute date is uncertain, the relative ordering between Events can still be recorded."""@en .
+
+hmke:Location rdfs:comment "A geographical place attached as an attribute of an EntityInContext. Carries geographic coordinates or a place name."@en .
+
+hmke:Role rdfs:comment "Social attributes that may be attached to an EntityInContext—social status, magistracies, roles held within a community, and so on."@en .
+
+hmke:contextualAspectOf rdfs:comment """Links an EntityInContext to the universal entity (Entity) whose particular context it captures. A single Entity may have multiple EntityInContext instances, but each EntityInContext points to exactly one Entity."""@en .
+
+hmke:hasLocation rdfs:comment "The geographical location that the EntityInContext holds (place of residence, area of activity, etc.)."@en .
+
+hmke:hasRole rdfs:comment "A social status, magistracy, or community role held by the EntityInContext."@en .
+
+hmke:memberOf rdfs:comment "The Entity (community, political grouping, family, etc.) that the EntityInContext belongs to."@en .
+
+hmke:relatedEntityInContext rdfs:comment "A relation to another EntityInContext (kinship, patron–client, etc.). More specific relations are expressed via sub-properties."@en .
+
+hmke:eventSince rdfs:comment "The Event that marks the temporal starting point at which the context of this EntityInContext takes effect."@en .
+
+hmke:eventUntil rdfs:comment "The Event that marks the temporal endpoint at which the context of this EntityInContext ceases."@en .
+
+hmke:mentionedAsPrecedent rdfs:comment """Chronological ordering between Events. Indicates that this Event chronologically precedes another Event. Enables relative temporal reasoning even when the absolute dates are unknown."""@en .
+
+hmke:generatedBy rdfs:comment "The interpretation act (hmkia:InterpretationAct) that generated this EntityInContext, Entity, or Event."@en .
+
+hmke:label rdfs:comment "The canonical name of the Entity (the standard spelling used in modern scholarship). Language-tagged strings recommended."@en .
+
+hmke:authorityURI rdfs:comment """URI of the external authority record to which the Entity is linked (Wikidata Q number, VIAF ID, GeoNames ID, Pleiades ID, etc.). Multiple values are permitted when the entity is linked to several authorities."""@en .
+
+hmke:entityType rdfs:comment "The type of the Entity (person / place / organization / object, etc.)."@en .
+
+hmke:eventLabel rdfs:comment "Natural-language label describing the content of the Event (e.g. 'Consulship of X in 121 CE')."@en .
+
+hmke:absoluteDate rdfs:comment "The absolute date of an Event when it can be estimated. Omitted when the date is uncertain."@en .
+
+hmke:locationLabel rdfs:comment "Place name of the Location (modern and/or ancient name)."@en .
+
+hmke:roleLabel rdfs:comment "Name of the magistracy or social status (e.g. 'consul', 'aedilis', 'flamen', 'patronus')."@en .
+
+
+#################################################################
+#  hmkia — Interpretation Act Layer
+#################################################################
+
+hmkia:InterpretationAct rdfs:comment """A resource that materialises the interpretation act performed by a historical researcher. Knowledge resources such as Annotation, Statement, and EntityInContext are always generated from some InterpretationAct. Interpretation acts are recursively linked to one another (supports, critiques, revises, etc.), enabling scholarly dialogue and reasoning to be captured as a graph."""@en .
+
+hmkia:Agent rdfs:comment "The agent that carried out the interpretation act (a researcher, research team, machine-learning model, etc.)."@en .
+
+hmkia:generated rdfs:comment """The data resource that this interpretation act produced (Annotation, Statement, EntityReference, EntityInContext, Entity, and so on). The inverse is provided by the generatedBy property defined in each layer."""@en .
+
+hmkia:associatedWith rdfs:comment "The agent (Agent) that performed this interpretation act. Corresponds to prov:wasAssociatedWith in PROV-O."@en .
+
+hmkia:basedOn rdfs:comment "The materials this interpretation act relied on (primary sources, secondary literature, translations, and so on). Corresponds to hico:isExtractedFrom in HiCO."@en .
+
+hmkia:supports rdfs:comment "Indicates that this interpretation act supports another interpretation act. Corresponds to cito:supports in CiTO."@en .
+
+hmkia:critiques rdfs:comment "Indicates that this interpretation act critiques (raises objections to) another interpretation act. Corresponds to cito:disagreesWith in CiTO."@en .
+
+hmkia:revises rdfs:comment "Indicates that this interpretation act revises another interpretation act (inheriting from it while introducing changes)."@en .
+
+hmkia:derivedFrom rdfs:comment "Indicates that this interpretation act is derived from another interpretation act. Common super-relation for revision, support, and critique."@en .
+
+hmkia:hasType rdfs:comment "Type of the interpretation act (e.g. 'transcription', 'restoration', 'identification', 'dating')."@en .
+
+hmkia:hasCriterion rdfs:comment "Description of the criterion or methodology applied in the interpretation (e.g. 'paleographic analysis', 'prosopographic comparison')."@en .
+
+hmkia:confidence rdfs:comment "Confidence of the interpretation (a real number between 0.0 and 1.0, or a qualitative value 'high' / 'medium' / 'low')."@en .
+
+hmkia:hasDate rdfs:comment "The date and time at which this interpretation act was carried out. ISO 8601 format is recommended."@en .
+
+hmkia:note rdfs:comment "Free-form remarks about the interpretation act."@en .
+
+hmkia:agentName rdfs:comment "Name of the Agent (researcher name, team name, or model name)."@en .
+
+hmkia:agentType rdfs:comment "Type of the Agent (person / team / software, etc.)."@en .

@@ -1,0 +1,252 @@
+@prefix hmkp: <urn:himiko:ontology:physical:> .
+@prefix hmki: <urn:himiko:ontology:intrinsic:> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix oa:   <http://www.w3.org/ns/oa#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+#################################################################
+#    Ontology metadata
+#################################################################
+
+<urn:himiko:ontology:physical> a owl:Ontology ;
+    dcterms:title "HIMIKO Physical Layer (史料物理層) — ATAG-style Standoff Text Annotation Ontology"@en ;
+    dcterms:title "HIMIKO 史料物理層 — ATAG風スタンドオフ・テキストアノテーション・オントロジー"@ja ;
+    dcterms:description """HIMIKO (Historical Micro Knowledge and Ontology) の史料物理層。
+碑文 (TEI/EDCS) および書簡 (TEI) を RDF に変換するためのオントロジーで、
+テキストを 1 文字 = 1 ノード (hmkp:Character) に分解し、その文字列上に
+オフセットベースのアノテーション (hmkp:Annotation) を載せるスタンドオフ方式を採る。
+ATAG (Annotated Text and Graphs) の考え方に基づく。"""@ja ;
+    dcterms:creator "HIMIKO project" ;
+    owl:versionInfo "1.0.0" .
+
+#################################################################
+#    Classes
+#################################################################
+
+hmkp:Text a owl:Class ;
+    rdfs:label "Text"@en , "テキスト"@ja ;
+    rdfs:comment "1 つの碑文または書簡に相当するテキスト全体。連結された文字列と、その上に載るアノテーションを束ねる。"@ja .
+
+hmkp:Character a owl:Class ;
+    rdfs:label "Character"@en , "文字"@ja ;
+    rdfs:comment "テキストを構成する 1 文字。URI は UUID ベース (urn:himiko:resource:char:<uuid>) で、テキスト編集に対して安定した参照を提供する。hmkp:next で次の文字へ連結する。"@ja .
+
+hmkp:Annotation a owl:Class ;
+    rdfs:label "Annotation"@en , "アノテーション"@ja ;
+    rdfs:comment "文字範囲 [start, end) に対する注釈。行番号・略語展開・補完・欠損・訂正などの種類 (hmkp:kind) を持つ。"@ja ;
+    rdfs:seeAlso oa:Annotation .
+
+hmkp:Source a owl:Class ;
+    rdfs:label "Source"@en , "史料"@ja ;
+    rdfs:comment """史料そのものが有する物質的実体 (碑文の石材、パピルス、写本の紙・冊子など)。
+テキスト情報を担う物理的な媒体を表現する。1 つの Source は hmkp:bears によって Text を担う。
+また、hmkp:mentions によって史料内在知識層の Statement (イベント言及) に直接接続される。"""@ja .
+
+#################################################################
+#    Object Properties  (structural links)
+#################################################################
+
+hmkp:firstChar a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "first character"@en , "先頭文字"@ja ;
+    rdfs:comment "テキストの先頭にあたる Character への参照。ここから hmkp:next を辿ると全文字を走査できる。"@ja ;
+    rdfs:domain hmkp:Text ;
+    rdfs:range hmkp:Character .
+
+hmkp:next a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "next character"@en , "次の文字"@ja ;
+    rdfs:comment "文字の連結リストにおける次の Character。最後の文字には付与されない。"@ja ;
+    rdfs:domain hmkp:Character ;
+    rdfs:range hmkp:Character .
+
+hmkp:hasAnnotation a owl:ObjectProperty ;
+    rdfs:label "has annotation"@en , "アノテーションを持つ"@ja ;
+    rdfs:comment "テキストに属するアノテーションへの参照。"@ja ;
+    rdfs:domain hmkp:Text ;
+    rdfs:range hmkp:Annotation .
+
+hmkp:bears a owl:ObjectProperty ;
+    rdfs:label "bears (source → text)"@en , "テキストを担う"@ja ;
+    rdfs:comment "史料 (Source) がその物質的媒体上に担うテキスト (Text)。"@ja ;
+    rdfs:domain hmkp:Source ;
+    rdfs:range hmkp:Text .
+
+hmkp:mentions a owl:ObjectProperty ;
+    rdfs:label "mentions (source → statement)"@en , "言及する"@ja ;
+    rdfs:comment """Source がその内容として言及するイベント (Statement)。
+史料が物理的レベルで意味的内容 (史料内在知識層の Statement) に接続することを示す抽象的関係。
+Statement が実際にどの Character 範囲を指しているかは、Statement 側の hmki:mentions
+プロパティで表現される (Statement は複数の Character を指すため多重関係)。"""@ja ;
+    rdfs:domain hmkp:Source ;
+    rdfs:range hmki:Statement .
+
+hmkp:hasRange a owl:ObjectProperty ;
+    rdfs:label "has range (character)"@en , "Character 範囲を持つ"@ja ;
+    rdfs:comment """あるリソース (Annotation、Statement、EntityReference など) がテキスト上の
+特定の Character 範囲を参照することを示す抽象的な参照関係。
+具体的な範囲指定は subPropertyOf として定義される startChar / endChar によって表現される。"""@ja ;
+    rdfs:range hmkp:Character .
+
+hmkp:startChar a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "start character"@en , "開始文字"@ja ;
+    rdfs:comment "アノテーション範囲の先頭 (offset = start) にあたる Character。hmkp:hasRange のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmkp:hasRange ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range hmkp:Character .
+
+hmkp:endChar a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "end character"@en , "終了文字"@ja ;
+    rdfs:comment "アノテーション範囲の末尾 (offset = end - 1) にあたる Character。end は排他的境界のため end-1 を指す。hmkp:hasRange のサブプロパティ。"@ja ;
+    rdfs:subPropertyOf hmkp:hasRange ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range hmkp:Character .
+
+hmkp:refersToEntity a owl:ObjectProperty ;
+    rdfs:label "refers to entity reference"@en , "参照するエンティティ言及"@ja ;
+    rdfs:comment """アノテーションが指し示す史料内在知識層のエンティティ言及 (hmki:EntityReference)。
+テキスト範囲 (hmkp:start/end/startChar/endChar) と外部エンティティを結ぶ Annotation で使用する。
+このアノテーションを生成した解釈行為の記述は prov:wasGeneratedBy によって hmkia:InterpretationAct に接続する。"""@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range hmki:EntityReference .
+
+#################################################################
+#    Datatype Properties  —  hmkp:Text
+#################################################################
+
+hmkp:textContent a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "text content"@en , "全文テキスト"@ja ;
+    rdfs:comment "テキストの連結全文。hmkp:Character 列と同一内容を表す冗長コピー。"@ja ;
+    rdfs:domain hmkp:Text ;
+    rdfs:range xsd:string .
+
+hmkp:teiXmlId a owl:DatatypeProperty ;
+    rdfs:label "TEI xml:id"@en , "TEI xml:id"@ja ;
+    rdfs:comment "元 TEI ソース中の xml:id 値。Text と、xml:id を持つ Annotation (seg など) の双方に付与されうる。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( hmkp:Text hmkp:Annotation ) ] ;
+    rdfs:range xsd:string .
+
+hmkp:localId a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "local ID"@en , "ローカルID"@ja ;
+    rdfs:comment "TEI の <idno type='localID'> 由来の識別子 (例: HD000001)。"@ja ;
+    rdfs:domain hmkp:Text ;
+    rdfs:range xsd:string .
+
+hmkp:edcsId a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "EDCS ID"@en , "EDCS ID"@ja ;
+    rdfs:comment "Epigraphik-Datenbank Clauss-Slaby (EDCS) の識別子。EDH-EDCS 対応表またはファイル名から得る。"@ja ;
+    rdfs:domain hmkp:Text ;
+    rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  hmkp:Source
+#################################################################
+
+hmkp:sourceType a owl:DatatypeProperty ;
+    rdfs:label "source type"@en , "史料種別"@ja ;
+    rdfs:comment "史料の物理媒体の種別 (inscription / papyrus / manuscript / ostracon 等)。"@ja ;
+    rdfs:domain hmkp:Source ;
+    rdfs:range xsd:string .
+
+hmkp:material a owl:DatatypeProperty ;
+    rdfs:label "material"@en , "材質"@ja ;
+    rdfs:comment "史料の材質 (marble / limestone / bronze / papyrus 等)。"@ja ;
+    rdfs:domain hmkp:Source ;
+    rdfs:range xsd:string .
+
+hmkp:origPlace a owl:DatatypeProperty ;
+    rdfs:label "place of origin"@en , "出土地"@ja ;
+    rdfs:comment "史料の出土地・原来地 (現代地名 / 古代地名などの複合表記も許容)。Text にも付与されうる。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( hmkp:Source hmkp:Text ) ] ;
+    rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  hmkp:Character
+#################################################################
+
+hmkp:char a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "character value"@en , "文字値"@ja ;
+    rdfs:comment "この Character が表す 1 文字そのもの。"@ja ;
+    rdfs:domain hmkp:Character ;
+    rdfs:range xsd:string .
+
+hmkp:offset a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "offset"@en , "オフセット"@ja ;
+    rdfs:comment "全文テキスト中における 0 始まりの文字位置。"@ja ;
+    rdfs:domain hmkp:Character ;
+    rdfs:range xsd:nonNegativeInteger .
+
+hmkp:uuid a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "UUID"@en , "UUID"@ja ;
+    rdfs:comment "Character URI の生成に用いた UUID 文字列。"@ja ;
+    rdfs:domain hmkp:Character ;
+    rdfs:range xsd:string .
+
+#################################################################
+#    Datatype Properties  —  hmkp:Annotation
+#################################################################
+
+hmkp:kind a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "kind"@en , "種別"@ja ;
+    rdfs:comment """アノテーションの種類。取りうる値:
+line (行番号 <lb>), expan / abbr / ex (略語展開), supplied (補完),
+gap (欠損), choice (訂正), surplus (余剰),
+seg / opener / closer (書簡の構造ブロック)。"""@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string .
+
+hmkp:start a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "start offset"@en , "開始オフセット"@ja ;
+    rdfs:comment "アノテーション範囲の開始文字オフセット (含む)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:nonNegativeInteger .
+
+hmkp:end a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "end offset"@en , "終了オフセット"@ja ;
+    rdfs:comment "アノテーション範囲の終了文字オフセット (排他的、Python スライス終端風)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:nonNegativeInteger .
+
+hmkp:annotatedText a owl:DatatypeProperty ;
+    rdfs:label "annotated text"@en , "対象テキスト"@ja ;
+    rdfs:comment "アノテーションが対象とする範囲のテキスト内容。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string .
+
+hmkp:n a owl:DatatypeProperty ;
+    rdfs:label "n"@en , "番号(n)"@ja ;
+    rdfs:comment "TEI の @n 属性値。行番号 (line) や書簡セクション番号などに用いる。Text と Annotation の双方に付与されうる。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( hmkp:Text hmkp:Annotation ) ] ;
+    rdfs:range xsd:string .
+
+hmkp:reason a owl:DatatypeProperty ;
+    rdfs:label "reason"@en , "理由"@ja ;
+    rdfs:comment "gap / supplied の @reason 属性値 (例: lost, unknown)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string .
+
+hmkp:extent a owl:DatatypeProperty ;
+    rdfs:label "extent"@en , "範囲"@ja ;
+    rdfs:comment "gap の @extent 属性値 (例: unknown)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string .
+
+hmkp:quantity a owl:DatatypeProperty ;
+    rdfs:label "quantity"@en , "数量"@ja ;
+    rdfs:comment "gap の @quantity 属性値 (欠損量)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string .
+
+hmkp:unit a owl:DatatypeProperty ;
+    rdfs:label "unit"@en , "単位"@ja ;
+    rdfs:comment "gap の @unit 属性値 (例: line, character)。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string .
+
+hmkp:sic a owl:DatatypeProperty ;
+    rdfs:label "sic (original reading)"@en , "sic (元の読み)"@ja ;
+    rdfs:comment "choice アノテーションにおいて、本文には corr を採用した際に記録される元の (誤った) 読み。"@ja ;
+    rdfs:domain hmkp:Annotation ;
+    rdfs:range xsd:string .

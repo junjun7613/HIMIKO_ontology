@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" font-family="'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"/>
+    </marker>
+    <marker id="arrow-dashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- 層の枠 -->
+  <!-- 史料物理層 (blue) -->
+  <rect x="30" y="380" width="440" height="200" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6 4" rx="8"/>
+  <text x="50" y="620" fill="#3b82f6" font-size="18" font-weight="700">史料物理層</text>
+
+  <!-- 史料内在知識層 (orange) -->
+  <rect x="410" y="380" width="490" height="200" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4" rx="8"/>
+  <text x="720" y="620" fill="#f59e0b" font-size="18" font-weight="700">史料内在知識層</text>
+
+  <!-- 外在知識層 (green) -->
+  <rect x="620" y="60" width="290" height="380" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="6 4" rx="8"/>
+  <text x="770" y="45" fill="#10b981" font-size="18" font-weight="700">外在知識層</text>
+
+  <!-- Interpretation Act (dashed ellipse, spans all) -->
+  <ellipse cx="290" cy="180" rx="180" ry="80" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="290" y="185" text-anchor="middle" font-size="20" font-weight="600">Interpretation Act</text>
+
+  <!-- Class boxes -->
+  <!-- Text -->
+  <rect x="60" y="450" width="120" height="50" fill="#fff" stroke="#333" stroke-width="1.5" rx="4"/>
+  <text x="120" y="481" text-anchor="middle" font-size="16">Text</text>
+
+  <!-- Character -->
+  <rect x="230" y="450" width="140" height="50" fill="#fff" stroke="#333" stroke-width="1.5" rx="4"/>
+  <text x="300" y="481" text-anchor="middle" font-size="16">Character</text>
+
+  <!-- Annotation -->
+  <rect x="120" y="360" width="140" height="50" fill="#fff" stroke="#333" stroke-width="1.5" rx="4"/>
+  <text x="190" y="391" text-anchor="middle" font-size="16">Annotation</text>
+
+  <!-- Statement -->
+  <rect x="470" y="360" width="140" height="50" fill="#fff" stroke="#333" stroke-width="1.5" rx="4"/>
+  <text x="540" y="391" text-anchor="middle" font-size="16">Statement</text>
+
+  <!-- Entity Reference -->
+  <rect x="700" y="450" width="160" height="60" fill="#fff" stroke="#333" stroke-width="1.5" rx="4"/>
+  <text x="780" y="475" text-anchor="middle" font-size="15">Entity</text>
+  <text x="780" y="493" text-anchor="middle" font-size="15">Reference</text>
+
+  <!-- Entity In Context -->
+  <rect x="700" y="240" width="160" height="60" fill="#fff" stroke="#333" stroke-width="1.5" rx="4"/>
+  <text x="780" y="265" text-anchor="middle" font-size="15">Entity</text>
+  <text x="780" y="283" text-anchor="middle" font-size="15">InContext</text>
+
+  <!-- Entity -->
+  <rect x="700" y="90" width="160" height="50" fill="#fff" stroke="#333" stroke-width="1.5" stroke-dasharray="4 3" rx="4"/>
+  <text x="780" y="121" text-anchor="middle" font-size="16">Entity</text>
+
+  <!-- Source -->
+  <rect x="300" y="650" width="200" height="50" fill="#fff" stroke="#333" stroke-width="1.5" rx="4"/>
+  <text x="400" y="681" text-anchor="middle" font-size="16">Source</text>
+
+  <!-- Edges (solid = ObjectProperty, dashed = generatedBy) -->
+
+  <!-- Annotation --hasRange--> Character -->
+  <line x1="235" y1="410" x2="290" y2="450" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="215" y="440" font-size="13">hasRange</text>
+
+  <!-- Text --firstChar/next*--> Character -->
+  <line x1="180" y1="475" x2="230" y2="475" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Statement --mentions--> Character (down-left arrow) -->
+  <line x1="490" y1="410" x2="370" y2="470" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="380" y="435" font-size="13">mentions</text>
+
+  <!-- Statement --references--> EntityReference -->
+  <line x1="610" y1="385" x2="700" y2="465" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="612" y="420" font-size="13">references</text>
+
+  <!-- EntityReference --hasRange--> Character (long down-left) -->
+  <line x1="700" y1="500" x2="370" y2="490" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="510" y="510" font-size="13">hasRange</text>
+
+  <!-- EntityReference --referencesEntityInContext--> EntityInContext -->
+  <line x1="780" y1="450" x2="780" y2="300" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- EntityReference --referencesEntity--> Entity (curve on the right) -->
+  <path d="M 860 470 C 940 340, 940 200, 860 130" stroke="#333" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- EntityInContext --contextualAspectOf--> Entity -->
+  <line x1="780" y1="240" x2="780" y2="140" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Source --bears--> Text -->
+  <line x1="330" y1="650" x2="150" y2="500" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="220" y="590" font-size="13">bears</text>
+
+  <!-- Source --mentions--> Statement -->
+  <line x1="450" y1="650" x2="540" y2="410" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="510" y="560" font-size="13">mentions</text>
+
+  <!-- Interpretation Act dashed arrows -->
+  <line x1="245" y1="260" x2="190" y2="360" stroke="#555" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrow-dashed)"/>
+  <line x1="335" y1="260" x2="540" y2="360" stroke="#555" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrow-dashed)"/>
+  <line x1="420" y1="200" x2="700" y2="270" stroke="#555" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrow-dashed)"/>
+</svg>
