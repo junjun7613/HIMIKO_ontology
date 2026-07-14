@@ -122,18 +122,6 @@ hmkp:textContent a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain hmkp:Text ;
     rdfs:range xsd:string .
 
-hmkp:teiXmlId a owl:DatatypeProperty ;
-    rdfs:label "TEI xml:id"@en , "TEI xml:id"@ja ;
-    rdfs:comment "元 TEI ソース中の xml:id 値。Text と、xml:id を持つ Annotation (seg など) の双方に付与されうる。"@ja ;
-    rdfs:domain [ a owl:Class ; owl:unionOf ( hmkp:Text hmkp:Annotation ) ] ;
-    rdfs:range xsd:string .
-
-hmkp:localId a owl:DatatypeProperty , owl:FunctionalProperty ;
-    rdfs:label "local ID"@en , "ローカルID"@ja ;
-    rdfs:comment "TEI の <idno type='localID'> 由来の識別子 (例: HD000001)。"@ja ;
-    rdfs:domain hmkp:Text ;
-    rdfs:range xsd:string .
-
 hmkp:edcsId a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "EDCS ID"@en , "EDCS ID"@ja ;
     rdfs:comment "Epigraphik-Datenbank Clauss-Slaby (EDCS) の識別子。EDH-EDCS 対応表またはファイル名から得る。"@ja ;
@@ -143,18 +131,6 @@ hmkp:edcsId a owl:DatatypeProperty , owl:FunctionalProperty ;
 #################################################################
 #    Datatype Properties  —  hmkp:Source
 #################################################################
-
-hmkp:sourceType a owl:DatatypeProperty ;
-    rdfs:label "source type"@en , "史料種別"@ja ;
-    rdfs:comment "史料の物理媒体の種別 (inscription / papyrus / manuscript / ostracon 等)。"@ja ;
-    rdfs:domain hmkp:Source ;
-    rdfs:range xsd:string .
-
-hmkp:material a owl:DatatypeProperty ;
-    rdfs:label "material"@en , "材質"@ja ;
-    rdfs:comment "史料の材質 (marble / limestone / bronze / papyrus 等)。"@ja ;
-    rdfs:domain hmkp:Source ;
-    rdfs:range xsd:string .
 
 hmkp:origPlace a owl:DatatypeProperty ;
     rdfs:label "place of origin"@en , "出土地"@ja ;

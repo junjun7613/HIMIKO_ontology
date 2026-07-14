@@ -78,17 +78,9 @@ hmkp:sic rdfs:comment "For a choice annotation where the main text adopts corr, 
 
 hmkp:n rdfs:comment "Value of the TEI @n attribute. Used for line numbers, letter section numbers, and so on. Applicable to both Text and Annotation."@en .
 
-hmkp:teiXmlId rdfs:comment "The xml:id value from the original TEI source. Applicable to Text and to Annotations that carry xml:id (e.g. seg)."@en .
-
-hmkp:localId rdfs:comment "Identifier from TEI <idno type='localID'> (e.g. HD000001)."@en .
-
 hmkp:edcsId rdfs:comment "Identifier in the Epigraphik-Datenbank Clauss-Slaby (EDCS). Derived from the EDH–EDCS mapping or from the file name."@en .
 
-hmkp:material rdfs:comment "Material of the source (marble / limestone / bronze / papyrus, etc.)."@en .
-
 hmkp:origPlace rdfs:comment "The find-spot or place of origin of the source. Composite modern/ancient place names are allowed. May also be attached to Text."@en .
-
-hmkp:sourceType rdfs:comment "Type of the physical medium of the source (inscription / papyrus / manuscript / ostracon, etc.)."@en .
 
 
 #################################################################

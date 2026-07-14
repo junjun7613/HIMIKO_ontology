@@ -21,12 +21,12 @@
   },
   "metrics": {
     "classCount": 19,
-    "datatypeCount": 39,
+    "datatypeCount": 35,
     "objectPropertyCount": 43,
-    "datatypePropertyCount": 39,
-    "propertyCount": 82,
-    "nodeCount": 58,
-    "axiomCount": 638,
+    "datatypePropertyCount": 35,
+    "propertyCount": 78,
+    "nodeCount": 54,
+    "axiomCount": 609,
     "individualCount": 0
   },
   "class": [
@@ -71,7 +71,7 @@
       "type": "externalclass"
     },
     {
-      "id": "class18",
+      "id": "class19",
       "type": "externalclass"
     },
     {
@@ -83,7 +83,7 @@
       "type": "owl:Class"
     },
     {
-      "id": "class19",
+      "id": "class18",
       "type": "owl:Class"
     },
     {
@@ -91,7 +91,7 @@
       "type": "owl:Class"
     },
     {
-      "id": "class4",
+      "id": "class3",
       "type": "owl:Class"
     },
     {
@@ -99,7 +99,7 @@
       "type": "owl:Class"
     },
     {
-      "id": "class3",
+      "id": "class4",
       "type": "owl:Class"
     },
     {
@@ -199,7 +199,7 @@
         "class16"
       ],
       "superClasses": [
-        "class18",
+        "class19",
         "class10"
       ],
       "instances": 0
@@ -318,7 +318,7 @@
       "instances": 0
     },
     {
-      "id": "class18",
+      "id": "class19",
       "label": {
         "IRI-based": "InterpretationAct"
       },
@@ -373,7 +373,7 @@
       "instances": 0
     },
     {
-      "id": "class19",
+      "id": "class18",
       "label": {
         "IRI-based": "hmkp_Text",
         "ja": "テキスト",
@@ -403,7 +403,7 @@
       "instances": 0
     },
     {
-      "id": "class4",
+      "id": "class3",
       "label": {
         "IRI-based": "hmke_Role",
         "ja": "地位・役職",
@@ -431,7 +431,7 @@
       "instances": 0
     },
     {
-      "id": "class3",
+      "id": "class4",
       "label": {
         "IRI-based": "hmke_Entity",
         "ja": "普遍的実体",
@@ -516,8 +516,8 @@
       },
       "instances": 0,
       "union": [
-        "class11",
-        "class19"
+        "class12",
+        "class18"
       ]
     },
     {
@@ -528,7 +528,7 @@
       "instances": 0,
       "union": [
         "class1",
-        "class3",
+        "class4",
         "class17"
       ]
     },
@@ -539,8 +539,8 @@
       },
       "instances": 0,
       "union": [
-        "class12",
-        "class19"
+        "class11",
+        "class18"
       ]
     }
   ],
@@ -550,7 +550,7 @@
       "type": "rdfs:Literal"
     },
     {
-      "id": "literal12",
+      "id": "literal15",
       "type": "rdfs:Literal"
     },
     {
@@ -558,12 +558,12 @@
       "type": "rdfs:Literal"
     },
     {
-      "id": "literal35",
-      "type": "rdfs:Literal"
-    },
-    {
       "id": "datatype1",
       "type": "rdfs:Datatype"
+    },
+    {
+      "id": "literal18",
+      "type": "rdfs:Literal"
     },
     {
       "id": "datatype3",
@@ -574,11 +574,11 @@
       "type": "rdfs:Datatype"
     },
     {
-      "id": "literal17",
-      "type": "rdfs:Literal"
+      "id": "datatype5",
+      "type": "rdfs:Datatype"
     },
     {
-      "id": "datatype5",
+      "id": "datatype20",
       "type": "rdfs:Datatype"
     },
     {
@@ -602,6 +602,10 @@
       "type": "rdfs:Datatype"
     },
     {
+      "id": "literal11",
+      "type": "rdfs:Literal"
+    },
+    {
       "id": "datatype25",
       "type": "rdfs:Datatype"
     },
@@ -612,6 +616,10 @@
     {
       "id": "datatype23",
       "type": "rdfs:Datatype"
+    },
+    {
+      "id": "literal31",
+      "type": "rdfs:Literal"
     },
     {
       "id": "datatype28",
@@ -627,10 +635,6 @@
     },
     {
       "id": "datatype27",
-      "type": "rdfs:Datatype"
-    },
-    {
-      "id": "datatype31",
       "type": "rdfs:Datatype"
     },
     {
@@ -650,15 +654,11 @@
       "type": "rdfs:Datatype"
     },
     {
+      "id": "datatype35",
+      "type": "rdfs:Datatype"
+    },
+    {
       "id": "datatype14",
-      "type": "rdfs:Datatype"
-    },
-    {
-      "id": "datatype36",
-      "type": "rdfs:Datatype"
-    },
-    {
-      "id": "datatype11",
       "type": "rdfs:Datatype"
     },
     {
@@ -666,35 +666,19 @@
       "type": "rdfs:Datatype"
     },
     {
-      "id": "literal20",
-      "type": "rdfs:Literal"
+      "id": "datatype12",
+      "type": "rdfs:Datatype"
     },
     {
       "id": "datatype34",
       "type": "rdfs:Datatype"
     },
     {
-      "id": "datatype39",
-      "type": "rdfs:Datatype"
-    },
-    {
-      "id": "datatype18",
-      "type": "rdfs:Datatype"
-    },
-    {
-      "id": "datatype15",
-      "type": "rdfs:Datatype"
-    },
-    {
-      "id": "datatype37",
+      "id": "datatype17",
       "type": "rdfs:Datatype"
     },
     {
       "id": "datatype16",
-      "type": "rdfs:Datatype"
-    },
-    {
-      "id": "datatype38",
       "type": "rdfs:Datatype"
     },
     {
@@ -711,7 +695,7 @@
       "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
-      "id": "literal12",
+      "id": "literal15",
       "label": {
         "IRI-based": "Literal"
       },
@@ -725,18 +709,18 @@
       "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
-      "id": "literal35",
-      "label": {
-        "IRI-based": "Literal"
-      },
-      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
-    },
-    {
       "id": "datatype1",
       "label": {
         "IRI-based": "nonNegativeInteger"
       },
       "iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    {
+      "id": "literal18",
+      "label": {
+        "IRI-based": "Literal"
+      },
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
       "id": "datatype3",
@@ -753,14 +737,14 @@
       "iri": "http://www.w3.org/2001/XMLSchema#gYear"
     },
     {
-      "id": "literal17",
+      "id": "datatype5",
       "label": {
-        "IRI-based": "Literal"
+        "IRI-based": "string"
       },
-      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
-      "id": "datatype5",
+      "id": "datatype20",
       "label": {
         "IRI-based": "string"
       },
@@ -776,9 +760,9 @@
     {
       "id": "datatype21",
       "label": {
-        "IRI-based": "string"
+        "IRI-based": "dateTime"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
+      "iri": "http://www.w3.org/2001/XMLSchema#dateTime"
     },
     {
       "id": "datatype6",
@@ -790,9 +774,9 @@
     {
       "id": "datatype24",
       "label": {
-        "IRI-based": "string"
+        "IRI-based": "decimal"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
+      "iri": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
       "id": "datatype8",
@@ -800,6 +784,13 @@
         "IRI-based": "string"
       },
       "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "literal11",
+      "label": {
+        "IRI-based": "Literal"
+      },
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
       "id": "datatype25",
@@ -818,9 +809,16 @@
     {
       "id": "datatype23",
       "label": {
-        "IRI-based": "dateTime"
+        "IRI-based": "string"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#dateTime"
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "literal31",
+      "label": {
+        "IRI-based": "Literal"
+      },
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
       "id": "datatype28",
@@ -839,19 +837,12 @@
     {
       "id": "datatype26",
       "label": {
-        "IRI-based": "decimal"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#decimal"
-    },
-    {
-      "id": "datatype27",
-      "label": {
         "IRI-based": "string"
       },
       "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
-      "id": "datatype31",
+      "id": "datatype27",
       "label": {
         "IRI-based": "string"
       },
@@ -881,6 +872,13 @@
     {
       "id": "datatype13",
       "label": {
+        "IRI-based": "decimal"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#decimal"
+    },
+    {
+      "id": "datatype35",
+      "label": {
         "IRI-based": "nonNegativeInteger"
       },
       "iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
@@ -888,23 +886,9 @@
     {
       "id": "datatype14",
       "label": {
-        "IRI-based": "string"
+        "IRI-based": "anyURI"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
-    },
-    {
-      "id": "datatype36",
-      "label": {
-        "IRI-based": "string"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
-    },
-    {
-      "id": "datatype11",
-      "label": {
-        "IRI-based": "string"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
+      "iri": "http://www.w3.org/2001/XMLSchema#anyURI"
     },
     {
       "id": "datatype33",
@@ -914,11 +898,11 @@
       "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
-      "id": "literal20",
+      "id": "datatype12",
       "label": {
-        "IRI-based": "Literal"
+        "IRI-based": "nonNegativeInteger"
       },
-      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      "iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
     },
     {
       "id": "datatype34",
@@ -928,28 +912,7 @@
       "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
-      "id": "datatype39",
-      "label": {
-        "IRI-based": "nonNegativeInteger"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-    },
-    {
-      "id": "datatype18",
-      "label": {
-        "IRI-based": "string"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
-    },
-    {
-      "id": "datatype15",
-      "label": {
-        "IRI-based": "anyURI"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#anyURI"
-    },
-    {
-      "id": "datatype37",
+      "id": "datatype17",
       "label": {
         "IRI-based": "string"
       },
@@ -957,13 +920,6 @@
     },
     {
       "id": "datatype16",
-      "label": {
-        "IRI-based": "decimal"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#decimal"
-    },
-    {
-      "id": "datatype38",
       "label": {
         "IRI-based": "string"
       },
@@ -979,10 +935,6 @@
   ],
   "property": [
     {
-      "id": "property76",
-      "type": "owl:datatypeProperty"
-    },
-    {
       "id": "property13",
       "type": "owl:objectProperty"
     },
@@ -995,11 +947,11 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property82",
+      "id": "property79",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property59",
+      "id": "property57",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1007,7 +959,7 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property29",
+      "id": "property31",
       "type": "owl:objectProperty"
     },
     {
@@ -1019,7 +971,7 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property72",
+      "id": "property70",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1047,19 +999,19 @@
       "type": "rdfs:SubClassOf"
     },
     {
-      "id": "property74",
+      "id": "property72",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property18",
+      "id": "property17",
       "type": "owl:objectProperty"
     },
     {
-      "id": "property85",
+      "id": "property81",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property88",
+      "id": "property84",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1071,11 +1023,11 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property80",
+      "id": "property77",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property66",
+      "id": "property64",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1083,7 +1035,7 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property45",
+      "id": "property46",
       "type": "owl:objectProperty"
     },
     {
@@ -1091,7 +1043,7 @@
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property87",
+      "id": "property83",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1099,15 +1051,11 @@
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property65",
+      "id": "property62",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property63",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property78",
+      "id": "property75",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1115,7 +1063,7 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property84",
+      "id": "property80",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1127,7 +1075,7 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property62",
+      "id": "property61",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1139,11 +1087,7 @@
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property68",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property83",
+      "id": "property66",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1155,19 +1099,19 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property79",
+      "id": "property76",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property71",
+      "id": "property69",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property77",
+      "id": "property74",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property26",
+      "id": "property25",
       "type": "owl:objectProperty"
     },
     {
@@ -1175,7 +1119,7 @@
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property70",
+      "id": "property68",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1191,11 +1135,11 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property64",
+      "id": "property63",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property86",
+      "id": "property82",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1207,11 +1151,11 @@
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property60",
+      "id": "property59",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property31",
+      "id": "property29",
       "type": "owl:objectProperty"
     },
     {
@@ -1251,7 +1195,7 @@
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property75",
+      "id": "property73",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1279,43 +1223,39 @@
       "type": "rdfs:SubClassOf"
     },
     {
-      "id": "property17",
-      "type": "owl:objectProperty"
-    },
-    {
       "id": "property16",
       "type": "owl:objectProperty"
     },
     {
-      "id": "property57",
-      "type": "owl:datatypeProperty"
+      "id": "property18",
+      "type": "owl:objectProperty"
     },
     {
       "id": "property14",
       "type": "owl:objectProperty"
     },
     {
-      "id": "property69",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property73",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property25",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property46",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property81",
-      "type": "owl:datatypeProperty"
-    },
-    {
       "id": "property67",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property71",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property26",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property45",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property78",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property65",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1323,7 +1263,7 @@
       "type": "owl:objectProperty"
     },
     {
-      "id": "property61",
+      "id": "property60",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1332,21 +1272,6 @@
     }
   ],
   "propertyAttribute": [
-    {
-      "id": "property76",
-      "label": {
-        "IRI-based": "hmkp_teiXmlId",
-        "ja": "TEI xml:id",
-        "en": "TEI xml:id"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_teiXmlId",
-      "comment": {
-        "ja": "元 TEI ソース中の xml:id 値。Text と、xml:id を持つ Annotation (seg など) の双方に付与されうる。",
-        "en": "The xml:id value from the original TEI source. Applicable to Text and to Annotations that carry xml:id (e.g. seg)."
-      },
-      "domain": "class27",
-      "range": "datatype27"
-    },
     {
       "id": "property13",
       "label": {
@@ -1365,7 +1290,7 @@
       "domain": "class11",
       "range": "class5",
       "superproperty": [
-        "property17"
+        "property16"
       ]
     },
     {
@@ -1396,10 +1321,10 @@
         "en": "The external universal entity (hmke:Entity) that the EntityReference points to. Corresponds to conventional entity linking."
       },
       "domain": "class2",
-      "range": "class3"
+      "range": "class4"
     },
     {
-      "id": "property82",
+      "id": "property79",
       "label": {
         "IRI-based": "hmkp_edcsId",
         "ja": "EDCS ID",
@@ -1413,11 +1338,11 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class19",
-      "range": "datatype33"
+      "domain": "class18",
+      "range": "datatype30"
     },
     {
-      "id": "property59",
+      "id": "property57",
       "label": {
         "IRI-based": "hmkp_sic",
         "ja": "sic (元の読み)",
@@ -1429,7 +1354,7 @@
         "en": "For a choice annotation where the main text adopts corr, this records the original (erroneous) reading."
       },
       "domain": "class11",
-      "range": "datatype10"
+      "range": "datatype8"
     },
     {
       "id": "property9",
@@ -1447,7 +1372,7 @@
       "range": "class1"
     },
     {
-      "id": "property29",
+      "id": "property31",
       "label": {
         "IRI-based": "hmkp_mentions",
         "ja": "言及する",
@@ -1496,7 +1421,7 @@
       "range": "class14"
     },
     {
-      "id": "property72",
+      "id": "property70",
       "label": {
         "IRI-based": "hmkia_hasDate",
         "ja": "解釈日時",
@@ -1508,7 +1433,7 @@
         "en": "The date and time at which this interpretation act was carried out. ISO 8601 format is recommended."
       },
       "domain": "class14",
-      "range": "datatype23"
+      "range": "datatype21"
     },
     {
       "id": "property37",
@@ -1572,7 +1497,7 @@
       "range": "class10"
     },
     {
-      "id": "property74",
+      "id": "property72",
       "label": {
         "IRI-based": "hmkia_note",
         "ja": "備考",
@@ -1584,10 +1509,10 @@
         "en": "Free-form remarks about the interpretation act."
       },
       "domain": "class14",
-      "range": "datatype25"
+      "range": "datatype23"
     },
     {
-      "id": "property18",
+      "id": "property17",
       "label": {
         "IRI-based": "hmke_eventSince",
         "ja": "開始基準となる出来事",
@@ -1602,7 +1527,7 @@
       "range": "class1"
     },
     {
-      "id": "property85",
+      "id": "property81",
       "label": {
         "IRI-based": "hmkp_char",
         "ja": "文字値",
@@ -1617,10 +1542,10 @@
         "functional"
       ],
       "domain": "class5",
-      "range": "datatype36"
+      "range": "datatype32"
     },
     {
-      "id": "property88",
+      "id": "property84",
       "label": {
         "IRI-based": "hmkp_end",
         "ja": "終了オフセット",
@@ -1635,7 +1560,7 @@
         "functional"
       ],
       "domain": "class11",
-      "range": "datatype39"
+      "range": "datatype35"
     },
     {
       "id": "property41",
@@ -1668,10 +1593,10 @@
         "en": "A social status, magistracy, or community role held by the EntityInContext."
       },
       "domain": "class17",
-      "range": "class4"
+      "range": "class3"
     },
     {
-      "id": "property80",
+      "id": "property77",
       "label": {
         "IRI-based": "hmkp_n",
         "ja": "番号(n)",
@@ -1682,11 +1607,11 @@
         "ja": "TEI の @n 属性値。行番号 (line) や書簡セクション番号などに用いる。Text と Annotation の双方に付与されうる。",
         "en": "Value of the TEI @n attribute. Used for line numbers, letter section numbers, and so on. Applicable to both Text and Annotation."
       },
-      "domain": "class27",
-      "range": "datatype31"
+      "domain": "class28",
+      "range": "datatype28"
     },
     {
-      "id": "property66",
+      "id": "property64",
       "label": {
         "IRI-based": "hmke_roleLabel",
         "ja": "役職名",
@@ -1697,8 +1622,8 @@
         "ja": "官職名・地位の名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。",
         "en": "Name of the magistracy or social status (e.g. 'consul', 'aedilis', 'flamen', 'patronus')."
       },
-      "domain": "class4",
-      "range": "literal17"
+      "domain": "class3",
+      "range": "literal15"
     },
     {
       "id": "property32",
@@ -1719,7 +1644,7 @@
       ]
     },
     {
-      "id": "property45",
+      "id": "property46",
       "label": {
         "IRI-based": "hmki_precedes",
         "ja": "先行する",
@@ -1752,7 +1677,7 @@
       "range": "literal9"
     },
     {
-      "id": "property87",
+      "id": "property83",
       "label": {
         "IRI-based": "hmkia_agentType",
         "ja": "主体種別",
@@ -1764,7 +1689,7 @@
         "en": "Type of the Agent (person / team / software, etc.)."
       },
       "domain": "class15",
-      "range": "datatype38"
+      "range": "datatype34"
     },
     {
       "id": "property50",
@@ -1785,7 +1710,7 @@
       "range": "datatype1"
     },
     {
-      "id": "property65",
+      "id": "property62",
       "label": {
         "IRI-based": "hmke_lat",
         "ja": "緯度",
@@ -1803,25 +1728,10 @@
         ]
       },
       "domain": "class13",
-      "range": "datatype16"
+      "range": "datatype13"
     },
     {
-      "id": "property63",
-      "label": {
-        "IRI-based": "hmkp_sourceType",
-        "ja": "史料種別",
-        "en": "source type"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_sourceType",
-      "comment": {
-        "ja": "史料の物理媒体の種別 (inscription / papyrus / manuscript / ostracon 等)。",
-        "en": "Type of the physical medium of the source (inscription / papyrus / manuscript / ostracon, etc.)."
-      },
-      "domain": "class12",
-      "range": "datatype14"
-    },
-    {
-      "id": "property78",
+      "id": "property75",
       "label": {
         "IRI-based": "hmkp_origPlace",
         "ja": "出土地",
@@ -1832,8 +1742,8 @@
         "ja": "史料の出土地・原来地 (現代地名 / 古代地名などの複合表記も許容)。Text にも付与されうる。",
         "en": "The find-spot or place of origin of the source. Composite modern/ancient place names are allowed. May also be attached to Text."
       },
-      "domain": "class28",
-      "range": "datatype29"
+      "domain": "class27",
+      "range": "datatype26"
     },
     {
       "id": "property23",
@@ -1847,11 +1757,11 @@
       "domain": "thing1",
       "range": "thing1",
       "subproperty": [
-        "property25"
+        "property26"
       ]
     },
     {
-      "id": "property84",
+      "id": "property80",
       "label": {
         "IRI-based": "hmke_label",
         "ja": "正準名",
@@ -1862,8 +1772,8 @@
         "ja": "Entity の正準的な名称 (現代の研究文献での標準綴り)。言語タグ付き文字列を推奨。",
         "en": "The canonical name of the Entity (the standard spelling used in modern scholarship). Language-tagged strings recommended."
       },
-      "domain": "class3",
-      "range": "literal35"
+      "domain": "class4",
+      "range": "literal31"
     },
     {
       "id": "property51",
@@ -1895,11 +1805,11 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class19",
+      "domain": "class18",
       "range": "class5"
     },
     {
-      "id": "property62",
+      "id": "property61",
       "label": {
         "IRI-based": "hmkp_start",
         "ja": "開始オフセット",
@@ -1914,7 +1824,7 @@
         "functional"
       ],
       "domain": "class11",
-      "range": "datatype13"
+      "range": "datatype12"
     },
     {
       "id": "property36",
@@ -1957,7 +1867,7 @@
       "range": "datatype6"
     },
     {
-      "id": "property68",
+      "id": "property66",
       "label": {
         "IRI-based": "hmkp_uuid",
         "ja": "UUID",
@@ -1972,25 +1882,7 @@
         "functional"
       ],
       "domain": "class5",
-      "range": "datatype19"
-    },
-    {
-      "id": "property83",
-      "label": {
-        "IRI-based": "hmkp_localId",
-        "ja": "ローカルID",
-        "en": "local ID"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_localId",
-      "comment": {
-        "ja": "TEI の <idno type='localID'> 由来の識別子 (例: HD000001)。",
-        "en": "Identifier from TEI <idno type='localID'> (e.g. HD000001)."
-      },
-      "attributes": [
-        "functional"
-      ],
-      "domain": "class19",
-      "range": "datatype34"
+      "range": "datatype17"
     },
     {
       "id": "property44",
@@ -2029,7 +1921,7 @@
       "range": "class2"
     },
     {
-      "id": "property79",
+      "id": "property76",
       "label": {
         "IRI-based": "hmke_entityType",
         "ja": "実体種別",
@@ -2040,11 +1932,11 @@
         "ja": "Entity の種別 (person / place / organization / object など)。",
         "en": "The type of the Entity (person / place / organization / object, etc.)."
       },
-      "domain": "class3",
-      "range": "datatype30"
+      "domain": "class4",
+      "range": "datatype27"
     },
     {
-      "id": "property71",
+      "id": "property69",
       "label": {
         "IRI-based": "hmkp_reason",
         "ja": "理由",
@@ -2056,10 +1948,10 @@
         "en": "Value of the @reason attribute on gap / supplied (e.g. lost, unknown)."
       },
       "domain": "class11",
-      "range": "datatype22"
+      "range": "datatype20"
     },
     {
-      "id": "property77",
+      "id": "property74",
       "label": {
         "IRI-based": "hmkp_extent",
         "ja": "範囲",
@@ -2071,10 +1963,10 @@
         "en": "Value of the @extent attribute on gap (e.g. 'unknown')."
       },
       "domain": "class11",
-      "range": "datatype28"
+      "range": "datatype25"
     },
     {
-      "id": "property26",
+      "id": "property25",
       "label": {
         "IRI-based": "hmki_causedBy",
         "ja": "起因する",
@@ -2107,7 +1999,7 @@
       "range": "literal7"
     },
     {
-      "id": "property70",
+      "id": "property68",
       "label": {
         "IRI-based": "hmkp_textContent",
         "ja": "全文テキスト",
@@ -2121,8 +2013,8 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class19",
-      "range": "datatype21"
+      "domain": "class18",
+      "range": "datatype19"
     },
     {
       "id": "property21",
@@ -2139,8 +2031,8 @@
       "domain": "class9",
       "range": "class9",
       "subproperty": [
-        "property26",
-        "property45"
+        "property25",
+        "property46"
       ]
     },
     {
@@ -2174,7 +2066,7 @@
       "range": "class13"
     },
     {
-      "id": "property64",
+      "id": "property63",
       "label": {
         "IRI-based": "hmke_authorityURI",
         "ja": "典拠 URI",
@@ -2185,11 +2077,11 @@
         "ja": "Entity が対応付けられる外部典拠データの URI (Wikidata Q番号、VIAF ID、GeoNames ID、Pleiades ID など)。\n複数の典拠に対応付けられる場合は複数値を持ちうる。",
         "en": "URI of the external authority record to which the Entity is linked (Wikidata Q number, VIAF ID, GeoNames ID, Pleiades ID, etc.). Multiple values are permitted when the entity is linked to several authorities."
       },
-      "domain": "class3",
-      "range": "datatype15"
+      "domain": "class4",
+      "range": "datatype14"
     },
     {
-      "id": "property86",
+      "id": "property82",
       "label": {
         "IRI-based": "hmkp_unit",
         "ja": "単位",
@@ -2201,7 +2093,7 @@
         "en": "Value of the @unit attribute on gap (e.g. 'line', 'character')."
       },
       "domain": "class11",
-      "range": "datatype37"
+      "range": "datatype33"
     },
     {
       "id": "property10",
@@ -2237,7 +2129,7 @@
       "range": "datatype4"
     },
     {
-      "id": "property60",
+      "id": "property59",
       "label": {
         "IRI-based": "hmki_normalizedForm",
         "ja": "正規化表記",
@@ -2249,10 +2141,10 @@
         "en": "The normalised form of the EntityReference (with abbreviations expanded and returned to standard spelling)."
       },
       "domain": "class2",
-      "range": "datatype11"
+      "range": "datatype10"
     },
     {
-      "id": "property31",
+      "id": "property29",
       "label": {
         "IRI-based": "hmki_generatedBy",
         "ja": "解釈行為による生成",
@@ -2319,7 +2211,7 @@
         "en": "The Entity (community, political grouping, family, etc.) that the EntityInContext belongs to."
       },
       "domain": "class17",
-      "range": "class3"
+      "range": "class4"
     },
     {
       "id": "property24",
@@ -2351,7 +2243,7 @@
         "ja": "テキストに属するアノテーションへの参照。",
         "en": "Reference to an annotation attached to this text."
       },
-      "domain": "class19",
+      "domain": "class18",
       "range": "class11"
     },
     {
@@ -2382,7 +2274,7 @@
         "en": "The Text that a Source (physical medium) bears."
       },
       "domain": "class12",
-      "range": "class19"
+      "range": "class18"
     },
     {
       "id": "property47",
@@ -2415,7 +2307,7 @@
       "range": "datatype3"
     },
     {
-      "id": "property75",
+      "id": "property73",
       "label": {
         "IRI-based": "hmke_long",
         "ja": "経度",
@@ -2433,7 +2325,7 @@
         ]
       },
       "domain": "class13",
-      "range": "datatype26"
+      "range": "datatype24"
     },
     {
       "id": "property27",
@@ -2453,7 +2345,7 @@
       "domain": "class11",
       "range": "class5",
       "superproperty": [
-        "property17"
+        "property16"
       ]
     },
     {
@@ -2490,7 +2382,7 @@
         "functional"
       ],
       "domain": "class17",
-      "range": "class3"
+      "range": "class4"
     },
     {
       "id": "property6",
@@ -2527,10 +2419,10 @@
         "IRI-based": "Subclass Of"
       },
       "domain": "class14",
-      "range": "class18"
+      "range": "class19"
     },
     {
-      "id": "property17",
+      "id": "property16",
       "label": {
         "IRI-based": "hmkp_hasRange",
         "ja": "Character 範囲を持つ",
@@ -2549,7 +2441,7 @@
       ]
     },
     {
-      "id": "property16",
+      "id": "property18",
       "label": {
         "IRI-based": "hmki_mentions",
         "ja": "言及する (Statement → Character)",
@@ -2562,21 +2454,6 @@
       },
       "domain": "class9",
       "range": "class5"
-    },
-    {
-      "id": "property57",
-      "label": {
-        "IRI-based": "hmkp_material",
-        "ja": "材質",
-        "en": "material"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_material",
-      "comment": {
-        "ja": "史料の材質 (marble / limestone / bronze / papyrus 等)。",
-        "en": "Material of the source (marble / limestone / bronze / papyrus, etc.)."
-      },
-      "domain": "class12",
-      "range": "datatype8"
     },
     {
       "id": "property14",
@@ -2597,7 +2474,7 @@
       "range": "class5"
     },
     {
-      "id": "property69",
+      "id": "property67",
       "label": {
         "IRI-based": "hmke_eventLabel",
         "ja": "出来事の記述",
@@ -2609,10 +2486,10 @@
         "en": "Natural-language label describing the content of the Event (e.g. 'Consulship of X in 121 CE')."
       },
       "domain": "class1",
-      "range": "literal20"
+      "range": "literal18"
     },
     {
-      "id": "property73",
+      "id": "property71",
       "label": {
         "IRI-based": "hmkp_annotatedText",
         "ja": "対象テキスト",
@@ -2624,10 +2501,10 @@
         "en": "The textual content of the range that the annotation targets."
       },
       "domain": "class11",
-      "range": "datatype24"
+      "range": "datatype22"
     },
     {
-      "id": "property25",
+      "id": "property26",
       "label": {
         "IRI-based": "hmkia_derivedFrom",
         "ja": "派生元の解釈行為",
@@ -2645,7 +2522,7 @@
       ]
     },
     {
-      "id": "property46",
+      "id": "property45",
       "label": {
         "IRI-based": "hmki_hasRole",
         "ja": "史料内での役割",
@@ -2660,7 +2537,7 @@
       "range": "thing5"
     },
     {
-      "id": "property81",
+      "id": "property78",
       "label": {
         "IRI-based": "hmki_entityType",
         "ja": "エンティティ種別",
@@ -2672,10 +2549,10 @@
         "en": "The type of entity that the EntityReference points to (person / place / organization / object / time, etc.)."
       },
       "domain": "class2",
-      "range": "datatype32"
+      "range": "datatype29"
     },
     {
-      "id": "property67",
+      "id": "property65",
       "label": {
         "IRI-based": "hmkia_hasType",
         "ja": "解釈種別",
@@ -2697,7 +2574,7 @@
         ]
       },
       "domain": "class14",
-      "range": "datatype18"
+      "range": "datatype16"
     },
     {
       "id": "property22",
@@ -2715,7 +2592,7 @@
       ]
     },
     {
-      "id": "property61",
+      "id": "property60",
       "label": {
         "IRI-based": "hmkia_agentName",
         "ja": "主体名",
@@ -2737,7 +2614,7 @@
         ]
       },
       "domain": "class15",
-      "range": "literal12"
+      "range": "literal11"
     },
     {
       "id": "property34",
