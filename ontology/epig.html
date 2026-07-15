@@ -127,7 +127,6 @@ footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border
   <li class="sub"><a href="#epig-interpretsInscription"><code>epig:interpretsInscription</code></a></li>
   <li class="sub"><a href="#epig-province"><code>epig:province</code></a></li>
   <li class="sub"><a href="#epig-recipient"><code>epig:recipient</code></a></li>
-  <li class="sub"><a href="#epig-socialStatus"><code>epig:socialStatus</code></a></li>
   <li class="sub"><a href="#epig-source"><code>epig:source</code></a></li>
   <li class="sub"><a href="#epig-subject"><code>epig:subject</code></a></li>
   <li class="sub"><a href="#epig-target"><code>epig:target</code></a></li>
@@ -190,6 +189,7 @@ footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border
   <li class="sub"><a href="#epig-relationshipProperty"><code>epig:relationshipProperty</code></a></li>
   <li class="sub"><a href="#epig-relationshipType"><code>epig:relationshipType</code></a></li>
   <li class="sub"><a href="#epig-script"><code>epig:script</code></a></li>
+  <li class="sub"><a href="#epig-socialStatus"><code>epig:socialStatus</code></a></li>
   <li class="sub"><a href="#epig-socialStatusEvidence"><code>epig:socialStatusEvidence</code></a></li>
 </ul>
 <h2 style="color:var(--hmki-color)">Related — hmki:</h2>
@@ -250,7 +250,7 @@ HIMIKO 上位オントロジー (hmkp / hmki / hmkia) を参照し、史料物�
     <section id="summary">
       <h2>Summary</h2>
       <div class="summary-row">
-        <div class="summary-card" style="background:var(--accent)"><h3>Classes</h3><div><span class="n">11</span> <span class="k">owl:Class</span></div></div><div class="summary-card" style="background:#6366f1"><h3>Object Properties</h3><div><span class="n">11</span> <span class="k">owl:ObjectProperty</span></div></div><div class="summary-card" style="background:#10b981"><h3>Datatype Properties</h3><div><span class="n">57</span> <span class="k">owl:DatatypeProperty</span></div></div><div class="summary-card" style="background:var(--hmki-color)"><h3>Related hmki</h3><div><span class="n">3</span> <span class="k">imported entities</span></div></div>
+        <div class="summary-card" style="background:var(--accent)"><h3>Classes</h3><div><span class="n">11</span> <span class="k">owl:Class</span></div></div><div class="summary-card" style="background:#6366f1"><h3>Object Properties</h3><div><span class="n">10</span> <span class="k">owl:ObjectProperty</span></div></div><div class="summary-card" style="background:#10b981"><h3>Datatype Properties</h3><div><span class="n">58</span> <span class="k">owl:DatatypeProperty</span></div></div><div class="summary-card" style="background:var(--hmki-color)"><h3>Related hmki</h3><div><span class="n">3</span> <span class="k">imported entities</span></div></div>
       </div>
     </section>
 
@@ -494,18 +494,6 @@ HIMIKO 上位オントロジー (hmkp / hmki / hmkia) を参照し、史料物�
   <dt>Domain</dt><dd><a href="#epig-BenefactionStatement">epig:BenefactionStatement</a></dd>
   <dt>Range</dt><dd>(<a href="#epig-PersonReference">epig:PersonReference</a> ∪ <a href="#epig-CommunityReference">epig:CommunityReference</a>)</dd>
   <dt>Super-property</dt><dd><a href="#hmki-references">hmki:references</a></dd>
-</dl>
-</article>
-<article class="entity objectproperty" id="epig-socialStatus" style="border-left-color:#6366f1">
-<header>
-  <span class="kind-badge" style="background:#6366f1">Object Property</span>
-  <h4><code>epig:socialStatus</code></h4>
-  <p class="label">social status</p>
-  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#socialStatus</code></p>
-</header>
-<dl class="meta">
-  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
-  <dt>Range</dt><dd><a href="#epig-SocialStatus">epig:SocialStatus</a></dd>
 </dl>
 </article>
 <article class="entity objectproperty" id="epig-source" style="border-left-color:#6366f1">
@@ -883,7 +871,7 @@ enrich_vital_events, enrich_benef_objects, enrich_benef_recipients, schema_fix �
 </header>
 <p class="comment">碑文中の根拠となるテキスト。</p>
 <dl class="meta">
-  <dt>Domain</dt><dd>(<a href="#epig-CommunityReference">epig:CommunityReference</a> ∪ <a href="#epig-RelationshipStatement">epig:RelationshipStatement</a>)</dd>
+  <dt>Domain</dt><dd>(<a href="#epig-CommunityReference">epig:CommunityReference</a> ∪ <a href="#epig-RelationshipStatement">epig:RelationshipStatement</a> ∪ <a href="#epig-PersonReference">epig:PersonReference</a>)</dd>
   <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
 </dl>
 </article>
@@ -1240,6 +1228,18 @@ enrich_vital_events, enrich_benef_objects, enrich_benef_recipients, schema_fix �
 <p class="comment">prov:Activity / hmkia:InterpretationAct を生成したスクリプトのファイル名。</p>
 <dl class="meta">
   <dt>Domain</dt><dd><a href="urn:himiko:ontology:interpretation:InterpretationAct" rel="external" target="_blank">hmkia:InterpretationAct</a></dd>
+  <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="epig-socialStatus" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981">Datatype Property</span>
+  <h4><code>epig:socialStatus</code></h4>
+  <p class="label">social status</p>
+  <p class="iri"><span class="k">IRI:</span> <code>http://epigraphic-careers.org/ontology#socialStatus</code></p>
+</header>
+<dl class="meta">
+  <dt>Domain</dt><dd><a href="#epig-PersonReference">epig:PersonReference</a></dd>
   <dt>Range</dt><dd><a href="http://www.w3.org/2001/XMLSchema#string" rel="external" target="_blank">xsd:string</a></dd>
 </dl>
 </article>

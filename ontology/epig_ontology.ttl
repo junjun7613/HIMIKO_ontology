@@ -205,9 +205,9 @@ epig:target a owl:ObjectProperty ;
 #    Object Properties  —  PersonReference / CommunityReference
 #################################################################
 
-epig:socialStatus a owl:ObjectProperty ;
+epig:socialStatus a owl:DatatypeProperty ;
     rdfs:label "social status"@en , "社会的身分"@ja ;
-    rdfs:domain epig:PersonReference ; rdfs:range epig:SocialStatus .
+    rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
 
 epig:divinityType a owl:ObjectProperty ;
     rdfs:label "divinity type"@en , "神格タイプ"@ja ;
@@ -511,7 +511,7 @@ epig:evidence a owl:DatatypeProperty ;
     rdfs:label "evidence"@en , "根拠テキスト"@ja ;
     rdfs:comment "碑文中の根拠となるテキスト。"@ja ;
     rdfs:domain [ a owl:Class ;
-        owl:unionOf ( epig:CommunityReference epig:RelationshipStatement ) ] ;
+        owl:unionOf ( epig:CommunityReference epig:RelationshipStatement epig:PersonReference ) ] ;
     rdfs:range xsd:string .
 
 #################################################################
