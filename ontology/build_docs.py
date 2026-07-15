@@ -54,18 +54,22 @@ LAYERS = [
         "title_en": "Physical Layer — TEI Conversion Profile",
         "color": "#60a5fa",
         "intro_ja": (
-            "TEI/EDCS の要素・属性に由来する、アノテーションの細目プロパティを定義するプロファイル。"
-            "アノテーション種別 (kind) や欠損理由 (reason)・単位 (unit) などは特定の入力フォーマット "
-            "(TEI Guidelines) の語彙に対応するものであり、史料種別に依存しない抽象的枠組みである"
-            "物理層コアからは意図的に分離してある。各プロパティは対応する TEI の要素・属性を "
-            "rdfs:seeAlso で示す。"
+            "TEI/EDCS の要素・属性に由来する、アノテーションの種別クラスと細目プロパティを定義するプロファイル。"
+            "アノテーション種別は hmkp:Annotation のサブクラス (欠損 hmktei:Gap、略号 hmktei:Abbr など) として"
+            "表現し、欠損理由 (reason)・単位 (unit) などの細目プロパティは対応する種別クラスを domain とする。"
+            "これらは特定の入力フォーマット (TEI Guidelines) の語彙に対応するものであり、史料種別に依存しない"
+            "抽象的枠組みである物理層コアからは意図的に分離してある。各クラス・プロパティは対応する TEI の"
+            "要素・属性を rdfs:seeAlso で示す。互換用の文字列プロパティ hmktei:kind は移行期のため残置 (deprecated)。"
         ),
         "intro_en": (
-            "A profile defining fine-grained annotation properties derived from TEI/EDCS elements and attributes. "
-            "Annotation kind, gap reason, unit, and the like correspond to the vocabulary of a specific input "
-            "format (TEI Guidelines), and are deliberately separated from the physical-layer core, which is a "
-            "source-type-independent abstract framework. Each property points to the corresponding TEI element or "
-            "attribute via rdfs:seeAlso."
+            "A profile defining annotation kind classes and fine-grained properties derived from TEI/EDCS elements "
+            "and attributes. Annotation kinds are modelled as subclasses of hmkp:Annotation (e.g. hmktei:Gap for "
+            "lacunae, hmktei:Abbr for abbreviations), and detail properties such as gap reason and unit are scoped "
+            "to the corresponding kind class via rdfs:domain. These correspond to the vocabulary of a specific input "
+            "format (TEI Guidelines) and are deliberately separated from the physical-layer core, a "
+            "source-type-independent abstract framework. Each class or property points to the corresponding TEI "
+            "element or attribute via rdfs:seeAlso. The legacy string property hmktei:kind is retained during the "
+            "migration period (deprecated)."
         ),
     },
     {

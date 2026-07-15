@@ -32,13 +32,15 @@ hmkp:Text rdfs:comment "The whole text corresponding to a single inscription or 
 
 hmkp:Character rdfs:comment "A single character constituting the text. Its URI is UUID-based (urn:himiko:resource:char:<uuid>), providing a stable reference across edits of the text. hmkp:next links to the following character."@en .
 
-hmkp:Annotation rdfs:comment "An annotation over a character range [start, end). Fine-grained details derived from a specific format (TEI/EDCS), such as the annotation kind or gap reason, are supplied by the TEI conversion profile (hmktei:)."@en .
+hmkp:Annotation rdfs:comment "An annotation over a character range [start, end). Kind-specific subclasses (e.g. hmktei:Gap for lacunae, hmktei:Abbr for abbreviations) are defined in the TEI conversion profile (hmktei:) as subclasses of hmkp:Annotation, along with kind-specific detail properties such as the gap reason."@en .
 
 hmkp:bears rdfs:comment "The Text that a Source (physical medium) bears."@en .
 
 hmkp:firstChar rdfs:comment "Reference to the first Character in the text. Following hmkp:next from here iterates over the entire character stream."@en .
 
 hmkp:hasAnnotation rdfs:comment "Reference to an annotation attached to this text."@en .
+
+hmkp:generatedBy rdfs:comment "The interpretation act (hmkia:InterpretationAct) that generated this Annotation. Although an annotation carries the physical mechanism of range specification, the judgement of its kind (gap, expan, etc.) is interpretation-dependent, so it always references its generating interpretation act. The physical-layer counterpart to hmki:generatedBy and hmke:generatedBy."@en .
 
 hmkp:next rdfs:comment "The next Character in the character-linked list. Not set on the final character."@en .
 
