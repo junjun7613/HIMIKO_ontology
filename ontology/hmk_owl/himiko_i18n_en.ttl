@@ -40,8 +40,6 @@ hmkp:firstChar rdfs:comment "Reference to the first Character in the text. Follo
 
 hmkp:hasAnnotation rdfs:comment "Reference to an annotation attached to this text."@en .
 
-hmkp:generatedBy rdfs:comment "The interpretation act (hmkia:InterpretationAct) that generated this Annotation. Although an annotation carries the physical mechanism of range specification, the judgement of its kind (gap, expan, etc.) is interpretation-dependent, so it always references its generating interpretation act. The physical-layer counterpart to hmki:generatedBy and hmke:generatedBy."@en .
-
 hmkp:next rdfs:comment "The next Character in the character-linked list. Not set on the final character."@en .
 
 hmkp:hasRange rdfs:comment """Abstract reference relation indicating that some resource (Annotation, Statement, EntityReference, etc.) refers to a specific Character range in the text. The concrete range boundaries are supplied by sub-properties (hmkp:startChar / hmkp:endChar)."""@en .
@@ -103,8 +101,6 @@ hmki:precedes rdfs:comment "Indicates that this Statement chronologically preced
 
 hmki:causedBy rdfs:comment "Indicates that this Statement was caused by another Statement."@en .
 
-hmki:generatedBy rdfs:comment "The interpretation act (hmkia:InterpretationAct) that generated this Statement or EntityReference."@en .
-
 hmki:surfaceForm rdfs:comment "The form of the EntityReference as it appears in the source (verbatim spelling). Records variant forms and abbreviated forms as-is."@en .
 
 hmki:normalizedForm rdfs:comment "The normalised form of the EntityReference (with abbreviations expanded and returned to standard spelling)."@en .
@@ -142,8 +138,6 @@ hmke:eventUntil rdfs:comment "The Event that marks the temporal endpoint at whic
 
 hmke:mentionedAsPrecedent rdfs:comment """Chronological ordering between Events. Indicates that this Event chronologically precedes another Event. Enables relative temporal reasoning even when the absolute dates are unknown."""@en .
 
-hmke:generatedBy rdfs:comment "The interpretation act (hmkia:InterpretationAct) that generated this EntityInContext, Entity, or Event."@en .
-
 hmke:label rdfs:comment "The canonical name of the Entity (the standard spelling used in modern scholarship). Language-tagged strings recommended."@en .
 
 hmke:authorityURI rdfs:comment """URI of the external authority record to which the Entity is linked (Wikidata Q number, VIAF ID, GeoNames ID, Pleiades ID, etc.). Multiple values are permitted when the entity is linked to several authorities."""@en .
@@ -167,7 +161,9 @@ hmkia:InterpretationAct rdfs:comment """A resource that materialises the interpr
 
 hmkia:Agent rdfs:comment "The agent that carried out the interpretation act (a researcher, research team, machine-learning model, etc.)."@en .
 
-hmkia:generated rdfs:comment """The data resource that this interpretation act produced (Annotation, Statement, EntityReference, EntityInContext, Entity, and so on). The inverse is provided by the generatedBy property defined in each layer."""@en .
+hmkia:generated rdfs:comment """The data resource that this interpretation act produced (Annotation, Statement, EntityReference, EntityInContext, Entity, and so on). The inverse is hmkia:generatedBy."""@en .
+
+hmkia:generatedBy rdfs:comment """The interpretation act (hmkia:InterpretationAct) that generated a data resource (Annotation, Statement, EntityReference, EntityInContext, Entity, Event, and so on). Unifies the per-layer generatedBy properties (previously split across the physical, intrinsic, and extrinsic layers) into a single property, since they express the same relation. The inverse is hmkia:generated; the domain is left open (symmetric with the inverse) so it applies to data resources in any layer."""@en .
 
 hmkia:associatedWith rdfs:comment "The agent (Agent) that performed this interpretation act. Corresponds to prov:wasAssociatedWith in PROV-O."@en .
 
