@@ -19,6 +19,12 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .desc { color: var(--muted); font-size: .9rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem;
+           background: var(--accent); color: #fff; font-weight: 600;
+           padding: .7rem 1.4rem; border-radius: 8px; text-decoration: none;
+           box-shadow: 0 2px 6px rgba(59,130,246,.35); transition: background .15s, transform .05s; }
+    .btn:hover { background: #2563eb; text-decoration: none; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
     footer { margin-top: 3rem; color: var(--muted); font-size: .85rem;
              border-top: 1px solid var(--border); padding-top: 1rem; }
   </style>
@@ -45,6 +51,12 @@
       <li><a href="webvowl/index.html#template">HIMIKO WebVOWL</a></li>
       <li><a href="webvowl/index.html#epig">epig WebVOWL</a></li>
     </ul>
+
+    <h2>SPARQL エンドポイント</h2>
+    <p><a class="btn" href="https://roman-atlas.vercel.app/sparql" target="_blank" rel="noopener">
+      🔎 SPARQL エンドポイントを開く
+    </a></p>
+    <p class="desc">Roman Atlas SPARQL endpoint でクエリを実行できます</p>
 
   </div>
 </body>
