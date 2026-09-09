@@ -280,28 +280,40 @@ html[lang="en"] img[data-lang="ja"] { display: none; }
       <li class="sub"><a href="#hmke-Event"><code>hmke:Event</code></a></li>
       <li class="sub"><a href="#hmke-Location"><code>hmke:Location</code></a></li>
       <li class="sub"><a href="#hmke-Role"><code>hmke:Role</code></a></li>
+      <li class="sub"><a href="#hmke-TimeSpan"><code>hmke:TimeSpan</code></a></li>
     </ul></li>
   <li><a href="#hmke-object-properties"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span></a>
     <ul>
       <li class="sub"><a href="#hmke-contextualAspectOf"><code>hmke:contextualAspectOf</code></a></li>
+      <li class="sub"><a href="#hmke-endsAtEvent"><code>hmke:endsAtEvent</code></a></li>
+      <li class="sub"><a href="#hmke-endsWithEvent"><code>hmke:endsWithEvent</code></a></li>
       <li class="sub"><a href="#hmke-eventSince"><code>hmke:eventSince</code></a></li>
       <li class="sub"><a href="#hmke-eventUntil"><code>hmke:eventUntil</code></a></li>
       <li class="sub"><a href="#hmke-hasLocation"><code>hmke:hasLocation</code></a></li>
       <li class="sub"><a href="#hmke-hasRole"><code>hmke:hasRole</code></a></li>
+      <li class="sub"><a href="#hmke-hasTimeSpan"><code>hmke:hasTimeSpan</code></a></li>
       <li class="sub"><a href="#hmke-memberOf"><code>hmke:memberOf</code></a></li>
       <li class="sub"><a href="#hmke-mentionedAsPrecedent"><code>hmke:mentionedAsPrecedent</code></a></li>
+      <li class="sub"><a href="#hmke-precedes"><code>hmke:precedes</code></a></li>
       <li class="sub"><a href="#hmke-relatedEntityInContext"><code>hmke:relatedEntityInContext</code></a></li>
+      <li class="sub"><a href="#hmke-startsAfterEvent"><code>hmke:startsAfterEvent</code></a></li>
+      <li class="sub"><a href="#hmke-startsWithEvent"><code>hmke:startsWithEvent</code></a></li>
     </ul></li>
   <li><a href="#hmke-datatype-properties"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span></a>
     <ul>
-      <li class="sub"><a href="#hmke-absoluteDate"><code>hmke:absoluteDate</code></a></li>
       <li class="sub"><a href="#hmke-authorityURI"><code>hmke:authorityURI</code></a></li>
+      <li class="sub"><a href="#hmke-dateSince"><code>hmke:dateSince</code></a></li>
+      <li class="sub"><a href="#hmke-dateUntil"><code>hmke:dateUntil</code></a></li>
       <li class="sub"><a href="#hmke-entityType"><code>hmke:entityType</code></a></li>
       <li class="sub"><a href="#hmke-eventLabel"><code>hmke:eventLabel</code></a></li>
       <li class="sub"><a href="#hmke-label"><code>hmke:label</code></a></li>
       <li class="sub"><a href="#hmke-lat"><code>hmke:lat</code></a></li>
       <li class="sub"><a href="#hmke-locationLabel"><code>hmke:locationLabel</code></a></li>
       <li class="sub"><a href="#hmke-long"><code>hmke:long</code></a></li>
+      <li class="sub"><a href="#hmke-possibleSince"><code>hmke:possibleSince</code></a></li>
+      <li class="sub"><a href="#hmke-possibleUntil"><code>hmke:possibleUntil</code></a></li>
+      <li class="sub"><a href="#hmke-reliableSince"><code>hmke:reliableSince</code></a></li>
+      <li class="sub"><a href="#hmke-reliableUntil"><code>hmke:reliableUntil</code></a></li>
       <li class="sub"><a href="#hmke-roleLabel"><code>hmke:roleLabel</code></a></li>
     </ul></li>
 </ul>
@@ -310,9 +322,12 @@ html[lang="en"] img[data-lang="ja"] { display: none; }
   <li><a href="#hmkia-classes"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></a>
     <ul>
       <li class="sub"><a href="#hmkia-Agent"><code>hmkia:Agent</code></a></li>
+      <li class="sub"><a href="#hmkia-AgentRole"><code>hmkia:AgentRole</code></a></li>
+      <li class="sub"><a href="#hmkia-HumanAgent"><code>hmkia:HumanAgent</code></a></li>
       <li class="sub"><a href="#hmkia-InterpretationAct"><code>hmkia:InterpretationAct</code></a></li>
       <li class="sub"><a href="#hmkia-InterpretationCreationAct"><code>hmkia:InterpretationCreationAct</code></a></li>
       <li class="sub"><a href="#hmkia-InterpretationUpdateAct"><code>hmkia:InterpretationUpdateAct</code></a></li>
+      <li class="sub"><a href="#hmkia-SoftwareAgent"><code>hmkia:SoftwareAgent</code></a></li>
     </ul></li>
   <li><a href="#hmkia-object-properties"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span></a>
     <ul>
@@ -430,12 +445,12 @@ html[lang="en"] img[data-lang="ja"] { display: none; }
         <div class="summary-card" style="background:#3b82f6"><h3><span data-lang="ja">史料物理層</span><span data-lang="en">Physical Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmkp:</code></h3><div><span class="n">4</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">9</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">9</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
 <div class="summary-card" style="background:#60a5fa"><h3><span data-lang="ja">史料物理層 — TEI 変換プロファイル</span><span data-lang="en">Physical Layer — TEI Conversion Profile</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmktei:</code></h3><div><span class="n">12</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">0</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">7</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
 <div class="summary-card" style="background:#f59e0b"><h3><span data-lang="ja">史料内在知識層</span><span data-lang="en">Intrinsic Knowledge Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmki:</code></h3><div><span class="n">2</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">12</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">3</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
-<div class="summary-card" style="background:#10b981"><h3><span data-lang="ja">外在知識層</span><span data-lang="en">Extrinsic Knowledge Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmke:</code></h3><div><span class="n">5</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">8</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">9</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
-<div class="summary-card" style="background:#8b5cf6"><h3><span data-lang="ja">解釈行為層</span><span data-lang="en">Interpretation Act Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmkia:</code></h3><div><span class="n">4</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">8</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">7</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
+<div class="summary-card" style="background:#10b981"><h3><span data-lang="ja">外在知識層</span><span data-lang="en">Extrinsic Knowledge Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmke:</code></h3><div><span class="n">6</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">14</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">14</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
+<div class="summary-card" style="background:#8b5cf6"><h3><span data-lang="ja">解釈行為層</span><span data-lang="en">Interpretation Act Layer</span> <code style="background:rgba(255,255,255,0.2); color:#fff">hmkia:</code></h3><div><span class="n">7</span> <span class="k"><span data-lang="ja">クラス</span><span data-lang="en">Classes</span></span> · <span class="n">8</span> <span class="k"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Obj Prop</span></span> · <span class="n">7</span> <span class="k"><span data-lang="ja">データプロパティ</span><span data-lang="en">Data Prop</span></span></div></div>
       </div>
       <p style="font-size:14px; color:var(--muted)">
-        <span data-lang="ja">合計: <strong>27</strong> クラス · <strong>37</strong> オブジェクトプロパティ · <strong>35</strong> データプロパティ</span>
-        <span data-lang="en">Total: <strong>27</strong> classes · <strong>37</strong> object properties · <strong>35</strong> datatype properties</span>
+        <span data-lang="ja">合計: <strong>31</strong> クラス · <strong>43</strong> オブジェクトプロパティ · <strong>40</strong> データプロパティ</span>
+        <span data-lang="en">Total: <strong>31</strong> classes · <strong>43</strong> object properties · <strong>40</strong> datatype properties</span>
       </p>
     </section>
 
@@ -1299,7 +1314,7 @@ Statement は複数の Character を同時に mentions することによって�
 <h2 id="hmke" style="border-bottom-color:#10b981"><span data-lang="ja">外在知識層</span><span data-lang="en">Extrinsic Knowledge Layer</span> — <code>hmke:</code></h2>
 <div class="layer-intro" style="border-left-color:#10b981"><span data-lang="ja">史料中の言及を史料外部の知識体系と接続する層。EntityReference — EntityInContext — Entity という三段階の構造を採り、単なるエンティティ・リンキングでは失われる歴史的コンテキスト (時間・社会・地理) を保持する。EntityInContext は eventSince / eventUntil によって時間的範囲を持ち、hasLocation / hasRole / memberOf などで文脈的属性を保持する。</span><span data-lang="en">Layer that connects in-source mentions to external knowledge systems. It employs a three-tier structure of EntityReference — EntityInContext — Entity, preserving the historical context (temporal, social, geographical) that plain entity linking would lose. EntityInContext carries a temporal span via eventSince / eventUntil and contextual attributes such as hasLocation / hasRole / memberOf.</span></div>
 <details class="section-group" id="hmke-classes">
-  <summary><span data-lang="ja">クラス</span><span data-lang="en">Classes</span> <span class="count">(5)</span></summary>
+  <summary><span data-lang="ja">クラス</span><span data-lang="en">Classes</span> <span class="count">(6)</span></summary>
 <article class="entity class" id="hmke-Entity" style="border-left-color:#10b981">
 <header>
   <span class="kind-badge" style="background:#10b981"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
@@ -1324,7 +1339,9 @@ Statement は複数の Character を同時に mentions することによって�
 「ある特定の歴史的文脈における人物」「ある特定の状況下にある場所」を表現する。
 普遍的実体 (hmke:Entity) とは独立したリソースとして扱われ、一つの Entity に対して
 複数の EntityInContext を併存させることで、時期による属性の変化や複数の解釈を表現できる。
-時間的範囲 (eventSince / eventUntil) を持ち、社会的地位・官職・所属集団・活動地域などの属性を保持しうる。</span><span data-lang="en">An entity placed within a specific historical context. Rather than a bare person or place, this expresses "a person in a particular historical context" or "a place under a particular set of circumstances". Treated as a resource independent of the universal entity (hmke:Entity); a single Entity may have multiple EntityInContext instances.</span></p>
+時間的範囲は出来事基準 (eventSince / eventUntil) と絶対年代 (hasTimeSpan) の双方で記述でき、
+併用する場合は出来事基準を一次的な定位、絶対年代をそこから導かれた解釈として扱う。
+社会的地位・官職・所属集団・活動地域などの属性を保持しうる。</span><span data-lang="en">An entity placed within a specific historical context. Rather than a bare person or place, this expresses "a person in a particular historical context" or "a place under a particular set of circumstances". Treated as a resource independent of the universal entity (hmke:Entity); a single Entity may have multiple EntityInContext instances.</span></p>
 <dl class="meta">
 </dl>
 </article>
@@ -1338,7 +1355,10 @@ Statement は複数の Character を同時に mentions することによって�
 <p class="comment"><span data-lang="ja">EntityInContext の時間的範囲を規定するための歴史的出来事。
 「ある人物が執政官に就任した」「ある都市が属州都となった」といった相対的な時間基準点として用いられる。
 絶対年代が不確実な場合であっても、Event 同士の前後関係 (mentionedAsPrecedent) に基づいて
-歴史的コンテキストの時間関係を記述できる。</span><span data-lang="en">A historical event used to delimit the temporal span of an EntityInContext. Serves as a relative chronological anchor point—e.g. "the moment X assumed the consulship", "the moment a city became a provincial capital". Even when the absolute date is uncertain, the relative ordering between Events can still be recorded.</span></p>
+歴史的コンテキストの時間関係を記述できる。
+絶対年代が推定される場合は hmke:hasTimeSpan によって TimeSpan を与える。
+Event に年代を集約することで、学説の変更をその Event を参照するすべての
+EntityInContext に伝播させることができる。</span><span data-lang="en">A historical event used to delimit the temporal span of an EntityInContext. Serves as a relative chronological anchor point—e.g. "the moment X assumed the consulship", "the moment a city became a provincial capital". Even when the absolute date is uncertain, the relative ordering between Events can still be recorded.</span></p>
 <dl class="meta">
 </dl>
 </article>
@@ -1365,9 +1385,32 @@ Statement は複数の Character を同時に mentions することによって�
 <dl class="meta">
 </dl>
 </article>
+<article class="entity class" id="hmke-TimeSpan" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmke:TimeSpan</code></h4>
+  <p class="label"><span data-lang="ja">時間幅</span><span data-lang="en">Time Span</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:TimeSpan</code></p>
+</header>
+<p class="comment"><span data-lang="ja">絶対年代による時間の範囲。EntityInContext と Event のいずれにも
+hmke:hasTimeSpan によって付与できる。
+開始・終了それぞれを xsd:gYear（年）・xsd:gYearMonth（年月）・xsd:date（年月日）の
+いずれかで記述でき、粒度が混在してもよい。
+年代が範囲としてしか確定しない場合（「194年春」など）は dateSince / dateUntil に
+その範囲を与え、単一時点は dateSince と dateUntil に同じ値を与えて表現する。
+片側のみが判明している場合（「195年8月28日以前」など）は一方を省略してよい。
+dateUntil は包含的（当該時点を含む）である。
+典拠が複数の説を併記する場合など、年代自体が不確実な場合は
+4点モデル (possibleSince / reliableSince / reliableUntil / possibleUntil) を併用する。
+なお dateSince / dateUntil の幅は粒度の粗さや状態の継続を表すものであり、
+不確実性とは区別される。
+出来事基準の時間表現 (hmke:eventSince / hmke:eventUntil) と併用可能。</span><span data-lang="en">A range of absolute dates. Attached via hmke:hasTimeSpan to either an EntityInContext or an Event. Start and end may each be given as xsd:gYear, xsd:gYearMonth, or xsd:date, and the two ends may differ in precision. When a date is only established as a range (e.g. "spring 194"), give that range as dateSince / dateUntil; a single point in time is expressed by giving dateSince and dateUntil the same value. When only one bound is known (e.g. "before 28 August 195"), the other may be omitted. dateUntil is inclusive. Where the date itself is uncertain — for instance where a reference work reports competing datings — the four-point model (possibleSince / reliableSince / reliableUntil / possibleUntil) is used alongside it. Note that the extent of dateSince / dateUntil expresses coarse granularity or the duration of a state, and is distinct from uncertainty.</span></p>
+<dl class="meta">
+</dl>
+</article>
 </details>
 <details class="section-group" id="hmke-object-properties">
-  <summary><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span> <span class="count">(8)</span></summary>
+  <summary><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Properties</span> <span class="count">(14)</span></summary>
 <article class="entity objectproperty" id="hmke-contextualAspectOf" style="border-left-color:#10b981">
 <header>
   <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
@@ -1383,6 +1426,44 @@ Statement は複数の Character を同時に mentions することによって�
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Entity">hmke:Entity</a></dd>
 </dl>
 </article>
+<article class="entity objectproperty" id="hmke-endsAtEvent" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:endsAtEvent</code></h4>
+  <p class="label"><span data-lang="ja">出来事の終了をもって終わる</span><span data-lang="en">ends at event</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:endsAtEvent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この EntityInContext の終期が、参照先の出来事の終了と一致することを述べる。
+絶対年代への解決では参照先の hmke:dateUntil を採る。
+点的な出来事（dateSince = dateUntil）を参照する場合は hmke:endsWithEvent と
+結果が一致するが、意味に即して本プロパティを用いる。
+OWL-Time の time:intervalFinishes に対応する。</span><span data-lang="en">States that the end of this EntityInContext coincides with the end of the referenced Event. Resolving to absolute dates takes the hmke:dateUntil of the referenced Event. For a punctual Event (dateSince = dateUntil) the result is identical to hmke:endsWithEvent, but this property is preferred where it matches the intended sense. Corresponds to time:intervalFinishes in OWL-Time.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmke-eventUntil">hmke:eventUntil</a>, <a href="http://www.w3.org/2006/time#intervalFinishes" rel="external" target="_blank">http://www.w3.org/2006/time#intervalFinishes</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-endsWithEvent" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:endsWithEvent</code></h4>
+  <p class="label"><span data-lang="ja">出来事の開始と同時に終わる</span><span data-lang="en">ends with event</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:endsWithEvent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この EntityInContext の終期が、参照先の出来事の開始と一致することを述べる。
+後続の状態が始まることによって当該状態が終わる場合に用いる。
+絶対年代への解決では参照先の hmke:dateSince を採るが、これは排他的な上限であり、
+包含的な hmke:dateUntil へ書き下すには粒度 1 単位を差し引く
+（例：参照先 dateSince が 0202-01-01 なら dateUntil は 0201-12-31）。
+この差し引きを要するのは本プロパティのみである。
+OWL-Time の time:intervalMeets に対応し、隙間なく隣接することを述べる。</span><span data-lang="en">States that the end of this EntityInContext coincides with the beginning of the referenced Event. Used where the state ends because a subsequent state begins. Resolving to absolute dates takes the hmke:dateSince of the referenced Event, but that value is an exclusive upper bound: writing it out as the inclusive hmke:dateUntil requires subtracting one unit of granularity (e.g. a referenced dateSince of 0202-01-01 yields a dateUntil of 0201-12-31). This adjustment applies to this property alone. Corresponds to time:intervalMeets in OWL-Time, asserting adjacency with no gap.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmke-eventUntil">hmke:eventUntil</a>, <a href="http://www.w3.org/2006/time#intervalMeets" rel="external" target="_blank">http://www.w3.org/2006/time#intervalMeets</a></dd>
+</dl>
+</article>
 <article class="entity objectproperty" id="hmke-eventSince" style="border-left-color:#10b981">
 <header>
   <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
@@ -1390,10 +1471,14 @@ Statement は複数の Character を同時に mentions することによって�
   <p class="label"><span data-lang="ja">開始基準となる出来事</span><span data-lang="en">event since</span></p>
   <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:eventSince</code></p>
 </header>
-<p class="comment"><span data-lang="ja">この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。</span><span data-lang="en">The Event that marks the temporal starting point at which the context of this EntityInContext takes effect.</span></p>
+<p class="comment"><span data-lang="ja">この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。
+参照先の出来事とどのような関係で結びつくかを区別する必要がある場合は、
+下位プロパティ hmke:startsWithEvent（出来事と同時）または
+hmke:startsAfterEvent（出来事の後）を用いる。</span><span data-lang="en">The Event that marks the temporal starting point at which the context of this EntityInContext takes effect. Where the nature of the link to the referenced Event must be distinguished, use the sub-properties hmke:startsWithEvent (simultaneous with the Event) or hmke:startsAfterEvent (after the Event).</span></p>
 <dl class="meta">
   <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">下位プロパティ</span><span data-lang="en">Sub-property(ies)</span></dt><dd><a href="#hmke-startsWithEvent">hmke:startsWithEvent</a>, <a href="#hmke-startsAfterEvent">hmke:startsAfterEvent</a></dd>
 </dl>
 </article>
 <article class="entity objectproperty" id="hmke-eventUntil" style="border-left-color:#10b981">
@@ -1403,10 +1488,14 @@ Statement は複数の Character を同時に mentions することによって�
   <p class="label"><span data-lang="ja">終了基準となる出来事</span><span data-lang="en">event until</span></p>
   <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:eventUntil</code></p>
 </header>
-<p class="comment"><span data-lang="ja">この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。</span><span data-lang="en">The Event that marks the temporal endpoint at which the context of this EntityInContext ceases.</span></p>
+<p class="comment"><span data-lang="ja">この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。
+参照先の出来事とどのような関係で結びつくかを区別する必要がある場合は、
+下位プロパティ hmke:endsWithEvent（出来事の開始と同時）または
+hmke:endsAtEvent（出来事の終了をもって）を用いる。</span><span data-lang="en">The Event that marks the temporal endpoint at which the context of this EntityInContext ceases. Where the nature of the link to the referenced Event must be distinguished, use the sub-properties hmke:endsWithEvent (simultaneous with the start of the Event) or hmke:endsAtEvent (at the end of the Event).</span></p>
 <dl class="meta">
   <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">下位プロパティ</span><span data-lang="en">Sub-property(ies)</span></dt><dd><a href="#hmke-endsWithEvent">hmke:endsWithEvent</a>, <a href="#hmke-endsAtEvent">hmke:endsAtEvent</a></dd>
 </dl>
 </article>
 <article class="entity objectproperty" id="hmke-hasLocation" style="border-left-color:#10b981">
@@ -1429,10 +1518,30 @@ Statement は複数の Character を同時に mentions することによって�
   <p class="label"><span data-lang="ja">社会的地位・官職</span><span data-lang="en">has role / position</span></p>
   <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:hasRole</code></p>
 </header>
-<p class="comment"><span data-lang="ja">EntityInContext が有する社会的地位・官職・所属集団における役割など。</span><span data-lang="en">A social status, magistracy, or community role held by the EntityInContext.</span></p>
+<p class="comment"><span data-lang="ja">EntityInContext が有する社会的地位・官職・所属集団における役割など。
+役職を統制語彙として正規化する場合や外部典拠に接続する場合に Role リソースを参照する。
+史料・典拠の記載をそのまま保持するだけであれば hmke:roleLabel を
+EntityInContext に直接付与すればよく、Role リソースの作成は必須ではない。</span><span data-lang="en">A social status, magistracy, or community role held by the EntityInContext. Reference a Role resource when the office is to be normalised against a controlled vocabulary or linked to an external authority. To record only the designation as given in the source or reference work, attach hmke:roleLabel directly to the EntityInContext; creating a Role resource is not required.</span></p>
 <dl class="meta">
   <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Role">hmke:Role</a></dd>
+</dl>
+</article>
+<article class="entity objectproperty" id="hmke-hasTimeSpan" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:hasTimeSpan</code></h4>
+  <p class="label"><span data-lang="ja">時間幅</span><span data-lang="en">has time span</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:hasTimeSpan</code></p>
+</header>
+<p class="comment"><span data-lang="ja">絶対年代による時間的範囲。EntityInContext と Event のいずれにも付与できる。
+EntityInContext に付与する場合は、そのコンテキストが成立している期間を表す。
+出来事基準 (eventSince / eventUntil) と併用する場合、出来事基準が一次的な定位であり、
+TimeSpan はそこから導かれた絶対年代の解釈として扱う。
+Event に付与する場合は、その出来事自体の年代を表す。</span><span data-lang="en">A temporal range given in absolute dates. May be attached to either an EntityInContext or an Event. On an EntityInContext it denotes the period during which that context holds; when used alongside the event-based properties (eventSince / eventUntil), the event-based anchoring is the primary claim and the TimeSpan is the absolute-date reading derived from it. On an Event it denotes the date of the event itself.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd>(<a href="#hmke-EntityInContext">hmke:EntityInContext</a> ∪ <a href="#hmke-Event">hmke:Event</a>)</dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-TimeSpan">hmke:TimeSpan</a></dd>
 </dl>
 </article>
 <article class="entity objectproperty" id="hmke-memberOf" style="border-left-color:#10b981">
@@ -1462,6 +1571,19 @@ Statement は複数の Character を同時に mentions することによって�
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
 </dl>
 </article>
+<article class="entity objectproperty" id="hmke-precedes" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:precedes</code></h4>
+  <p class="label"><span data-lang="ja">先行する</span><span data-lang="en">precedes</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:precedes</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この EntityInContext が時系列的に他の EntityInContext に先立つことを示す。</span><span data-lang="en">Indicates that this EntityInContext chronologically precedes another EntityInContext.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+</dl>
+</article>
 <article class="entity objectproperty" id="hmke-relatedEntityInContext" style="border-left-color:#10b981">
 <header>
   <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
@@ -1475,22 +1597,41 @@ Statement は複数の Character を同時に mentions することによって�
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
 </dl>
 </article>
-</details>
-<details class="section-group" id="hmke-datatype-properties">
-  <summary><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span> <span class="count">(9)</span></summary>
-<article class="entity datatypeproperty" id="hmke-absoluteDate" style="border-left-color:#10b981">
+<article class="entity objectproperty" id="hmke-startsAfterEvent" style="border-left-color:#10b981">
 <header>
-  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
-  <h4><code>hmke:absoluteDate</code></h4>
-  <p class="label"><span data-lang="ja">絶対年代</span><span data-lang="en">absolute date</span></p>
-  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:absoluteDate</code></p>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:startsAfterEvent</code></h4>
+  <p class="label"><span data-lang="ja">出来事の後に始まる</span><span data-lang="en">starts after event</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:startsAfterEvent</code></p>
 </header>
-<p class="comment"><span data-lang="ja">Event に絶対年代が推定される場合の年月日。不確実な場合は付与しない。</span><span data-lang="en">The absolute date of an Event when it can be estimated. Omitted when the date is uncertain.</span></p>
+<p class="comment"><span data-lang="ja">この EntityInContext の始期が、参照先の出来事の終了より後であることを述べる。
+絶対年代への解決では参照先の hmke:dateUntil を採る。始期の下限のみを与え、上限は与えない。
+OWL-Time の time:intervalAfter に対応する。</span><span data-lang="en">States that the beginning of this EntityInContext falls after the end of the referenced Event. Resolving to absolute dates takes the hmke:dateUntil of the referenced Event. This gives only a lower bound on the beginning, not an upper one. Corresponds to time:intervalAfter in OWL-Time.</span></p>
 <dl class="meta">
-  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
-  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#gYear" rel="external" target="_blank">xsd:gYear</a></dd>
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmke-eventSince">hmke:eventSince</a>, <a href="http://www.w3.org/2006/time#intervalAfter" rel="external" target="_blank">http://www.w3.org/2006/time#intervalAfter</a></dd>
 </dl>
 </article>
+<article class="entity objectproperty" id="hmke-startsWithEvent" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">オブジェクトプロパティ</span><span data-lang="en">Object Property</span></span>
+  <h4><code>hmke:startsWithEvent</code></h4>
+  <p class="label"><span data-lang="ja">出来事と同時に始まる</span><span data-lang="en">starts with event</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:startsWithEvent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この EntityInContext の始期が、参照先の出来事の開始と一致することを述べる。
+絶対年代への解決では参照先の hmke:dateSince を採る。
+OWL-Time の time:intervalStarts に対応する。</span><span data-lang="en">States that the beginning of this EntityInContext coincides with the beginning of the referenced Event. Resolving to absolute dates takes the hmke:dateSince of the referenced Event. Corresponds to time:intervalStarts in OWL-Time.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-EntityInContext">hmke:EntityInContext</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="#hmke-Event">hmke:Event</a></dd>
+  <dt><span data-lang="ja">上位プロパティ</span><span data-lang="en">Super-property</span></dt><dd><a href="#hmke-eventSince">hmke:eventSince</a>, <a href="http://www.w3.org/2006/time#intervalStarts" rel="external" target="_blank">http://www.w3.org/2006/time#intervalStarts</a></dd>
+</dl>
+</article>
+</details>
+<details class="section-group" id="hmke-datatype-properties">
+  <summary><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Properties</span> <span class="count">(14)</span></summary>
 <article class="entity datatypeproperty" id="hmke-authorityURI" style="border-left-color:#10b981">
 <header>
   <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
@@ -1503,6 +1644,33 @@ Statement は複数の Character を同時に mentions することによって�
 <dl class="meta">
   <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Entity">hmke:Entity</a></dd>
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><a href="http://www.w3.org/2001/XMLSchema#anyURI" rel="external" target="_blank">xsd:anyURI</a></dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-dateSince" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:dateSince</code></h4>
+  <p class="label"><span data-lang="ja">開始年代</span><span data-lang="en">date since</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:dateSince</code></p>
+</header>
+<p class="comment"><span data-lang="ja">TimeSpan の開始年代。xsd:gYear（年のみ）・xsd:gYearMonth（年月）・xsd:date（年月日）のいずれかで記述する。</span><span data-lang="en">Start of the TimeSpan. Written as xsd:gYear (year), xsd:gYearMonth (year and month), or xsd:date (full date), whichever matches the available precision.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-TimeSpan">hmke:TimeSpan</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd>(<a href="http://www.w3.org/2001/XMLSchema#gYear" rel="external" target="_blank">xsd:gYear</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#gYearMonth" rel="external" target="_blank">xsd:gYearMonth</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#date" rel="external" target="_blank">xsd:date</a>)</dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-dateUntil" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:dateUntil</code></h4>
+  <p class="label"><span data-lang="ja">終了年代</span><span data-lang="en">date until</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:dateUntil</code></p>
+</header>
+<p class="comment"><span data-lang="ja">TimeSpan の終了年代。xsd:gYear（年のみ）・xsd:gYearMonth（年月）・xsd:date（年月日）のいずれかで記述する。
+この値は包含的（inclusive）である。すなわち当該時点自体が範囲に含まれる。</span><span data-lang="en">End of the TimeSpan. Written as xsd:gYear (year), xsd:gYearMonth (year and month), or xsd:date (full date), whichever matches the available precision. This value is inclusive: the point in time itself falls within the range.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-TimeSpan">hmke:TimeSpan</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd>(<a href="http://www.w3.org/2001/XMLSchema#gYear" rel="external" target="_blank">xsd:gYear</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#gYearMonth" rel="external" target="_blank">xsd:gYearMonth</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#date" rel="external" target="_blank">xsd:date</a>)</dd>
 </dl>
 </article>
 <article class="entity datatypeproperty" id="hmke-entityType" style="border-left-color:#10b981">
@@ -1583,6 +1751,64 @@ Statement は複数の Character を同時に mentions することによって�
   <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://www.w3.org/2003/01/geo/wgs84_pos#long" rel="external" target="_blank">geo:long</a></dd>
 </dl>
 </article>
+<article class="entity datatypeproperty" id="hmke-possibleSince" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:possibleSince</code></h4>
+  <p class="label"><span data-lang="ja">可能な始期の下限</span><span data-lang="en">possible since</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:possibleSince</code></p>
+</header>
+<p class="comment"><span data-lang="ja">始期としてあり得る最も早い時点。これより前に始まった可能性はない。
+全候補の和集合の下限。粒度の記述は hmke:dateSince に準じる。</span><span data-lang="en">The earliest point at which the beginning could possibly fall; it cannot have begun before this. The lower bound of the union of all candidate intervals. Granularity follows hmke:dateSince.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-TimeSpan">hmke:TimeSpan</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd>(<a href="http://www.w3.org/2001/XMLSchema#gYear" rel="external" target="_blank">xsd:gYear</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#gYearMonth" rel="external" target="_blank">xsd:gYearMonth</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#date" rel="external" target="_blank">xsd:date</a>)</dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-possibleUntil" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:possibleUntil</code></h4>
+  <p class="label"><span data-lang="ja">可能な終期の上限</span><span data-lang="en">possible until</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:possibleUntil</code></p>
+</header>
+<p class="comment"><span data-lang="ja">終期としてあり得る最も遅い時点。これより後まで継続した可能性はない。
+全候補の和集合の上限。粒度の記述は hmke:dateUntil に準じる。</span><span data-lang="en">The latest point at which the end could possibly fall; it cannot have continued beyond this. The upper bound of the union of all candidate intervals. Granularity follows hmke:dateUntil.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-TimeSpan">hmke:TimeSpan</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd>(<a href="http://www.w3.org/2001/XMLSchema#gYear" rel="external" target="_blank">xsd:gYear</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#gYearMonth" rel="external" target="_blank">xsd:gYearMonth</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#date" rel="external" target="_blank">xsd:date</a>)</dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-reliableSince" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:reliableSince</code></h4>
+  <p class="label"><span data-lang="ja">確実な始期の上限</span><span data-lang="en">reliable since</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:reliableSince</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この時点までには確実に始まっていたと言える時点。全候補の積集合の下限。
+hmke:possibleSince と一致する場合、始期に不確実性がないことを表す。</span><span data-lang="en">The point by which the beginning had certainly occurred. The lower bound of the intersection of all candidate intervals. When it coincides with hmke:possibleSince, the beginning carries no uncertainty.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-TimeSpan">hmke:TimeSpan</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd>(<a href="http://www.w3.org/2001/XMLSchema#gYear" rel="external" target="_blank">xsd:gYear</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#gYearMonth" rel="external" target="_blank">xsd:gYearMonth</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#date" rel="external" target="_blank">xsd:date</a>)</dd>
+</dl>
+</article>
+<article class="entity datatypeproperty" id="hmke-reliableUntil" style="border-left-color:#10b981">
+<header>
+  <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
+  <h4><code>hmke:reliableUntil</code></h4>
+  <p class="label"><span data-lang="ja">確実な終期の下限</span><span data-lang="en">reliable until</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:reliableUntil</code></p>
+</header>
+<p class="comment"><span data-lang="ja">この時点までは確実に継続していたと言える時点。全候補の積集合の上限。
+典拠が「〜以前」という証拠上限のみを示す場合、それは保持の終期ではなく
+本プロパティの値として記述する。
+hmke:reliableSince より小さい場合、確実に含まれる核が存在しないことを表す。</span><span data-lang="en">The point up to which the state certainly still held. The upper bound of the intersection of all candidate intervals. Where a source gives only a "before X" evidential bound, that bound is recorded here rather than as the end of the state. A value lower than hmke:reliableSince indicates that no certainly-included core exists.</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-TimeSpan">hmke:TimeSpan</a></dd>
+  <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd>(<a href="http://www.w3.org/2001/XMLSchema#gYear" rel="external" target="_blank">xsd:gYear</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#gYearMonth" rel="external" target="_blank">xsd:gYearMonth</a> ∪ <a href="http://www.w3.org/2001/XMLSchema#date" rel="external" target="_blank">xsd:date</a>)</dd>
+</dl>
+</article>
 <article class="entity datatypeproperty" id="hmke-roleLabel" style="border-left-color:#10b981">
 <header>
   <span class="kind-badge" style="background:#10b981"><span data-lang="ja">データプロパティ</span><span data-lang="en">Datatype Property</span></span>
@@ -1590,9 +1816,16 @@ Statement は複数の Character を同時に mentions することによって�
   <p class="label"><span data-lang="ja">役職名</span><span data-lang="en">role label</span></p>
   <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:extrinsic:roleLabel</code></p>
 </header>
-<p class="comment"><span data-lang="ja">官職名・地位の名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。</span><span data-lang="en">Name of the magistracy or social status (e.g. 'consul', 'aedilis', 'flamen', 'patronus').</span></p>
+<p class="comment"><span data-lang="ja">官職名・地位の名称。Role と EntityInContext のいずれにも付与できる。
+Role に付与する場合は、その役職の正準的な名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。
+EntityInContext に付与する場合は、その文脈における役職の記載そのもの
+(例: 'cos. I suff.', 'imp. IV', 'trib. pot. XIX')。
+就任回数 (iteratio) や suffectus / designatus の別を含む記載は、
+正準名への正規化によって失われるため、EntityInContext 側のラベルとして保持する。
+統制語彙への正規化や外部典拠への接続が必要な場合は、
+hmke:hasRole によって Role リソースを併せて参照する。</span><span data-lang="en">Name of a magistracy or social status. May be attached to either a Role or an EntityInContext. On a Role it is the canonical name of the office (e.g. 'consul', 'aedilis', 'flamen', 'patronus'). On an EntityInContext it is the designation as recorded for that particular context (e.g. 'cos. I suff.', 'imp. IV', 'trib. pot. XIX'): iteration counts and qualifiers such as suffectus or designatus are lost when normalising to a canonical name, so they are retained on the EntityInContext. Where normalisation to a controlled vocabulary or a link to an external authority is required, reference a Role resource via hmke:hasRole in addition.</span></p>
 <dl class="meta">
-  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd><a href="#hmke-Role">hmke:Role</a></dd>
+  <dt><span data-lang="ja">ドメイン</span><span data-lang="en">Domain</span></dt><dd>(<a href="#hmke-Role">hmke:Role</a> ∪ <a href="#hmke-EntityInContext">hmke:EntityInContext</a>)</dd>
   <dt><span data-lang="ja">レンジ</span><span data-lang="en">Range</span></dt><dd><span class='none'>—</span></dd>
 </dl>
 </article>
@@ -1602,7 +1835,7 @@ Statement は複数の Character を同時に mentions することによって�
 <h2 id="hmkia" style="border-bottom-color:#8b5cf6"><span data-lang="ja">解釈行為層</span><span data-lang="en">Interpretation Act Layer</span> — <code>hmkia:</code></h2>
 <div class="layer-intro" style="border-left-color:#8b5cf6"><span data-lang="ja">三層すべてのデータ生成に介在する研究者の「解釈」を独立したリソースとして実体化する層。Annotation・Statement・EntityInContext などは generatedBy によって必ず InterpretationAct を参照する。InterpretationAct 同士は supports / critiques / revises などで再帰的に接続される。基本モデルは HiCO を踏襲する。</span><span data-lang="en">Layer that materialises the researcher&#x27;s interpretation—present in the data generation of all three layers—as an independent resource. Annotation, Statement, EntityInContext, and others always reference an InterpretationAct via generatedBy. Interpretation Acts are recursively linked to each other with supports / critiques / revises. The base model follows HiCO.</span></div>
 <details class="section-group" id="hmkia-classes">
-  <summary><span data-lang="ja">クラス</span><span data-lang="en">Classes</span> <span class="count">(4)</span></summary>
+  <summary><span data-lang="ja">クラス</span><span data-lang="en">Classes</span> <span class="count">(7)</span></summary>
 <article class="entity class" id="hmkia-Agent" style="border-left-color:#8b5cf6">
 <header>
   <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
@@ -1613,7 +1846,32 @@ Statement は複数の Character を同時に mentions することによって�
 <p class="comment"><span data-lang="ja">解釈行為を実施した主体 (研究者・研究チーム・機械学習モデルなど)。</span><span data-lang="en">The agent that carried out the interpretation act (a researcher, research team, machine-learning model, etc.).</span></p>
 <dl class="meta">
   <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="http://www.w3.org/ns/prov#Agent" rel="external" target="_blank">prov:Agent</a></dd>
+  <dt><span data-lang="ja">下位クラス</span><span data-lang="en">Sub-class(es)</span></dt><dd><a href="#hmkia-HumanAgent">hmkia:HumanAgent</a>, <a href="#hmkia-SoftwareAgent">hmkia:SoftwareAgent</a></dd>
   <dt><span data-lang="ja">参照</span><span data-lang="en">See also</span></dt><dd><a href="http://xmlns.com/foaf/0.1/Agent" rel="external" target="_blank">foaf:Agent</a></dd>
+</dl>
+</article>
+<article class="entity class" id="hmkia-AgentRole" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkia:AgentRole</code></h4>
+  <p class="label"><span data-lang="ja">主体役割</span><span data-lang="en">Agent Role</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:AgentRole</code></p>
+</header>
+<p class="comment"><span data-lang="ja">解釈行為における主体の役割。prov:Role のサブクラス。</span><span data-lang="en">解釈行為における主体の役割。prov:Role のサブクラス。</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="http://www.w3.org/ns/prov#Role" rel="external" target="_blank">prov:Role</a></dd>
+</dl>
+</article>
+<article class="entity class" id="hmkia-HumanAgent" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkia:HumanAgent</code></h4>
+  <p class="label"><span data-lang="ja">人間主体</span><span data-lang="en">Human Agent</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:HumanAgent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">解釈行為に関与した人間の研究者または研究チーム。学術的責任を担う主体。</span><span data-lang="en">解釈行為に関与した人間の研究者または研究チーム。学術的責任を担う主体。</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="#hmkia-Agent">hmkia:Agent</a>, <a href="http://www.w3.org/ns/prov#Person" rel="external" target="_blank">prov:Person</a></dd>
 </dl>
 </article>
 <article class="entity class" id="hmkia-InterpretationAct" style="border-left-color:#8b5cf6">
@@ -1666,6 +1924,18 @@ UpdateAct 自身は hmkia:revises によって先行する InterpretationAct
 (CreationAct または UpdateAct) を参照する。</span></p>
 <dl class="meta">
   <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="#hmkia-InterpretationAct">hmkia:InterpretationAct</a></dd>
+</dl>
+</article>
+<article class="entity class" id="hmkia-SoftwareAgent" style="border-left-color:#8b5cf6">
+<header>
+  <span class="kind-badge" style="background:#8b5cf6"><span data-lang="ja">クラス</span><span data-lang="en">Class</span></span>
+  <h4><code>hmkia:SoftwareAgent</code></h4>
+  <p class="label"><span data-lang="ja">ソフトウェア主体</span><span data-lang="en">Software Agent</span></p>
+  <p class="iri"><span data-lang="ja"><span class='k'>IRI:</span></span><span data-lang="en"><span class='k'>IRI:</span></span> <code>urn:himiko:ontology:interpretation:SoftwareAgent</code></p>
+</header>
+<p class="comment"><span data-lang="ja">解釈行為を計算的に実行したソフトウェア (LLM・スクリプトなど)。</span><span data-lang="en">解釈行為を計算的に実行したソフトウェア (LLM・スクリプトなど)。</span></p>
+<dl class="meta">
+  <dt><span data-lang="ja">上位クラス</span><span data-lang="en">Super-class</span></dt><dd><a href="#hmkia-Agent">hmkia:Agent</a>, <a href="http://www.w3.org/ns/prov#SoftwareAgent" rel="external" target="_blank">prov:SoftwareAgent</a></dd>
 </dl>
 </article>
 </details>

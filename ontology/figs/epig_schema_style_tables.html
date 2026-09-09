@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8">
+<title>epig オントロジー リファレンス（schema.org 風）</title>
+<style>
+:root { --fg:#1f2937; --muted:#6b7280; --border:#333; --code-bg:#f3f4f6; }
+* { box-sizing: border-box; }
+body { margin:0; padding:32px 40px 48px;
+  font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+  color:var(--fg); background:#fff; line-height:1.55; font-size:12px; }
+h1 { font-size:20px; margin:0 0 4px; }
+.subtitle { color:var(--muted); margin:0 0 24px; font-size:13px; }
+.caption { font-weight:700; font-size:12px; margin:16px 0 4px; }
+table.sform { border-collapse:collapse; width:100%; font-size:11px; margin:0 0 8px; }
+table.sform th, table.sform td { border:1px solid var(--border); padding:5px 9px;
+  text-align:left; vertical-align:top; }
+table.sform thead th { font-weight:700; background:#fff; white-space:nowrap; }
+table.sform td.uri code, table.sform td.val code {
+  font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace; font-size:10.5px;
+  white-space:nowrap; }
+table.sform td.label .note { color:var(--muted); }
+table.sform .none { color:var(--muted); }
+.layer-intro { color:var(--muted); font-size:11.5px; margin:4px 0 12px; }
+footer { margin-top:32px; color:var(--muted); font-size:10.5px; }
+@page { size:A4; margin:20mm 15mm; }
+@media print { body{padding:0;} .caption{page-break-after:avoid;}
+  table.sform tr{page-break-inside:avoid;} table.sform thead{display:table-header-group;} }
+</style></head>
+<body>
+<h1>epig オントロジー リファレンス表</h1>
+<p class="subtitle">Epigraphic Careers Ontology — 論文・書籍掲載用 (schema.org リファレンス形式)</p>
+<p class="layer-intro">
+凡例 — <strong>URI</strong> は修飾名。プロパティ欄の <strong>(逆向き: …)</strong> は
+<code>owl:inverseOf</code>、<strong>(上位: …)</strong> は <code>rdfs:subPropertyOf</code>、
+<strong>関数的プロパティ</strong> は <code>owl:FunctionalProperty</code>、
+値域欄の <code>(A ∪ B)</code> は <code>owl:unionOf</code> を示す。
+<code>owl:deprecated</code> のエントリは除外している。
+</p>
+
+<p class="caption">表　epig オントロジー のクラス（11 件）</p>
+<table class="sform"><thead><tr>
+<th style="width:30%">クラス URI</th><th style="width:38%">ラベル</th><th>上位クラス</th>
+</tr></thead><tbody>
+<tr><td class="uri"><code>epig:BenefactionStatement</code></td><td class="label">寄進言及</td><td class="val"><code>hmki:Statement</code></td></tr>
+<tr><td class="uri"><code>epig:CareerStatement</code></td><td class="label">経歴言及</td><td class="val"><code>hmki:Statement</code></td></tr>
+<tr><td class="uri"><code>epig:CommunityReference</code></td><td class="label">共同体言及</td><td class="val"><code>hmki:EntityReference</code></td></tr>
+<tr><td class="uri"><code>epig:DivinityType</code></td><td class="label">神格タイプ</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>epig:ExternalDatabaseLink</code></td><td class="label">外部DBリンク</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>epig:Inscription</code></td><td class="label">碑文</td><td class="val"><code>hmkp:Source</code></td></tr>
+<tr><td class="uri"><code>epig:PersonReference</code></td><td class="label">人物言及</td><td class="val"><code>hmki:EntityReference</code></td></tr>
+<tr><td class="uri"><code>epig:Place</code></td><td class="label">地名</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>epig:Province</code></td><td class="label">属州</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>epig:RelationshipStatement</code></td><td class="label">関係言及</td><td class="val"><code>hmki:Statement</code></td></tr>
+<tr><td class="uri"><code>epig:SocialStatus</code></td><td class="label">社会的身分</td><td class="val"><span class="none">—</span></td></tr>
+</tbody></table>
+
+<p class="caption">表　epig オントロジー のプロパティ（68 件）</p>
+<table class="sform"><thead><tr>
+<th style="width:22%">プロパティ URI</th><th style="width:34%">ラベル</th>
+<th style="width:22%">定義域</th><th style="width:22%">値域</th>
+</tr></thead><tbody>
+<tr><td class="uri"><code>epig:activityType</code></td><td class="label">アクティビティ種別</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:ageAtDeath</code></td><td class="label">没年齢</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:integer</code></td></tr>
+<tr><td class="uri"><code>epig:ageAtDeathEvidence</code></td><td class="label">没年齢の根拠</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:agent</code></td><td class="label">恵与主体言及 <span class="note">(上位: <code>hmki:references</code>)</span></td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val">(<code>epig:PersonReference</code> ∪ <code>epig:CommunityReference</code>)</td></tr>
+<tr><td class="uri"><code>epig:benefactionText</code></td><td class="label">寄進テキスト</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:benefactionType</code></td><td class="label">寄進種別</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:birthPlace</code></td><td class="label">出生地</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:birthPlaceEvidence</code></td><td class="label">出生地の根拠</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:birthPlaceNormalized</code></td><td class="label">出生地(正規化)</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:cognomen</code></td><td class="label">コグノーメン</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:communityDescription</code></td><td class="label">共同体の説明</td><td class="val"><code>epig:CommunityReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:communityType</code></td><td class="label">共同体種別</td><td class="val"><code>epig:CommunityReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:costConversionReasoning</code></td><td class="label">費用換算の根拠</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:costNumeric</code></td><td class="label">費用(数値)</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:integer</code></td></tr>
+<tr><td class="uri"><code>epig:costOriginalText</code></td><td class="label">費用の原文</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:costUnit</code></td><td class="label">費用単位</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:database</code></td><td class="label">データベース名</td><td class="val"><code>epig:ExternalDatabaseLink</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:datingFrom</code></td><td class="label">年代下限</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>xsd:integer</code></td></tr>
+<tr><td class="uri"><code>epig:datingTo</code></td><td class="label">年代上限</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>xsd:integer</code></td></tr>
+<tr><td class="uri"><code>epig:deathPlace</code></td><td class="label">没地</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:deathPlaceEvidence</code></td><td class="label">没地の根拠</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:deathPlaceNormalized</code></td><td class="label">没地(正規化)</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:deathPlaceSource</code></td><td class="label">没地の出典</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:divinityClassificationReasoning</code></td><td class="label">神格分類の根拠</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:divinityType</code></td><td class="label">神格タイプ</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>epig:DivinityType</code></td></tr>
+<tr><td class="uri"><code>epig:edcsId</code></td><td class="label">EDCS ID <span class="note">(関数的プロパティ)</span></td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:ethnicity</code></td><td class="label">民族</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:ethnicityEvidence</code></td><td class="label">民族の根拠</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:evidence</code></td><td class="label">根拠テキスト</td><td class="val">(<code>epig:CommunityReference</code> ∪ <code>epig:RelationshipStatement</code> ∪ <code>epig:PersonReference</code>)</td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:externalId</code></td><td class="label">外部ID</td><td class="val"><code>epig:ExternalDatabaseLink</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:externalLink</code></td><td class="label">外部DBリンク</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>epig:ExternalDatabaseLink</code></td></tr>
+<tr><td class="uri"><code>epig:findspot</code></td><td class="label">出土地</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>epig:Place</code></td></tr>
+<tr><td class="uri"><code>epig:gender</code></td><td class="label">性別</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:genderEvidence</code></td><td class="label">性別の根拠</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:inscriptionText</code></td><td class="label">碑文テキスト</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:inscriptionType</code></td><td class="label">碑文種別</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:interpretationNotes</code></td><td class="label">解釈注記</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:interpretsInscription</code></td><td class="label">碑文を解釈する</td><td class="val"><code>prov:Entity</code></td><td class="val"><code>epig:Inscription</code></td></tr>
+<tr><td class="uri"><code>epig:isDivinity</code></td><td class="label">神格化されているか</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:boolean</code></td></tr>
+<tr><td class="uri"><code>epig:location</code></td><td class="label">役職地</td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:locationEvidence</code></td><td class="label">役職地の根拠</td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:locationNormalized</code></td><td class="label">役職地(正規化)</td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:nomen</code></td><td class="label">ノーメン</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:normalizedName</code></td><td class="label">正規化名</td><td class="val">(<code>epig:PersonReference</code> ∪ <code>epig:CommunityReference</code>)</td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:notes</code></td><td class="label">注記</td><td class="val"><span class="none">—</span></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:objectDescription</code></td><td class="label">対象物の説明</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:objectText</code></td><td class="label">対象物(原文)</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:objectType</code></td><td class="label">対象物種別</td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:order</code></td><td class="label">順序 <span class="note">(関数的プロパティ)</span></td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:integer</code></td></tr>
+<tr><td class="uri"><code>epig:personName</code></td><td class="label">人名</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:pleiadesId</code></td><td class="label">Pleiades ID</td><td class="val"><code>epig:Place</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:positionAbstract</code></td><td class="label">役職(抽象化)</td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:positionDescription</code></td><td class="label">役職の説明</td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:positionNormalized</code></td><td class="label">役職名(正規化)</td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:positionText</code></td><td class="label">役職名(原文)</td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:positionType</code></td><td class="label">役職種別</td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:praenomen</code></td><td class="label">プラエノーメン</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:province</code></td><td class="label">属州</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>epig:Province</code></td></tr>
+<tr><td class="uri"><code>epig:publication</code></td><td class="label">刊行情報</td><td class="val"><code>epig:Inscription</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:recipient</code></td><td class="label">受益者言及 <span class="note">(上位: <code>hmki:references</code>)</span></td><td class="val"><code>epig:BenefactionStatement</code></td><td class="val">(<code>epig:PersonReference</code> ∪ <code>epig:CommunityReference</code>)</td></tr>
+<tr><td class="uri"><code>epig:relationshipProperty</code></td><td class="label">関係プロパティ</td><td class="val"><code>epig:RelationshipStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:relationshipType</code></td><td class="label">関係種別</td><td class="val"><code>epig:RelationshipStatement</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:script</code></td><td class="label">スクリプト</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:socialStatus</code></td><td class="label">社会的身分</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:socialStatusEvidence</code></td><td class="label">身分の根拠</td><td class="val"><code>epig:PersonReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>epig:source</code></td><td class="label">関係起点言及 <span class="note">(上位: <code>hmki:references</code>)</span></td><td class="val"><code>epig:RelationshipStatement</code></td><td class="val"><code>epig:PersonReference</code></td></tr>
+<tr><td class="uri"><code>epig:subject</code></td><td class="label">主体人物言及 <span class="note">(上位: <code>hmki:references</code>)</span></td><td class="val"><code>epig:CareerStatement</code></td><td class="val"><code>epig:PersonReference</code></td></tr>
+<tr><td class="uri"><code>epig:target</code></td><td class="label">関係対象言及 <span class="note">(上位: <code>hmki:references</code>)</span></td><td class="val"><code>epig:RelationshipStatement</code></td><td class="val">(<code>epig:PersonReference</code> ∪ <code>epig:CommunityReference</code>)</td></tr>
+</tbody></table>
+
+<footer>自動生成元: <code>ontology/epig_ontology.ttl</code> ·
+ビルダー: <code>ontology/build_epig_schema_style.py</code></footer>
+</body></html>

@@ -1,0 +1,261 @@
+% ============================================================
+%  HIMIKO オントロジー リファレンス表 (schema.org 風 / booktabs+longtable)
+%  自動生成元: ontology/hmk_owl/*.ttl
+%  ビルダー:   ontology/build_schema_style_tex.py
+%
+%  本文に \input{himiko_schema_style_tables.tex} で取り込む。
+%  プリアンブルに以下が必要:
+%      \usepackage{booktabs}
+%      \usepackage{longtable}
+%      \usepackage{array}
+%      \usepackage{amssymb}   % \cup (∪) 用
+%  日本語組版は LuaLaTeX/XeLaTeX(+luatexja 等) または (u)pLaTeX を想定。
+% ============================================================
+
+
+% ----- 史料物理層 (hmkp:) -----
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth} >{\raggedright\arraybackslash}p{0.40\linewidth} >{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
+\caption{史料物理層 のクラス（4 件）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{hmkp:\allowbreak{}Annotation} & アノテーション & --- \\
+\texttt{hmkp:\allowbreak{}Character} & 文字 & --- \\
+\texttt{hmkp:\allowbreak{}Source} & 史料 & --- \\
+\texttt{hmkp:\allowbreak{}Text} & テキスト & --- \\
+\end{longtable}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.34\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth}@{}}
+\caption{史料物理層 のプロパティ（18 件）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{hmkp:\allowbreak{}annotated\allowbreak{}Text} & 対象テキスト & \texttt{hmkp:\allowbreak{}Annotation} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkp:\allowbreak{}bears} & テキストを担う & \texttt{hmkp:\allowbreak{}Source} & \texttt{hmkp:\allowbreak{}Text} \\
+\texttt{hmkp:\allowbreak{}char} & 文字値 {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Character} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkp:\allowbreak{}end} & 終了オフセット {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Annotation} & \texttt{xsd:\allowbreak{}non\allowbreak{}Negative\allowbreak{}Integer} \\
+\texttt{hmkp:\allowbreak{}end\allowbreak{}Char} & 終了文字 {\small (上位: \texttt{hmkp:\allowbreak{}has\allowbreak{}Range} / 関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Annotation} & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmkp:\allowbreak{}first\allowbreak{}Char} & 先頭文字 {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Text} & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmkp:\allowbreak{}has\allowbreak{}Annotation} & アノテーションを持つ & \texttt{hmkp:\allowbreak{}Text} & \texttt{hmkp:\allowbreak{}Annotation} \\
+\texttt{hmkp:\allowbreak{}has\allowbreak{}Range} & Character 範囲を持つ & --- & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmkp:\allowbreak{}mentions} & 言及する & \texttt{hmkp:\allowbreak{}Source} & \texttt{hmki:\allowbreak{}Statement} \\
+\texttt{hmkp:\allowbreak{}next} & 次の文字 {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Character} & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmkp:\allowbreak{}offset} & オフセット {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Character} & \texttt{xsd:\allowbreak{}non\allowbreak{}Negative\allowbreak{}Integer} \\
+\texttt{hmkp:\allowbreak{}orig\allowbreak{}Place} & 出土地 & (\texttt{hmkp:\allowbreak{}Source} $\cup$ \texttt{hmkp:\allowbreak{}Text}) & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkp:\allowbreak{}refers\allowbreak{}To\allowbreak{}Entity} & 参照するエンティティ言及 & \texttt{hmkp:\allowbreak{}Annotation} & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} \\
+\texttt{hmkp:\allowbreak{}source\allowbreak{}Id} & 史料識別子 {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Text} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkp:\allowbreak{}start} & 開始オフセット {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Annotation} & \texttt{xsd:\allowbreak{}non\allowbreak{}Negative\allowbreak{}Integer} \\
+\texttt{hmkp:\allowbreak{}start\allowbreak{}Char} & 開始文字 {\small (上位: \texttt{hmkp:\allowbreak{}has\allowbreak{}Range} / 関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Annotation} & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmkp:\allowbreak{}text\allowbreak{}Content} & 全文テキスト {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Text} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkp:\allowbreak{}uuid} & UUID {\small (関数的プロパティ)} & \texttt{hmkp:\allowbreak{}Character} & \texttt{xsd:\allowbreak{}string} \\
+\end{longtable}
+
+% ----- 史料内在知識層 (hmki:) -----
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth} >{\raggedright\arraybackslash}p{0.40\linewidth} >{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
+\caption{史料内在知識層 のクラス（2 件）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & エンティティ言及 & --- \\
+\texttt{hmki:\allowbreak{}Statement} & イベント言及 & \texttt{prov:\allowbreak{}Entity} \\
+\end{longtable}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.34\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth}@{}}
+\caption{史料内在知識層 のプロパティ（15 件）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{hmki:\allowbreak{}caused\allowbreak{}By} & 起因する {\small (上位: \texttt{hmki:\allowbreak{}related\allowbreak{}To})} & \texttt{hmki:\allowbreak{}Statement} & \texttt{hmki:\allowbreak{}Statement} \\
+\texttt{hmki:\allowbreak{}end\allowbreak{}Char} & 終了文字 {\small (上位: \texttt{hmki:\allowbreak{}has\allowbreak{}Range} / 関数的プロパティ)} & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmki:\allowbreak{}entity\allowbreak{}Type} & エンティティ種別 & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmki:\allowbreak{}has\allowbreak{}Range} & Character 範囲を指す & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmki:\allowbreak{}has\allowbreak{}Role} & 史料内での役割 & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & --- \\
+\texttt{hmki:\allowbreak{}mentions} & 言及する (Statement → Character) & \texttt{hmki:\allowbreak{}Statement} & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmki:\allowbreak{}normalized\allowbreak{}Form} & 正規化表記 & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmki:\allowbreak{}precedes} & 先行する {\small (上位: \texttt{hmki:\allowbreak{}related\allowbreak{}To})} & \texttt{hmki:\allowbreak{}Statement} & \texttt{hmki:\allowbreak{}Statement} \\
+\texttt{hmki:\allowbreak{}references} & 参照する (エンティティ言及) & \texttt{hmki:\allowbreak{}Statement} & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} \\
+\texttt{hmki:\allowbreak{}references\allowbreak{}Entity} & 参照する実体 (普遍) & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & \texttt{hmke:\allowbreak{}Entity} \\
+\texttt{hmki:\allowbreak{}references\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & 参照する文脈付き実体 & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} \\
+\texttt{hmki:\allowbreak{}related\allowbreak{}To} & 関連する Statement & \texttt{hmki:\allowbreak{}Statement} & \texttt{hmki:\allowbreak{}Statement} \\
+\texttt{hmki:\allowbreak{}start\allowbreak{}Char} & 開始文字 {\small (上位: \texttt{hmki:\allowbreak{}has\allowbreak{}Range} / 関数的プロパティ)} & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & \texttt{hmkp:\allowbreak{}Character} \\
+\texttt{hmki:\allowbreak{}statement\allowbreak{}Type} & イベント言及の種別 & \texttt{hmki:\allowbreak{}Statement} & --- \\
+\texttt{hmki:\allowbreak{}surface\allowbreak{}Form} & 史料上の表記 & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\end{longtable}
+
+% ----- 外在知識層 (hmke:) -----
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth} >{\raggedright\arraybackslash}p{0.40\linewidth} >{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
+\caption{外在知識層 のクラス（6 件）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{hmke:\allowbreak{}Entity} & 普遍的実体 & --- \\
+\texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & 文脈付き実体 & --- \\
+\texttt{hmke:\allowbreak{}Event} & 歴史的出来事 (時間基準点) & --- \\
+\texttt{hmke:\allowbreak{}Location} & 場所 & --- \\
+\texttt{hmke:\allowbreak{}Role} & 地位・役職 & --- \\
+\texttt{hmke:\allowbreak{}Time\allowbreak{}Span} & 時間幅 & --- \\
+\end{longtable}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.34\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth}@{}}
+\caption{外在知識層 のプロパティ（28 件）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{hmke:\allowbreak{}authority\allowbreak{}URI} & 典拠 URI & \texttt{hmke:\allowbreak{}Entity} & \texttt{xsd:\allowbreak{}any\allowbreak{}URI} \\
+\texttt{hmke:\allowbreak{}contextual\allowbreak{}Aspect\allowbreak{}Of} & 文脈的側面 {\small (関数的プロパティ)} & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Entity} \\
+\texttt{hmke:\allowbreak{}date\allowbreak{}Since} & 開始年代 & \texttt{hmke:\allowbreak{}Time\allowbreak{}Span} & (\texttt{xsd:\allowbreak{}g\allowbreak{}Year} $\cup$ \texttt{xsd:\allowbreak{}g\allowbreak{}Year\allowbreak{}Month} $\cup$ \texttt{xsd:\allowbreak{}date}) \\
+\texttt{hmke:\allowbreak{}date\allowbreak{}Until} & 終了年代 & \texttt{hmke:\allowbreak{}Time\allowbreak{}Span} & (\texttt{xsd:\allowbreak{}g\allowbreak{}Year} $\cup$ \texttt{xsd:\allowbreak{}g\allowbreak{}Year\allowbreak{}Month} $\cup$ \texttt{xsd:\allowbreak{}date}) \\
+\texttt{hmke:\allowbreak{}ends\allowbreak{}At\allowbreak{}Event} & 出来事の終了をもって終わる {\small (上位: \texttt{hmke:\allowbreak{}event\allowbreak{}Until}, \texttt{owltime:\allowbreak{}interval\allowbreak{}Finishes})} & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Event} \\
+\texttt{hmke:\allowbreak{}ends\allowbreak{}With\allowbreak{}Event} & 出来事の開始と同時に終わる {\small (上位: \texttt{hmke:\allowbreak{}event\allowbreak{}Until}, \texttt{owltime:\allowbreak{}interval\allowbreak{}Meets})} & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Event} \\
+\texttt{hmke:\allowbreak{}entity\allowbreak{}Type} & 実体種別 & \texttt{hmke:\allowbreak{}Entity} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmke:\allowbreak{}event\allowbreak{}Label} & 出来事の記述 & \texttt{hmke:\allowbreak{}Event} & --- \\
+\texttt{hmke:\allowbreak{}event\allowbreak{}Since} & 開始基準となる出来事 & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Event} \\
+\texttt{hmke:\allowbreak{}event\allowbreak{}Until} & 終了基準となる出来事 & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Event} \\
+\texttt{hmke:\allowbreak{}has\allowbreak{}Location} & 所在地 & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Location} \\
+\texttt{hmke:\allowbreak{}has\allowbreak{}Role} & 社会的地位・官職 & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Role} \\
+\texttt{hmke:\allowbreak{}has\allowbreak{}Time\allowbreak{}Span} & 時間幅 & (\texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} $\cup$ \texttt{hmke:\allowbreak{}Event}) & \texttt{hmke:\allowbreak{}Time\allowbreak{}Span} \\
+\texttt{hmke:\allowbreak{}label} & 正準名 & \texttt{hmke:\allowbreak{}Entity} & --- \\
+\texttt{hmke:\allowbreak{}lat} & 緯度 & \texttt{hmke:\allowbreak{}Location} & \texttt{xsd:\allowbreak{}decimal} \\
+\texttt{hmke:\allowbreak{}location\allowbreak{}Label} & 場所の名称 & \texttt{hmke:\allowbreak{}Location} & --- \\
+\texttt{hmke:\allowbreak{}long} & 経度 & \texttt{hmke:\allowbreak{}Location} & \texttt{xsd:\allowbreak{}decimal} \\
+\texttt{hmke:\allowbreak{}member\allowbreak{}Of} & 所属集団 & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Entity} \\
+\texttt{hmke:\allowbreak{}mentioned\allowbreak{}As\allowbreak{}Precedent} & 先行する出来事として言及 & \texttt{hmke:\allowbreak{}Event} & \texttt{hmke:\allowbreak{}Event} \\
+\texttt{hmke:\allowbreak{}possible\allowbreak{}Since} & 可能な始期の下限 & \texttt{hmke:\allowbreak{}Time\allowbreak{}Span} & (\texttt{xsd:\allowbreak{}g\allowbreak{}Year} $\cup$ \texttt{xsd:\allowbreak{}g\allowbreak{}Year\allowbreak{}Month} $\cup$ \texttt{xsd:\allowbreak{}date}) \\
+\texttt{hmke:\allowbreak{}possible\allowbreak{}Until} & 可能な終期の上限 & \texttt{hmke:\allowbreak{}Time\allowbreak{}Span} & (\texttt{xsd:\allowbreak{}g\allowbreak{}Year} $\cup$ \texttt{xsd:\allowbreak{}g\allowbreak{}Year\allowbreak{}Month} $\cup$ \texttt{xsd:\allowbreak{}date}) \\
+\texttt{hmke:\allowbreak{}precedes} & 先行する & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} \\
+\texttt{hmke:\allowbreak{}related\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & 関連する文脈付き実体 & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} \\
+\texttt{hmke:\allowbreak{}reliable\allowbreak{}Since} & 確実な始期の上限 & \texttt{hmke:\allowbreak{}Time\allowbreak{}Span} & (\texttt{xsd:\allowbreak{}g\allowbreak{}Year} $\cup$ \texttt{xsd:\allowbreak{}g\allowbreak{}Year\allowbreak{}Month} $\cup$ \texttt{xsd:\allowbreak{}date}) \\
+\texttt{hmke:\allowbreak{}reliable\allowbreak{}Until} & 確実な終期の下限 & \texttt{hmke:\allowbreak{}Time\allowbreak{}Span} & (\texttt{xsd:\allowbreak{}g\allowbreak{}Year} $\cup$ \texttt{xsd:\allowbreak{}g\allowbreak{}Year\allowbreak{}Month} $\cup$ \texttt{xsd:\allowbreak{}date}) \\
+\texttt{hmke:\allowbreak{}role\allowbreak{}Label} & 役職名 & (\texttt{hmke:\allowbreak{}Role} $\cup$ \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context}) & --- \\
+\texttt{hmke:\allowbreak{}starts\allowbreak{}After\allowbreak{}Event} & 出来事の後に始まる {\small (上位: \texttt{hmke:\allowbreak{}event\allowbreak{}Since}, \texttt{owltime:\allowbreak{}interval\allowbreak{}After})} & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Event} \\
+\texttt{hmke:\allowbreak{}starts\allowbreak{}With\allowbreak{}Event} & 出来事と同時に始まる {\small (上位: \texttt{hmke:\allowbreak{}event\allowbreak{}Since}, \texttt{owltime:\allowbreak{}interval\allowbreak{}Starts})} & \texttt{hmke:\allowbreak{}Entity\allowbreak{}In\allowbreak{}Context} & \texttt{hmke:\allowbreak{}Event} \\
+\end{longtable}
+
+% ----- 解釈行為層 (hmkia:) -----
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.26\linewidth} >{\raggedright\arraybackslash}p{0.40\linewidth} >{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
+\caption{解釈行為層 のクラス（7 件）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{hmkia:\allowbreak{}Agent} & 解釈主体 & \texttt{prov:\allowbreak{}Agent} \\
+\texttt{hmkia:\allowbreak{}Agent\allowbreak{}Role} & 主体役割 & \texttt{prov:\allowbreak{}Role} \\
+\texttt{hmkia:\allowbreak{}Human\allowbreak{}Agent} & 人間主体 & \texttt{hmkia:\allowbreak{}Agent}, \texttt{prov:\allowbreak{}Person} \\
+\texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & 解釈行為 & \texttt{hico:\allowbreak{}Interpretation\allowbreak{}Act}, \texttt{prov:\allowbreak{}Activity} \\
+\texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Creation\allowbreak{}Act} & 解釈生成行為 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} \\
+\texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Update\allowbreak{}Act} & 解釈更新行為 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} \\
+\texttt{hmkia:\allowbreak{}Software\allowbreak{}Agent} & ソフトウェア主体 & \texttt{hmkia:\allowbreak{}Agent}, \texttt{prov:\allowbreak{}Software\allowbreak{}Agent} \\
+\end{longtable}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.34\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth}@{}}
+\caption{解釈行為層 のプロパティ（15 件）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{hmkia:\allowbreak{}agent\allowbreak{}Name} & 主体名 & \texttt{hmkia:\allowbreak{}Agent} & --- \\
+\texttt{hmkia:\allowbreak{}agent\allowbreak{}Type} & 主体種別 & \texttt{hmkia:\allowbreak{}Agent} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkia:\allowbreak{}associated\allowbreak{}With} & 実施主体 {\small (上位: \texttt{prov:\allowbreak{}was\allowbreak{}Associated\allowbreak{}With})} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{hmkia:\allowbreak{}Agent} \\
+\texttt{hmkia:\allowbreak{}based\allowbreak{}On} & 依拠した資料 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & --- \\
+\texttt{hmkia:\allowbreak{}confidence} & 確信度 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & --- \\
+\texttt{hmkia:\allowbreak{}critiques} & 批判する {\small (上位: \texttt{cito:\allowbreak{}disagrees\allowbreak{}With})} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} \\
+\texttt{hmkia:\allowbreak{}derived\allowbreak{}From} & 派生元の解釈行為 {\small (上位: \texttt{prov:\allowbreak{}was\allowbreak{}Derived\allowbreak{}From})} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} \\
+\texttt{hmkia:\allowbreak{}generated} & 生成したリソース {\small (逆向き: \texttt{hmkia:\allowbreak{}generated\allowbreak{}By} / 上位: \texttt{prov:\allowbreak{}generated})} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & --- \\
+\texttt{hmkia:\allowbreak{}generated\allowbreak{}By} & 解釈行為による生成 {\small (逆向き: \texttt{hmkia:\allowbreak{}generated} / 上位: \texttt{prov:\allowbreak{}was\allowbreak{}Generated\allowbreak{}By})} & --- & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} \\
+\texttt{hmkia:\allowbreak{}has\allowbreak{}Criterion} & 解釈基準 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkia:\allowbreak{}has\allowbreak{}Date} & 解釈日時 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{xsd:\allowbreak{}date\allowbreak{}Time} \\
+\texttt{hmkia:\allowbreak{}has\allowbreak{}Type} & 解釈種別 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkia:\allowbreak{}note} & 備考 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{hmkia:\allowbreak{}revises} & 修正する & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} \\
+\texttt{hmkia:\allowbreak{}supports} & 支持する {\small (上位: \texttt{cito:\allowbreak{}agrees\allowbreak{}With})} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} \\
+\end{longtable}

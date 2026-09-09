@@ -65,6 +65,29 @@ hmkia:Agent a owl:Class ;
     rdfs:subClassOf prov:Agent ;
     rdfs:seeAlso foaf:Agent .
 
+hmkia:HumanAgent a owl:Class ;
+    rdfs:label "Human Agent"@en , "人間主体"@ja ;
+    rdfs:comment "解釈行為に関与した人間の研究者または研究チーム。学術的責任を担う主体。"@ja ;
+    rdfs:subClassOf hmkia:Agent , prov:Person .
+
+hmkia:SoftwareAgent a owl:Class ;
+    rdfs:label "Software Agent"@en , "ソフトウェア主体"@ja ;
+    rdfs:comment "解釈行為を計算的に実行したソフトウェア (LLM・スクリプトなど)。"@ja ;
+    rdfs:subClassOf hmkia:Agent , prov:SoftwareAgent .
+
+hmkia:AgentRole a owl:Class ;
+    rdfs:label "Agent Role"@en , "主体役割"@ja ;
+    rdfs:comment "解釈行為における主体の役割。prov:Role のサブクラス。"@ja ;
+    rdfs:subClassOf prov:Role .
+
+hmkia:ExecutorRole a hmkia:AgentRole ;
+    rdfs:label "executor"@en , "実行者"@ja ;
+    rdfs:comment "解釈行為を計算的に実行したソフトウェア主体の役割。"@ja .
+
+hmkia:ResponsiblePartyRole a hmkia:AgentRole ;
+    rdfs:label "responsible party"@en , "学術責任者"@ja ;
+    rdfs:comment "解釈行為を設計・指示し、その結果に学術的責任を持つ人間主体の役割。"@ja .
+
 #################################################################
 #    Object Properties  —  基本メタデータ
 #################################################################

@@ -118,6 +118,8 @@ hmke:EntityInContext rdfs:comment """An entity placed within a specific historic
 
 hmke:Event rdfs:comment """A historical event used to delimit the temporal span of an EntityInContext. Serves as a relative chronological anchor point—e.g. \"the moment X assumed the consulship\", \"the moment a city became a provincial capital\". Even when the absolute date is uncertain, the relative ordering between Events can still be recorded."""@en .
 
+hmke:TimeSpan rdfs:comment """A range of absolute dates. Attached via hmke:hasTimeSpan to either an EntityInContext or an Event. Start and end may each be given as xsd:gYear, xsd:gYearMonth, or xsd:date, and the two ends may differ in precision. When a date is only established as a range (e.g. \"spring 194\"), give that range as dateSince / dateUntil; a single point in time is expressed by giving dateSince and dateUntil the same value. When only one bound is known (e.g. \"before 28 August 195\"), the other may be omitted. dateUntil is inclusive. Where the date itself is uncertain — for instance where a reference work reports competing datings — the four-point model (possibleSince / reliableSince / reliableUntil / possibleUntil) is used alongside it. Note that the extent of dateSince / dateUntil expresses coarse granularity or the duration of a state, and is distinct from uncertainty."""@en .
+
 hmke:Location rdfs:comment "A geographical place attached as an attribute of an EntityInContext. Carries geographic coordinates or a place name."@en .
 
 hmke:Role rdfs:comment "Social attributes that may be attached to an EntityInContext—social status, magistracies, roles held within a community, and so on."@en .
@@ -126,17 +128,29 @@ hmke:contextualAspectOf rdfs:comment """Links an EntityInContext to the universa
 
 hmke:hasLocation rdfs:comment "The geographical location that the EntityInContext holds (place of residence, area of activity, etc.)."@en .
 
-hmke:hasRole rdfs:comment "A social status, magistracy, or community role held by the EntityInContext."@en .
+hmke:hasRole rdfs:comment """A social status, magistracy, or community role held by the EntityInContext. Reference a Role resource when the office is to be normalised against a controlled vocabulary or linked to an external authority. To record only the designation as given in the source or reference work, attach hmke:roleLabel directly to the EntityInContext; creating a Role resource is not required."""@en .
 
 hmke:memberOf rdfs:comment "The Entity (community, political grouping, family, etc.) that the EntityInContext belongs to."@en .
 
 hmke:relatedEntityInContext rdfs:comment "A relation to another EntityInContext (kinship, patron–client, etc.). More specific relations are expressed via sub-properties."@en .
 
-hmke:eventSince rdfs:comment "The Event that marks the temporal starting point at which the context of this EntityInContext takes effect."@en .
+hmke:eventSince rdfs:comment """The Event that marks the temporal starting point at which the context of this EntityInContext takes effect. Where the nature of the link to the referenced Event must be distinguished, use the sub-properties hmke:startsWithEvent (simultaneous with the Event) or hmke:startsAfterEvent (after the Event)."""@en .
 
-hmke:eventUntil rdfs:comment "The Event that marks the temporal endpoint at which the context of this EntityInContext ceases."@en .
+hmke:eventUntil rdfs:comment """The Event that marks the temporal endpoint at which the context of this EntityInContext ceases. Where the nature of the link to the referenced Event must be distinguished, use the sub-properties hmke:endsWithEvent (simultaneous with the start of the Event) or hmke:endsAtEvent (at the end of the Event)."""@en .
+
+hmke:startsWithEvent rdfs:comment """States that the beginning of this EntityInContext coincides with the beginning of the referenced Event. Resolving to absolute dates takes the hmke:dateSince of the referenced Event. Corresponds to time:intervalStarts in OWL-Time."""@en .
+
+hmke:startsAfterEvent rdfs:comment """States that the beginning of this EntityInContext falls after the end of the referenced Event. Resolving to absolute dates takes the hmke:dateUntil of the referenced Event. This gives only a lower bound on the beginning, not an upper one. Corresponds to time:intervalAfter in OWL-Time."""@en .
+
+hmke:endsWithEvent rdfs:comment """States that the end of this EntityInContext coincides with the beginning of the referenced Event. Used where the state ends because a subsequent state begins. Resolving to absolute dates takes the hmke:dateSince of the referenced Event, but that value is an exclusive upper bound: writing it out as the inclusive hmke:dateUntil requires subtracting one unit of granularity (e.g. a referenced dateSince of 0202-01-01 yields a dateUntil of 0201-12-31). This adjustment applies to this property alone. Corresponds to time:intervalMeets in OWL-Time, asserting adjacency with no gap."""@en .
+
+hmke:endsAtEvent rdfs:comment """States that the end of this EntityInContext coincides with the end of the referenced Event. Resolving to absolute dates takes the hmke:dateUntil of the referenced Event. For a punctual Event (dateSince = dateUntil) the result is identical to hmke:endsWithEvent, but this property is preferred where it matches the intended sense. Corresponds to time:intervalFinishes in OWL-Time."""@en .
 
 hmke:mentionedAsPrecedent rdfs:comment """Chronological ordering between Events. Indicates that this Event chronologically precedes another Event. Enables relative temporal reasoning even when the absolute dates are unknown."""@en .
+
+hmke:hasTimeSpan rdfs:comment """A temporal range given in absolute dates. May be attached to either an EntityInContext or an Event. On an EntityInContext it denotes the period during which that context holds; when used alongside the event-based properties (eventSince / eventUntil), the event-based anchoring is the primary claim and the TimeSpan is the absolute-date reading derived from it. On an Event it denotes the date of the event itself."""@en .
+
+hmke:precedes rdfs:comment "Indicates that this EntityInContext chronologically precedes another EntityInContext."@en .
 
 hmke:label rdfs:comment "The canonical name of the Entity (the standard spelling used in modern scholarship). Language-tagged strings recommended."@en .
 
@@ -146,11 +160,21 @@ hmke:entityType rdfs:comment "The type of the Entity (person / place / organizat
 
 hmke:eventLabel rdfs:comment "Natural-language label describing the content of the Event (e.g. 'Consulship of X in 121 CE')."@en .
 
-hmke:absoluteDate rdfs:comment "The absolute date of an Event when it can be estimated. Omitted when the date is uncertain."@en .
+hmke:dateSince rdfs:comment "Start of the TimeSpan. Written as xsd:gYear (year), xsd:gYearMonth (year and month), or xsd:date (full date), whichever matches the available precision."@en .
+
+hmke:dateUntil rdfs:comment """End of the TimeSpan. Written as xsd:gYear (year), xsd:gYearMonth (year and month), or xsd:date (full date), whichever matches the available precision. This value is inclusive: the point in time itself falls within the range."""@en .
+
+hmke:possibleSince rdfs:comment """The earliest point at which the beginning could possibly fall; it cannot have begun before this. The lower bound of the union of all candidate intervals. Granularity follows hmke:dateSince."""@en .
+
+hmke:reliableSince rdfs:comment """The point by which the beginning had certainly occurred. The lower bound of the intersection of all candidate intervals. When it coincides with hmke:possibleSince, the beginning carries no uncertainty."""@en .
+
+hmke:reliableUntil rdfs:comment """The point up to which the state certainly still held. The upper bound of the intersection of all candidate intervals. Where a source gives only a "before X" evidential bound, that bound is recorded here rather than as the end of the state. A value lower than hmke:reliableSince indicates that no certainly-included core exists."""@en .
+
+hmke:possibleUntil rdfs:comment """The latest point at which the end could possibly fall; it cannot have continued beyond this. The upper bound of the union of all candidate intervals. Granularity follows hmke:dateUntil."""@en .
 
 hmke:locationLabel rdfs:comment "Place name of the Location (modern and/or ancient name)."@en .
 
-hmke:roleLabel rdfs:comment "Name of the magistracy or social status (e.g. 'consul', 'aedilis', 'flamen', 'patronus')."@en .
+hmke:roleLabel rdfs:comment """Name of a magistracy or social status. May be attached to either a Role or an EntityInContext. On a Role it is the canonical name of the office (e.g. 'consul', 'aedilis', 'flamen', 'patronus'). On an EntityInContext it is the designation as recorded for that particular context (e.g. 'cos. I suff.', 'imp. IV', 'trib. pot. XIX'): iteration counts and qualifiers such as suffectus or designatus are lost when normalising to a canonical name, so they are retained on the EntityInContext. Where normalisation to a controlled vocabulary or a link to an external authority is required, reference a Role resource via hmke:hasRole in addition."""@en .
 
 
 #################################################################

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIMIKO 構造モデルの数理的定式化</title>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+<style>
+  :root {
+    --blue: #3b82f6; --orange: #f59e0b; --green: #10b981; --grey: #555;
+    --ink: #1f2933; --muted: #52606d; --line: #e4e7eb; --bg: #fbfcfd;
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--ink); background: var(--bg); line-height: 1.8;
+    max-width: 860px; margin: 0 auto; padding: 48px 24px 96px;
+  }
+  h1 { font-size: 1.7rem; font-weight: 700; margin: 0 0 .3em; letter-spacing: .02em; }
+  h1 .sub { display: block; font-size: .95rem; font-weight: 400; color: var(--muted); margin-top: .4em; }
+  h2 {
+    font-size: 1.25rem; margin: 2.6em 0 .6em; padding-left: .6em;
+    border-left: 5px solid var(--grey);
+  }
+  h2.p { border-color: var(--blue); }
+  h2.i { border-color: var(--orange); }
+  h2.e { border-color: var(--green); }
+  h2.a { border-color: var(--grey); }
+  p { margin: .7em 0; }
+  .lead { color: var(--muted); font-size: 1.02rem; }
+  .gloss {
+    background: #fff; border: 1px solid var(--line); border-radius: 8px;
+    padding: 2px 20px; margin: 1em 0;
+  }
+  .gloss dl { display: grid; grid-template-columns: auto 1fr; gap: .3em 1.2em; margin: .8em 0; }
+  .gloss dt { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .gloss dd { margin: 0; color: var(--muted); }
+  .summary {
+    background: #f0f7ff; border: 1px solid #cfe3ff; border-radius: 10px;
+    padding: 8px 24px; margin: 1.4em 0;
+  }
+  code { font-family: 'SF Mono', Menlo, monospace; font-size: .88em;
+    background: #eef1f4; padding: 1px 5px; border-radius: 4px; }
+  mjx-container { overflow-x: auto; overflow-y: hidden; }
+  footer { margin-top: 4em; padding-top: 1.5em; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+
+<h1>HIMIKO 構造モデルの数理的定式化
+  <span class="sub">Historical Micro Knowledge and Ontology — 4 層モデルの形式的表現</span>
+</h1>
+
+<p class="lead">
+HIMIKO の 4 層構造は <strong>型付き・層別・来歴注釈つき有向ラベル付きグラフ</strong>として厳密に書ける。
+以下、各層をその数学的対象として定義し、層を貫く 3 つの写像
+<span>$\mu,\ \kappa,\ \gamma$</span> によって全体を接続する。
+</p>
+
+<h2>0. 全体：型付きグラフ</h2>
+
+<p>HIMIKO は有向ラベル付きグラフ</p>
+$$ G = (V,\, E), \qquad E \subseteq V \times P \times V $$
+<p>であり、ノードはクラスで、エッジはプロパティで型付けされる。ノード集合は 4 層に分割される。</p>
+$$
+V \;=\; \underbrace{V_{P}}_{\text{物理層}} \ \sqcup\ \underbrace{V_{I}}_{\text{内在層}} \ \sqcup\ \underbrace{V_{E}}_{\text{外在層}} \ \sqcup\ \underbrace{V_{A}}_{\text{解釈層}}
+$$
+<p>型付け関数 <span>$\tau : V \to \mathcal{C}$</span> によって各ノードにクラスが割り当てられる。</p>
+$$
+\begin{aligned}
+\mathcal{C}_P &= \{\text{Text},\ \text{Character},\ \text{Annotation},\ \text{Source}\}, \\
+\mathcal{C}_I &= \{\text{Statement},\ \text{EntityReference}\}, \\
+\mathcal{C}_E &= \{\text{Entity},\ \text{EntityInContext},\ \text{Event},\ \text{Location},\ \text{Role}\}, \\
+\mathcal{C}_A &= \{\text{InterpretationAct},\ \text{Agent}\}.
+\end{aligned}
+$$
+
+<h2 class="p">1. 物理層 — 文字の連結リストとしてのテキスト</h2>
+
+<p>テキスト <span>$t\in\text{Text}$</span> が担う文字集合を <span>$C_t\subseteq\text{Character}$</span> とする。
+<code>hmkp:firstChar</code>・<code>hmkp:next</code>・<code>hmkp:offset</code> がいずれも
+<em>関数的プロパティ</em>（<code>owl:FunctionalProperty</code>）であるため、物理層は文字通り線形順序になる。
+後続部分関数</p>
+$$
+\mathrm{next}: C_t \rightharpoonup C_t \qquad (\text{functional, injective, acyclic})
+$$
+<p>を定めると、<span>$(C_t,\ \mathrm{next})$</span> はオフセット写像を介して <span>$\mathbb{N}$</span> の始切片と同型な鎖になる。</p>
+$$
+o: C_t \to \mathbb{N}, \qquad o(\mathrm{next}(c)) = o(c)+1, \qquad o\big(\text{firstChar}(t)\big) = 0.
+$$
+<p>アノテーションは、この順序上の半開区間にすぎない。</p>
+$$
+a \in \text{Annotation}, \qquad \rho(a) = \big[\,\mathrm{start}(a),\ \mathrm{end}(a)\,\big) \subseteq \mathbb{N},
+$$
+<p>すなわち被覆する文字集合は</p>
+$$
+\big\{\, c\in C_t \ \big|\ \mathrm{start}(a)\le o(c) < \mathrm{end}(a) \,\big\}.
+$$
+<p><code>end</code> が排他的境界（Python スライス風）である点と一致する。</p>
+
+<h2 class="i">2. 内在層 — 文字集合に接地する Statement</h2>
+
+<p>Statement は文字の<em>集合</em>を指すことで史料上の根拠を持つ（<code>hmki:mentions</code> は多値）。</p>
+$$
+\mu: \text{Statement} \to \mathcal{P}(\text{Character}), \qquad
+\mu(s)=\{\, c \ \big|\ (s,\ \texttt{mentions},\ c)\in E \,\}.
+$$
+<p>Statement はエンティティ言及を参照し、また Statement 同士が再帰的に接続される。</p>
+$$
+\mathrm{refs}(s)=\{\, r \ \big|\ (s,\texttt{references},r)\in E \,\}\subseteq\text{EntityReference},
+$$
+$$
+R_{\text{rel}} \subseteq \text{Statement}\times\text{Statement},
+\qquad R_{\prec},\ R_{\text{cause}} \subseteq R_{\text{rel}}
+\quad(\texttt{precedes},\ \texttt{causedBy}).
+$$
+<p>版管理は森構造をなす。<code>prov:wasRevisionOf</code> が半順序を定め、<strong>最新版</strong>はその根である。</p>
+$$
+S^{\text{current}} = \big\{\, s \ \big|\ \nexists\, s'\ (s',\ \texttt{wasRevisionOf},\ s)\in E \,\big\}.
+$$
+
+<h2 class="e">3. 外在層 — 三段階の参照連鎖</h2>
+
+<p>外在層の要は次の連鎖である。</p>
+$$
+\text{EntityReference}
+\ \xrightarrow{\ \texttt{referencesEntityInContext}\ }\
+\text{EntityInContext}
+\ \xrightarrow{\ \texttt{contextualAspectOf}\ }\
+\text{Entity}.
+$$
+<p><code>contextualAspectOf</code> が関数的であるため、これは（単射でない）関数</p>
+$$
+\kappa: \text{EntityInContext} \to \text{Entity}
+$$
+<p>となる。1 つの普遍的実体が複数の文脈的側面へ分岐する。ファイバー <span>$\kappa^{-1}(e)$</span> が「異なる歴史的文脈における同一人物」に対応する。時間は Event の<em>相対</em>順序で与えられる。</p>
+$$
+R_{\text{prec}} \subseteq \text{Event}\times\text{Event}
+\qquad (\texttt{mentionedAsPrecedent}),
+$$
+<p>これは絶対年代 <code>hasTimeSpan</code> に依存しない狭義半順序でよい。</p>
+
+<h2 class="a">4. 解釈層 — 三つ組上の来歴を与える関数</h2>
+
+<p>本モデルで数理的に最も特徴的な部分。あらゆる知識リソースは解釈行為から生成される。</p>
+$$
+V_{\text{know}} \;=\; V_P^{\text{ann}} \,\cup\, V_I \,\cup\, V_E
+$$
+<p>（アノテーション・Statement・EntityReference・EntityInContext・Entity・Event）。
+<code>hmkia:generatedBy</code> は知識リソースから解釈行為への<strong>全域関数</strong>である。</p>
+$$
+\gamma: V_{\text{know}} \to \text{InterpretationAct}, \qquad \gamma^{-1} = \texttt{generated}.
+$$
+<p>各行為は来歴 <span>$\big(\mathrm{agent}(x),\ \mathrm{date}(x),\ \mathrm{conf}(x)\in[0,1]\big)$</span> を持ち、行為同士も関係づけられる。</p>
+$$
+R_A \subseteq \text{InterpretationAct}^2, \qquad
+R_A = \text{supports}\ \sqcup\ \text{critiques}\ \sqcup\ \text{revises}.
+$$
+<p>更新機構は <span>$\gamma$</span> と Statement の版管理を結合する。更新行為 <span>$\alpha$</span>
+（<code>InterpretationUpdateAct</code>）が <span>$s$</span> を改訂する <span>$s'$</span> を生成したとき、</p>
+$$
+(\alpha,\ \texttt{revises},\ \gamma(s)) \in E
+\quad\Longleftrightarrow\quad
+(s',\ \texttt{wasRevisionOf},\ s)\in E.
+$$
+<p>「解釈を改訂する」（行為レベル）と「Statement の新版を作る」（リソースレベル）が、一つの出来事の二つの射影であることの形式的表明である。</p>
+
+<h2>5. 要約</h2>
+
+<div class="summary">
+$$
+\text{HIMIKO} \;=\;
+\Big(\, (C,\ \mathrm{next})\ \text{ordered text} \,\Big)
+\ \xleftarrow{\ \mu\ }\
+\Big(\, \text{Statements},\ R_{\text{rel}} \,\Big)
+\ \xrightarrow{\ \kappa\circ(\cdot)\ }\
+\Big(\, \text{EiC}\to\text{Entity} \,\Big)
+\ \xrightarrow{\ \gamma\ }\
+\text{InterpretationActs}
+$$
+</div>
+
+<p>文字の鎖、その部分集合を指す Statement のグラフ、普遍的実体への関数的収束、そして前 3 層の<em>すべての</em>ノードを第 4 層へ写す来歴関数 <span>$\gamma$</span>。数式が浮かび上がらせる 2 点：</p>
+
+<div class="gloss">
+<dl>
+  <dt>関数的プロパティが骨格</dt>
+  <dd><code>next</code>・<code>offset</code>・<code>firstChar</code>・<code>contextualAspectOf</code>・<code>startChar</code>/<code>endChar</code> が <code>owl:FunctionalProperty</code> であることが、物理層を<em>線形順序</em>に、EiC→Entity を<em>関数</em>にする。これらが無ければ一般のグラフにとどまる。</dd>
+  <dt>$\gamma$ は全域だが層と直交</dt>
+  <dd>「解釈が 3 層すべてを媒介する」という設計主張は、<span>$\gamma$</span> が <span>$V_P^{\text{ann}}\cup V_I\cup V_E$</span> 上で定義され、値域が完全に <span>$V_A$</span> に収まる、と表現される。</dd>
+</dl>
+</div>
+
+<footer>
+HIMIKO project — 数理的定式化（<code>hmk_owl/*.ttl</code> に基づく）。
+ブラウザで開くと数式は MathJax によって組版表示される。
+</footer>
+
+</body>
+</html>

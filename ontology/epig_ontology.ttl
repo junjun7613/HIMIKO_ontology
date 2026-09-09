@@ -10,6 +10,7 @@
 @prefix foaf:    <http://xmlns.com/foaf/0.1/> .
 @prefix hmkp:    <urn:himiko:ontology:physical:> .
 @prefix hmki:    <urn:himiko:ontology:intrinsic:> .
+@prefix hmke:    <urn:himiko:ontology:extrinsic:> .
 @prefix hmkia:   <urn:himiko:ontology:interpretation:> .
 
 #################################################################
@@ -29,6 +30,7 @@ HIMIKO 上位オントロジー (hmkp / hmki / hmkia) を参照し、史料物�
     owl:imports <http://www.w3.org/ns/prov-o#> ;
     owl:imports <urn:himiko:ontology:physical> ;
     owl:imports <urn:himiko:ontology:intrinsic> ;
+    owl:imports <urn:himiko:ontology:extrinsic> ;
     owl:imports <urn:himiko:ontology:interpretation> ;
     rdfs:seeAlso <http://www.w3.org/ns/prov#> .
 

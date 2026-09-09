@@ -21,7 +21,7 @@
 これによって史料中での具体的言及、歴史的コンテキスト、普遍的実体という三つの異なるレベルを
 明確に区別しつつ、Linked Data として相互接続する。"""@ja ;
     dcterms:creator "HIMIKO project" ;
-    owl:versionInfo "0.1.1" .
+    owl:versionInfo "0.1.5" .
 
 #################################################################
 #    Classes
@@ -39,14 +39,35 @@ hmke:EntityInContext a owl:Class ;
 「ある特定の歴史的文脈における人物」「ある特定の状況下にある場所」を表現する。
 普遍的実体 (hmke:Entity) とは独立したリソースとして扱われ、一つの Entity に対して
 複数の EntityInContext を併存させることで、時期による属性の変化や複数の解釈を表現できる。
-時間的範囲 (eventSince / eventUntil) を持ち、社会的地位・官職・所属集団・活動地域などの属性を保持しうる。"""@ja .
+時間的範囲は出来事基準 (eventSince / eventUntil) と絶対年代 (hasTimeSpan) の双方で記述でき、
+併用する場合は出来事基準を一次的な定位、絶対年代をそこから導かれた解釈として扱う。
+社会的地位・官職・所属集団・活動地域などの属性を保持しうる。"""@ja .
+
+hmke:TimeSpan a owl:Class ;
+    rdfs:label "Time Span"@en , "時間幅"@ja ;
+    rdfs:comment """絶対年代による時間の範囲。EntityInContext と Event のいずれにも
+hmke:hasTimeSpan によって付与できる。
+開始・終了それぞれを xsd:gYear（年）・xsd:gYearMonth（年月）・xsd:date（年月日）の
+いずれかで記述でき、粒度が混在してもよい。
+年代が範囲としてしか確定しない場合（「194年春」など）は dateSince / dateUntil に
+その範囲を与え、単一時点は dateSince と dateUntil に同じ値を与えて表現する。
+片側のみが判明している場合（「195年8月28日以前」など）は一方を省略してよい。
+dateUntil は包含的（当該時点を含む）である。
+典拠が複数の説を併記する場合など、年代自体が不確実な場合は
+4点モデル (possibleSince / reliableSince / reliableUntil / possibleUntil) を併用する。
+なお dateSince / dateUntil の幅は粒度の粗さや状態の継続を表すものであり、
+不確実性とは区別される。
+出来事基準の時間表現 (hmke:eventSince / hmke:eventUntil) と併用可能。"""@ja .
 
 hmke:Event a owl:Class ;
     rdfs:label "Event (chronological anchor)"@en , "歴史的出来事 (時間基準点)"@ja ;
     rdfs:comment """EntityInContext の時間的範囲を規定するための歴史的出来事。
 「ある人物が執政官に就任した」「ある都市が属州都となった」といった相対的な時間基準点として用いられる。
 絶対年代が不確実な場合であっても、Event 同士の前後関係 (mentionedAsPrecedent) に基づいて
-歴史的コンテキストの時間関係を記述できる。"""@ja .
+歴史的コンテキストの時間関係を記述できる。
+絶対年代が推定される場合は hmke:hasTimeSpan によって TimeSpan を与える。
+Event に年代を集約することで、学説の変更をその Event を参照するすべての
+EntityInContext に伝播させることができる。"""@ja .
 
 hmke:Location a owl:Class ;
     rdfs:label "Location"@en , "場所"@ja ;
@@ -74,15 +95,107 @@ hmke:contextualAspectOf a owl:ObjectProperty , owl:FunctionalProperty ;
 
 hmke:eventSince a owl:ObjectProperty ;
     rdfs:label "event since"@en , "開始基準となる出来事"@ja ;
-    rdfs:comment "この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。"@ja ;
+    rdfs:comment """この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。
+参照先の出来事とどのような関係で結びつくかを区別する必要がある場合は、
+下位プロパティ hmke:startsWithEvent（出来事と同時）または
+hmke:startsAfterEvent（出来事の後）を用いる。"""@ja ;
     rdfs:domain hmke:EntityInContext ;
     rdfs:range hmke:Event .
 
 hmke:eventUntil a owl:ObjectProperty ;
     rdfs:label "event until"@en , "終了基準となる出来事"@ja ;
-    rdfs:comment "この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。"@ja ;
+    rdfs:comment """この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。
+参照先の出来事とどのような関係で結びつくかを区別する必要がある場合は、
+下位プロパティ hmke:endsWithEvent（出来事の開始と同時）または
+hmke:endsAtEvent（出来事の終了をもって）を用いる。"""@ja ;
     rdfs:domain hmke:EntityInContext ;
     rdfs:range hmke:Event .
+
+#################################################################
+#    Object Properties  —  出来事定位の関係の種別
+#
+#  hmke:eventSince / hmke:eventUntil は「始期・終期をこの出来事に
+#  定位する」ことしか述べず、参照先の出来事のどちらの端に、どういう
+#  関係で結びつくかを表さない。そのため絶対年代への解決規則を
+#  各記述の注記に頼ることになり、同一プロパティでも解決の向きが
+#  一定しなかった。
+#
+#  例：ある称号が「執政官在職と同時に始まる」場合は参照先の
+#  dateSince 側を採るが、「戦勝の後に始まる」場合は dateUntil 側を
+#  採る。これは称号の種類による違いではなく、出来事との関係の
+#  性質による違いである。
+#
+#  そこで、参照先のどの端をどう使うかがプロパティ名から一意に
+#  決まるよう下位プロパティを設けた。いずれも W3C Time Ontology
+#  (OWL-Time) の Allen 区間関係に対応させている。
+#
+#  注意：OWL-Time は端点の包含（inclusive / exclusive）について
+#  仕様上沈黙している。本オントロジーでは hmke:dateUntil を
+#  包含的（その時点を含む）と定める。hmke:endsWithEvent が与える
+#  境界は排他的な上限であるため、dateUntil へ書き下す際は粒度
+#  1単位を差し引く。この変換を要するのは endsWithEvent のみである。
+#################################################################
+
+hmke:startsWithEvent a owl:ObjectProperty ;
+    rdfs:label "starts with event"@en , "出来事と同時に始まる"@ja ;
+    rdfs:comment """この EntityInContext の始期が、参照先の出来事の開始と一致することを述べる。
+絶対年代への解決では参照先の hmke:dateSince を採る。
+OWL-Time の time:intervalStarts に対応する。"""@ja ;
+    rdfs:subPropertyOf hmke:eventSince , owltime:intervalStarts ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Event .
+
+hmke:startsAfterEvent a owl:ObjectProperty ;
+    rdfs:label "starts after event"@en , "出来事の後に始まる"@ja ;
+    rdfs:comment """この EntityInContext の始期が、参照先の出来事の終了より後であることを述べる。
+絶対年代への解決では参照先の hmke:dateUntil を採る。始期の下限のみを与え、上限は与えない。
+OWL-Time の time:intervalAfter に対応する。"""@ja ;
+    rdfs:subPropertyOf hmke:eventSince , owltime:intervalAfter ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Event .
+
+hmke:endsWithEvent a owl:ObjectProperty ;
+    rdfs:label "ends with event"@en , "出来事の開始と同時に終わる"@ja ;
+    rdfs:comment """この EntityInContext の終期が、参照先の出来事の開始と一致することを述べる。
+後続の状態が始まることによって当該状態が終わる場合に用いる。
+絶対年代への解決では参照先の hmke:dateSince を採るが、これは排他的な上限であり、
+包含的な hmke:dateUntil へ書き下すには粒度 1 単位を差し引く
+（例：参照先 dateSince が 0202-01-01 なら dateUntil は 0201-12-31）。
+この差し引きを要するのは本プロパティのみである。
+OWL-Time の time:intervalMeets に対応し、隙間なく隣接することを述べる。"""@ja ;
+    rdfs:subPropertyOf hmke:eventUntil , owltime:intervalMeets ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Event .
+
+hmke:endsAtEvent a owl:ObjectProperty ;
+    rdfs:label "ends at event"@en , "出来事の終了をもって終わる"@ja ;
+    rdfs:comment """この EntityInContext の終期が、参照先の出来事の終了と一致することを述べる。
+絶対年代への解決では参照先の hmke:dateUntil を採る。
+点的な出来事（dateSince = dateUntil）を参照する場合は hmke:endsWithEvent と
+結果が一致するが、意味に即して本プロパティを用いる。
+OWL-Time の time:intervalFinishes に対応する。"""@ja ;
+    rdfs:subPropertyOf hmke:eventUntil , owltime:intervalFinishes ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:Event .
+
+hmke:hasTimeSpan a owl:ObjectProperty ;
+    rdfs:label "has time span"@en , "時間幅"@ja ;
+    rdfs:comment """絶対年代による時間的範囲。EntityInContext と Event のいずれにも付与できる。
+EntityInContext に付与する場合は、そのコンテキストが成立している期間を表す。
+出来事基準 (eventSince / eventUntil) と併用する場合、出来事基準が一次的な定位であり、
+TimeSpan はそこから導かれた絶対年代の解釈として扱う。
+Event に付与する場合は、その出来事自体の年代を表す。"""@ja ;
+    rdfs:domain [
+        a owl:Class ;
+        owl:unionOf ( hmke:EntityInContext hmke:Event )
+    ] ;
+    rdfs:range hmke:TimeSpan .
+
+hmke:precedes a owl:ObjectProperty ;
+    rdfs:label "precedes"@en , "先行する"@ja ;
+    rdfs:comment "この EntityInContext が時系列的に他の EntityInContext に先立つことを示す。"@ja ;
+    rdfs:domain hmke:EntityInContext ;
+    rdfs:range hmke:EntityInContext .
 
 hmke:mentionedAsPrecedent a owl:ObjectProperty ;
     rdfs:label "mentioned as precedent"@en , "先行する出来事として言及"@ja ;
@@ -103,7 +216,10 @@ hmke:hasLocation a owl:ObjectProperty ;
 
 hmke:hasRole a owl:ObjectProperty ;
     rdfs:label "has role / position"@en , "社会的地位・官職"@ja ;
-    rdfs:comment "EntityInContext が有する社会的地位・官職・所属集団における役割など。"@ja ;
+    rdfs:comment """EntityInContext が有する社会的地位・官職・所属集団における役割など。
+役職を統制語彙として正規化する場合や外部典拠に接続する場合に Role リソースを参照する。
+史料・典拠の記載をそのまま保持するだけであれば hmke:roleLabel を
+EntityInContext に直接付与すればよく、Role リソースの作成は必須ではない。"""@ja ;
     rdfs:domain hmke:EntityInContext ;
     rdfs:range hmke:Role .
 
@@ -154,11 +270,105 @@ hmke:eventLabel a owl:DatatypeProperty ;
     rdfs:comment "Event の内容を表す自然言語のラベル (例: 'Consulship of X in 121 CE')。"@ja ;
     rdfs:domain hmke:Event .
 
-hmke:absoluteDate a owl:DatatypeProperty ;
-    rdfs:label "absolute date"@en , "絶対年代"@ja ;
-    rdfs:comment "Event に絶対年代が推定される場合の年月日。不確実な場合は付与しない。"@ja ;
-    rdfs:domain hmke:Event ;
-    rdfs:range xsd:gYear .
+#  注: hmke:absoluteDate (v0.1.1) は hmke:hasTimeSpan / hmke:TimeSpan に統合し削除した。
+#  単一値では「194年春」のような範囲としてしか確定しない年代を表現できず、
+#  TimeSpan と役割が重複していたため。時点は dateSince = dateUntil で表現する。
+
+#################################################################
+#    Datatype Properties  —  TimeSpan
+#################################################################
+
+hmke:dateSince a owl:DatatypeProperty ;
+    rdfs:label "date since"@en , "開始年代"@ja ;
+    rdfs:comment "TimeSpan の開始年代。xsd:gYear（年のみ）・xsd:gYearMonth（年月）・xsd:date（年月日）のいずれかで記述する。"@ja ;
+    rdfs:domain hmke:TimeSpan ;
+    rdfs:range [
+        a rdfs:Datatype ;
+        owl:unionOf ( xsd:gYear xsd:gYearMonth xsd:date )
+    ] .
+
+hmke:dateUntil a owl:DatatypeProperty ;
+    rdfs:label "date until"@en , "終了年代"@ja ;
+    rdfs:comment """TimeSpan の終了年代。xsd:gYear（年のみ）・xsd:gYearMonth（年月）・xsd:date（年月日）のいずれかで記述する。
+この値は包含的（inclusive）である。すなわち当該時点自体が範囲に含まれる。"""@ja ;
+    rdfs:domain hmke:TimeSpan ;
+    rdfs:range [
+        a rdfs:Datatype ;
+        owl:unionOf ( xsd:gYear xsd:gYearMonth xsd:date )
+    ] .
+
+#################################################################
+#    Datatype Properties  —  TimeSpan の不確実性 (4点モデル)
+#
+#  dateSince / dateUntil は編者が採用した代表値を与えるが、典拠が
+#  複数の説を併記する場合（「190年、189年の可能性あり」）や、片側の
+#  証拠上限のみを示す場合（「195年12月10日以前」）の不確実性を
+#  表現できない。
+#
+#  そこで不確実な範囲を、確定区間の集合として捉え、その境界を範囲で
+#  与える。possible は全候補の和集合（この外側はあり得ない外側の
+#  限界）、reliable は全候補の積集合（確実に含まれる内側の限界）を
+#  表す。
+#
+#    possibleSince ≦ reliableSince ≦ reliableUntil ≦ possibleUntil
+#
+#  境界範囲が重なり reliableSince > reliableUntil となる場合は、
+#  確実に含まれる核が存在しないこと（候補のいずれか一つだが、
+#  どれかは不明であること）を表す。
+#
+#  重要な区別として、粒度の粗さは不確実性ではない。「194年」は
+#  1年の幅をもつ確定区間であり、possible と reliable が一致する。
+#  「190年、189年の可能性あり」は possible が 189-190、reliable の
+#  核が存在しない。両者が一致するか否かが確実性の有無を判定する。
+#
+#  設計は HuTime Ontology (関野樹) の不確実時間区間モデルに倣う。
+#  ただし当該語彙を直接参照はせず、本オントロジー側に定義する。
+#  W3C Time Ontology は不確実性を扱わない（仕様 Appendix E が
+#  「Temporal vagueness: not addressed explicitly」と明記する）ため、
+#  OWL-Time との整合では補えない部分である。
+#################################################################
+
+hmke:possibleSince a owl:DatatypeProperty ;
+    rdfs:label "possible since"@en , "可能な始期の下限"@ja ;
+    rdfs:comment """始期としてあり得る最も早い時点。これより前に始まった可能性はない。
+全候補の和集合の下限。粒度の記述は hmke:dateSince に準じる。"""@ja ;
+    rdfs:domain hmke:TimeSpan ;
+    rdfs:range [
+        a rdfs:Datatype ;
+        owl:unionOf ( xsd:gYear xsd:gYearMonth xsd:date )
+    ] .
+
+hmke:reliableSince a owl:DatatypeProperty ;
+    rdfs:label "reliable since"@en , "確実な始期の上限"@ja ;
+    rdfs:comment """この時点までには確実に始まっていたと言える時点。全候補の積集合の下限。
+hmke:possibleSince と一致する場合、始期に不確実性がないことを表す。"""@ja ;
+    rdfs:domain hmke:TimeSpan ;
+    rdfs:range [
+        a rdfs:Datatype ;
+        owl:unionOf ( xsd:gYear xsd:gYearMonth xsd:date )
+    ] .
+
+hmke:reliableUntil a owl:DatatypeProperty ;
+    rdfs:label "reliable until"@en , "確実な終期の下限"@ja ;
+    rdfs:comment """この時点までは確実に継続していたと言える時点。全候補の積集合の上限。
+典拠が「〜以前」という証拠上限のみを示す場合、それは保持の終期ではなく
+本プロパティの値として記述する。
+hmke:reliableSince より小さい場合、確実に含まれる核が存在しないことを表す。"""@ja ;
+    rdfs:domain hmke:TimeSpan ;
+    rdfs:range [
+        a rdfs:Datatype ;
+        owl:unionOf ( xsd:gYear xsd:gYearMonth xsd:date )
+    ] .
+
+hmke:possibleUntil a owl:DatatypeProperty ;
+    rdfs:label "possible until"@en , "可能な終期の上限"@ja ;
+    rdfs:comment """終期としてあり得る最も遅い時点。これより後まで継続した可能性はない。
+全候補の和集合の上限。粒度の記述は hmke:dateUntil に準じる。"""@ja ;
+    rdfs:domain hmke:TimeSpan ;
+    rdfs:range [
+        a rdfs:Datatype ;
+        owl:unionOf ( xsd:gYear xsd:gYearMonth xsd:date )
+    ] .
 
 #################################################################
 #    Datatype Properties  —  Location
@@ -187,5 +397,15 @@ hmke:long a owl:DatatypeProperty ;
 
 hmke:roleLabel a owl:DatatypeProperty ;
     rdfs:label "role label"@en , "役職名"@ja ;
-    rdfs:comment "官職名・地位の名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。"@ja ;
-    rdfs:domain hmke:Role .
+    rdfs:comment """官職名・地位の名称。Role と EntityInContext のいずれにも付与できる。
+Role に付与する場合は、その役職の正準的な名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。
+EntityInContext に付与する場合は、その文脈における役職の記載そのもの
+(例: 'cos. I suff.', 'imp. IV', 'trib. pot. XIX')。
+就任回数 (iteratio) や suffectus / designatus の別を含む記載は、
+正準名への正規化によって失われるため、EntityInContext 側のラベルとして保持する。
+統制語彙への正規化や外部典拠への接続が必要な場合は、
+hmke:hasRole によって Role リソースを併せて参照する。"""@ja ;
+    rdfs:domain [
+        a owl:Class ;
+        owl:unionOf ( hmke:Role hmke:EntityInContext )
+    ] .

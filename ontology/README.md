@@ -31,8 +31,12 @@ venv/bin/pip install -r requirements.txt   # rdflib
 |---|---|---|
 | `himiko.html` | HIMIKO 4層オントロジー・ドキュメント（日英切替） | `build_docs.py` |
 | `epig.html` | epig オントロジー・ドキュメント | `build_epig_docs.py` |
-| `figs/himiko_tables.html` | HIMIKO 論文添付用テーブル | `build_tables.py` |
+| `figs/himiko_tables.html` | HIMIKO 論文添付用テーブル（詳細版） | `build_tables.py` |
+| `figs/himiko_schema_style_tables.html` | HIMIKO リファレンス表（schema.org 風・HTML） | `build_schema_style_tables.py` |
+| `figs/himiko_schema_style_tables.tex` | HIMIKO リファレンス表（schema.org 風・LaTeX / booktabs+longtable） | `build_schema_style_tex.py` |
 | `figs/epig_tables.html` | epig 論文添付用テーブル | `build_epig_tables.py` |
+| `figs/epig_schema_style_tables.html` | epig リファレンス表（schema.org 風・HTML） | `build_epig_schema_style.py` |
+| `figs/epig_schema_style_tables.tex` | epig リファレンス表（schema.org 風・LaTeX / booktabs+longtable） | `build_epig_schema_style.py` |
 | `webvowl/data/template.json` | HIMIKO WebVOWL 可視化データ | `build_webvowl.py --target himiko` |
 | `webvowl/data/epig.json` | epig WebVOWL 可視化データ | `build_webvowl.py --target epig` |
 
@@ -50,6 +54,17 @@ PY=../venv/bin/python
 "$PY" build_tables.py          # → figs/himiko_tables.html
 "$PY" build_epig_docs.py       # → epig.html
 "$PY" build_epig_tables.py     # → figs/epig_tables.html
+
+# 論文・書籍掲載用 リファレンス表（schema.org 風の 3 列リスト）
+"$PY" build_schema_style_tables.py   # → figs/himiko_schema_style_tables.html
+"$PY" build_schema_style_tex.py      # → figs/himiko_schema_style_tables.tex
+#   表番号を付ける場合: --start-no 6-4（以降 6-5, 6-6 … と連番）
+#   LaTeX 版のプリアンブル要件: booktabs, longtable, array, amssymb
+#   本文へは \input{figs/himiko_schema_style_tables.tex} で取り込む
+
+# epig 版 リファレンス表（HTML + LaTeX を 1 コマンドで生成。owl:deprecated は除外）
+"$PY" build_epig_schema_style.py     # → figs/epig_schema_style_tables.{html,tex}
+#   --tex-only / --html-only で片方のみ、--start-no 7-1 で表番号併記
 
 # WebVOWL 可視化データ（要 java + tools/owl2vowl.jar）
 "$PY" build_webvowl.py --target himiko   # → webvowl/data/template.json

@@ -20,78 +20,22 @@
     "baseIri": "http://purl.org/atag/himiko/ontology"
   },
   "metrics": {
-    "classCount": 19,
-    "datatypeCount": 28,
-    "objectPropertyCount": 43,
-    "datatypePropertyCount": 28,
-    "propertyCount": 71,
-    "nodeCount": 47,
-    "axiomCount": 553,
-    "individualCount": 0
+    "classCount": 26,
+    "datatypeCount": 33,
+    "objectPropertyCount": 53,
+    "datatypePropertyCount": 33,
+    "propertyCount": 86,
+    "nodeCount": 59,
+    "axiomCount": 668,
+    "individualCount": 2
   },
   "class": [
     {
-      "id": "class17",
+      "id": "class22",
       "type": "owl:Class"
     },
     {
-      "id": "class13",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class14",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class2",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class12",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class16",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class11",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class9",
-      "type": "externalclass"
-    },
-    {
-      "id": "class10",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class8",
-      "type": "externalclass"
-    },
-    {
-      "id": "class18",
-      "type": "externalclass"
-    },
-    {
-      "id": "class3",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class15",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class19",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class7",
-      "type": "owl:Class"
-    },
-    {
-      "id": "class5",
+      "id": "class24",
       "type": "owl:Class"
     },
     {
@@ -99,12 +43,96 @@
       "type": "owl:Class"
     },
     {
-      "id": "class4",
+      "id": "class23",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class8",
+      "type": "externalclass"
+    },
+    {
+      "id": "class9",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class7",
+      "type": "externalclass"
+    },
+    {
+      "id": "class3",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class13",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class2",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class16",
       "type": "owl:Class"
     },
     {
       "id": "class6",
       "type": "externalclass"
+    },
+    {
+      "id": "class15",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class11",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class12",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class14",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class10",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class25",
+      "type": "externalclass"
+    },
+    {
+      "id": "class26",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class19",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class5",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class21",
+      "type": "externalclass"
+    },
+    {
+      "id": "class4",
+      "type": "owl:Class"
+    },
+    {
+      "id": "class18",
+      "type": "externalclass"
+    },
+    {
+      "id": "class20",
+      "type": "externalclass"
+    },
+    {
+      "id": "class17",
+      "type": "owl:Class"
     },
     {
       "id": "thing3",
@@ -127,27 +155,38 @@
       "type": "owl:Thing"
     },
     {
-      "id": "class25",
+      "id": "class34",
+      "type": "owl:unionOf"
+    },
+    {
+      "id": "class33",
+      "type": "owl:unionOf"
+    },
+    {
+      "id": "class29",
       "type": "owl:unionOf"
     }
   ],
   "classAttribute": [
     {
-      "id": "class17",
+      "id": "class22",
       "label": {
-        "IRI-based": "hmke_EntityInContext",
-        "ja": "文脈付き実体",
-        "en": "Entity In Context"
+        "IRI-based": "hmkia_SoftwareAgent",
+        "ja": "ソフトウェア主体",
+        "en": "Software Agent"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_EntityInContext",
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_SoftwareAgent",
       "comment": {
-        "ja": "特定の歴史的コンテキストに位置付けられた実体。単なる人物や場所ではなく、\n「ある特定の歴史的文脈における人物」「ある特定の状況下にある場所」を表現する。\n普遍的実体 (hmke:Entity) とは独立したリソースとして扱われ、一つの Entity に対して\n複数の EntityInContext を併存させることで、時期による属性の変化や複数の解釈を表現できる。\n時間的範囲 (eventSince / eventUntil) を持ち、社会的地位・官職・所属集団・活動地域などの属性を保持しうる。",
-        "en": "An entity placed within a specific historical context. Rather than a bare person or place, this expresses \"a person in a particular historical context\" or \"a place under a particular set of circumstances\". Treated as a resource independent of the universal entity (hmke:Entity); a single Entity may have multiple EntityInContext instances."
+        "ja": "解釈行為を計算的に実行したソフトウェア (LLM・スクリプトなど)。"
       },
+      "superClasses": [
+        "class13",
+        "class6"
+      ],
       "instances": 0
     },
     {
-      "id": "class13",
+      "id": "class24",
       "label": {
         "IRI-based": "hmke_Location",
         "ja": "場所",
@@ -171,29 +210,7 @@
       "instances": 0
     },
     {
-      "id": "class14",
-      "label": {
-        "IRI-based": "hmkia_InterpretationAct",
-        "ja": "解釈行為",
-        "en": "Interpretation Act"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_InterpretationAct",
-      "comment": {
-        "ja": "歴史研究者による解釈行為そのものを実体化したリソース。\nAnnotation・Statement・EntityInContext などの知識リソースは、必ずいずれかの InterpretationAct\nから生成される。InterpretationAct 自体は生成主体 (Agent)・生成日時 (Date) を保持し、\n他の InterpretationAct と支持・批判・修正などの関係で接続されうる。HiCO における hico:InterpretationAct を継承する。\nサブクラスとして InterpretationCreationAct (知識リソースの初回生成) と\nInterpretationUpdateAct (既存リソースの更新) を持つ。",
-        "en": "A resource that materialises the interpretation act performed by a historical researcher. Knowledge resources such as Annotation, Statement, and EntityInContext are always generated from some InterpretationAct. Interpretation acts are recursively linked to one another (supports, critiques, revises, etc.), enabling scholarly dialogue and reasoning to be captured as a graph."
-      },
-      "subClasses": [
-        "class7",
-        "class16"
-      ],
-      "superClasses": [
-        "class18",
-        "class9"
-      ],
-      "instances": 0
-    },
-    {
-      "id": "class2",
+      "id": "class1",
       "label": {
         "IRI-based": "hmke_Event",
         "ja": "歴史的出来事 (時間基準点)",
@@ -201,13 +218,13 @@
       },
       "iri": "http://purl.org/atag/himiko/ontology#hmke_Event",
       "comment": {
-        "ja": "EntityInContext の時間的範囲を規定するための歴史的出来事。\n「ある人物が執政官に就任した」「ある都市が属州都となった」といった相対的な時間基準点として用いられる。\n絶対年代が不確実な場合であっても、Event 同士の前後関係 (mentionedAsPrecedent) に基づいて\n歴史的コンテキストの時間関係を記述できる。",
+        "ja": "EntityInContext の時間的範囲を規定するための歴史的出来事。\n「ある人物が執政官に就任した」「ある都市が属州都となった」といった相対的な時間基準点として用いられる。\n絶対年代が不確実な場合であっても、Event 同士の前後関係 (mentionedAsPrecedent) に基づいて\n歴史的コンテキストの時間関係を記述できる。\n絶対年代が推定される場合は hmke:hasTimeSpan によって TimeSpan を与える。\nEvent に年代を集約することで、学説の変更をその Event を参照するすべての\nEntityInContext に伝播させることができる。",
         "en": "A historical event used to delimit the temporal span of an EntityInContext. Serves as a relative chronological anchor point—e.g. \"the moment X assumed the consulship\", \"the moment a city became a provincial capital\". Even when the absolute date is uncertain, the relative ordering between Events can still be recorded."
       },
       "instances": 0
     },
     {
-      "id": "class12",
+      "id": "class23",
       "label": {
         "IRI-based": "hmkp_Source",
         "ja": "史料",
@@ -221,7 +238,192 @@
       "instances": 0
     },
     {
+      "id": "class8",
+      "label": {
+        "IRI-based": "Activity"
+      },
+      "iri": "http://www.w3.org/ns/prov#Activity",
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class12"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class9",
+      "label": {
+        "IRI-based": "hmki_Statement",
+        "ja": "イベント言及",
+        "en": "Statement"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_Statement",
+      "comment": {
+        "ja": "史料中で言及されるイベント (出来事・状態・関係性) の基本単位。\n論文中では MicroKnowledge とも呼ばれる。「出来事」に限定されず、エンティティに付随する\n継続的な状態・属性やエンティティ間の継続的な関係性も含む。\nStatement 同士は時系列・因果などの意味的関係性によって再帰的に接続されうる。\n史料中の Character を hmki:mentions によって直接指し、その根拠を保持する。\nInterpretationUpdateAct によって更新された Statement は新しい URI を持つ別インスタンスとして生成され、\nprov:wasRevisionOf によって前バージョンの Statement を参照する。\n現在の最新版は、他のいかなる Statement からも prov:wasRevisionOf で参照されていないインスタンスである。",
+        "en": "The basic unit of an event (occurrence, state, or relation) mentioned in a source. Called MicroKnowledge in the accompanying papers. Not restricted to \"events\": it also covers continuous states and attributes of entities, and continuous relations between entities. A Statement holds its textual evidence by mentioning Characters directly, and takes EntityReferences as its constituents."
+      },
+      "superClasses": [
+        "class18"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class7",
+      "label": {
+        "IRI-based": "Agent"
+      },
+      "iri": "http://www.w3.org/ns/prov#Agent",
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class13"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class3",
+      "label": {
+        "IRI-based": "hmkp_Character",
+        "ja": "文字",
+        "en": "Character"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkp_Character",
+      "comment": {
+        "ja": "テキストを構成する 1 文字。URI は UUID ベース (urn:himiko:resource:char:<uuid>) で、テキスト編集に対して安定した参照を提供する。hmkp:next で次の文字へ連結する。",
+        "en": "A single character constituting the text. Its URI is UUID-based (urn:himiko:resource:char:<uuid>), providing a stable reference across edits of the text. hmkp:next links to the following character."
+      },
+      "instances": 0
+    },
+    {
+      "id": "class13",
+      "label": {
+        "IRI-based": "hmkia_Agent",
+        "ja": "解釈主体",
+        "en": "Agent"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_Agent",
+      "comment": {
+        "ja": "解釈行為を実施した主体 (研究者・研究チーム・機械学習モデルなど)。",
+        "en": "The agent that carried out the interpretation act (a researcher, research team, machine-learning model, etc.)."
+      },
+      "subClasses": [
+        "class16",
+        "class22"
+      ],
+      "superClasses": [
+        "class7"
+      ],
+      "annotations": {
+        "seeAlso": [
+          {
+            "identifier": "seeAlso",
+            "language": "undefined",
+            "value": "http://xmlns.com/foaf/0.1/Agent",
+            "type": "iri"
+          }
+        ]
+      },
+      "instances": 0
+    },
+    {
+      "id": "class2",
+      "label": {
+        "IRI-based": "hmki_EntityReference",
+        "ja": "エンティティ言及",
+        "en": "Entity Reference"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_EntityReference",
+      "comment": {
+        "ja": "史料中における人物・場所・組織などへの個別の言及。\n史料横断的で普遍的な実体そのもの (hmke:Entity) ではなく、あくまでその史料における一回的な言及として記述される。\n史料上での表記や、史料内での役割 (hmki:hasRole) など、史料固有の情報を保持する。\n史料物理層の Character 範囲を hmki:hasRange によって参照することでテキスト上の位置を指定する。",
+        "en": "An individual mention of a person, place, organisation, and so on in a source. Not the cross-source universal entity itself (hmke:Entity) but a single, source-bound mention. Records the surface form in the source and the role the mention plays within the source (hmki:hasRole)."
+      },
+      "instances": 0
+    },
+    {
       "id": "class16",
+      "label": {
+        "IRI-based": "hmkia_HumanAgent",
+        "ja": "人間主体",
+        "en": "Human Agent"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_HumanAgent",
+      "comment": {
+        "ja": "解釈行為に関与した人間の研究者または研究チーム。学術的責任を担う主体。"
+      },
+      "superClasses": [
+        "class13",
+        "class20"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class6",
+      "label": {
+        "IRI-based": "SoftwareAgent"
+      },
+      "iri": "http://www.w3.org/ns/prov#SoftwareAgent",
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class22"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class15",
+      "label": {
+        "IRI-based": "hmke_EntityInContext",
+        "ja": "文脈付き実体",
+        "en": "Entity In Context"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_EntityInContext",
+      "comment": {
+        "ja": "特定の歴史的コンテキストに位置付けられた実体。単なる人物や場所ではなく、\n「ある特定の歴史的文脈における人物」「ある特定の状況下にある場所」を表現する。\n普遍的実体 (hmke:Entity) とは独立したリソースとして扱われ、一つの Entity に対して\n複数の EntityInContext を併存させることで、時期による属性の変化や複数の解釈を表現できる。\n時間的範囲は出来事基準 (eventSince / eventUntil) と絶対年代 (hasTimeSpan) の双方で記述でき、\n併用する場合は出来事基準を一次的な定位、絶対年代をそこから導かれた解釈として扱う。\n社会的地位・官職・所属集団・活動地域などの属性を保持しうる。",
+        "en": "An entity placed within a specific historical context. Rather than a bare person or place, this expresses \"a person in a particular historical context\" or \"a place under a particular set of circumstances\". Treated as a resource independent of the universal entity (hmke:Entity); a single Entity may have multiple EntityInContext instances."
+      },
+      "instances": 0
+    },
+    {
+      "id": "class11",
+      "label": {
+        "IRI-based": "hmke_TimeSpan",
+        "ja": "時間幅",
+        "en": "Time Span"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_TimeSpan",
+      "comment": {
+        "ja": "絶対年代による時間の範囲。EntityInContext と Event のいずれにも\nhmke:hasTimeSpan によって付与できる。\n開始・終了それぞれを xsd:gYear（年）・xsd:gYearMonth（年月）・xsd:date（年月日）の\nいずれかで記述でき、粒度が混在してもよい。\n年代が範囲としてしか確定しない場合（「194年春」など）は dateSince / dateUntil に\nその範囲を与え、単一時点は dateSince と dateUntil に同じ値を与えて表現する。\n片側のみが判明している場合（「195年8月28日以前」など）は一方を省略してよい。\ndateUntil は包含的（当該時点を含む）である。\n典拠が複数の説を併記する場合など、年代自体が不確実な場合は\n4点モデル (possibleSince / reliableSince / reliableUntil / possibleUntil) を併用する。\nなお dateSince / dateUntil の幅は粒度の粗さや状態の継続を表すものであり、\n不確実性とは区別される。\n出来事基準の時間表現 (hmke:eventSince / hmke:eventUntil) と併用可能。",
+        "en": "A range of absolute dates. Attached via hmke:hasTimeSpan to either an EntityInContext or an Event. Start and end may each be given as xsd:gYear, xsd:gYearMonth, or xsd:date, and the two ends may differ in precision. When a date is only established as a range (e.g. \"spring 194\"), give that range as dateSince / dateUntil; a single point in time is expressed by giving dateSince and dateUntil the same value. When only one bound is known (e.g. \"before 28 August 195\"), the other may be omitted. dateUntil is inclusive. Where the date itself is uncertain — for instance where a reference work reports competing datings — the four-point model (possibleSince / reliableSince / reliableUntil / possibleUntil) is used alongside it. Note that the extent of dateSince / dateUntil expresses coarse granularity or the duration of a state, and is distinct from uncertainty."
+      },
+      "instances": 0
+    },
+    {
+      "id": "class12",
+      "label": {
+        "IRI-based": "hmkia_InterpretationAct",
+        "ja": "解釈行為",
+        "en": "Interpretation Act"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_InterpretationAct",
+      "comment": {
+        "ja": "歴史研究者による解釈行為そのものを実体化したリソース。\nAnnotation・Statement・EntityInContext などの知識リソースは、必ずいずれかの InterpretationAct\nから生成される。InterpretationAct 自体は生成主体 (Agent)・生成日時 (Date) を保持し、\n他の InterpretationAct と支持・批判・修正などの関係で接続されうる。HiCO における hico:InterpretationAct を継承する。\nサブクラスとして InterpretationCreationAct (知識リソースの初回生成) と\nInterpretationUpdateAct (既存リソースの更新) を持つ。",
+        "en": "A resource that materialises the interpretation act performed by a historical researcher. Knowledge resources such as Annotation, Statement, and EntityInContext are always generated from some InterpretationAct. Interpretation acts are recursively linked to one another (supports, critiques, revises, etc.), enabling scholarly dialogue and reasoning to be captured as a graph."
+      },
+      "subClasses": [
+        "class19",
+        "class14"
+      ],
+      "superClasses": [
+        "class25",
+        "class8"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class14",
       "label": {
         "IRI-based": "hmkia_InterpretationUpdateAct",
         "ja": "解釈更新行為",
@@ -232,12 +434,12 @@
         "ja": "既存の知識リソース (Statement など) を更新する解釈行為。\nUpdateAct が生成したリソースは新しい URI を持つ別インスタンスとして生成され、\nprov:wasRevisionOf によって前バージョンのリソースを参照する。\nUpdateAct 自身は hmkia:revises によって先行する InterpretationAct\n(CreationAct または UpdateAct) を参照する。"
       },
       "superClasses": [
-        "class14"
+        "class12"
       ],
       "instances": 0
     },
     {
-      "id": "class11",
+      "id": "class10",
       "label": {
         "IRI-based": "hmkp_Annotation",
         "ja": "アノテーション",
@@ -261,52 +463,7 @@
       "instances": 0
     },
     {
-      "id": "class9",
-      "label": {
-        "IRI-based": "Activity"
-      },
-      "iri": "http://www.w3.org/ns/prov#Activity",
-      "attributes": [
-        "external"
-      ],
-      "subClasses": [
-        "class14"
-      ],
-      "instances": 0
-    },
-    {
-      "id": "class10",
-      "label": {
-        "IRI-based": "hmki_Statement",
-        "ja": "イベント言及",
-        "en": "Statement"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_Statement",
-      "comment": {
-        "ja": "史料中で言及されるイベント (出来事・状態・関係性) の基本単位。\n論文中では MicroKnowledge とも呼ばれる。「出来事」に限定されず、エンティティに付随する\n継続的な状態・属性やエンティティ間の継続的な関係性も含む。\nStatement 同士は時系列・因果などの意味的関係性によって再帰的に接続されうる。\n史料中の Character を hmki:mentions によって直接指し、その根拠を保持する。\nInterpretationUpdateAct によって更新された Statement は新しい URI を持つ別インスタンスとして生成され、\nprov:wasRevisionOf によって前バージョンの Statement を参照する。\n現在の最新版は、他のいかなる Statement からも prov:wasRevisionOf で参照されていないインスタンスである。",
-        "en": "The basic unit of an event (occurrence, state, or relation) mentioned in a source. Called MicroKnowledge in the accompanying papers. Not restricted to \"events\": it also covers continuous states and attributes of entities, and continuous relations between entities. A Statement holds its textual evidence by mentioning Characters directly, and takes EntityReferences as its constituents."
-      },
-      "superClasses": [
-        "class6"
-      ],
-      "instances": 0
-    },
-    {
-      "id": "class8",
-      "label": {
-        "IRI-based": "Agent"
-      },
-      "iri": "http://www.w3.org/ns/prov#Agent",
-      "attributes": [
-        "external"
-      ],
-      "subClasses": [
-        "class15"
-      ],
-      "instances": 0
-    },
-    {
-      "id": "class18",
+      "id": "class25",
       "label": {
         "IRI-based": "InterpretationAct"
       },
@@ -315,53 +472,12 @@
         "external"
       ],
       "subClasses": [
-        "class14"
+        "class12"
       ],
       "instances": 0
     },
     {
-      "id": "class3",
-      "label": {
-        "IRI-based": "hmkp_Character",
-        "ja": "文字",
-        "en": "Character"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_Character",
-      "comment": {
-        "ja": "テキストを構成する 1 文字。URI は UUID ベース (urn:himiko:resource:char:<uuid>) で、テキスト編集に対して安定した参照を提供する。hmkp:next で次の文字へ連結する。",
-        "en": "A single character constituting the text. Its URI is UUID-based (urn:himiko:resource:char:<uuid>), providing a stable reference across edits of the text. hmkp:next links to the following character."
-      },
-      "instances": 0
-    },
-    {
-      "id": "class15",
-      "label": {
-        "IRI-based": "hmkia_Agent",
-        "ja": "解釈主体",
-        "en": "Agent"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_Agent",
-      "comment": {
-        "ja": "解釈行為を実施した主体 (研究者・研究チーム・機械学習モデルなど)。",
-        "en": "The agent that carried out the interpretation act (a researcher, research team, machine-learning model, etc.)."
-      },
-      "superClasses": [
-        "class8"
-      ],
-      "annotations": {
-        "seeAlso": [
-          {
-            "identifier": "seeAlso",
-            "language": "undefined",
-            "value": "http://xmlns.com/foaf/0.1/Agent",
-            "type": "iri"
-          }
-        ]
-      },
-      "instances": 0
-    },
-    {
-      "id": "class19",
+      "id": "class26",
       "label": {
         "IRI-based": "hmkp_Text",
         "ja": "テキスト",
@@ -375,7 +491,7 @@
       "instances": 0
     },
     {
-      "id": "class7",
+      "id": "class19",
       "label": {
         "IRI-based": "hmkia_InterpretationCreationAct",
         "ja": "解釈生成行為",
@@ -386,7 +502,7 @@
         "ja": "知識リソース (Statement, EntityReference など) を初めて生成する解釈行為。\n生成されたリソースは hmkia:generatedBy によってこの行為を参照する。"
       },
       "superClasses": [
-        "class14"
+        "class12"
       ],
       "instances": 0
     },
@@ -405,17 +521,17 @@
       "instances": 0
     },
     {
-      "id": "class1",
+      "id": "class21",
       "label": {
-        "IRI-based": "hmki_EntityReference",
-        "ja": "エンティティ言及",
-        "en": "Entity Reference"
+        "IRI-based": "Role"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_EntityReference",
-      "comment": {
-        "ja": "史料中における人物・場所・組織などへの個別の言及。\n史料横断的で普遍的な実体そのもの (hmke:Entity) ではなく、あくまでその史料における一回的な言及として記述される。\n史料上での表記や、史料内での役割 (hmki:hasRole) など、史料固有の情報を保持する。\n史料物理層の Character 範囲を hmki:hasRange によって参照することでテキスト上の位置を指定する。",
-        "en": "An individual mention of a person, place, organisation, and so on in a source. Not the cross-source universal entity itself (hmke:Entity) but a single, source-bound mention. Records the surface form in the source and the role the mention plays within the source (hmki:hasRole)."
-      },
+      "iri": "http://www.w3.org/ns/prov#Role",
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class17"
+      ],
       "instances": 0
     },
     {
@@ -433,7 +549,7 @@
       "instances": 0
     },
     {
-      "id": "class6",
+      "id": "class18",
       "label": {
         "IRI-based": "Entity"
       },
@@ -442,9 +558,101 @@
         "external"
       ],
       "subClasses": [
-        "class10"
+        "class9"
       ],
       "instances": 0
+    },
+    {
+      "id": "class20",
+      "label": {
+        "IRI-based": "Person"
+      },
+      "iri": "http://www.w3.org/ns/prov#Person",
+      "attributes": [
+        "external"
+      ],
+      "subClasses": [
+        "class16"
+      ],
+      "instances": 0
+    },
+    {
+      "id": "class17",
+      "label": {
+        "IRI-based": "hmkia_AgentRole",
+        "ja": "主体役割",
+        "en": "Agent Role"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_AgentRole",
+      "comment": {
+        "ja": "解釈行為における主体の役割。prov:Role のサブクラス。"
+      },
+      "superClasses": [
+        "class21"
+      ],
+      "instances": 2,
+      "individuals": [
+        {
+          "iri": "http://purl.org/atag/himiko/ontology#hmkia_ResponsiblePartyRole",
+          "labels": {
+            "IRI-based": "hmkia_ResponsiblePartyRole"
+          },
+          "annotations": {
+            "label": [
+              {
+                "identifier": "label",
+                "language": "ja",
+                "value": "学術責任者",
+                "type": "label"
+              },
+              {
+                "identifier": "label",
+                "language": "en",
+                "value": "responsible party",
+                "type": "label"
+              }
+            ],
+            "comment": [
+              {
+                "identifier": "comment",
+                "language": "ja",
+                "value": "解釈行為を設計・指示し、その結果に学術的責任を持つ人間主体の役割。",
+                "type": "label"
+              }
+            ]
+          }
+        },
+        {
+          "iri": "http://purl.org/atag/himiko/ontology#hmkia_ExecutorRole",
+          "labels": {
+            "IRI-based": "hmkia_ExecutorRole"
+          },
+          "annotations": {
+            "label": [
+              {
+                "identifier": "label",
+                "language": "ja",
+                "value": "実行者",
+                "type": "label"
+              },
+              {
+                "identifier": "label",
+                "language": "en",
+                "value": "executor",
+                "type": "label"
+              }
+            ],
+            "comment": [
+              {
+                "identifier": "comment",
+                "language": "ja",
+                "value": "解釈行為を計算的に実行したソフトウェア主体の役割。",
+                "type": "label"
+              }
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "thing3",
@@ -487,14 +695,36 @@
       "instances": 0
     },
     {
-      "id": "class25",
+      "id": "class34",
       "label": {
         "IRI-based": "anonymous"
       },
       "instances": 0,
       "union": [
-        "class12",
-        "class19"
+        "class23",
+        "class26"
+      ]
+    },
+    {
+      "id": "class33",
+      "label": {
+        "IRI-based": "anonymous"
+      },
+      "instances": 0,
+      "union": [
+        "class5",
+        "class15"
+      ]
+    },
+    {
+      "id": "class29",
+      "label": {
+        "IRI-based": "anonymous"
+      },
+      "instances": 0,
+      "union": [
+        "class1",
+        "class15"
       ]
     }
   ],
@@ -508,11 +738,23 @@
       "type": "rdfs:Literal"
     },
     {
+      "id": "literal4",
+      "type": "rdfs:Literal"
+    },
+    {
+      "id": "literal14",
+      "type": "rdfs:Literal"
+    },
+    {
+      "id": "literal9",
+      "type": "rdfs:Literal"
+    },
+    {
       "id": "literal8",
       "type": "rdfs:Literal"
     },
     {
-      "id": "literal12",
+      "id": "literal13",
       "type": "rdfs:Literal"
     },
     {
@@ -524,19 +766,15 @@
       "type": "rdfs:Datatype"
     },
     {
-      "id": "literal16",
-      "type": "rdfs:Literal"
-    },
-    {
       "id": "datatype2",
       "type": "rdfs:Datatype"
     },
     {
-      "id": "datatype20",
-      "type": "rdfs:Datatype"
+      "id": "literal17",
+      "type": "rdfs:Literal"
     },
     {
-      "id": "datatype4",
+      "id": "datatype20",
       "type": "rdfs:Datatype"
     },
     {
@@ -545,10 +783,6 @@
     },
     {
       "id": "datatype7",
-      "type": "rdfs:Datatype"
-    },
-    {
-      "id": "datatype9",
       "type": "rdfs:Datatype"
     },
     {
@@ -564,8 +798,8 @@
       "type": "rdfs:Datatype"
     },
     {
-      "id": "datatype28",
-      "type": "rdfs:Datatype"
+      "id": "literal31",
+      "type": "rdfs:Literal"
     },
     {
       "id": "datatype26",
@@ -580,15 +814,23 @@
       "type": "rdfs:Literal"
     },
     {
+      "id": "literal29",
+      "type": "rdfs:Literal"
+    },
+    {
+      "id": "literal28",
+      "type": "rdfs:Literal"
+    },
+    {
       "id": "datatype10",
       "type": "rdfs:Datatype"
     },
     {
-      "id": "datatype13",
+      "id": "datatype32",
       "type": "rdfs:Datatype"
     },
     {
-      "id": "datatype14",
+      "id": "datatype30",
       "type": "rdfs:Datatype"
     },
     {
@@ -596,7 +838,11 @@
       "type": "rdfs:Datatype"
     },
     {
-      "id": "datatype17",
+      "id": "datatype33",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype12",
       "type": "rdfs:Datatype"
     },
     {
@@ -605,6 +851,10 @@
     },
     {
       "id": "datatype15",
+      "type": "rdfs:Datatype"
+    },
+    {
+      "id": "datatype16",
       "type": "rdfs:Datatype"
     },
     {
@@ -628,6 +878,27 @@
       "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
+      "id": "literal4",
+      "label": {
+        "IRI-based": "Literal"
+      },
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
+    },
+    {
+      "id": "literal14",
+      "label": {
+        "IRI-based": "Literal"
+      },
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
+    },
+    {
+      "id": "literal9",
+      "label": {
+        "IRI-based": "Literal"
+      },
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
+    },
+    {
       "id": "literal8",
       "label": {
         "IRI-based": "Literal"
@@ -635,7 +906,7 @@
       "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
-      "id": "literal12",
+      "id": "literal13",
       "label": {
         "IRI-based": "Literal"
       },
@@ -656,39 +927,32 @@
       "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
-      "id": "literal16",
+      "id": "datatype2",
+      "label": {
+        "IRI-based": "string"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+      "id": "literal17",
       "label": {
         "IRI-based": "Literal"
       },
       "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
-      "id": "datatype2",
-      "label": {
-        "IRI-based": "gYear"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#gYear"
-    },
-    {
       "id": "datatype20",
       "label": {
-        "IRI-based": "string"
+        "IRI-based": "dateTime"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
-    },
-    {
-      "id": "datatype4",
-      "label": {
-        "IRI-based": "string"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
+      "iri": "http://www.w3.org/2001/XMLSchema#dateTime"
     },
     {
       "id": "datatype21",
       "label": {
-        "IRI-based": "decimal"
+        "IRI-based": "string"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#decimal"
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
       "id": "datatype7",
@@ -696,13 +960,6 @@
         "IRI-based": "string"
       },
       "iri": "http://www.w3.org/2001/XMLSchema#string"
-    },
-    {
-      "id": "datatype9",
-      "label": {
-        "IRI-based": "nonNegativeInteger"
-      },
-      "iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
     },
     {
       "id": "datatype24",
@@ -721,16 +978,16 @@
     {
       "id": "datatype23",
       "label": {
-        "IRI-based": "string"
+        "IRI-based": "decimal"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#string"
+      "iri": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
-      "id": "datatype28",
+      "id": "literal31",
       "label": {
-        "IRI-based": "nonNegativeInteger"
+        "IRI-based": "Literal"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
       "id": "datatype26",
@@ -754,21 +1011,35 @@
       "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
-      "id": "datatype10",
+      "id": "literal29",
       "label": {
-        "IRI-based": "anyURI"
+        "IRI-based": "Literal"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#anyURI"
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
     },
     {
-      "id": "datatype13",
+      "id": "literal28",
+      "label": {
+        "IRI-based": "Literal"
+      },
+      "iri": "http://www.w3.org/2000/01/rdf-schema#Literal"
+    },
+    {
+      "id": "datatype10",
+      "label": {
+        "IRI-based": "nonNegativeInteger"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    {
+      "id": "datatype32",
       "label": {
         "IRI-based": "string"
       },
       "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
-      "id": "datatype14",
+      "id": "datatype30",
       "label": {
         "IRI-based": "string"
       },
@@ -777,26 +1048,40 @@
     {
       "id": "datatype11",
       "label": {
+        "IRI-based": "anyURI"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#anyURI"
+    },
+    {
+      "id": "datatype33",
+      "label": {
+        "IRI-based": "nonNegativeInteger"
+      },
+      "iri": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    {
+      "id": "datatype12",
+      "label": {
         "IRI-based": "decimal"
       },
       "iri": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
-      "id": "datatype17",
+      "id": "datatype18",
       "label": {
         "IRI-based": "string"
       },
       "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
-      "id": "datatype18",
+      "id": "datatype15",
       "label": {
-        "IRI-based": "dateTime"
+        "IRI-based": "string"
       },
-      "iri": "http://www.w3.org/2001/XMLSchema#dateTime"
+      "iri": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
-      "id": "datatype15",
+      "id": "datatype16",
       "label": {
         "IRI-based": "string"
       },
@@ -812,43 +1097,35 @@
   ],
   "property": [
     {
-      "id": "property13",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property41",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property49",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property9",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property32",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property31",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property44",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property67",
+      "id": "property69",
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property38",
+      "id": "property42",
       "type": "owl:objectProperty"
     },
     {
-      "id": "property43",
+      "id": "property63",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property93",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property53",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property72",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property30",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property34",
       "type": "owl:objectProperty"
     },
     {
@@ -868,219 +1145,15 @@
       "type": "rdfs:SubClassOf"
     },
     {
-      "id": "property68",
+      "id": "property86",
       "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property17",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property75",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property77",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property42",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property22",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property61",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property33",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property46",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property55",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property76",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property21",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property50",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property60",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property71",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property25",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property74",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property51",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property20",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property58",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property37",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property53",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property63",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property45",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property48",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property72",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property27",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property54",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property66",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property23",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property11",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property12",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property64",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property59",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property10",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property56",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property7",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property39",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property40",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property26",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property15",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property8",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property52",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property70",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property29",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property36",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property30",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property6",
-      "type": "rdfs:SubClassOf"
-    },
-    {
-      "id": "property34",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property5",
-      "type": "rdfs:SubClassOf"
-    },
-    {
-      "id": "property18",
-      "type": "owl:objectProperty"
     },
     {
       "id": "property19",
       "type": "owl:objectProperty"
     },
     {
-      "id": "property14",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property16",
+      "id": "property54",
       "type": "owl:objectProperty"
     },
     {
@@ -1088,7 +1161,19 @@
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property69",
+      "id": "property92",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property15",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property48",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property74",
       "type": "owl:datatypeProperty"
     },
     {
@@ -1096,7 +1181,299 @@
       "type": "owl:objectProperty"
     },
     {
+      "id": "property80",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property58",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property95",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property89",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property35",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property45",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property90",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property83",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property13",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property37",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property27",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property39",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property31",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property59",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property40",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property66",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property25",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property57",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property23",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property55",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property56",
+      "type": "owl:objectProperty"
+    },
+    {
       "id": "property47",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property46",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property11",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property10",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property91",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property32",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property12",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property24",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property60",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property84",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property17",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property94",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property97",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property33",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property61",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property77",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property36",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property70",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property96",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property18",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property76",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property88",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property49",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property67",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property38",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property51",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property68",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property20",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property14",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property82",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property75",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property41",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property71",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property50",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property44",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property29",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property9",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property87",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property52",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property64",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property6",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property5",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property16",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property8",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property7",
+      "type": "rdfs:SubClassOf"
+    },
+    {
+      "id": "property78",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property43",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property81",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property85",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property22",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property62",
+      "type": "owl:objectProperty"
+    },
+    {
+      "id": "property79",
+      "type": "owl:datatypeProperty"
+    },
+    {
+      "id": "property21",
       "type": "owl:objectProperty"
     },
     {
@@ -1104,25 +1481,28 @@
       "type": "owl:datatypeProperty"
     },
     {
-      "id": "property62",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property24",
-      "type": "owl:objectProperty"
-    },
-    {
-      "id": "property57",
-      "type": "owl:datatypeProperty"
-    },
-    {
-      "id": "property35",
+      "id": "property26",
       "type": "owl:objectProperty"
     }
   ],
   "propertyAttribute": [
     {
-      "id": "property13",
+      "id": "property69",
+      "label": {
+        "IRI-based": "hmke_reliableUntil",
+        "ja": "確実な終期の下限",
+        "en": "reliable until"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_reliableUntil",
+      "comment": {
+        "ja": "この時点までは確実に継続していたと言える時点。全候補の積集合の上限。\n典拠が「〜以前」という証拠上限のみを示す場合、それは保持の終期ではなく\n本プロパティの値として記述する。\nhmke:reliableSince より小さい場合、確実に含まれる核が存在しないことを表す。",
+        "en": "The point up to which the state certainly still held. The upper bound of the intersection of all candidate intervals. Where a source gives only a \"before X\" evidential bound, that bound is recorded here rather than as the end of the state. A value lower than hmke:reliableSince indicates that no certainly-included core exists."
+      },
+      "domain": "class11",
+      "range": "literal5"
+    },
+    {
+      "id": "property42",
       "label": {
         "IRI-based": "hmkp_endChar",
         "ja": "終了文字",
@@ -1136,29 +1516,14 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class11",
+      "domain": "class10",
       "range": "class3",
       "superproperty": [
-        "property18"
+        "property16"
       ]
     },
     {
-      "id": "property41",
-      "label": {
-        "IRI-based": "wasAssociatedWith"
-      },
-      "iri": "http://www.w3.org/ns/prov#wasAssociatedWith",
-      "attributes": [
-        "external"
-      ],
-      "domain": "thing1",
-      "range": "thing1",
-      "subproperty": [
-        "property42"
-      ]
-    },
-    {
-      "id": "property49",
+      "id": "property63",
       "label": {
         "IRI-based": "hmki_referencesEntity",
         "ja": "参照する実体 (普遍)",
@@ -1169,41 +1534,26 @@
         "ja": "EntityReference が指し示す、史料外部の普遍的実体 (hmke:Entity)。従来のエンティティ・リンキングに対応する。",
         "en": "The external universal entity (hmke:Entity) that the EntityReference points to. Corresponds to conventional entity linking."
       },
-      "domain": "class1",
+      "domain": "class2",
       "range": "class4"
     },
     {
-      "id": "property9",
+      "id": "property93",
       "label": {
-        "IRI-based": "hmke_eventUntil",
-        "ja": "終了基準となる出来事",
-        "en": "event until"
+        "IRI-based": "hmke_possibleSince",
+        "ja": "可能な始期の下限",
+        "en": "possible since"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_eventUntil",
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_possibleSince",
       "comment": {
-        "ja": "この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。",
-        "en": "The Event that marks the temporal endpoint at which the context of this EntityInContext ceases."
+        "ja": "始期としてあり得る最も早い時点。これより前に始まった可能性はない。\n全候補の和集合の下限。粒度の記述は hmke:dateSince に準じる。",
+        "en": "The earliest point at which the beginning could possibly fall; it cannot have begun before this. The lower bound of the union of all candidate intervals. Granularity follows hmke:dateSince."
       },
-      "domain": "class17",
-      "range": "class2"
+      "domain": "class11",
+      "range": "literal29"
     },
     {
-      "id": "property32",
-      "label": {
-        "IRI-based": "hmkp_mentions",
-        "ja": "言及する",
-        "en": "mentions (source → statement)"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_mentions",
-      "comment": {
-        "ja": "Source がその内容として言及するイベント (Statement)。\n史料が物理的レベルで意味的内容 (史料内在知識層の Statement) に接続することを示す抽象的関係。\nStatement が実際にどの Character 範囲を指しているかは、Statement 側の hmki:mentions\nプロパティで表現される (Statement は複数の Character を指すため多重関係)。",
-        "en": "The Statement (event mention) that this Source refers to as part of its content. This is an abstract relation showing that a source connects, at the physical level, to semantic content (a Statement in the intrinsic knowledge layer). The specific Character range that a Statement occupies is expressed at the Statement level via hmki:mentions."
-      },
-      "domain": "class12",
-      "range": "class10"
-    },
-    {
-      "id": "property31",
+      "id": "property53",
       "label": {
         "IRI-based": "hmki_hasRange",
         "ja": "Character 範囲を指す",
@@ -1214,45 +1564,30 @@
         "ja": "EntityReference が指し示す史料上の Character 範囲。\nこれによりエンティティ言及は Character レベルの根拠を持つ。\nより詳細な範囲 (先頭・末尾) はサブプロパティ hmki:startChar / hmki:endChar で表現しうる。",
         "en": "The Character range in the source that this EntityReference points to, giving each entity mention a Character-level textual foothold. Finer-grained boundaries (start / end) are provided by the sub-properties hmki:startChar / hmki:endChar."
       },
-      "domain": "class1",
+      "domain": "class2",
       "range": "class3",
       "subproperty": [
-        "property45",
-        "property34"
+        "property35",
+        "property56"
       ]
     },
     {
-      "id": "property44",
+      "id": "property72",
       "label": {
-        "IRI-based": "hmkia_revises",
-        "ja": "修正する",
-        "en": "revises"
+        "IRI-based": "hmke_reliableSince",
+        "ja": "確実な始期の上限",
+        "en": "reliable since"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_revises",
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_reliableSince",
       "comment": {
-        "ja": "この解釈行為が他の解釈行為を修正 (継承しつつ変更) することを示す。\nInterpretationUpdateAct が InterpretationCreationAct または先行する InterpretationUpdateAct を\n修正する場合に使用する。生成されたリソース側では prov:wasRevisionOf によって\n前バージョンのリソースを参照する。",
-        "en": "Indicates that this interpretation act revises another interpretation act (inheriting from it while introducing changes)."
+        "ja": "この時点までには確実に始まっていたと言える時点。全候補の積集合の下限。\nhmke:possibleSince と一致する場合、始期に不確実性がないことを表す。",
+        "en": "The point by which the beginning had certainly occurred. The lower bound of the intersection of all candidate intervals. When it coincides with hmke:possibleSince, the beginning carries no uncertainty."
       },
-      "domain": "class14",
-      "range": "class14"
+      "domain": "class11",
+      "range": "literal8"
     },
     {
-      "id": "property67",
-      "label": {
-        "IRI-based": "hmkia_hasDate",
-        "ja": "解釈日時",
-        "en": "date"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_hasDate",
-      "comment": {
-        "ja": "この解釈行為が実施された日時。ISO 8601 形式を推奨。",
-        "en": "The date and time at which this interpretation act was carried out. ISO 8601 format is recommended."
-      },
-      "domain": "class14",
-      "range": "datatype18"
-    },
-    {
-      "id": "property38",
+      "id": "property30",
       "label": {
         "IRI-based": "hmki_statementType",
         "ja": "イベント言及の種別",
@@ -1263,11 +1598,11 @@
         "ja": "Statement の種別を示す。HIMIKO は概念モデルであり、具体的な種別語彙\n(例: 恵与 Benefaction、経歴 CareerEvent、奉献 Dedication、婚姻 Marriage 等) は\n個々のプロジェクトが対象史料に応じて独自に定義することを想定する。\n値には種別を示す URI (プロジェクト独自クラス、SKOS Concept、CIDOC CRM の crm:E55_Type など) を取る。\n1 つの Statement に複数の種別を多重付与することを妨げない。",
         "en": "Indicates the type of a Statement. HIMIKO is a conceptual model; concrete type vocabularies (e.g. Benefaction, CareerEvent, Dedication, Marriage, and so on) are provided by individual projects according to their target domain."
       },
-      "domain": "class10",
-      "range": "thing4"
+      "domain": "class9",
+      "range": "thing3"
     },
     {
-      "id": "property43",
+      "id": "property34",
       "label": {
         "IRI-based": "hmkp_refersToEntity",
         "ja": "参照するエンティティ言及",
@@ -1277,43 +1612,43 @@
       "comment": {
         "ja": "アノテーションが指し示す史料内在知識層のエンティティ言及 (hmki:EntityReference)。\nテキスト範囲 (hmkp:start/end/startChar/endChar) と外部エンティティを結ぶ Annotation で使用する。\nこのアノテーションを生成した解釈行為の記述は prov:wasGeneratedBy によって hmkia:InterpretationAct に接続する。"
       },
-      "domain": "class11",
-      "range": "class1"
+      "domain": "class10",
+      "range": "class2"
     },
     {
       "id": "property2",
       "label": {
         "IRI-based": "Subclass Of"
       },
-      "domain": "class16",
-      "range": "class14"
+      "domain": "class13",
+      "range": "class7"
     },
     {
       "id": "property1",
       "label": {
         "IRI-based": "Subclass Of"
       },
-      "domain": "class7",
-      "range": "class14"
+      "domain": "class12",
+      "range": "class8"
     },
     {
       "id": "property4",
       "label": {
         "IRI-based": "Subclass Of"
       },
-      "domain": "class15",
-      "range": "class8"
+      "domain": "class22",
+      "range": "class13"
     },
     {
       "id": "property3",
       "label": {
         "IRI-based": "Subclass Of"
       },
-      "domain": "class14",
-      "range": "class9"
+      "domain": "class16",
+      "range": "class13"
     },
     {
-      "id": "property68",
+      "id": "property86",
       "label": {
         "IRI-based": "hmkia_note",
         "ja": "備考",
@@ -1324,80 +1659,11 @@
         "ja": "解釈行為に関する自由記述の備考。",
         "en": "Free-form remarks about the interpretation act."
       },
-      "domain": "class14",
-      "range": "datatype19"
+      "domain": "class12",
+      "range": "datatype22"
     },
     {
-      "id": "property17",
-      "label": {
-        "IRI-based": "hmke_eventSince",
-        "ja": "開始基準となる出来事",
-        "en": "event since"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_eventSince",
-      "comment": {
-        "ja": "この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。",
-        "en": "The Event that marks the temporal starting point at which the context of this EntityInContext takes effect."
-      },
-      "domain": "class17",
-      "range": "class2"
-    },
-    {
-      "id": "property75",
-      "label": {
-        "IRI-based": "hmkp_char",
-        "ja": "文字値",
-        "en": "character value"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_char",
-      "comment": {
-        "ja": "この Character が表す 1 文字そのもの。",
-        "en": "The actual single character that this Character represents."
-      },
-      "attributes": [
-        "functional"
-      ],
-      "domain": "class3",
-      "range": "datatype26"
-    },
-    {
-      "id": "property77",
-      "label": {
-        "IRI-based": "hmkp_end",
-        "ja": "終了オフセット",
-        "en": "end offset"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_end",
-      "comment": {
-        "ja": "アノテーション範囲の終了文字オフセット (排他的、Python スライス終端風)。",
-        "en": "The ending character offset of the annotation range (exclusive, Python-slice style)."
-      },
-      "attributes": [
-        "functional"
-      ],
-      "domain": "class11",
-      "range": "datatype28"
-    },
-    {
-      "id": "property42",
-      "label": {
-        "IRI-based": "hmkia_associatedWith",
-        "ja": "実施主体",
-        "en": "associated with (agent)"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_associatedWith",
-      "comment": {
-        "ja": "この解釈行為を実施した主体 (Agent)。PROV-O の prov:wasAssociatedWith と対応する。",
-        "en": "The agent (Agent) that performed this interpretation act. Corresponds to prov:wasAssociatedWith in PROV-O."
-      },
-      "domain": "class14",
-      "range": "class15",
-      "superproperty": [
-        "property41"
-      ]
-    },
-    {
-      "id": "property22",
+      "id": "property19",
       "label": {
         "IRI-based": "hmke_hasRole",
         "ja": "社会的地位・官職",
@@ -1405,29 +1671,14 @@
       },
       "iri": "http://purl.org/atag/himiko/ontology#hmke_hasRole",
       "comment": {
-        "ja": "EntityInContext が有する社会的地位・官職・所属集団における役割など。",
-        "en": "A social status, magistracy, or community role held by the EntityInContext."
+        "ja": "EntityInContext が有する社会的地位・官職・所属集団における役割など。\n役職を統制語彙として正規化する場合や外部典拠に接続する場合に Role リソースを参照する。\n史料・典拠の記載をそのまま保持するだけであれば hmke:roleLabel を\nEntityInContext に直接付与すればよく、Role リソースの作成は必須ではない。",
+        "en": "A social status, magistracy, or community role held by the EntityInContext. Reference a Role resource when the office is to be normalised against a controlled vocabulary or linked to an external authority. To record only the designation as given in the source or reference work, attach hmke:roleLabel directly to the EntityInContext; creating a Role resource is not required."
       },
-      "domain": "class17",
+      "domain": "class15",
       "range": "class5"
     },
     {
-      "id": "property61",
-      "label": {
-        "IRI-based": "hmke_roleLabel",
-        "ja": "役職名",
-        "en": "role label"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_roleLabel",
-      "comment": {
-        "ja": "官職名・地位の名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。",
-        "en": "Name of the magistracy or social status (e.g. 'consul', 'aedilis', 'flamen', 'patronus')."
-      },
-      "domain": "class5",
-      "range": "literal12"
-    },
-    {
-      "id": "property33",
+      "id": "property54",
       "label": {
         "IRI-based": "hmkia_supports",
         "ja": "支持する",
@@ -1438,77 +1689,14 @@
         "ja": "この解釈行為が他の解釈行為を支持することを示す。CiTO の cito:supports に対応する。",
         "en": "Indicates that this interpretation act supports another interpretation act. Corresponds to cito:supports in CiTO."
       },
-      "domain": "class14",
-      "range": "class14",
+      "domain": "class12",
+      "range": "class12",
       "superproperty": [
-        "property24"
+        "property21"
       ]
     },
     {
-      "id": "property46",
-      "label": {
-        "IRI-based": "hmki_precedes",
-        "ja": "先行する",
-        "en": "precedes"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_precedes",
-      "comment": {
-        "ja": "この Statement が時系列的に他の Statement に先立つことを示す。",
-        "en": "Indicates that this Statement chronologically precedes another Statement."
-      },
-      "domain": "class10",
-      "range": "class10",
-      "superproperty": [
-        "property23"
-      ]
-    },
-    {
-      "id": "property55",
-      "label": {
-        "IRI-based": "hmkia_confidence",
-        "ja": "確信度",
-        "en": "confidence"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_confidence",
-      "comment": {
-        "ja": "解釈の確信度 (0.0-1.0 の実数、または 'high' / 'medium' / 'low' の質的値)。",
-        "en": "Confidence of the interpretation (a real number between 0.0 and 1.0, or a qualitative value 'high' / 'medium' / 'low')."
-      },
-      "domain": "class14",
-      "range": "literal6"
-    },
-    {
-      "id": "property76",
-      "label": {
-        "IRI-based": "hmkia_agentType",
-        "ja": "主体種別",
-        "en": "agent type"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_agentType",
-      "comment": {
-        "ja": "Agent の種別 (person / team / software など)。",
-        "en": "Type of the Agent (person / team / software, etc.)."
-      },
-      "domain": "class15",
-      "range": "datatype27"
-    },
-    {
-      "id": "property21",
-      "label": {
-        "IRI-based": "wasGeneratedBy"
-      },
-      "iri": "http://www.w3.org/ns/prov#wasGeneratedBy",
-      "attributes": [
-        "external"
-      ],
-      "domain": "thing1",
-      "range": "thing1",
-      "subproperty": [
-        "property16"
-      ]
-    },
-    {
-      "id": "property50",
+      "id": "property65",
       "label": {
         "IRI-based": "hmkp_offset",
         "ja": "オフセット",
@@ -1526,58 +1714,7 @@
       "range": "datatype1"
     },
     {
-      "id": "property60",
-      "label": {
-        "IRI-based": "hmke_lat",
-        "ja": "緯度",
-        "en": "latitude"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_lat",
-      "annotations": {
-        "seeAlso": [
-          {
-            "identifier": "seeAlso",
-            "language": "undefined",
-            "value": "http://www.w3.org/2003/01/geo/wgs84_pos#lat",
-            "type": "iri"
-          }
-        ]
-      },
-      "domain": "class13",
-      "range": "datatype11"
-    },
-    {
-      "id": "property71",
-      "label": {
-        "IRI-based": "hmkp_origPlace",
-        "ja": "出土地",
-        "en": "place of origin"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_origPlace",
-      "comment": {
-        "ja": "史料の出土地・原来地 (現代地名 / 古代地名などの複合表記も許容)。Text にも付与されうる。",
-        "en": "The find-spot or place of origin of the source. Composite modern/ancient place names are allowed. May also be attached to Text."
-      },
-      "domain": "class25",
-      "range": "datatype22"
-    },
-    {
-      "id": "property25",
-      "label": {
-        "IRI-based": "wasDerivedFrom"
-      },
-      "iri": "http://www.w3.org/ns/prov#wasDerivedFrom",
-      "attributes": [
-        "external"
-      ],
-      "domain": "thing1",
-      "range": "thing1",
-      "subproperty": [
-        "property28"
-      ]
-    },
-    {
-      "id": "property74",
+      "id": "property92",
       "label": {
         "IRI-based": "hmke_label",
         "ja": "正準名",
@@ -1589,25 +1726,29 @@
         "en": "The canonical name of the Entity (the standard spelling used in modern scholarship). Language-tagged strings recommended."
       },
       "domain": "class4",
-      "range": "literal25"
+      "range": "literal28"
     },
     {
-      "id": "property51",
+      "id": "property15",
       "label": {
-        "IRI-based": "hmke_absoluteDate",
-        "ja": "絶対年代",
-        "en": "absolute date"
+        "IRI-based": "hmke_startsAfterEvent",
+        "ja": "出来事の後に始まる",
+        "en": "starts after event"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_absoluteDate",
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_startsAfterEvent",
       "comment": {
-        "ja": "Event に絶対年代が推定される場合の年月日。不確実な場合は付与しない。",
-        "en": "The absolute date of an Event when it can be estimated. Omitted when the date is uncertain."
+        "ja": "この EntityInContext の始期が、参照先の出来事の終了より後であることを述べる。\n絶対年代への解決では参照先の hmke:dateUntil を採る。始期の下限のみを与え、上限は与えない。\nOWL-Time の time:intervalAfter に対応する。",
+        "en": "States that the beginning of this EntityInContext falls after the end of the referenced Event. Resolving to absolute dates takes the hmke:dateUntil of the referenced Event. This gives only a lower bound on the beginning, not an upper one. Corresponds to time:intervalAfter in OWL-Time."
       },
-      "domain": "class2",
-      "range": "datatype2"
+      "domain": "class15",
+      "range": "class1",
+      "superproperty": [
+        "property17",
+        "property55"
+      ]
     },
     {
-      "id": "property20",
+      "id": "property48",
       "label": {
         "IRI-based": "hmkp_firstChar",
         "ja": "先頭文字",
@@ -1621,11 +1762,11 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class19",
+      "domain": "class26",
       "range": "class3"
     },
     {
-      "id": "property58",
+      "id": "property74",
       "label": {
         "IRI-based": "hmkp_start",
         "ja": "開始オフセット",
@@ -1639,11 +1780,11 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class11",
-      "range": "datatype9"
+      "domain": "class10",
+      "range": "datatype10"
     },
     {
-      "id": "property37",
+      "id": "property28",
       "label": {
         "IRI-based": "hmki_referencesEntityInContext",
         "ja": "参照する文脈付き実体",
@@ -1654,36 +1795,11 @@
         "ja": "EntityReference が指し示す、歴史的コンテキストを伴った実体 (hmke:EntityInContext)。\nこれにより、単なる普遍的実体への対応付けではなく、時間的・社会的・地理的文脈を伴った言及として記述される。",
         "en": "The historically contextualised entity (hmke:EntityInContext) that the EntityReference points to. Rather than a plain link to a universal entity, this expresses the mention together with its temporal, social, and geographical context."
       },
-      "domain": "class1",
-      "range": "class17"
+      "domain": "class2",
+      "range": "class15"
     },
     {
-      "id": "property53",
-      "label": {
-        "IRI-based": "hmkia_hasCriterion",
-        "ja": "解釈基準",
-        "en": "interpretation criterion"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_hasCriterion",
-      "comment": {
-        "ja": "解釈に用いた基準・方法論の記述 (例: 'paleographic analysis', 'prosopographic comparison')。",
-        "en": "Description of the criterion or methodology applied in the interpretation (e.g. 'paleographic analysis', 'prosopographic comparison')."
-      },
-      "annotations": {
-        "seeAlso": [
-          {
-            "identifier": "seeAlso",
-            "language": "undefined",
-            "value": "http://purl.org/emmedi/hico/hasInterpretationCriterion",
-            "type": "iri"
-          }
-        ]
-      },
-      "domain": "class14",
-      "range": "datatype4"
-    },
-    {
-      "id": "property63",
+      "id": "property80",
       "label": {
         "IRI-based": "hmkp_uuid",
         "ja": "UUID",
@@ -1698,10 +1814,59 @@
         "functional"
       ],
       "domain": "class3",
-      "range": "datatype14"
+      "range": "datatype16"
     },
     {
-      "id": "property45",
+      "id": "property58",
+      "label": {
+        "IRI-based": "hmke_endsWithEvent",
+        "ja": "出来事の開始と同時に終わる",
+        "en": "ends with event"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_endsWithEvent",
+      "comment": {
+        "ja": "この EntityInContext の終期が、参照先の出来事の開始と一致することを述べる。\n後続の状態が始まることによって当該状態が終わる場合に用いる。\n絶対年代への解決では参照先の hmke:dateSince を採るが、これは排他的な上限であり、\n包含的な hmke:dateUntil へ書き下すには粒度 1 単位を差し引く\n（例：参照先 dateSince が 0202-01-01 なら dateUntil は 0201-12-31）。\nこの差し引きを要するのは本プロパティのみである。\nOWL-Time の time:intervalMeets に対応し、隙間なく隣接することを述べる。",
+        "en": "States that the end of this EntityInContext coincides with the beginning of the referenced Event. Used where the state ends because a subsequent state begins. Resolving to absolute dates takes the hmke:dateSince of the referenced Event, but that value is an exclusive upper bound: writing it out as the inclusive hmke:dateUntil requires subtracting one unit of granularity (e.g. a referenced dateSince of 0202-01-01 yields a dateUntil of 0201-12-31). This adjustment applies to this property alone. Corresponds to time:intervalMeets in OWL-Time, asserting adjacency with no gap."
+      },
+      "domain": "class15",
+      "range": "class1",
+      "superproperty": [
+        "property12",
+        "property27"
+      ]
+    },
+    {
+      "id": "property95",
+      "label": {
+        "IRI-based": "hmke_possibleUntil",
+        "ja": "可能な終期の上限",
+        "en": "possible until"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_possibleUntil",
+      "comment": {
+        "ja": "終期としてあり得る最も遅い時点。これより後まで継続した可能性はない。\n全候補の和集合の上限。粒度の記述は hmke:dateUntil に準じる。",
+        "en": "The latest point at which the end could possibly fall; it cannot have continued beyond this. The upper bound of the union of all candidate intervals. Granularity follows hmke:dateUntil."
+      },
+      "domain": "class11",
+      "range": "literal31"
+    },
+    {
+      "id": "property89",
+      "label": {
+        "IRI-based": "hmke_dateSince",
+        "ja": "開始年代",
+        "en": "date since"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_dateSince",
+      "comment": {
+        "ja": "TimeSpan の開始年代。xsd:gYear（年のみ）・xsd:gYearMonth（年月）・xsd:date（年月日）のいずれかで記述する。",
+        "en": "Start of the TimeSpan. Written as xsd:gYear (year), xsd:gYearMonth (year and month), or xsd:date (full date), whichever matches the available precision."
+      },
+      "domain": "class11",
+      "range": "literal25"
+    },
+    {
+      "id": "property35",
       "label": {
         "IRI-based": "hmki_endChar",
         "ja": "終了文字",
@@ -1715,29 +1880,29 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class1",
+      "domain": "class2",
       "range": "class3",
       "superproperty": [
-        "property31"
+        "property53"
       ]
     },
     {
-      "id": "property48",
+      "id": "property45",
       "label": {
-        "IRI-based": "hmki_references",
-        "ja": "参照する (エンティティ言及)",
-        "en": "references (entity reference)"
+        "IRI-based": "hmke_precedes",
+        "ja": "先行する",
+        "en": "precedes"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_references",
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_precedes",
       "comment": {
-        "ja": "Statement を構成する EntityReference への参照。1 つの Statement は複数の EntityReference を参照しうる。",
-        "en": "Reference to an EntityReference that constitutes this Statement. A single Statement may reference multiple EntityReferences."
+        "ja": "この EntityInContext が時系列的に他の EntityInContext に先立つことを示す。",
+        "en": "Indicates that this EntityInContext chronologically precedes another EntityInContext."
       },
-      "domain": "class10",
-      "range": "class1"
+      "domain": "class15",
+      "range": "class15"
     },
     {
-      "id": "property72",
+      "id": "property90",
       "label": {
         "IRI-based": "hmke_entityType",
         "ja": "実体種別",
@@ -1749,43 +1914,10 @@
         "en": "The type of the Entity (person / place / organization / object, etc.)."
       },
       "domain": "class4",
-      "range": "datatype23"
+      "range": "datatype26"
     },
     {
-      "id": "property27",
-      "label": {
-        "IRI-based": "hmki_causedBy",
-        "ja": "起因する",
-        "en": "caused by"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_causedBy",
-      "comment": {
-        "ja": "この Statement が他の Statement を原因として発生したことを示す。",
-        "en": "Indicates that this Statement was caused by another Statement."
-      },
-      "domain": "class10",
-      "range": "class10",
-      "superproperty": [
-        "property23"
-      ]
-    },
-    {
-      "id": "property54",
-      "label": {
-        "IRI-based": "hmke_locationLabel",
-        "ja": "場所の名称",
-        "en": "location label"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_locationLabel",
-      "comment": {
-        "ja": "場所の地名 (現代地名 / 古代地名)。",
-        "en": "Place name of the Location (modern and/or ancient name)."
-      },
-      "domain": "class13",
-      "range": "literal5"
-    },
-    {
-      "id": "property66",
+      "id": "property83",
       "label": {
         "IRI-based": "hmkp_textContent",
         "ja": "全文テキスト",
@@ -1799,30 +1931,11 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class19",
-      "range": "datatype17"
+      "domain": "class26",
+      "range": "datatype19"
     },
     {
-      "id": "property23",
-      "label": {
-        "IRI-based": "hmki_relatedTo",
-        "ja": "関連する Statement",
-        "en": "related to (statement)"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_relatedTo",
-      "comment": {
-        "ja": "Statement 同士の再帰的接続。時系列関係・因果関係などのより具体的な関係を表す\nサブプロパティ (precedes, causedBy 等) を将来的に追加することができる。",
-        "en": "A recursive connection between Statements. Sub-properties for finer-grained relations (temporal ordering, causal relations, etc., e.g. precedes, causedBy) can be added in the future."
-      },
-      "domain": "class10",
-      "range": "class10",
-      "subproperty": [
-        "property27",
-        "property46"
-      ]
-    },
-    {
-      "id": "property11",
+      "id": "property13",
       "label": {
         "IRI-based": "hmke_mentionedAsPrecedent",
         "ja": "先行する出来事として言及",
@@ -1833,89 +1946,41 @@
         "ja": "Event 同士の前後関係。この Event が他の Event よりも時系列的に先行することを示す。\n絶対年代が不明でも相対的な時間関係を記述できる。",
         "en": "Chronological ordering between Events. Indicates that this Event chronologically precedes another Event. Enables relative temporal reasoning even when the absolute dates are unknown."
       },
-      "domain": "class2",
-      "range": "class2"
+      "domain": "class1",
+      "range": "class1"
     },
     {
-      "id": "property12",
+      "id": "property37",
       "label": {
-        "IRI-based": "hmke_hasLocation",
-        "ja": "所在地",
-        "en": "has location"
+        "IRI-based": "intervalFinishes"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_hasLocation",
-      "comment": {
-        "ja": "EntityInContext が有する地理的場所 (滞在地・活動地域など)。",
-        "en": "The geographical location that the EntityInContext holds (place of residence, area of activity, etc.)."
-      },
-      "domain": "class17",
-      "range": "class13"
-    },
-    {
-      "id": "property64",
-      "label": {
-        "IRI-based": "hmkp_sourceId",
-        "ja": "史料識別子",
-        "en": "source identifier"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_sourceId",
-      "comment": {
-        "ja": "史料に付与された外部識別子。特定のデータベースに依存しない汎用プロパティで、\n値には識別子を発行した体系の接頭辞を含む形式を推奨する (例: EDCS 由来なら \"EDCS-47400376\"、\nEDH 由来なら \"HD000001\"、パピルスなら Trismegistos ID など)。\nどの体系に属する史料かは値の接頭辞または上位クラス (プロジェクト側で定義する碑文・書簡等) で判別する。",
-        "en": "An external identifier assigned to the source. A generic, database-independent property; the value should carry the prefix of the issuing scheme (e.g. \"EDCS-47400376\" for EDCS, \"HD000001\" for EDH, a Trismegistos ID for papyri). The scheme is inferred from the value prefix or from the project-defined subclass (inscription, letter, etc.)."
-      },
-      "attributes": [
-        "functional"
-      ],
-      "domain": "class19",
-      "range": "datatype15"
-    },
-    {
-      "id": "property59",
-      "label": {
-        "IRI-based": "hmke_authorityURI",
-        "ja": "典拠 URI",
-        "en": "authority URI"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_authorityURI",
-      "comment": {
-        "ja": "Entity が対応付けられる外部典拠データの URI (Wikidata Q番号、VIAF ID、GeoNames ID、Pleiades ID など)。\n複数の典拠に対応付けられる場合は複数値を持ちうる。",
-        "en": "URI of the external authority record to which the Entity is linked (Wikidata Q number, VIAF ID, GeoNames ID, Pleiades ID, etc.). Multiple values are permitted when the entity is linked to several authorities."
-      },
-      "domain": "class4",
-      "range": "datatype10"
-    },
-    {
-      "id": "property10",
-      "label": {
-        "IRI-based": "generated"
-      },
-      "iri": "http://www.w3.org/ns/prov#generated",
+      "iri": "http://www.w3.org/2006/time#intervalFinishes",
       "attributes": [
         "external"
       ],
-      "domain": "thing1",
-      "range": "thing1",
+      "domain": "thing2",
+      "range": "thing2",
       "subproperty": [
-        "property26"
+        "property61"
       ]
     },
     {
-      "id": "property56",
+      "id": "property27",
       "label": {
-        "IRI-based": "hmki_normalizedForm",
-        "ja": "正規化表記",
-        "en": "normalized form"
+        "IRI-based": "intervalMeets"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_normalizedForm",
-      "comment": {
-        "ja": "EntityReference の正規化された表記 (略語展開後、標準綴りに戻したもの)。",
-        "en": "The normalised form of the EntityReference (with abbreviations expanded and returned to standard spelling)."
-      },
-      "domain": "class1",
-      "range": "datatype7"
+      "iri": "http://www.w3.org/2006/time#intervalMeets",
+      "attributes": [
+        "external"
+      ],
+      "domain": "thing2",
+      "range": "thing2",
+      "subproperty": [
+        "property58"
+      ]
     },
     {
-      "id": "property7",
+      "id": "property39",
       "label": {
         "IRI-based": "hmke_relatedEntityInContext",
         "ja": "関連する文脈付き実体",
@@ -1926,11 +1991,26 @@
         "ja": "他の EntityInContext との関係 (家族関係・主従関係など)。より具体的な関係はサブプロパティで表現する。",
         "en": "A relation to another EntityInContext (kinship, patron–client, etc.). More specific relations are expressed via sub-properties."
       },
-      "domain": "class17",
-      "range": "class17"
+      "domain": "class15",
+      "range": "class15"
     },
     {
-      "id": "property39",
+      "id": "property31",
+      "label": {
+        "IRI-based": "hmke_memberOf",
+        "ja": "所属集団",
+        "en": "member of"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_memberOf",
+      "comment": {
+        "ja": "EntityInContext が所属する共同体・政治勢力・家族などの Entity。",
+        "en": "The Entity (community, political grouping, family, etc.) that the EntityInContext belongs to."
+      },
+      "domain": "class15",
+      "range": "class4"
+    },
+    {
+      "id": "property59",
       "label": {
         "IRI-based": "hmkia_basedOn",
         "ja": "依拠した資料",
@@ -1951,60 +2031,11 @@
           }
         ]
       },
-      "domain": "class14",
-      "range": "thing2"
+      "domain": "class12",
+      "range": "thing4"
     },
     {
       "id": "property40",
-      "label": {
-        "IRI-based": "hmke_memberOf",
-        "ja": "所属集団",
-        "en": "member of"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_memberOf",
-      "comment": {
-        "ja": "EntityInContext が所属する共同体・政治勢力・家族などの Entity。",
-        "en": "The Entity (community, political grouping, family, etc.) that the EntityInContext belongs to."
-      },
-      "domain": "class17",
-      "range": "class4"
-    },
-    {
-      "id": "property26",
-      "label": {
-        "IRI-based": "hmkia_generated",
-        "ja": "生成したリソース",
-        "en": "generated"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_generated",
-      "comment": {
-        "ja": "この解釈行為が生成したデータリソース (Annotation, Statement, EntityReference,\nEntityInContext, Entity など)。逆方向は hmkia:generatedBy が担う。",
-        "en": "The data resource that this interpretation act produced (Annotation, Statement, EntityReference, EntityInContext, Entity, and so on). The inverse is hmkia:generatedBy."
-      },
-      "domain": "class14",
-      "range": "thing2",
-      "inverse": "property16",
-      "superproperty": [
-        "property10"
-      ]
-    },
-    {
-      "id": "property15",
-      "label": {
-        "IRI-based": "hmkp_hasAnnotation",
-        "ja": "アノテーションを持つ",
-        "en": "has annotation"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkp_hasAnnotation",
-      "comment": {
-        "ja": "テキストに属するアノテーションへの参照。",
-        "en": "Reference to an annotation attached to this text."
-      },
-      "domain": "class19",
-      "range": "class11"
-    },
-    {
-      "id": "property8",
       "label": {
         "IRI-based": "hmkp_bears",
         "ja": "テキストを担う",
@@ -2015,11 +2046,11 @@
         "ja": "史料 (Source) がその物質的媒体上に担うテキスト (Text)。",
         "en": "The Text that a Source (physical medium) bears."
       },
-      "domain": "class12",
-      "range": "class19"
+      "domain": "class23",
+      "range": "class26"
     },
     {
-      "id": "property52",
+      "id": "property66",
       "label": {
         "IRI-based": "hmki_surfaceForm",
         "ja": "史料上の表記",
@@ -2030,11 +2061,694 @@
         "ja": "EntityReference の史料上での表記 (綴り字そのまま)。異形・略記なども含めて記録する。",
         "en": "The form of the EntityReference as it appears in the source (verbatim spelling). Records variant forms and abbreviated forms as-is."
       },
-      "domain": "class1",
-      "range": "datatype3"
+      "domain": "class2",
+      "range": "datatype2"
+    },
+    {
+      "id": "property25",
+      "label": {
+        "IRI-based": "hmke_startsWithEvent",
+        "ja": "出来事と同時に始まる",
+        "en": "starts with event"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_startsWithEvent",
+      "comment": {
+        "ja": "この EntityInContext の始期が、参照先の出来事の開始と一致することを述べる。\n絶対年代への解決では参照先の hmke:dateSince を採る。\nOWL-Time の time:intervalStarts に対応する。",
+        "en": "States that the beginning of this EntityInContext coincides with the beginning of the referenced Event. Resolving to absolute dates takes the hmke:dateSince of the referenced Event. Corresponds to time:intervalStarts in OWL-Time."
+      },
+      "domain": "class15",
+      "range": "class1",
+      "superproperty": [
+        "property17",
+        "property64"
+      ]
+    },
+    {
+      "id": "property57",
+      "label": {
+        "IRI-based": "hmkia_critiques",
+        "ja": "批判する",
+        "en": "critiques"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_critiques",
+      "comment": {
+        "ja": "この解釈行為が他の解釈行為を批判 (異議申し立て) することを示す。CiTO の cito:disagreesWith に対応する。",
+        "en": "Indicates that this interpretation act critiques (raises objections to) another interpretation act. Corresponds to cito:disagreesWith in CiTO."
+      },
+      "domain": "class12",
+      "range": "class12",
+      "superproperty": [
+        "property26"
+      ]
+    },
+    {
+      "id": "property23",
+      "label": {
+        "IRI-based": "hmke_contextualAspectOf",
+        "ja": "文脈的側面",
+        "en": "contextual aspect of"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_contextualAspectOf",
+      "comment": {
+        "ja": "EntityInContext が、どの普遍的実体 (Entity) の特定コンテキストにおける側面であるかを示す。\n一つの Entity は複数の EntityInContext を持ちうるが、EntityInContext は必ず 1 つの Entity と対応付けられる。",
+        "en": "Links an EntityInContext to the universal entity (Entity) whose particular context it captures. A single Entity may have multiple EntityInContext instances, but each EntityInContext points to exactly one Entity."
+      },
+      "attributes": [
+        "functional"
+      ],
+      "domain": "class15",
+      "range": "class4"
+    },
+    {
+      "id": "property55",
+      "label": {
+        "IRI-based": "intervalAfter"
+      },
+      "iri": "http://www.w3.org/2006/time#intervalAfter",
+      "attributes": [
+        "external"
+      ],
+      "domain": "thing2",
+      "range": "thing2",
+      "subproperty": [
+        "property15"
+      ]
+    },
+    {
+      "id": "property56",
+      "label": {
+        "IRI-based": "hmki_startChar",
+        "ja": "開始文字",
+        "en": "start character"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_startChar",
+      "comment": {
+        "ja": "EntityReference が指す範囲の先頭 Character。hmki:hasRange のサブプロパティ。",
+        "en": "The first Character of the range that the EntityReference points to. Sub-property of hmki:hasRange."
+      },
+      "attributes": [
+        "functional"
+      ],
+      "domain": "class2",
+      "range": "class3",
+      "superproperty": [
+        "property53"
+      ]
+    },
+    {
+      "id": "property47",
+      "label": {
+        "IRI-based": "hmki_mentions",
+        "ja": "言及する (Statement → Character)",
+        "en": "mentions (statement → character)"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_mentions",
+      "comment": {
+        "ja": "Statement が指し示す史料上の Character (テキスト範囲)。\nStatement は複数の Character を同時に mentions することによって、\nテキスト上の複数箇所にまたがるイベント言及を表現できる。",
+        "en": "The Characters (text range) in the source that this Statement points to. A Statement can mention multiple Characters at once, allowing event mentions that span several non-contiguous locations in the text."
+      },
+      "domain": "class9",
+      "range": "class3"
+    },
+    {
+      "id": "property46",
+      "label": {
+        "IRI-based": "hmkia_generatedBy",
+        "ja": "解釈行為による生成",
+        "en": "generated by (interpretation act)"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_generatedBy",
+      "comment": {
+        "ja": "データリソース (Annotation, Statement, EntityReference, EntityInContext,\nEntity, Event など) を生成した解釈行為 (hmkia:InterpretationAct)。物理・intrinsic・extrinsic の\n各層に分かれていた層別 generatedBy を、意味的に同一の関係として本プロパティに統一した。\n逆方向は hmkia:generated。domain は限定せず (逆方向と対称) 全層のデータリソースに適用できる。",
+        "en": "The interpretation act (hmkia:InterpretationAct) that generated a data resource (Annotation, Statement, EntityReference, EntityInContext, Entity, Event, and so on). Unifies the per-layer generatedBy properties (previously split across the physical, intrinsic, and extrinsic layers) into a single property, since they express the same relation. The inverse is hmkia:generated; the domain is left open (symmetric with the inverse) so it applies to data resources in any layer."
+      },
+      "domain": "thing4",
+      "range": "class12",
+      "inverse": "property50",
+      "superproperty": [
+        "property18"
+      ]
+    },
+    {
+      "id": "property11",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class16",
+      "range": "class20"
+    },
+    {
+      "id": "property10",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class9",
+      "range": "class18"
+    },
+    {
+      "id": "property91",
+      "label": {
+        "IRI-based": "hmki_entityType",
+        "ja": "エンティティ種別",
+        "en": "entity type"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_entityType",
+      "comment": {
+        "ja": "EntityReference が指すエンティティの種別 (person / place / organization / object / time など)。",
+        "en": "The type of entity that the EntityReference points to (person / place / organization / object / time, etc.)."
+      },
+      "domain": "class2",
+      "range": "datatype27"
+    },
+    {
+      "id": "property32",
+      "label": {
+        "IRI-based": "wasAssociatedWith"
+      },
+      "iri": "http://www.w3.org/ns/prov#wasAssociatedWith",
+      "attributes": [
+        "external"
+      ],
+      "domain": "thing2",
+      "range": "thing2",
+      "subproperty": [
+        "property33"
+      ]
+    },
+    {
+      "id": "property12",
+      "label": {
+        "IRI-based": "hmke_eventUntil",
+        "ja": "終了基準となる出来事",
+        "en": "event until"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_eventUntil",
+      "comment": {
+        "ja": "この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。\n参照先の出来事とどのような関係で結びつくかを区別する必要がある場合は、\n下位プロパティ hmke:endsWithEvent（出来事の開始と同時）または\nhmke:endsAtEvent（出来事の終了をもって）を用いる。",
+        "en": "The Event that marks the temporal endpoint at which the context of this EntityInContext ceases. Where the nature of the link to the referenced Event must be distinguished, use the sub-properties hmke:endsWithEvent (simultaneous with the start of the Event) or hmke:endsAtEvent (at the end of the Event)."
+      },
+      "domain": "class15",
+      "range": "class1",
+      "subproperty": [
+        "property61",
+        "property58"
+      ]
+    },
+    {
+      "id": "property24",
+      "label": {
+        "IRI-based": "hmkp_mentions",
+        "ja": "言及する",
+        "en": "mentions (source → statement)"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkp_mentions",
+      "comment": {
+        "ja": "Source がその内容として言及するイベント (Statement)。\n史料が物理的レベルで意味的内容 (史料内在知識層の Statement) に接続することを示す抽象的関係。\nStatement が実際にどの Character 範囲を指しているかは、Statement 側の hmki:mentions\nプロパティで表現される (Statement は複数の Character を指すため多重関係)。",
+        "en": "The Statement (event mention) that this Source refers to as part of its content. This is an abstract relation showing that a source connects, at the physical level, to semantic content (a Statement in the intrinsic knowledge layer). The specific Character range that a Statement occupies is expressed at the Statement level via hmki:mentions."
+      },
+      "domain": "class23",
+      "range": "class9"
+    },
+    {
+      "id": "property60",
+      "label": {
+        "IRI-based": "hmkia_revises",
+        "ja": "修正する",
+        "en": "revises"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_revises",
+      "comment": {
+        "ja": "この解釈行為が他の解釈行為を修正 (継承しつつ変更) することを示す。\nInterpretationUpdateAct が InterpretationCreationAct または先行する InterpretationUpdateAct を\n修正する場合に使用する。生成されたリソース側では prov:wasRevisionOf によって\n前バージョンのリソースを参照する。",
+        "en": "Indicates that this interpretation act revises another interpretation act (inheriting from it while introducing changes)."
+      },
+      "domain": "class12",
+      "range": "class12"
+    },
+    {
+      "id": "property84",
+      "label": {
+        "IRI-based": "hmkia_hasDate",
+        "ja": "解釈日時",
+        "en": "date"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_hasDate",
+      "comment": {
+        "ja": "この解釈行為が実施された日時。ISO 8601 形式を推奨。",
+        "en": "The date and time at which this interpretation act was carried out. ISO 8601 format is recommended."
+      },
+      "domain": "class12",
+      "range": "datatype20"
+    },
+    {
+      "id": "property17",
+      "label": {
+        "IRI-based": "hmke_eventSince",
+        "ja": "開始基準となる出来事",
+        "en": "event since"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_eventSince",
+      "comment": {
+        "ja": "この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。\n参照先の出来事とどのような関係で結びつくかを区別する必要がある場合は、\n下位プロパティ hmke:startsWithEvent（出来事と同時）または\nhmke:startsAfterEvent（出来事の後）を用いる。",
+        "en": "The Event that marks the temporal starting point at which the context of this EntityInContext takes effect. Where the nature of the link to the referenced Event must be distinguished, use the sub-properties hmke:startsWithEvent (simultaneous with the Event) or hmke:startsAfterEvent (after the Event)."
+      },
+      "domain": "class15",
+      "range": "class1",
+      "subproperty": [
+        "property15",
+        "property25"
+      ]
+    },
+    {
+      "id": "property94",
+      "label": {
+        "IRI-based": "hmkp_char",
+        "ja": "文字値",
+        "en": "character value"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkp_char",
+      "comment": {
+        "ja": "この Character が表す 1 文字そのもの。",
+        "en": "The actual single character that this Character represents."
+      },
+      "attributes": [
+        "functional"
+      ],
+      "domain": "class3",
+      "range": "datatype30"
+    },
+    {
+      "id": "property97",
+      "label": {
+        "IRI-based": "hmkp_end",
+        "ja": "終了オフセット",
+        "en": "end offset"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkp_end",
+      "comment": {
+        "ja": "アノテーション範囲の終了文字オフセット (排他的、Python スライス終端風)。",
+        "en": "The ending character offset of the annotation range (exclusive, Python-slice style)."
+      },
+      "attributes": [
+        "functional"
+      ],
+      "domain": "class10",
+      "range": "datatype33"
+    },
+    {
+      "id": "property33",
+      "label": {
+        "IRI-based": "hmkia_associatedWith",
+        "ja": "実施主体",
+        "en": "associated with (agent)"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_associatedWith",
+      "comment": {
+        "ja": "この解釈行為を実施した主体 (Agent)。PROV-O の prov:wasAssociatedWith と対応する。",
+        "en": "The agent (Agent) that performed this interpretation act. Corresponds to prov:wasAssociatedWith in PROV-O."
+      },
+      "domain": "class12",
+      "range": "class13",
+      "superproperty": [
+        "property32"
+      ]
+    },
+    {
+      "id": "property61",
+      "label": {
+        "IRI-based": "hmke_endsAtEvent",
+        "ja": "出来事の終了をもって終わる",
+        "en": "ends at event"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_endsAtEvent",
+      "comment": {
+        "ja": "この EntityInContext の終期が、参照先の出来事の終了と一致することを述べる。\n絶対年代への解決では参照先の hmke:dateUntil を採る。\n点的な出来事（dateSince = dateUntil）を参照する場合は hmke:endsWithEvent と\n結果が一致するが、意味に即して本プロパティを用いる。\nOWL-Time の time:intervalFinishes に対応する。",
+        "en": "States that the end of this EntityInContext coincides with the end of the referenced Event. Resolving to absolute dates takes the hmke:dateUntil of the referenced Event. For a punctual Event (dateSince = dateUntil) the result is identical to hmke:endsWithEvent, but this property is preferred where it matches the intended sense. Corresponds to time:intervalFinishes in OWL-Time."
+      },
+      "domain": "class15",
+      "range": "class1",
+      "superproperty": [
+        "property12",
+        "property37"
+      ]
+    },
+    {
+      "id": "property77",
+      "label": {
+        "IRI-based": "hmke_roleLabel",
+        "ja": "役職名",
+        "en": "role label"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_roleLabel",
+      "comment": {
+        "ja": "官職名・地位の名称。Role と EntityInContext のいずれにも付与できる。\nRole に付与する場合は、その役職の正準的な名称 (例: 'consul', 'aedilis', 'flamen', 'patronus')。\nEntityInContext に付与する場合は、その文脈における役職の記載そのもの\n(例: 'cos. I suff.', 'imp. IV', 'trib. pot. XIX')。\n就任回数 (iteratio) や suffectus / designatus の別を含む記載は、\n正準名への正規化によって失われるため、EntityInContext 側のラベルとして保持する。\n統制語彙への正規化や外部典拠への接続が必要な場合は、\nhmke:hasRole によって Role リソースを併せて参照する。",
+        "en": "Name of a magistracy or social status. May be attached to either a Role or an EntityInContext. On a Role it is the canonical name of the office (e.g. 'consul', 'aedilis', 'flamen', 'patronus'). On an EntityInContext it is the designation as recorded for that particular context (e.g. 'cos. I suff.', 'imp. IV', 'trib. pot. XIX'): iteration counts and qualifiers such as suffectus or designatus are lost when normalising to a canonical name, so they are retained on the EntityInContext. Where normalisation to a controlled vocabulary or a link to an external authority is required, reference a Role resource via hmke:hasRole in addition."
+      },
+      "domain": "class33",
+      "range": "literal13"
+    },
+    {
+      "id": "property36",
+      "label": {
+        "IRI-based": "hmki_precedes",
+        "ja": "先行する",
+        "en": "precedes"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_precedes",
+      "comment": {
+        "ja": "この Statement が時系列的に他の Statement に先立つことを示す。",
+        "en": "Indicates that this Statement chronologically precedes another Statement."
+      },
+      "domain": "class9",
+      "range": "class9",
+      "superproperty": [
+        "property20"
+      ]
     },
     {
       "id": "property70",
+      "label": {
+        "IRI-based": "hmkia_confidence",
+        "ja": "確信度",
+        "en": "confidence"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_confidence",
+      "comment": {
+        "ja": "解釈の確信度 (0.0-1.0 の実数、または 'high' / 'medium' / 'low' の質的値)。",
+        "en": "Confidence of the interpretation (a real number between 0.0 and 1.0, or a qualitative value 'high' / 'medium' / 'low')."
+      },
+      "domain": "class12",
+      "range": "literal6"
+    },
+    {
+      "id": "property96",
+      "label": {
+        "IRI-based": "hmkia_agentType",
+        "ja": "主体種別",
+        "en": "agent type"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_agentType",
+      "comment": {
+        "ja": "Agent の種別 (person / team / software など)。",
+        "en": "Type of the Agent (person / team / software, etc.)."
+      },
+      "domain": "class13",
+      "range": "datatype32"
+    },
+    {
+      "id": "property18",
+      "label": {
+        "IRI-based": "wasGeneratedBy"
+      },
+      "iri": "http://www.w3.org/ns/prov#wasGeneratedBy",
+      "attributes": [
+        "external"
+      ],
+      "domain": "thing2",
+      "range": "thing2",
+      "subproperty": [
+        "property46"
+      ]
+    },
+    {
+      "id": "property76",
+      "label": {
+        "IRI-based": "hmke_lat",
+        "ja": "緯度",
+        "en": "latitude"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_lat",
+      "annotations": {
+        "seeAlso": [
+          {
+            "identifier": "seeAlso",
+            "language": "undefined",
+            "value": "http://www.w3.org/2003/01/geo/wgs84_pos#lat",
+            "type": "iri"
+          }
+        ]
+      },
+      "domain": "class24",
+      "range": "datatype12"
+    },
+    {
+      "id": "property88",
+      "label": {
+        "IRI-based": "hmkp_origPlace",
+        "ja": "出土地",
+        "en": "place of origin"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkp_origPlace",
+      "comment": {
+        "ja": "史料の出土地・原来地 (現代地名 / 古代地名などの複合表記も許容)。Text にも付与されうる。",
+        "en": "The find-spot or place of origin of the source. Composite modern/ancient place names are allowed. May also be attached to Text."
+      },
+      "domain": "class34",
+      "range": "datatype24"
+    },
+    {
+      "id": "property49",
+      "label": {
+        "IRI-based": "wasDerivedFrom"
+      },
+      "iri": "http://www.w3.org/ns/prov#wasDerivedFrom",
+      "attributes": [
+        "external"
+      ],
+      "domain": "thing2",
+      "range": "thing2",
+      "subproperty": [
+        "property22"
+      ]
+    },
+    {
+      "id": "property67",
+      "label": {
+        "IRI-based": "hmkia_hasCriterion",
+        "ja": "解釈基準",
+        "en": "interpretation criterion"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_hasCriterion",
+      "comment": {
+        "ja": "解釈に用いた基準・方法論の記述 (例: 'paleographic analysis', 'prosopographic comparison')。",
+        "en": "Description of the criterion or methodology applied in the interpretation (e.g. 'paleographic analysis', 'prosopographic comparison')."
+      },
+      "annotations": {
+        "seeAlso": [
+          {
+            "identifier": "seeAlso",
+            "language": "undefined",
+            "value": "http://purl.org/emmedi/hico/hasInterpretationCriterion",
+            "type": "iri"
+          }
+        ]
+      },
+      "domain": "class12",
+      "range": "datatype3"
+    },
+    {
+      "id": "property38",
+      "label": {
+        "IRI-based": "hmki_references",
+        "ja": "参照する (エンティティ言及)",
+        "en": "references (entity reference)"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_references",
+      "comment": {
+        "ja": "Statement を構成する EntityReference への参照。1 つの Statement は複数の EntityReference を参照しうる。",
+        "en": "Reference to an EntityReference that constitutes this Statement. A single Statement may reference multiple EntityReferences."
+      },
+      "domain": "class9",
+      "range": "class2"
+    },
+    {
+      "id": "property51",
+      "label": {
+        "IRI-based": "hmki_causedBy",
+        "ja": "起因する",
+        "en": "caused by"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_causedBy",
+      "comment": {
+        "ja": "この Statement が他の Statement を原因として発生したことを示す。",
+        "en": "Indicates that this Statement was caused by another Statement."
+      },
+      "domain": "class9",
+      "range": "class9",
+      "superproperty": [
+        "property20"
+      ]
+    },
+    {
+      "id": "property68",
+      "label": {
+        "IRI-based": "hmke_locationLabel",
+        "ja": "場所の名称",
+        "en": "location label"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_locationLabel",
+      "comment": {
+        "ja": "場所の地名 (現代地名 / 古代地名)。",
+        "en": "Place name of the Location (modern and/or ancient name)."
+      },
+      "domain": "class24",
+      "range": "literal4"
+    },
+    {
+      "id": "property20",
+      "label": {
+        "IRI-based": "hmki_relatedTo",
+        "ja": "関連する Statement",
+        "en": "related to (statement)"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_relatedTo",
+      "comment": {
+        "ja": "Statement 同士の再帰的接続。時系列関係・因果関係などのより具体的な関係を表す\nサブプロパティ (precedes, causedBy 等) を将来的に追加することができる。",
+        "en": "A recursive connection between Statements. Sub-properties for finer-grained relations (temporal ordering, causal relations, etc., e.g. precedes, causedBy) can be added in the future."
+      },
+      "domain": "class9",
+      "range": "class9",
+      "subproperty": [
+        "property51",
+        "property36"
+      ]
+    },
+    {
+      "id": "property14",
+      "label": {
+        "IRI-based": "hmke_hasLocation",
+        "ja": "所在地",
+        "en": "has location"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_hasLocation",
+      "comment": {
+        "ja": "EntityInContext が有する地理的場所 (滞在地・活動地域など)。",
+        "en": "The geographical location that the EntityInContext holds (place of residence, area of activity, etc.)."
+      },
+      "domain": "class15",
+      "range": "class24"
+    },
+    {
+      "id": "property82",
+      "label": {
+        "IRI-based": "hmkp_sourceId",
+        "ja": "史料識別子",
+        "en": "source identifier"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkp_sourceId",
+      "comment": {
+        "ja": "史料に付与された外部識別子。特定のデータベースに依存しない汎用プロパティで、\n値には識別子を発行した体系の接頭辞を含む形式を推奨する (例: EDCS 由来なら \"EDCS-47400376\"、\nEDH 由来なら \"HD000001\"、パピルスなら Trismegistos ID など)。\nどの体系に属する史料かは値の接頭辞または上位クラス (プロジェクト側で定義する碑文・書簡等) で判別する。",
+        "en": "An external identifier assigned to the source. A generic, database-independent property; the value should carry the prefix of the issuing scheme (e.g. \"EDCS-47400376\" for EDCS, \"HD000001\" for EDH, a Trismegistos ID for papyri). The scheme is inferred from the value prefix or from the project-defined subclass (inscription, letter, etc.)."
+      },
+      "attributes": [
+        "functional"
+      ],
+      "domain": "class26",
+      "range": "datatype18"
+    },
+    {
+      "id": "property75",
+      "label": {
+        "IRI-based": "hmke_authorityURI",
+        "ja": "典拠 URI",
+        "en": "authority URI"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_authorityURI",
+      "comment": {
+        "ja": "Entity が対応付けられる外部典拠データの URI (Wikidata Q番号、VIAF ID、GeoNames ID、Pleiades ID など)。\n複数の典拠に対応付けられる場合は複数値を持ちうる。",
+        "en": "URI of the external authority record to which the Entity is linked (Wikidata Q number, VIAF ID, GeoNames ID, Pleiades ID, etc.). Multiple values are permitted when the entity is linked to several authorities."
+      },
+      "domain": "class4",
+      "range": "datatype11"
+    },
+    {
+      "id": "property41",
+      "label": {
+        "IRI-based": "generated"
+      },
+      "iri": "http://www.w3.org/ns/prov#generated",
+      "attributes": [
+        "external"
+      ],
+      "domain": "thing2",
+      "range": "thing2",
+      "subproperty": [
+        "property50"
+      ]
+    },
+    {
+      "id": "property71",
+      "label": {
+        "IRI-based": "hmki_normalizedForm",
+        "ja": "正規化表記",
+        "en": "normalized form"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmki_normalizedForm",
+      "comment": {
+        "ja": "EntityReference の正規化された表記 (略語展開後、標準綴りに戻したもの)。",
+        "en": "The normalised form of the EntityReference (with abbreviations expanded and returned to standard spelling)."
+      },
+      "domain": "class2",
+      "range": "datatype7"
+    },
+    {
+      "id": "property50",
+      "label": {
+        "IRI-based": "hmkia_generated",
+        "ja": "生成したリソース",
+        "en": "generated"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkia_generated",
+      "comment": {
+        "ja": "この解釈行為が生成したデータリソース (Annotation, Statement, EntityReference,\nEntityInContext, Entity など)。逆方向は hmkia:generatedBy が担う。",
+        "en": "The data resource that this interpretation act produced (Annotation, Statement, EntityReference, EntityInContext, Entity, and so on). The inverse is hmkia:generatedBy."
+      },
+      "domain": "class12",
+      "range": "thing4",
+      "inverse": "property46",
+      "superproperty": [
+        "property41"
+      ]
+    },
+    {
+      "id": "property44",
+      "label": {
+        "IRI-based": "hmkp_hasAnnotation",
+        "ja": "アノテーションを持つ",
+        "en": "has annotation"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmkp_hasAnnotation",
+      "comment": {
+        "ja": "テキストに属するアノテーションへの参照。",
+        "en": "Reference to an annotation attached to this text."
+      },
+      "domain": "class26",
+      "range": "class10"
+    },
+    {
+      "id": "property29",
+      "label": {
+        "IRI-based": "hmke_hasTimeSpan",
+        "ja": "時間幅",
+        "en": "has time span"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_hasTimeSpan",
+      "comment": {
+        "ja": "絶対年代による時間的範囲。EntityInContext と Event のいずれにも付与できる。\nEntityInContext に付与する場合は、そのコンテキストが成立している期間を表す。\n出来事基準 (eventSince / eventUntil) と併用する場合、出来事基準が一次的な定位であり、\nTimeSpan はそこから導かれた絶対年代の解釈として扱う。\nEvent に付与する場合は、その出来事自体の年代を表す。",
+        "en": "A temporal range given in absolute dates. May be attached to either an EntityInContext or an Event. On an EntityInContext it denotes the period during which that context holds; when used alongside the event-based properties (eventSince / eventUntil), the event-based anchoring is the primary claim and the TimeSpan is the absolute-date reading derived from it. On an Event it denotes the date of the event itself."
+      },
+      "domain": "class29",
+      "range": "class11"
+    },
+    {
+      "id": "property9",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class17",
+      "range": "class21"
+    },
+    {
+      "id": "property87",
       "label": {
         "IRI-based": "hmke_long",
         "ja": "経度",
@@ -2051,11 +2765,11 @@
           }
         ]
       },
-      "domain": "class13",
-      "range": "datatype21"
+      "domain": "class24",
+      "range": "datatype23"
     },
     {
-      "id": "property29",
+      "id": "property52",
       "label": {
         "IRI-based": "hmkp_startChar",
         "ja": "開始文字",
@@ -2069,87 +2783,45 @@
       "attributes": [
         "functional"
       ],
-      "domain": "class11",
+      "domain": "class10",
       "range": "class3",
       "superproperty": [
-        "property18"
+        "property16"
       ]
     },
     {
-      "id": "property36",
+      "id": "property64",
       "label": {
-        "IRI-based": "hmkia_critiques",
-        "ja": "批判する",
-        "en": "critiques"
+        "IRI-based": "intervalStarts"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_critiques",
-      "comment": {
-        "ja": "この解釈行為が他の解釈行為を批判 (異議申し立て) することを示す。CiTO の cito:disagreesWith に対応する。",
-        "en": "Indicates that this interpretation act critiques (raises objections to) another interpretation act. Corresponds to cito:disagreesWith in CiTO."
-      },
-      "domain": "class14",
-      "range": "class14",
-      "superproperty": [
-        "property35"
-      ]
-    },
-    {
-      "id": "property30",
-      "label": {
-        "IRI-based": "hmke_contextualAspectOf",
-        "ja": "文脈的側面",
-        "en": "contextual aspect of"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmke_contextualAspectOf",
-      "comment": {
-        "ja": "EntityInContext が、どの普遍的実体 (Entity) の特定コンテキストにおける側面であるかを示す。\n一つの Entity は複数の EntityInContext を持ちうるが、EntityInContext は必ず 1 つの Entity と対応付けられる。",
-        "en": "Links an EntityInContext to the universal entity (Entity) whose particular context it captures. A single Entity may have multiple EntityInContext instances, but each EntityInContext points to exactly one Entity."
-      },
+      "iri": "http://www.w3.org/2006/time#intervalStarts",
       "attributes": [
-        "functional"
+        "external"
       ],
-      "domain": "class17",
-      "range": "class4"
+      "domain": "thing2",
+      "range": "thing2",
+      "subproperty": [
+        "property25"
+      ]
     },
     {
       "id": "property6",
       "label": {
         "IRI-based": "Subclass Of"
       },
-      "domain": "class10",
-      "range": "class6"
-    },
-    {
-      "id": "property34",
-      "label": {
-        "IRI-based": "hmki_startChar",
-        "ja": "開始文字",
-        "en": "start character"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_startChar",
-      "comment": {
-        "ja": "EntityReference が指す範囲の先頭 Character。hmki:hasRange のサブプロパティ。",
-        "en": "The first Character of the range that the EntityReference points to. Sub-property of hmki:hasRange."
-      },
-      "attributes": [
-        "functional"
-      ],
-      "domain": "class1",
-      "range": "class3",
-      "superproperty": [
-        "property31"
-      ]
+      "domain": "class19",
+      "range": "class12"
     },
     {
       "id": "property5",
       "label": {
         "IRI-based": "Subclass Of"
       },
-      "domain": "class14",
-      "range": "class18"
+      "domain": "class22",
+      "range": "class6"
     },
     {
-      "id": "property18",
+      "id": "property16",
       "label": {
         "IRI-based": "hmkp_hasRange",
         "ja": "Character 範囲を持つ",
@@ -2160,30 +2832,46 @@
         "ja": "あるリソース (Annotation、Statement、EntityReference など) がテキスト上の\n特定の Character 範囲を参照することを示す抽象的な参照関係。\n具体的な範囲指定は subPropertyOf として定義される startChar / endChar によって表現される。",
         "en": "Abstract reference relation indicating that some resource (Annotation, Statement, EntityReference, etc.) refers to a specific Character range in the text. The concrete range boundaries are supplied by sub-properties (hmkp:startChar / hmkp:endChar)."
       },
-      "domain": "thing3",
+      "domain": "thing1",
       "range": "class3",
       "subproperty": [
-        "property13",
-        "property29"
+        "property42",
+        "property52"
       ]
     },
     {
-      "id": "property19",
+      "id": "property8",
       "label": {
-        "IRI-based": "hmki_mentions",
-        "ja": "言及する (Statement → Character)",
-        "en": "mentions (statement → character)"
+        "IRI-based": "Subclass Of"
       },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_mentions",
-      "comment": {
-        "ja": "Statement が指し示す史料上の Character (テキスト範囲)。\nStatement は複数の Character を同時に mentions することによって、\nテキスト上の複数箇所にまたがるイベント言及を表現できる。",
-        "en": "The Characters (text range) in the source that this Statement points to. A Statement can mention multiple Characters at once, allowing event mentions that span several non-contiguous locations in the text."
-      },
-      "domain": "class10",
-      "range": "class3"
+      "domain": "class12",
+      "range": "class25"
     },
     {
-      "id": "property14",
+      "id": "property7",
+      "label": {
+        "IRI-based": "Subclass Of"
+      },
+      "domain": "class14",
+      "range": "class12"
+    },
+    {
+      "id": "property78",
+      "label": {
+        "IRI-based": "hmke_dateUntil",
+        "ja": "終了年代",
+        "en": "date until"
+      },
+      "iri": "http://purl.org/atag/himiko/ontology#hmke_dateUntil",
+      "comment": {
+        "ja": "TimeSpan の終了年代。xsd:gYear（年のみ）・xsd:gYearMonth（年月）・xsd:date（年月日）のいずれかで記述する。\nこの値は包含的（inclusive）である。すなわち当該時点自体が範囲に含まれる。",
+        "en": "End of the TimeSpan. Written as xsd:gYear (year), xsd:gYearMonth (year and month), or xsd:date (full date), whichever matches the available precision. This value is inclusive: the point in time itself falls within the range."
+      },
+      "domain": "class11",
+      "range": "literal14"
+    },
+    {
+      "id": "property43",
       "label": {
         "IRI-based": "hmkp_next",
         "ja": "次の文字",
@@ -2201,26 +2889,7 @@
       "range": "class3"
     },
     {
-      "id": "property16",
-      "label": {
-        "IRI-based": "hmkia_generatedBy",
-        "ja": "解釈行為による生成",
-        "en": "generated by (interpretation act)"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmkia_generatedBy",
-      "comment": {
-        "ja": "データリソース (Annotation, Statement, EntityReference, EntityInContext,\nEntity, Event など) を生成した解釈行為 (hmkia:InterpretationAct)。物理・intrinsic・extrinsic の\n各層に分かれていた層別 generatedBy を、意味的に同一の関係として本プロパティに統一した。\n逆方向は hmkia:generated。domain は限定せず (逆方向と対称) 全層のデータリソースに適用できる。",
-        "en": "The interpretation act (hmkia:InterpretationAct) that generated a data resource (Annotation, Statement, EntityReference, EntityInContext, Entity, Event, and so on). Unifies the per-layer generatedBy properties (previously split across the physical, intrinsic, and extrinsic layers) into a single property, since they express the same relation. The inverse is hmkia:generated; the domain is left open (symmetric with the inverse) so it applies to data resources in any layer."
-      },
-      "domain": "thing2",
-      "range": "class14",
-      "inverse": "property26",
-      "superproperty": [
-        "property21"
-      ]
-    },
-    {
-      "id": "property65",
+      "id": "property81",
       "label": {
         "IRI-based": "hmke_eventLabel",
         "ja": "出来事の記述",
@@ -2231,11 +2900,11 @@
         "ja": "Event の内容を表す自然言語のラベル (例: 'Consulship of X in 121 CE')。",
         "en": "Natural-language label describing the content of the Event (e.g. 'Consulship of X in 121 CE')."
       },
-      "domain": "class2",
-      "range": "literal16"
+      "domain": "class1",
+      "range": "literal17"
     },
     {
-      "id": "property69",
+      "id": "property85",
       "label": {
         "IRI-based": "hmkp_annotatedText",
         "ja": "対象テキスト",
@@ -2246,11 +2915,11 @@
         "ja": "アノテーションが対象とする範囲のテキスト内容。",
         "en": "The textual content of the range that the annotation targets."
       },
-      "domain": "class11",
-      "range": "datatype20"
+      "domain": "class10",
+      "range": "datatype21"
     },
     {
-      "id": "property28",
+      "id": "property22",
       "label": {
         "IRI-based": "hmkia_derivedFrom",
         "ja": "派生元の解釈行為",
@@ -2261,14 +2930,14 @@
         "ja": "この解釈行為が他の解釈行為から派生していることを示す。修正・支持・批判の共通上位関係。",
         "en": "Indicates that this interpretation act is derived from another interpretation act. Common super-relation for revision, support, and critique."
       },
-      "domain": "class14",
-      "range": "class14",
+      "domain": "class12",
+      "range": "class12",
       "superproperty": [
-        "property25"
+        "property49"
       ]
     },
     {
-      "id": "property47",
+      "id": "property62",
       "label": {
         "IRI-based": "hmki_hasRole",
         "ja": "史料内での役割",
@@ -2279,26 +2948,11 @@
         "ja": "史料中の当該言及が担う役割 (例: 恵与の主体、受益者、証人など)。\nFPO における fpo:hasRole と対応する。",
         "en": "The role played by this in-source mention (e.g. benefactor, beneficiary, witness). Corresponds to fpo:hasRole in the FPO ontology."
       },
-      "domain": "class1",
+      "domain": "class2",
       "range": "thing5"
     },
     {
-      "id": "property73",
-      "label": {
-        "IRI-based": "hmki_entityType",
-        "ja": "エンティティ種別",
-        "en": "entity type"
-      },
-      "iri": "http://purl.org/atag/himiko/ontology#hmki_entityType",
-      "comment": {
-        "ja": "EntityReference が指すエンティティの種別 (person / place / organization / object / time など)。",
-        "en": "The type of entity that the EntityReference points to (person / place / organization / object / time, etc.)."
-      },
-      "domain": "class1",
-      "range": "datatype24"
-    },
-    {
-      "id": "property62",
+      "id": "property79",
       "label": {
         "IRI-based": "hmkia_hasType",
         "ja": "解釈種別",
@@ -2319,11 +2973,11 @@
           }
         ]
       },
-      "domain": "class14",
-      "range": "datatype13"
+      "domain": "class12",
+      "range": "datatype15"
     },
     {
-      "id": "property24",
+      "id": "property21",
       "label": {
         "IRI-based": "agreesWith"
       },
@@ -2331,14 +2985,14 @@
       "attributes": [
         "external"
       ],
-      "domain": "thing1",
-      "range": "thing1",
+      "domain": "thing2",
+      "range": "thing2",
       "subproperty": [
-        "property33"
+        "property54"
       ]
     },
     {
-      "id": "property57",
+      "id": "property73",
       "label": {
         "IRI-based": "hmkia_agentName",
         "ja": "主体名",
@@ -2359,11 +3013,11 @@
           }
         ]
       },
-      "domain": "class15",
-      "range": "literal8"
+      "domain": "class13",
+      "range": "literal9"
     },
     {
-      "id": "property35",
+      "id": "property26",
       "label": {
         "IRI-based": "disagreesWith"
       },
@@ -2371,10 +3025,10 @@
       "attributes": [
         "external"
       ],
-      "domain": "thing1",
-      "range": "thing1",
+      "domain": "thing2",
+      "range": "thing2",
       "subproperty": [
-        "property36"
+        "property57"
       ]
     }
   ]

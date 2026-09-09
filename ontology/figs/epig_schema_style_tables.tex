@@ -1,0 +1,128 @@
+% ============================================================
+%  epig オントロジー リファレンス表 (schema.org 風 / booktabs+longtable)
+%  自動生成元: ontology/epig_ontology.ttl
+%  ビルダー:   ontology/build_epig_schema_style.py
+%
+%  本文に \input{epig_schema_style_tables.tex} で取り込む。
+%  プリアンブルに以下が必要:
+%      \usepackage{booktabs}
+%      \usepackage{longtable}
+%      \usepackage{array}
+%      \usepackage{amssymb}   % \cup (∪) 用
+% ============================================================
+
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.30\linewidth} >{\raggedright\arraybackslash}p{0.38\linewidth} >{\raggedright\arraybackslash}p{0.30\linewidth}@{}}
+\caption{epig オントロジー のクラス（11 件）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{クラス URI} & \textbf{ラベル} & \textbf{上位クラス} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & 寄進言及 & \texttt{hmki:\allowbreak{}Statement} \\
+\texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & 経歴言及 & \texttt{hmki:\allowbreak{}Statement} \\
+\texttt{epig:\allowbreak{}Community\allowbreak{}Reference} & 共同体言及 & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} \\
+\texttt{epig:\allowbreak{}Divinity\allowbreak{}Type} & 神格タイプ & --- \\
+\texttt{epig:\allowbreak{}External\allowbreak{}Database\allowbreak{}Link} & 外部DBリンク & --- \\
+\texttt{epig:\allowbreak{}Inscription} & 碑文 & \texttt{hmkp:\allowbreak{}Source} \\
+\texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & 人物言及 & \texttt{hmki:\allowbreak{}Entity\allowbreak{}Reference} \\
+\texttt{epig:\allowbreak{}Place} & 地名 & --- \\
+\texttt{epig:\allowbreak{}Province} & 属州 & --- \\
+\texttt{epig:\allowbreak{}Relationship\allowbreak{}Statement} & 関係言及 & \texttt{hmki:\allowbreak{}Statement} \\
+\texttt{epig:\allowbreak{}Social\allowbreak{}Status} & 社会的身分 & --- \\
+\end{longtable}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.34\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth} >{\raggedright\arraybackslash}p{0.20\linewidth}@{}}
+\caption{epig オントロジー のプロパティ（68 件）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endfirsthead
+\multicolumn{4}{l}{\small （前ページからの続き）}\\
+\toprule
+\textbf{プロパティ URI} & \textbf{ラベル} & \textbf{定義域} & \textbf{値域} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\small （次ページへ続く）}\\
+\endfoot
+\bottomrule
+\endlastfoot
+\texttt{epig:\allowbreak{}activity\allowbreak{}Type} & アクティビティ種別 & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}age\allowbreak{}At\allowbreak{}Death} & 没年齢 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}integer} \\
+\texttt{epig:\allowbreak{}age\allowbreak{}At\allowbreak{}Death\allowbreak{}Evidence} & 没年齢の根拠 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}agent} & 恵与主体言及 {\small (上位: \texttt{hmki:\allowbreak{}references})} & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & (\texttt{epig:\allowbreak{}Person\allowbreak{}Reference} $\cup$ \texttt{epig:\allowbreak{}Community\allowbreak{}Reference}) \\
+\texttt{epig:\allowbreak{}benefaction\allowbreak{}Text} & 寄進テキスト & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}benefaction\allowbreak{}Type} & 寄進種別 & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}birth\allowbreak{}Place} & 出生地 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}birth\allowbreak{}Place\allowbreak{}Evidence} & 出生地の根拠 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}birth\allowbreak{}Place\allowbreak{}Normalized} & 出生地(正規化) & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}cognomen} & コグノーメン & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}community\allowbreak{}Description} & 共同体の説明 & \texttt{epig:\allowbreak{}Community\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}community\allowbreak{}Type} & 共同体種別 & \texttt{epig:\allowbreak{}Community\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}cost\allowbreak{}Conversion\allowbreak{}Reasoning} & 費用換算の根拠 & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}cost\allowbreak{}Numeric} & 費用(数値) & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}integer} \\
+\texttt{epig:\allowbreak{}cost\allowbreak{}Original\allowbreak{}Text} & 費用の原文 & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}cost\allowbreak{}Unit} & 費用単位 & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}database} & データベース名 & \texttt{epig:\allowbreak{}External\allowbreak{}Database\allowbreak{}Link} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}dating\allowbreak{}From} & 年代下限 & \texttt{epig:\allowbreak{}Inscription} & \texttt{xsd:\allowbreak{}integer} \\
+\texttt{epig:\allowbreak{}dating\allowbreak{}To} & 年代上限 & \texttt{epig:\allowbreak{}Inscription} & \texttt{xsd:\allowbreak{}integer} \\
+\texttt{epig:\allowbreak{}death\allowbreak{}Place} & 没地 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}death\allowbreak{}Place\allowbreak{}Evidence} & 没地の根拠 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}death\allowbreak{}Place\allowbreak{}Normalized} & 没地(正規化) & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}death\allowbreak{}Place\allowbreak{}Source} & 没地の出典 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}divinity\allowbreak{}Classification\allowbreak{}Reasoning} & 神格分類の根拠 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}divinity\allowbreak{}Type} & 神格タイプ & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{epig:\allowbreak{}Divinity\allowbreak{}Type} \\
+\texttt{epig:\allowbreak{}edcs\allowbreak{}Id} & EDCS ID {\small (関数的プロパティ)} & \texttt{epig:\allowbreak{}Inscription} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}ethnicity} & 民族 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}ethnicity\allowbreak{}Evidence} & 民族の根拠 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}evidence} & 根拠テキスト & (\texttt{epig:\allowbreak{}Community\allowbreak{}Reference} $\cup$ \texttt{epig:\allowbreak{}Relationship\allowbreak{}Statement} $\cup$ \texttt{epig:\allowbreak{}Person\allowbreak{}Reference}) & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}external\allowbreak{}Id} & 外部ID & \texttt{epig:\allowbreak{}External\allowbreak{}Database\allowbreak{}Link} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}external\allowbreak{}Link} & 外部DBリンク & \texttt{epig:\allowbreak{}Inscription} & \texttt{epig:\allowbreak{}External\allowbreak{}Database\allowbreak{}Link} \\
+\texttt{epig:\allowbreak{}findspot} & 出土地 & \texttt{epig:\allowbreak{}Inscription} & \texttt{epig:\allowbreak{}Place} \\
+\texttt{epig:\allowbreak{}gender} & 性別 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}gender\allowbreak{}Evidence} & 性別の根拠 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}inscription\allowbreak{}Text} & 碑文テキスト & \texttt{epig:\allowbreak{}Inscription} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}inscription\allowbreak{}Type} & 碑文種別 & \texttt{epig:\allowbreak{}Inscription} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}interpretation\allowbreak{}Notes} & 解釈注記 & \texttt{epig:\allowbreak{}Inscription} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}interprets\allowbreak{}Inscription} & 碑文を解釈する & \texttt{prov:\allowbreak{}Entity} & \texttt{epig:\allowbreak{}Inscription} \\
+\texttt{epig:\allowbreak{}is\allowbreak{}Divinity} & 神格化されているか & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}boolean} \\
+\texttt{epig:\allowbreak{}location} & 役職地 & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}location\allowbreak{}Evidence} & 役職地の根拠 & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}location\allowbreak{}Normalized} & 役職地(正規化) & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}nomen} & ノーメン & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}normalized\allowbreak{}Name} & 正規化名 & (\texttt{epig:\allowbreak{}Person\allowbreak{}Reference} $\cup$ \texttt{epig:\allowbreak{}Community\allowbreak{}Reference}) & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}notes} & 注記 & --- & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}object\allowbreak{}Description} & 対象物の説明 & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}object\allowbreak{}Text} & 対象物(原文) & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}object\allowbreak{}Type} & 対象物種別 & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}order} & 順序 {\small (関数的プロパティ)} & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}integer} \\
+\texttt{epig:\allowbreak{}person\allowbreak{}Name} & 人名 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}pleiades\allowbreak{}Id} & Pleiades ID & \texttt{epig:\allowbreak{}Place} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}position\allowbreak{}Abstract} & 役職(抽象化) & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}position\allowbreak{}Description} & 役職の説明 & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}position\allowbreak{}Normalized} & 役職名(正規化) & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}position\allowbreak{}Text} & 役職名(原文) & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}position\allowbreak{}Type} & 役職種別 & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}praenomen} & プラエノーメン & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}province} & 属州 & \texttt{epig:\allowbreak{}Inscription} & \texttt{epig:\allowbreak{}Province} \\
+\texttt{epig:\allowbreak{}publication} & 刊行情報 & \texttt{epig:\allowbreak{}Inscription} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}recipient} & 受益者言及 {\small (上位: \texttt{hmki:\allowbreak{}references})} & \texttt{epig:\allowbreak{}Benefaction\allowbreak{}Statement} & (\texttt{epig:\allowbreak{}Person\allowbreak{}Reference} $\cup$ \texttt{epig:\allowbreak{}Community\allowbreak{}Reference}) \\
+\texttt{epig:\allowbreak{}relationship\allowbreak{}Property} & 関係プロパティ & \texttt{epig:\allowbreak{}Relationship\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}relationship\allowbreak{}Type} & 関係種別 & \texttt{epig:\allowbreak{}Relationship\allowbreak{}Statement} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}script} & スクリプト & \texttt{hmkia:\allowbreak{}Interpretation\allowbreak{}Act} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}social\allowbreak{}Status} & 社会的身分 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}social\allowbreak{}Status\allowbreak{}Evidence} & 身分の根拠 & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} & \texttt{xsd:\allowbreak{}string} \\
+\texttt{epig:\allowbreak{}source} & 関係起点言及 {\small (上位: \texttt{hmki:\allowbreak{}references})} & \texttt{epig:\allowbreak{}Relationship\allowbreak{}Statement} & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} \\
+\texttt{epig:\allowbreak{}subject} & 主体人物言及 {\small (上位: \texttt{hmki:\allowbreak{}references})} & \texttt{epig:\allowbreak{}Career\allowbreak{}Statement} & \texttt{epig:\allowbreak{}Person\allowbreak{}Reference} \\
+\texttt{epig:\allowbreak{}target} & 関係対象言及 {\small (上位: \texttt{hmki:\allowbreak{}references})} & \texttt{epig:\allowbreak{}Relationship\allowbreak{}Statement} & (\texttt{epig:\allowbreak{}Person\allowbreak{}Reference} $\cup$ \texttt{epig:\allowbreak{}Community\allowbreak{}Reference}) \\
+\end{longtable}

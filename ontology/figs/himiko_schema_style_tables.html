@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>HIMIKO オントロジー リファレンス（schema.org 風）</title>
+<style>
+:root {
+  --fg: #1f2937;
+  --muted: #6b7280;
+  --border: #333;
+  --code-bg: #f3f4f6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 32px 40px 48px;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  color: var(--fg);
+  background: #fff;
+  line-height: 1.55;
+  font-size: 12px;
+}
+h1 { font-size: 20px; margin: 0 0 4px; }
+.subtitle { color: var(--muted); margin: 0 0 24px; font-size: 13px; }
+h2 {
+  font-size: 15px;
+  margin: 34px 0 10px;
+  padding: 6px 10px;
+  color: #fff;
+  border-radius: 3px;
+}
+h3 {
+  font-size: 12.5px;
+  margin: 20px 0 6px;
+  color: var(--fg);
+  font-weight: 700;
+}
+.caption { font-weight: 700; font-size: 12px; margin: 16px 0 4px; }
+
+/* schema.org 風: 全セルに罫線を引いた素朴なグリッド表 */
+table.sform {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 11px;
+  margin: 0 0 8px;
+  page-break-inside: auto;
+}
+table.sform th, table.sform td {
+  border: 1px solid var(--border);
+  padding: 5px 9px;
+  text-align: left;
+  vertical-align: top;
+}
+table.sform thead th {
+  font-weight: 700;
+  background: #fff;
+  white-space: nowrap;
+}
+table.sform td.uri code,
+table.sform td.val code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+table.sform td.label { line-height: 1.5; }
+table.sform td.label .note { color: var(--muted); }
+table.sform .none { color: var(--muted); }
+
+.layer-intro { color: var(--muted); font-size: 11.5px; margin: 4px 0 12px; }
+
+footer { margin-top: 32px; color: var(--muted); font-size: 10.5px; }
+
+@page { size: A4; margin: 20mm 15mm; }
+@media print {
+  body { padding: 0; }
+  h2, h3, .caption { page-break-after: avoid; }
+  table.sform { page-break-inside: auto; }
+  table.sform tr { page-break-inside: avoid; page-break-after: auto; }
+  table.sform thead { display: table-header-group; }
+}
+</style>
+</head>
+<body>
+<h1>HIMIKO オントロジー リファレンス表</h1>
+<p class="subtitle">Historical Micro Knowledge and Ontology — 論文・書籍掲載用 (schema.org リファレンス形式)</p>
+
+<p class="layer-intro">
+凡例 — <strong>URI</strong> は修飾名 (プレフィックス:ローカル名) で表記する。
+プロパティ欄の補足のうち <strong>(逆向き: …)</strong> は <code>owl:inverseOf</code>、
+<strong>(上位: …)</strong> は <code>rdfs:subPropertyOf</code>、
+<strong>関数的プロパティ</strong> は <code>owl:FunctionalProperty</code> を示す。
+<strong>値域</strong> の <code>(A ∪ B)</code> は <code>owl:unionOf</code> による直和を表す。
+外部語彙 (rdfs, owl, xsd, oa, prov, foaf, hico, cito, geo, owltime, dcterms) は
+省略形のまま表記する。
+</p>
+
+<h2 style="background:#3b82f6">史料物理層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmkp:</code></h2>
+<p class="caption">表 1　史料物理層 のクラス（4 件）</p>
+<table class="sform">
+  <thead><tr><th style="width:26%">クラス URI</th><th style="width:40%">ラベル</th><th>上位クラス</th></tr></thead>
+  <tbody>
+<tr><td class="uri"><code>hmkp:Annotation</code></td><td class="label">アノテーション</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmkp:Character</code></td><td class="label">文字</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmkp:Source</code></td><td class="label">史料</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmkp:Text</code></td><td class="label">テキスト</td><td class="val"><span class="none">—</span></td></tr>
+  </tbody>
+</table>
+<p class="caption">表 2　史料物理層 のプロパティ（18 件）</p>
+<table class="sform">
+  <thead><tr><th style="width:22%">プロパティ URI</th><th style="width:34%">ラベル</th><th style="width:22%">定義域</th><th style="width:22%">値域</th></tr></thead>
+  <tbody>
+<tr><td class="uri"><code>hmkp:annotatedText</code></td><td class="label">対象テキスト</td><td class="val"><code>hmkp:Annotation</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkp:bears</code></td><td class="label">テキストを担う</td><td class="val"><code>hmkp:Source</code></td><td class="val"><code>hmkp:Text</code></td></tr>
+<tr><td class="uri"><code>hmkp:char</code></td><td class="label">文字値 <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Character</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkp:end</code></td><td class="label">終了オフセット <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Annotation</code></td><td class="val"><code>xsd:nonNegativeInteger</code></td></tr>
+<tr><td class="uri"><code>hmkp:endChar</code></td><td class="label">終了文字 <span class="note">(上位: <code>hmkp:hasRange</code> / 関数的プロパティ)</span></td><td class="val"><code>hmkp:Annotation</code></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmkp:firstChar</code></td><td class="label">先頭文字 <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Text</code></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmkp:hasAnnotation</code></td><td class="label">アノテーションを持つ</td><td class="val"><code>hmkp:Text</code></td><td class="val"><code>hmkp:Annotation</code></td></tr>
+<tr><td class="uri"><code>hmkp:hasRange</code></td><td class="label">Character 範囲を持つ</td><td class="val"><span class="none">—</span></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmkp:mentions</code></td><td class="label">言及する</td><td class="val"><code>hmkp:Source</code></td><td class="val"><code>hmki:Statement</code></td></tr>
+<tr><td class="uri"><code>hmkp:next</code></td><td class="label">次の文字 <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Character</code></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmkp:offset</code></td><td class="label">オフセット <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Character</code></td><td class="val"><code>xsd:nonNegativeInteger</code></td></tr>
+<tr><td class="uri"><code>hmkp:origPlace</code></td><td class="label">出土地</td><td class="val"><code>(hmkp:Source ∪ hmkp:Text)</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkp:refersToEntity</code></td><td class="label">参照するエンティティ言及</td><td class="val"><code>hmkp:Annotation</code></td><td class="val"><code>hmki:EntityReference</code></td></tr>
+<tr><td class="uri"><code>hmkp:sourceId</code></td><td class="label">史料識別子 <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Text</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkp:start</code></td><td class="label">開始オフセット <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Annotation</code></td><td class="val"><code>xsd:nonNegativeInteger</code></td></tr>
+<tr><td class="uri"><code>hmkp:startChar</code></td><td class="label">開始文字 <span class="note">(上位: <code>hmkp:hasRange</code> / 関数的プロパティ)</span></td><td class="val"><code>hmkp:Annotation</code></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmkp:textContent</code></td><td class="label">全文テキスト <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Text</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkp:uuid</code></td><td class="label">UUID <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmkp:Character</code></td><td class="val"><code>xsd:string</code></td></tr>
+  </tbody>
+</table>
+<h2 style="background:#f59e0b">史料内在知識層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmki:</code></h2>
+<p class="caption">表 3　史料内在知識層 のクラス（2 件）</p>
+<table class="sform">
+  <thead><tr><th style="width:26%">クラス URI</th><th style="width:40%">ラベル</th><th>上位クラス</th></tr></thead>
+  <tbody>
+<tr><td class="uri"><code>hmki:EntityReference</code></td><td class="label">エンティティ言及</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmki:Statement</code></td><td class="label">イベント言及</td><td class="val"><code>prov:Entity</code></td></tr>
+  </tbody>
+</table>
+<p class="caption">表 4　史料内在知識層 のプロパティ（15 件）</p>
+<table class="sform">
+  <thead><tr><th style="width:22%">プロパティ URI</th><th style="width:34%">ラベル</th><th style="width:22%">定義域</th><th style="width:22%">値域</th></tr></thead>
+  <tbody>
+<tr><td class="uri"><code>hmki:causedBy</code></td><td class="label">起因する <span class="note">(上位: <code>hmki:relatedTo</code>)</span></td><td class="val"><code>hmki:Statement</code></td><td class="val"><code>hmki:Statement</code></td></tr>
+<tr><td class="uri"><code>hmki:endChar</code></td><td class="label">終了文字 <span class="note">(上位: <code>hmki:hasRange</code> / 関数的プロパティ)</span></td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmki:entityType</code></td><td class="label">エンティティ種別</td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmki:hasRange</code></td><td class="label">Character 範囲を指す</td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmki:hasRole</code></td><td class="label">史料内での役割</td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmki:mentions</code></td><td class="label">言及する (Statement → Character)</td><td class="val"><code>hmki:Statement</code></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmki:normalizedForm</code></td><td class="label">正規化表記</td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmki:precedes</code></td><td class="label">先行する <span class="note">(上位: <code>hmki:relatedTo</code>)</span></td><td class="val"><code>hmki:Statement</code></td><td class="val"><code>hmki:Statement</code></td></tr>
+<tr><td class="uri"><code>hmki:references</code></td><td class="label">参照する (エンティティ言及)</td><td class="val"><code>hmki:Statement</code></td><td class="val"><code>hmki:EntityReference</code></td></tr>
+<tr><td class="uri"><code>hmki:referencesEntity</code></td><td class="label">参照する実体 (普遍)</td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><code>hmke:Entity</code></td></tr>
+<tr><td class="uri"><code>hmki:referencesEntityInContext</code></td><td class="label">参照する文脈付き実体</td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><code>hmke:EntityInContext</code></td></tr>
+<tr><td class="uri"><code>hmki:relatedTo</code></td><td class="label">関連する Statement</td><td class="val"><code>hmki:Statement</code></td><td class="val"><code>hmki:Statement</code></td></tr>
+<tr><td class="uri"><code>hmki:startChar</code></td><td class="label">開始文字 <span class="note">(上位: <code>hmki:hasRange</code> / 関数的プロパティ)</span></td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><code>hmkp:Character</code></td></tr>
+<tr><td class="uri"><code>hmki:statementType</code></td><td class="label">イベント言及の種別</td><td class="val"><code>hmki:Statement</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmki:surfaceForm</code></td><td class="label">史料上の表記</td><td class="val"><code>hmki:EntityReference</code></td><td class="val"><code>xsd:string</code></td></tr>
+  </tbody>
+</table>
+<h2 style="background:#10b981">外在知識層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmke:</code></h2>
+<p class="caption">表 5　外在知識層 のクラス（6 件）</p>
+<table class="sform">
+  <thead><tr><th style="width:26%">クラス URI</th><th style="width:40%">ラベル</th><th>上位クラス</th></tr></thead>
+  <tbody>
+<tr><td class="uri"><code>hmke:Entity</code></td><td class="label">普遍的実体</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:EntityInContext</code></td><td class="label">文脈付き実体</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:Event</code></td><td class="label">歴史的出来事 (時間基準点)</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:Location</code></td><td class="label">場所</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:Role</code></td><td class="label">地位・役職</td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:TimeSpan</code></td><td class="label">時間幅</td><td class="val"><span class="none">—</span></td></tr>
+  </tbody>
+</table>
+<p class="caption">表 6　外在知識層 のプロパティ（28 件）</p>
+<table class="sform">
+  <thead><tr><th style="width:22%">プロパティ URI</th><th style="width:34%">ラベル</th><th style="width:22%">定義域</th><th style="width:22%">値域</th></tr></thead>
+  <tbody>
+<tr><td class="uri"><code>hmke:authorityURI</code></td><td class="label">典拠 URI</td><td class="val"><code>hmke:Entity</code></td><td class="val"><code>xsd:anyURI</code></td></tr>
+<tr><td class="uri"><code>hmke:contextualAspectOf</code></td><td class="label">文脈的側面 <span class="note">(関数的プロパティ)</span></td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Entity</code></td></tr>
+<tr><td class="uri"><code>hmke:dateSince</code></td><td class="label">開始年代</td><td class="val"><code>hmke:TimeSpan</code></td><td class="val"><code>(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</code></td></tr>
+<tr><td class="uri"><code>hmke:dateUntil</code></td><td class="label">終了年代</td><td class="val"><code>hmke:TimeSpan</code></td><td class="val"><code>(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</code></td></tr>
+<tr><td class="uri"><code>hmke:endsAtEvent</code></td><td class="label">出来事の終了をもって終わる <span class="note">(上位: <code>hmke:eventUntil</code>, <code>owltime:intervalFinishes</code>)</span></td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Event</code></td></tr>
+<tr><td class="uri"><code>hmke:endsWithEvent</code></td><td class="label">出来事の開始と同時に終わる <span class="note">(上位: <code>hmke:eventUntil</code>, <code>owltime:intervalMeets</code>)</span></td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Event</code></td></tr>
+<tr><td class="uri"><code>hmke:entityType</code></td><td class="label">実体種別</td><td class="val"><code>hmke:Entity</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmke:eventLabel</code></td><td class="label">出来事の記述</td><td class="val"><code>hmke:Event</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:eventSince</code></td><td class="label">開始基準となる出来事</td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Event</code></td></tr>
+<tr><td class="uri"><code>hmke:eventUntil</code></td><td class="label">終了基準となる出来事</td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Event</code></td></tr>
+<tr><td class="uri"><code>hmke:hasLocation</code></td><td class="label">所在地</td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Location</code></td></tr>
+<tr><td class="uri"><code>hmke:hasRole</code></td><td class="label">社会的地位・官職</td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Role</code></td></tr>
+<tr><td class="uri"><code>hmke:hasTimeSpan</code></td><td class="label">時間幅</td><td class="val"><code>(hmke:EntityInContext ∪ hmke:Event)</code></td><td class="val"><code>hmke:TimeSpan</code></td></tr>
+<tr><td class="uri"><code>hmke:label</code></td><td class="label">正準名</td><td class="val"><code>hmke:Entity</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:lat</code></td><td class="label">緯度</td><td class="val"><code>hmke:Location</code></td><td class="val"><code>xsd:decimal</code></td></tr>
+<tr><td class="uri"><code>hmke:locationLabel</code></td><td class="label">場所の名称</td><td class="val"><code>hmke:Location</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:long</code></td><td class="label">経度</td><td class="val"><code>hmke:Location</code></td><td class="val"><code>xsd:decimal</code></td></tr>
+<tr><td class="uri"><code>hmke:memberOf</code></td><td class="label">所属集団</td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Entity</code></td></tr>
+<tr><td class="uri"><code>hmke:mentionedAsPrecedent</code></td><td class="label">先行する出来事として言及</td><td class="val"><code>hmke:Event</code></td><td class="val"><code>hmke:Event</code></td></tr>
+<tr><td class="uri"><code>hmke:possibleSince</code></td><td class="label">可能な始期の下限</td><td class="val"><code>hmke:TimeSpan</code></td><td class="val"><code>(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</code></td></tr>
+<tr><td class="uri"><code>hmke:possibleUntil</code></td><td class="label">可能な終期の上限</td><td class="val"><code>hmke:TimeSpan</code></td><td class="val"><code>(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</code></td></tr>
+<tr><td class="uri"><code>hmke:precedes</code></td><td class="label">先行する</td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:EntityInContext</code></td></tr>
+<tr><td class="uri"><code>hmke:relatedEntityInContext</code></td><td class="label">関連する文脈付き実体</td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:EntityInContext</code></td></tr>
+<tr><td class="uri"><code>hmke:reliableSince</code></td><td class="label">確実な始期の上限</td><td class="val"><code>hmke:TimeSpan</code></td><td class="val"><code>(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</code></td></tr>
+<tr><td class="uri"><code>hmke:reliableUntil</code></td><td class="label">確実な終期の下限</td><td class="val"><code>hmke:TimeSpan</code></td><td class="val"><code>(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</code></td></tr>
+<tr><td class="uri"><code>hmke:roleLabel</code></td><td class="label">役職名</td><td class="val"><code>(hmke:Role ∪ hmke:EntityInContext)</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmke:startsAfterEvent</code></td><td class="label">出来事の後に始まる <span class="note">(上位: <code>hmke:eventSince</code>, <code>owltime:intervalAfter</code>)</span></td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Event</code></td></tr>
+<tr><td class="uri"><code>hmke:startsWithEvent</code></td><td class="label">出来事と同時に始まる <span class="note">(上位: <code>hmke:eventSince</code>, <code>owltime:intervalStarts</code>)</span></td><td class="val"><code>hmke:EntityInContext</code></td><td class="val"><code>hmke:Event</code></td></tr>
+  </tbody>
+</table>
+<h2 style="background:#8b5cf6">解釈行為層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmkia:</code></h2>
+<p class="caption">表 7　解釈行為層 のクラス（7 件）</p>
+<table class="sform">
+  <thead><tr><th style="width:26%">クラス URI</th><th style="width:40%">ラベル</th><th>上位クラス</th></tr></thead>
+  <tbody>
+<tr><td class="uri"><code>hmkia:Agent</code></td><td class="label">解釈主体</td><td class="val"><code>prov:Agent</code></td></tr>
+<tr><td class="uri"><code>hmkia:AgentRole</code></td><td class="label">主体役割</td><td class="val"><code>prov:Role</code></td></tr>
+<tr><td class="uri"><code>hmkia:HumanAgent</code></td><td class="label">人間主体</td><td class="val"><code>hmkia:Agent</code>, <code>prov:Person</code></td></tr>
+<tr><td class="uri"><code>hmkia:InterpretationAct</code></td><td class="label">解釈行為</td><td class="val"><code>hico:InterpretationAct</code>, <code>prov:Activity</code></td></tr>
+<tr><td class="uri"><code>hmkia:InterpretationCreationAct</code></td><td class="label">解釈生成行為</td><td class="val"><code>hmkia:InterpretationAct</code></td></tr>
+<tr><td class="uri"><code>hmkia:InterpretationUpdateAct</code></td><td class="label">解釈更新行為</td><td class="val"><code>hmkia:InterpretationAct</code></td></tr>
+<tr><td class="uri"><code>hmkia:SoftwareAgent</code></td><td class="label">ソフトウェア主体</td><td class="val"><code>hmkia:Agent</code>, <code>prov:SoftwareAgent</code></td></tr>
+  </tbody>
+</table>
+<p class="caption">表 8　解釈行為層 のプロパティ（15 件）</p>
+<table class="sform">
+  <thead><tr><th style="width:22%">プロパティ URI</th><th style="width:34%">ラベル</th><th style="width:22%">定義域</th><th style="width:22%">値域</th></tr></thead>
+  <tbody>
+<tr><td class="uri"><code>hmkia:agentName</code></td><td class="label">主体名</td><td class="val"><code>hmkia:Agent</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmkia:agentType</code></td><td class="label">主体種別</td><td class="val"><code>hmkia:Agent</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkia:associatedWith</code></td><td class="label">実施主体 <span class="note">(上位: <code>prov:wasAssociatedWith</code>)</span></td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>hmkia:Agent</code></td></tr>
+<tr><td class="uri"><code>hmkia:basedOn</code></td><td class="label">依拠した資料</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmkia:confidence</code></td><td class="label">確信度</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmkia:critiques</code></td><td class="label">批判する <span class="note">(上位: <code>cito:disagreesWith</code>)</span></td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>hmkia:InterpretationAct</code></td></tr>
+<tr><td class="uri"><code>hmkia:derivedFrom</code></td><td class="label">派生元の解釈行為 <span class="note">(上位: <code>prov:wasDerivedFrom</code>)</span></td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>hmkia:InterpretationAct</code></td></tr>
+<tr><td class="uri"><code>hmkia:generated</code></td><td class="label">生成したリソース <span class="note">(逆向き: <code>hmkia:generatedBy</code> / 上位: <code>prov:generated</code>)</span></td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><span class="none">—</span></td></tr>
+<tr><td class="uri"><code>hmkia:generatedBy</code></td><td class="label">解釈行為による生成 <span class="note">(逆向き: <code>hmkia:generated</code> / 上位: <code>prov:wasGeneratedBy</code>)</span></td><td class="val"><span class="none">—</span></td><td class="val"><code>hmkia:InterpretationAct</code></td></tr>
+<tr><td class="uri"><code>hmkia:hasCriterion</code></td><td class="label">解釈基準</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkia:hasDate</code></td><td class="label">解釈日時</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>xsd:dateTime</code></td></tr>
+<tr><td class="uri"><code>hmkia:hasType</code></td><td class="label">解釈種別</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkia:note</code></td><td class="label">備考</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>xsd:string</code></td></tr>
+<tr><td class="uri"><code>hmkia:revises</code></td><td class="label">修正する</td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>hmkia:InterpretationAct</code></td></tr>
+<tr><td class="uri"><code>hmkia:supports</code></td><td class="label">支持する <span class="note">(上位: <code>cito:agreesWith</code>)</span></td><td class="val"><code>hmkia:InterpretationAct</code></td><td class="val"><code>hmkia:InterpretationAct</code></td></tr>
+  </tbody>
+</table>
+
+<footer>
+自動生成元: <code>ontology/hmk_owl/*.ttl</code> · ビルダー: <code>ontology/build_schema_style_tables.py</code>
+</footer>
+</body>
+</html>

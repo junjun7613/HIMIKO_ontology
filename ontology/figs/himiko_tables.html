@@ -136,9 +136,9 @@ footer { margin-top: 32px; color: var(--muted); font-size: 10.5px; }
 <tr><td class="name"><code>hmkp</code> — 史料物理層</td><td>4</td><td>9</td><td>9</td><td><strong>22</strong></td></tr>
 <tr><td class="name"><code>hmktei</code> — 史料物理層 — TEI 変換プロファイル</td><td>12</td><td>0</td><td>7</td><td><strong>19</strong></td></tr>
 <tr><td class="name"><code>hmki</code> — 史料内在知識層</td><td>2</td><td>12</td><td>3</td><td><strong>17</strong></td></tr>
-<tr><td class="name"><code>hmke</code> — 外在知識層</td><td>5</td><td>8</td><td>9</td><td><strong>22</strong></td></tr>
-<tr><td class="name"><code>hmkia</code> — 解釈行為層</td><td>4</td><td>8</td><td>7</td><td><strong>19</strong></td></tr>
-<tr style="border-top:1.5px solid var(--fg)"><td class="name"><strong>合計</strong></td><td><strong>27</strong></td><td><strong>37</strong></td><td><strong>35</strong></td><td><strong>99</strong></td></tr>
+<tr><td class="name"><code>hmke</code> — 外在知識層</td><td>6</td><td>14</td><td>14</td><td><strong>34</strong></td></tr>
+<tr><td class="name"><code>hmkia</code> — 解釈行為層</td><td>7</td><td>8</td><td>7</td><td><strong>22</strong></td></tr>
+<tr style="border-top:1.5px solid var(--fg)"><td class="name"><strong>合計</strong></td><td><strong>31</strong></td><td><strong>43</strong></td><td><strong>40</strong></td><td><strong>114</strong></td></tr>
   </tbody>
 </table>
 
@@ -298,7 +298,7 @@ Statement は複数の Character を同時に mentions することによって�
   </tbody>
 </table>
 <h2 style="background:#10b981">外在知識層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmke:</code></h2>
-<h3>クラス (Classes) — 5 件</h3>
+<h3>クラス (Classes) — 6 件</h3>
 <table class="ttable">
   <thead><tr><th style="width:16%">QName</th><th style="width:14%">ラベル</th><th style="width:18%">上位クラス</th><th>定義</th></tr></thead>
   <tbody>
@@ -309,53 +309,125 @@ Statement は複数の Character を同時に mentions することによって�
 「ある特定の歴史的文脈における人物」「ある特定の状況下にある場所」を表現する。
 普遍的実体 (hmke:Entity) とは独立したリソースとして扱われ、一つの Entity に対して
 複数の EntityInContext を併存させることで、時期による属性の変化や複数の解釈を表現できる。
-時間的範囲 (eventSince / eventUntil) を持ち、社会的地位・官職・所属集団・活動地域などの属性を保持しうる。</td></tr>
+時間的範囲は出来事基準 (eventSince / eventUntil) と絶対年代 (hasTimeSpan) の双方で記述でき、
+併用する場合は出来事基準を一次的な定位、絶対年代をそこから導かれた解釈として扱う。
+社会的地位・官職・所属集団・活動地域などの属性を保持しうる。</td></tr>
 <tr><td class="qname"><code>hmke:Event</code></td><td>歴史的出来事 (時間基準点)</td><td class="dr"><span class="none">—</span></td><td class="def">EntityInContext の時間的範囲を規定するための歴史的出来事。
 「ある人物が執政官に就任した」「ある都市が属州都となった」といった相対的な時間基準点として用いられる。
 絶対年代が不確実な場合であっても、Event 同士の前後関係 (mentionedAsPrecedent) に基づいて
-歴史的コンテキストの時間関係を記述できる。</td></tr>
+歴史的コンテキストの時間関係を記述できる。
+絶対年代が推定される場合は hmke:hasTimeSpan によって TimeSpan を与える。
+Event に年代を集約することで、学説の変更をその Event を参照するすべての
+EntityInContext に伝播させることができる。</td></tr>
 <tr><td class="qname"><code>hmke:Location</code></td><td>場所</td><td class="dr"><span class="none">—</span></td><td class="def">EntityInContext の属性として付与される地理的場所。地理座標や地名を保持する。</td></tr>
 <tr><td class="qname"><code>hmke:Role</code></td><td>地位・役職</td><td class="dr"><span class="none">—</span></td><td class="def">社会的地位・官職・所属集団における役割など、EntityInContext に付与されうる社会的属性。</td></tr>
+<tr><td class="qname"><code>hmke:TimeSpan</code></td><td>時間幅</td><td class="dr"><span class="none">—</span></td><td class="def">絶対年代による時間の範囲。EntityInContext と Event のいずれにも
+hmke:hasTimeSpan によって付与できる。
+開始・終了それぞれを xsd:gYear（年）・xsd:gYearMonth（年月）・xsd:date（年月日）の
+いずれかで記述でき、粒度が混在してもよい。
+年代が範囲としてしか確定しない場合（「194年春」など）は dateSince / dateUntil に
+その範囲を与え、単一時点は dateSince と dateUntil に同じ値を与えて表現する。
+片側のみが判明している場合（「195年8月28日以前」など）は一方を省略してよい。
+dateUntil は包含的（当該時点を含む）である。
+典拠が複数の説を併記する場合など、年代自体が不確実な場合は
+4点モデル (possibleSince / reliableSince / reliableUntil / possibleUntil) を併用する。
+なお dateSince / dateUntil の幅は粒度の粗さや状態の継続を表すものであり、
+不確実性とは区別される。
+出来事基準の時間表現 (hmke:eventSince / hmke:eventUntil) と併用可能。</td></tr>
   </tbody>
 </table>
-<h3>オブジェクトプロパティ (Object Properties) — 8 件</h3>
+<h3>オブジェクトプロパティ (Object Properties) — 14 件</h3>
 <table class="ttable">
   <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
   <tbody>
 <tr><td class="qname"><code>hmke:contextualAspectOf</code></td><td>文脈的側面</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Entity</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="func">Func</span></td><td class="def">EntityInContext が、どの普遍的実体 (Entity) の特定コンテキストにおける側面であるかを示す。
 一つの Entity は複数の EntityInContext を持ちうるが、EntityInContext は必ず 1 つの Entity と対応付けられる。</td></tr>
-<tr><td class="qname"><code>hmke:eventSince</code></td><td>開始基準となる出来事</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。</td></tr>
-<tr><td class="qname"><code>hmke:eventUntil</code></td><td>終了基準となる出来事</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。</td></tr>
+<tr><td class="qname"><code>hmke:endsAtEvent</code></td><td>出来事の終了をもって終わる</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr">hmke:eventUntil, owltime:intervalFinishes</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext の終期が、参照先の出来事の終了と一致することを述べる。
+絶対年代への解決では参照先の hmke:dateUntil を採る。
+点的な出来事（dateSince = dateUntil）を参照する場合は hmke:endsWithEvent と
+結果が一致するが、意味に即して本プロパティを用いる。
+OWL-Time の time:intervalFinishes に対応する。</td></tr>
+<tr><td class="qname"><code>hmke:endsWithEvent</code></td><td>出来事の開始と同時に終わる</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr">hmke:eventUntil, owltime:intervalMeets</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext の終期が、参照先の出来事の開始と一致することを述べる。
+後続の状態が始まることによって当該状態が終わる場合に用いる。
+絶対年代への解決では参照先の hmke:dateSince を採るが、これは排他的な上限であり、
+包含的な hmke:dateUntil へ書き下すには粒度 1 単位を差し引く
+（例：参照先 dateSince が 0202-01-01 なら dateUntil は 0201-12-31）。
+この差し引きを要するのは本プロパティのみである。
+OWL-Time の time:intervalMeets に対応し、隙間なく隣接することを述べる。</td></tr>
+<tr><td class="qname"><code>hmke:eventSince</code></td><td>開始基準となる出来事</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext のコンテキストが成立し始める時間的基準となる出来事 (Event)。
+参照先の出来事とどのような関係で結びつくかを区別する必要がある場合は、
+下位プロパティ hmke:startsWithEvent（出来事と同時）または
+hmke:startsAfterEvent（出来事の後）を用いる。</td></tr>
+<tr><td class="qname"><code>hmke:eventUntil</code></td><td>終了基準となる出来事</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext のコンテキストが終了する時間的基準となる出来事 (Event)。
+参照先の出来事とどのような関係で結びつくかを区別する必要がある場合は、
+下位プロパティ hmke:endsWithEvent（出来事の開始と同時）または
+hmke:endsAtEvent（出来事の終了をもって）を用いる。</td></tr>
 <tr><td class="qname"><code>hmke:hasLocation</code></td><td>所在地</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Location</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityInContext が有する地理的場所 (滞在地・活動地域など)。</td></tr>
-<tr><td class="qname"><code>hmke:hasRole</code></td><td>社会的地位・官職</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Role</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityInContext が有する社会的地位・官職・所属集団における役割など。</td></tr>
+<tr><td class="qname"><code>hmke:hasRole</code></td><td>社会的地位・官職</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Role</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityInContext が有する社会的地位・官職・所属集団における役割など。
+役職を統制語彙として正規化する場合や外部典拠に接続する場合に Role リソースを参照する。
+史料・典拠の記載をそのまま保持するだけであれば hmke:roleLabel を
+EntityInContext に直接付与すればよく、Role リソースの作成は必須ではない。</td></tr>
+<tr><td class="qname"><code>hmke:hasTimeSpan</code></td><td>時間幅</td><td class="dr">(hmke:EntityInContext ∪ hmke:Event)</td><td class="dr">hmke:TimeSpan</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">絶対年代による時間的範囲。EntityInContext と Event のいずれにも付与できる。
+EntityInContext に付与する場合は、そのコンテキストが成立している期間を表す。
+出来事基準 (eventSince / eventUntil) と併用する場合、出来事基準が一次的な定位であり、
+TimeSpan はそこから導かれた絶対年代の解釈として扱う。
+Event に付与する場合は、その出来事自体の年代を表す。</td></tr>
 <tr><td class="qname"><code>hmke:memberOf</code></td><td>所属集団</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Entity</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">EntityInContext が所属する共同体・政治勢力・家族などの Entity。</td></tr>
 <tr><td class="qname"><code>hmke:mentionedAsPrecedent</code></td><td>先行する出来事として言及</td><td class="dr">hmke:Event</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Event 同士の前後関係。この Event が他の Event よりも時系列的に先行することを示す。
 絶対年代が不明でも相対的な時間関係を記述できる。</td></tr>
+<tr><td class="qname"><code>hmke:precedes</code></td><td>先行する</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:EntityInContext</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext が時系列的に他の EntityInContext に先立つことを示す。</td></tr>
 <tr><td class="qname"><code>hmke:relatedEntityInContext</code></td><td>関連する文脈付き実体</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:EntityInContext</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">他の EntityInContext との関係 (家族関係・主従関係など)。より具体的な関係はサブプロパティで表現する。</td></tr>
+<tr><td class="qname"><code>hmke:startsAfterEvent</code></td><td>出来事の後に始まる</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr">hmke:eventSince, owltime:intervalAfter</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext の始期が、参照先の出来事の終了より後であることを述べる。
+絶対年代への解決では参照先の hmke:dateUntil を採る。始期の下限のみを与え、上限は与えない。
+OWL-Time の time:intervalAfter に対応する。</td></tr>
+<tr><td class="qname"><code>hmke:startsWithEvent</code></td><td>出来事と同時に始まる</td><td class="dr">hmke:EntityInContext</td><td class="dr">hmke:Event</td><td class="dr">hmke:eventSince, owltime:intervalStarts</td><td style="text-align:center"><span class="none">—</span></td><td class="def">この EntityInContext の始期が、参照先の出来事の開始と一致することを述べる。
+絶対年代への解決では参照先の hmke:dateSince を採る。
+OWL-Time の time:intervalStarts に対応する。</td></tr>
   </tbody>
 </table>
-<h3>データプロパティ (Datatype Properties) — 9 件</h3>
+<h3>データプロパティ (Datatype Properties) — 14 件</h3>
 <table class="ttable">
   <thead><tr><th style="width:15%">QName</th><th style="width:12%">ラベル</th><th style="width:12%">ドメイン</th><th style="width:12%">レンジ</th><th style="width:12%">上位プロパティ</th><th style="width:5%">属性</th><th>定義</th></tr></thead>
   <tbody>
-<tr><td class="qname"><code>hmke:absoluteDate</code></td><td>絶対年代</td><td class="dr">hmke:Event</td><td class="dr">xsd:gYear</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Event に絶対年代が推定される場合の年月日。不確実な場合は付与しない。</td></tr>
 <tr><td class="qname"><code>hmke:authorityURI</code></td><td>典拠 URI</td><td class="dr">hmke:Entity</td><td class="dr">xsd:anyURI</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Entity が対応付けられる外部典拠データの URI (Wikidata Q番号、VIAF ID、GeoNames ID、Pleiades ID など)。
 複数の典拠に対応付けられる場合は複数値を持ちうる。</td></tr>
+<tr><td class="qname"><code>hmke:dateSince</code></td><td>開始年代</td><td class="dr">hmke:TimeSpan</td><td class="dr">(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">TimeSpan の開始年代。xsd:gYear（年のみ）・xsd:gYearMonth（年月）・xsd:date（年月日）のいずれかで記述する。</td></tr>
+<tr><td class="qname"><code>hmke:dateUntil</code></td><td>終了年代</td><td class="dr">hmke:TimeSpan</td><td class="dr">(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">TimeSpan の終了年代。xsd:gYear（年のみ）・xsd:gYearMonth（年月）・xsd:date（年月日）のいずれかで記述する。
+この値は包含的（inclusive）である。すなわち当該時点自体が範囲に含まれる。</td></tr>
 <tr><td class="qname"><code>hmke:entityType</code></td><td>実体種別</td><td class="dr">hmke:Entity</td><td class="dr">xsd:string</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Entity の種別 (person / place / organization / object など)。</td></tr>
 <tr><td class="qname"><code>hmke:eventLabel</code></td><td>出来事の記述</td><td class="dr">hmke:Event</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Event の内容を表す自然言語のラベル (例: &#x27;Consulship of X in 121 CE&#x27;)。</td></tr>
 <tr><td class="qname"><code>hmke:label</code></td><td>正準名</td><td class="dr">hmke:Entity</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">Entity の正準的な名称 (現代の研究文献での標準綴り)。言語タグ付き文字列を推奨。</td></tr>
 <tr><td class="qname"><code>hmke:lat</code></td><td>緯度</td><td class="dr">hmke:Location</td><td class="dr">xsd:decimal</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def"><span class="none">—</span></td></tr>
 <tr><td class="qname"><code>hmke:locationLabel</code></td><td>場所の名称</td><td class="dr">hmke:Location</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">場所の地名 (現代地名 / 古代地名)。</td></tr>
 <tr><td class="qname"><code>hmke:long</code></td><td>経度</td><td class="dr">hmke:Location</td><td class="dr">xsd:decimal</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def"><span class="none">—</span></td></tr>
-<tr><td class="qname"><code>hmke:roleLabel</code></td><td>役職名</td><td class="dr">hmke:Role</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">官職名・地位の名称 (例: &#x27;consul&#x27;, &#x27;aedilis&#x27;, &#x27;flamen&#x27;, &#x27;patronus&#x27;)。</td></tr>
+<tr><td class="qname"><code>hmke:possibleSince</code></td><td>可能な始期の下限</td><td class="dr">hmke:TimeSpan</td><td class="dr">(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">始期としてあり得る最も早い時点。これより前に始まった可能性はない。
+全候補の和集合の下限。粒度の記述は hmke:dateSince に準じる。</td></tr>
+<tr><td class="qname"><code>hmke:possibleUntil</code></td><td>可能な終期の上限</td><td class="dr">hmke:TimeSpan</td><td class="dr">(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">終期としてあり得る最も遅い時点。これより後まで継続した可能性はない。
+全候補の和集合の上限。粒度の記述は hmke:dateUntil に準じる。</td></tr>
+<tr><td class="qname"><code>hmke:reliableSince</code></td><td>確実な始期の上限</td><td class="dr">hmke:TimeSpan</td><td class="dr">(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この時点までには確実に始まっていたと言える時点。全候補の積集合の下限。
+hmke:possibleSince と一致する場合、始期に不確実性がないことを表す。</td></tr>
+<tr><td class="qname"><code>hmke:reliableUntil</code></td><td>確実な終期の下限</td><td class="dr">hmke:TimeSpan</td><td class="dr">(xsd:gYear ∪ xsd:gYearMonth ∪ xsd:date)</td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">この時点までは確実に継続していたと言える時点。全候補の積集合の上限。
+典拠が「〜以前」という証拠上限のみを示す場合、それは保持の終期ではなく
+本プロパティの値として記述する。
+hmke:reliableSince より小さい場合、確実に含まれる核が存在しないことを表す。</td></tr>
+<tr><td class="qname"><code>hmke:roleLabel</code></td><td>役職名</td><td class="dr">(hmke:Role ∪ hmke:EntityInContext)</td><td class="dr"><span class="none">—</span></td><td class="dr"><span class="none">—</span></td><td style="text-align:center"><span class="none">—</span></td><td class="def">官職名・地位の名称。Role と EntityInContext のいずれにも付与できる。
+Role に付与する場合は、その役職の正準的な名称 (例: &#x27;consul&#x27;, &#x27;aedilis&#x27;, &#x27;flamen&#x27;, &#x27;patronus&#x27;)。
+EntityInContext に付与する場合は、その文脈における役職の記載そのもの
+(例: &#x27;cos. I suff.&#x27;, &#x27;imp. IV&#x27;, &#x27;trib. pot. XIX&#x27;)。
+就任回数 (iteratio) や suffectus / designatus の別を含む記載は、
+正準名への正規化によって失われるため、EntityInContext 側のラベルとして保持する。
+統制語彙への正規化や外部典拠への接続が必要な場合は、
+hmke:hasRole によって Role リソースを併せて参照する。</td></tr>
   </tbody>
 </table>
 <h2 style="background:#8b5cf6">解釈行為層  <code style="background:rgba(255,255,255,0.2); color:#fff; padding:1px 6px; border-radius:2px; font-size:11px">hmkia:</code></h2>
-<h3>クラス (Classes) — 4 件</h3>
+<h3>クラス (Classes) — 7 件</h3>
 <table class="ttable">
   <thead><tr><th style="width:16%">QName</th><th style="width:14%">ラベル</th><th style="width:18%">上位クラス</th><th>定義</th></tr></thead>
   <tbody>
 <tr><td class="qname"><code>hmkia:Agent</code></td><td>解釈主体</td><td class="dr">prov:Agent</td><td class="def">解釈行為を実施した主体 (研究者・研究チーム・機械学習モデルなど)。</td></tr>
+<tr><td class="qname"><code>hmkia:AgentRole</code></td><td>主体役割</td><td class="dr">prov:Role</td><td class="def">解釈行為における主体の役割。prov:Role のサブクラス。</td></tr>
+<tr><td class="qname"><code>hmkia:HumanAgent</code></td><td>人間主体</td><td class="dr">hmkia:Agent, prov:Person</td><td class="def">解釈行為に関与した人間の研究者または研究チーム。学術的責任を担う主体。</td></tr>
 <tr><td class="qname"><code>hmkia:InterpretationAct</code></td><td>解釈行為</td><td class="dr">hico:InterpretationAct, prov:Activity</td><td class="def">歴史研究者による解釈行為そのものを実体化したリソース。
 Annotation・Statement・EntityInContext などの知識リソースは、必ずいずれかの InterpretationAct
 から生成される。InterpretationAct 自体は生成主体 (Agent)・生成日時 (Date) を保持し、
@@ -369,6 +441,7 @@ UpdateAct が生成したリソースは新しい URI を持つ別インスタ�
 prov:wasRevisionOf によって前バージョンのリソースを参照する。
 UpdateAct 自身は hmkia:revises によって先行する InterpretationAct
 (CreationAct または UpdateAct) を参照する。</td></tr>
+<tr><td class="qname"><code>hmkia:SoftwareAgent</code></td><td>ソフトウェア主体</td><td class="dr">hmkia:Agent, prov:SoftwareAgent</td><td class="def">解釈行為を計算的に実行したソフトウェア (LLM・スクリプトなど)。</td></tr>
   </tbody>
 </table>
 <h3>オブジェクトプロパティ (Object Properties) — 8 件</h3>

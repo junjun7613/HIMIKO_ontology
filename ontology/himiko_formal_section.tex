@@ -1,0 +1,207 @@
+% =====================================================================
+%  3.2.6  HIMIKO の形式的定式化
+%  --------------------------------------------------------------------
+%  論文 3.2 節（散文＋概念関連図）の後に置く小節。
+%  散文が主・数式が従。初等的な集合・写像記法を本文に置き、
+%  対応する記述論理(DL)/OWL 公理を併記して実装 (hmk_owl/*.ttl) との
+%  橋渡しとする。論文本文の概念名を主とし、実装名を括弧で併記する。
+%
+%  必要パッケージ: amsmath, amssymb, （DL の \sqsubseteq 等は amssymb）
+% =====================================================================
+
+\subsection{HIMIKO の形式的定式化}
+\label{sec:himiko-formal}
+
+前節までに述べた HIMIKO の概念モデルは散文と概念関連図によって記述してきたが、
+モデルの構造を一意に確定し、実装（RDF/OWL）との対応関係を明示するために、
+本節ではその形式的な定式化を与える。
+以下では論文本文で用いた概念名を主とし、実装オントロジー
+（本研究の \texttt{hmk\_owl/*.ttl}）における名称を括弧で併記する。
+なお本定式化は概念モデルの構造を明確化するための補助的記述であり、
+\ref{sec:concept-summary}項で述べたとおり、
+具体的なクラス・プロパティ・データ形式は対象史料に応じて設計される点は変わらない。
+
+\subsubsection*{全体構造：型付きグラフ}
+
+HIMIKO に基づく歴史マイクロナレッジは、ノードをクラスで、辺をプロパティで
+型付けした有向ラベル付きグラフ
+\[
+  G = (V,\, E), \qquad E \subseteq V \times P \times V
+\]
+として表される。ここで $V$ はデータリソースの集合、$P$ はプロパティの集合である。
+ノード集合 $V$ は本モデルの三層に、これを横断する解釈行為
+（Interpretation Act, \texttt{hmkia:InterpretationAct}）を加えた四つの部分に分割される。
+\[
+  V \;=\;
+  \underbrace{V_{P}}_{\text{史料物理層}} \ \sqcup\
+  \underbrace{V_{I}}_{\text{史料内在知識層}} \ \sqcup\
+  \underbrace{V_{E}}_{\text{外在知識層}} \ \sqcup\
+  \underbrace{V_{A}}_{\text{解釈行為}}
+\]
+各ノードには型付け関数 $\tau : V \to \mathcal{C}$ によってクラスが与えられる。
+本モデルが導入する主要概念（7 概念）は各層のクラス集合に配置される。
+\begin{align*}
+  \mathcal{C}_P &= \{\,\text{Source},\ \text{Source Fragment},\ \text{Annotation}\,\}, \\
+  \mathcal{C}_I &= \{\,\text{Micro Knowledge},\ \text{Entity Reference}\,\}, \\
+  \mathcal{C}_E &= \{\,\text{Entity In Context},\ \text{Entity}\,\}, \\
+  \mathcal{C}_A &= \{\,\text{Interpretation Act}\,\}.
+\end{align*}
+（実装では Source Fragment を文字レベルに具体化した Text/Character
+〔\texttt{hmkp:Text}, \texttt{hmkp:Character}〕として、
+また Micro Knowledge を Statement〔\texttt{hmki:Statement}〕として表現する。）
+
+\subsubsection*{史料物理層：文字の線形順序}
+
+史料物理層は、\ref{sec:physical}項で述べた ATAG の方針に従い、
+テキストを文字（Character, \texttt{hmkp:Character}）を最小単位とする列として構造化する。
+テキスト $t$ が担う文字集合を $C_t$ とし、「次の文字」関係
+（\texttt{hmkp:next}）が関数的（\texttt{owl:FunctionalProperty}）であることから、
+後続を与える単射かつ非巡回の部分関数
+\[
+  \mathrm{next}: C_t \rightharpoonup C_t
+\]
+が定まる。これにより $(C_t,\ \mathrm{next})$ は先頭文字（\texttt{hmkp:firstChar}）を
+起点とする線形順序をなし、位置写像 $o : C_t \to \mathbb{N}$ を
+\[
+  o\bigl(\mathrm{next}(c)\bigr) = o(c)+1, \qquad
+  o\bigl(\text{firstChar}(t)\bigr) = 0
+\]
+によって与えることができる。すなわち文字列は自然数の始切片と同型な鎖である。
+テキスト上の領域を参照するアノテーション（Annotation, \texttt{hmkp:Annotation}）$a$ は、
+始点・終点（\texttt{hmkp:start}, \texttt{hmkp:end}）によって規定される半開区間
+\[
+  \rho(a) = \bigl[\,\mathrm{start}(a),\ \mathrm{end}(a)\,\bigr),
+  \qquad
+  \{\, c \in C_t \mid \mathrm{start}(a) \le o(c) < \mathrm{end}(a)\,\}
+\]
+として、この順序上の部分列を指す。同一箇所への複数アノテーションや
+アノテーションへの再アノテーションは、いずれも同じ $C_t$ 上の区間を指す
+複数の $a$ として無制約に共存できる（\ref{sec:physical}項で述べた ATAG の柔軟性）。
+
+\paragraph{記述論理による対応（実装）。}
+上記の関数性・区間参照は実装オントロジーにおいて次の公理に対応する。
+\begin{align*}
+  &\mathsf{Func}(\texttt{next}),\quad
+   \mathsf{Func}(\texttt{firstChar}),\quad
+   \mathsf{Func}(\texttt{offset}) \\
+  &\texttt{Text} \sqsubseteq {\le}1\,\texttt{firstChar}.\texttt{Character},\qquad
+   \texttt{Annotation} \sqsubseteq \exists\,\texttt{hasRange}.\texttt{Character}
+\end{align*}
+
+\subsubsection*{史料内在知識層：文字集合に接地する言及}
+
+史料内在知識層では、史料に記述される出来事・状態・関係性を
+イベント言及（Micro Knowledge / Statement, \texttt{hmki:Statement}）として表現する。
+各言及は、それが根拠とする史料上の文字を指すことで物理層に接地する。
+この接地関係（\texttt{hmki:mentions}）は複数の文字にまたがりうるため、
+文字集合のべき集合への写像
+\[
+  \mu:\ \text{Micro Knowledge} \ \longrightarrow\ \mathcal{P}(C)
+\]
+として与えられる（$C$ は全文字の集合）。
+言及を構成する人物・場所・組織などは、史料横断的な普遍的実体としてではなく、
+その史料における一回的なエンティティ言及
+（Entity Reference, \texttt{hmki:EntityReference}）として表現され、
+\[
+  \mathrm{refs}:\ \text{Micro Knowledge} \ \longrightarrow\ \mathcal{P}(\text{Entity Reference})
+\]
+によって参照される（\texttt{hmki:references}）。各エンティティ言及もまた
+$\mathrm{range} : \text{Entity Reference} \to \mathcal{P}(C)$ により文字範囲に接地する。
+さらに、\ref{sec:intrinsic}項で述べたとおりイベント言及どうしは時系列・因果などの
+意味的関係によって再帰的に接続されうる。これを二項関係
+\[
+  R_{\mathrm{rel}} \subseteq \text{Micro Knowledge} \times \text{Micro Knowledge}
+\]
+とし、時系列・因果はその部分関係 $R_{\prec},\,R_{\mathrm{cause}} \subseteq R_{\mathrm{rel}}$
+として区別する（\texttt{hmki:precedes}, \texttt{hmki:causedBy}
+$\sqsubseteq$ \texttt{hmki:relatedTo}）。
+
+\subsubsection*{外在知識層：三段階の参照構造}
+
+外在知識層の中核は、\ref{sec:extrinsic}項で論じた
+「エンティティ言及―文脈付き実体―普遍的実体」という三段階構造である。
+エンティティ言及は、普遍的実体（Entity, \texttt{hmke:Entity}）を直接参照する
+（\texttt{hmki:referencesEntity}）とともに、
+歴史的文脈を伴った文脈付き実体（Entity In Context, \texttt{hmke:EntityInContext}）を
+介して参照される（\texttt{hmki:referencesEntityInContext}）。
+文脈付き実体から普遍的実体への対応（\texttt{hmke:contextualAspectOf}）は関数的であり、
+\[
+  \kappa:\ \text{Entity In Context} \ \longrightarrow\ \text{Entity}
+\]
+という（単射とは限らない）写像を与える。
+一つの普遍的実体 $e$ に対する文脈付き実体の全体はそのファイバー
+$\kappa^{-1}(e)$ として表され、これが同一人物・同一地名について
+「若年期の人物」「総督在任中の人物」といった複数の歴史的コンテキストを
+併存させうる（\ref{sec:extrinsic}項）ことの形式的表現である。
+時間的範囲は絶対年代ではなく出来事（Event, \texttt{hmke:Event}）の相対順序
+\[
+  R_{\mathrm{prec}} \subseteq \text{Event} \times \text{Event}
+  \qquad (\texttt{hmke:mentionedAsPrecedent})
+\]
+——狭義半順序——によって与えられ、各文脈付き実体は
+\texttt{hmke:eventSince}, \texttt{hmke:eventUntil} によってこの順序上に位置づけられる。
+
+\paragraph{記述論理による対応（実装）。}
+\begin{align*}
+  &\mathsf{Func}(\texttt{contextualAspectOf}) \\
+  &\texttt{EntityInContext} \sqsubseteq
+     {=}1\,\texttt{contextualAspectOf}.\texttt{Entity} \\
+  &\texttt{EntityReference} \sqsubseteq
+     \exists\,\texttt{referencesEntityInContext}.\texttt{EntityInContext}
+\end{align*}
+一つの $e$ に複数の文脈付き実体が対応しうること（解釈の多様性）は、
+$\kappa$ が単射であるとは仮定しないこと、すなわち逆側に基数制約を課さないことに対応する。
+
+\subsubsection*{解釈行為：全層を横断する生成関数}
+
+\ref{sec:interpretation}項で述べたとおり、三層のデータリソースはすべて
+研究者の解釈行為（Interpretation Act, \texttt{hmkia:InterpretationAct}）によって生成される。
+生成対象となる知識リソースの全体を
+\[
+  V_{\mathrm{know}} \;=\; V_P^{\text{\upshape ann}} \,\cup\, V_I \,\cup\, V_E
+\]
+（アノテーション・イベント言及・エンティティ言及・文脈付き実体・普遍的実体など）とすると、
+生成関係（\texttt{hmkia:generatedBy}）は $V_{\mathrm{know}}$ から解釈行為への
+\emph{全域関数}
+\[
+  \gamma:\ V_{\mathrm{know}} \ \longrightarrow\ \text{Interpretation Act}
+\]
+を与える。これが「原則としてすべてのデータに生成コンテキストが付与される」
+（\ref{sec:interpretation}項）ことの形式的内容であり、
+$\gamma$ の定義域が前三層のノード全体、値域が解釈行為層 $V_A$ に完全に収まる、
+という事実が「解釈行為が三層を横断する」ことの厳密な言い換えである。
+各解釈行為は生成主体（Agent, \texttt{hmkia:Agent}）と生成日時
+（\texttt{hmkia:hasDate}）を保持し、解釈行為どうしは支持・批判・修正の関係
+\[
+  R_A \subseteq \text{Interpretation Act}^2,
+  \qquad
+  R_A = \mathrm{supports} \,\sqcup\, \mathrm{critiques} \,\sqcup\, \mathrm{revises}
+\]
+によって再帰的に接続される（\texttt{hmkia:supports}, \texttt{hmkia:critiques},
+\texttt{hmkia:revises}；CiTO/HiCO に対応）。
+
+\paragraph{記述論理による対応（実装）。}
+\[
+  V_{\mathrm{know}} \sqsubseteq
+     {=}1\,\texttt{generatedBy}.\texttt{InterpretationAct}
+  \qquad(\gamma\ \text{の全域性・一意性})
+\]
+
+\subsubsection*{全体の要約}
+
+以上をまとめると、HIMIKO は次の四つの構成要素の合成として一意に定まる。
+\[
+  \underbrace{(C,\ \mathrm{next})}_{\text{文字の線形順序}}
+  \ \xleftarrow{\ \mu\ }\
+  \underbrace{\bigl(\text{Micro Knowledge},\ R_{\mathrm{rel}}\bigr)}_{\text{言及のグラフ}}
+  \ \xrightarrow{\ \kappa\ }\
+  \underbrace{\bigl(\text{Entity In Context} \to \text{Entity}\bigr)}_{\text{三段階参照}}
+  \ \xrightarrow{\ \gamma\ }\
+  \underbrace{\text{Interpretation Act}}_{\text{生成コンテキスト}}
+\]
+すなわち、文字を最小単位とする線形順序、その部分集合に接地するイベント言及のグラフ、
+文脈付き実体を経由して普遍的実体へ収束する参照構造、
+そして前三層のすべてのリソースを解釈行為へ写す生成関数 $\gamma$ の四者である。
+とりわけ、\texttt{next}・\texttt{contextualAspectOf}・\texttt{generatedBy} などの
+関数性（$\mathsf{Func}$）が、物理層を\emph{線形順序}に、外在層を普遍的実体への\emph{写像}に、
+解釈行為を全リソース上の\emph{全域関数}に確定させており、これらがモデルの骨格をなす。

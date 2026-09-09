@@ -1,0 +1,193 @@
+════════════════════════════════════════════════════════════════════
+ 3.2.6　HIMIKO の形式的定式化
+────────────────────────────────────────────────────────────────────
+ Word 貼り付け用プレーンテキスト版。数式は Unicode 記号で表現する。
+ ・項番号「3.2.6」および本文中の参照（3.2.1〜3.2.5）は、論文側の
+   実際の番号に差し替えること。
+ ・下付き・上付き（V_P など）は Unicode の下付き/上付き文字を用いた。
+   Word で見出しレベル・斜体等は貼り付け後に整えること。
+════════════════════════════════════════════════════════════════════
+
+
+3.2.6　HIMIKO の形式的定式化
+
+　前節までに述べた HIMIKO の概念モデルは散文と概念関連図によって記述して
+きたが、モデルの構造を一意に確定し、実装（RDF/OWL）との対応関係を明示する
+ために、本節ではその形式的な定式化を与える。以下では論文本文で用いた概念名
+を主とし、実装オントロジー（本研究の hmk_owl/*.ttl）における名称を括弧で
+併記する。なお本定式化は概念モデルの構造を明確化するための補助的記述であり、
+3.2.5 項で述べたとおり、具体的なクラス・プロパティ・データ形式は対象史料に
+応じて設計される点は変わらない。
+
+
+■ 全体構造：型付きグラフ
+
+　HIMIKO に基づく歴史マイクロナレッジは、ノードをクラスで、辺をプロパティで
+型付けした有向ラベル付きグラフ
+
+　　G = (V, E),　　E ⊆ V × P × V
+
+として表される。ここで V はデータリソースの集合、P はプロパティの集合である。
+ノード集合 V は本モデルの三層に、これを横断する解釈行為（Interpretation Act,
+hmkia:InterpretationAct）を加えた四つの部分に分割される。
+
+　　V = Vₚ ⊔ Vᵢ ⊔ Vₑ ⊔ Vₐ
+　　　（Vₚ：史料物理層、Vᵢ：史料内在知識層、Vₑ：外在知識層、Vₐ：解釈行為）
+
+各ノードには型付け関数 τ : V → 𝒞 によってクラスが与えられる。本モデルが導入
+する主要概念（7 概念）は各層のクラス集合に配置される。
+
+　　𝒞ₚ = { Source, Source Fragment, Annotation }
+　　𝒞ᵢ = { Micro Knowledge, Entity Reference }
+　　𝒞ₑ = { Entity In Context, Entity }
+　　𝒞ₐ = { Interpretation Act }
+
+（実装では Source Fragment を文字レベルに具体化した Text／Character
+〔hmkp:Text, hmkp:Character〕として、また Micro Knowledge を Statement
+〔hmki:Statement〕として表現する。）
+
+
+■ 史料物理層：文字の線形順序
+
+　史料物理層は、3.2.1 項で述べた ATAG の方針に従い、テキストを文字（Character,
+hmkp:Character）を最小単位とする列として構造化する。テキスト t が担う文字集合を
+Cₜ とし、「次の文字」関係（hmkp:next）が関数的（owl:FunctionalProperty）である
+ことから、後続を与える単射かつ非巡回の部分関数
+
+　　next : Cₜ ⇀ Cₜ
+
+が定まる。これにより (Cₜ, next) は先頭文字（hmkp:firstChar）を起点とする線形順序
+をなし、位置写像 o : Cₜ → ℕ を
+
+　　o(next(c)) = o(c) + 1,　　o(firstChar(t)) = 0
+
+によって与えることができる。すなわち文字列は自然数の始切片と同型な鎖である。
+テキスト上の領域を参照するアノテーション（Annotation, hmkp:Annotation）a は、
+始点・終点（hmkp:start, hmkp:end）によって規定される半開区間
+
+　　ρ(a) = [ start(a), end(a) ),
+　　{ c ∈ Cₜ | start(a) ≤ o(c) < end(a) }
+
+として、この順序上の部分列を指す。同一箇所への複数アノテーションやアノテーション
+への再アノテーションは、いずれも同じ Cₜ 上の区間を指す複数の a として無制約に共存
+できる（3.2.1 項で述べた ATAG の柔軟性）。
+
+　〔記述論理による対応（実装）〕
+　　Func(next),　Func(firstChar),　Func(offset)
+　　Text ⊑ ≤1 firstChar.Character
+　　Annotation ⊑ ∃ hasRange.Character
+
+
+■ 史料内在知識層：文字集合に接地する言及
+
+　史料内在知識層では、史料に記述される出来事・状態・関係性をイベント言及
+（Micro Knowledge／Statement, hmki:Statement）として表現する。各言及は、それが
+根拠とする史料上の文字を指すことで物理層に接地する。この接地関係（hmki:mentions）
+は複数の文字にまたがりうるため、文字集合のべき集合への写像
+
+　　μ : Micro Knowledge → 𝒫(C)
+
+として与えられる（C は全文字の集合）。言及を構成する人物・場所・組織などは、史料
+横断的な普遍的実体としてではなく、その史料における一回的なエンティティ言及（Entity
+Reference, hmki:EntityReference）として表現され、
+
+　　refs : Micro Knowledge → 𝒫(Entity Reference)
+
+によって参照される（hmki:references）。各エンティティ言及もまた range : Entity
+Reference → 𝒫(C) により文字範囲に接地する。さらに、3.2.2 項で述べたとおりイベント
+言及どうしは時系列・因果などの意味的関係によって再帰的に接続されうる。これを二項関係
+
+　　R_rel ⊆ Micro Knowledge × Micro Knowledge
+
+とし、時系列・因果はその部分関係 R_≺, R_cause ⊆ R_rel として区別する
+（hmki:precedes, hmki:causedBy ⊑ hmki:relatedTo）。
+
+
+■ 外在知識層：三段階の参照構造
+
+　外在知識層の中核は、3.2.3 項で論じた「エンティティ言及―文脈付き実体―普遍的実体」
+という三段階構造である。エンティティ言及は、普遍的実体（Entity, hmke:Entity）を
+直接参照する（hmki:referencesEntity）とともに、歴史的文脈を伴った文脈付き実体
+（Entity In Context, hmke:EntityInContext）を介して参照される
+（hmki:referencesEntityInContext）。文脈付き実体から普遍的実体への対応
+（hmke:contextualAspectOf）は関数的であり、
+
+　　κ : Entity In Context → Entity
+
+という（単射とは限らない）写像を与える。一つの普遍的実体 e に対する文脈付き実体の
+全体はそのファイバー κ⁻¹(e) として表され、これが同一人物・同一地名について「若年期の
+人物」「総督在任中の人物」といった複数の歴史的コンテキストを併存させうる（3.2.3 項）
+ことの形式的表現である。時間的範囲は絶対年代ではなく出来事（Event, hmke:Event）の
+相対順序
+
+　　R_prec ⊆ Event × Event　　（hmke:mentionedAsPrecedent）
+
+――狭義半順序――によって与えられ、各文脈付き実体は hmke:eventSince, hmke:eventUntil
+によってこの順序上に位置づけられる。
+
+　〔記述論理による対応（実装）〕
+　　Func(contextualAspectOf)
+　　EntityInContext ⊑ =1 contextualAspectOf.Entity
+　　EntityReference ⊑ ∃ referencesEntityInContext.EntityInContext
+
+一つの e に複数の文脈付き実体が対応しうること（解釈の多様性）は、κ が単射であると
+仮定しないこと、すなわち逆側に基数制約を課さないことに対応する。
+
+
+■ 解釈行為：全層を横断する生成関数
+
+　3.2.4 項で述べたとおり、三層のデータリソースはすべて研究者の解釈行為
+（Interpretation Act, hmkia:InterpretationAct）によって生成される。生成対象となる
+知識リソースの全体を
+
+　　V_know = Vₚᵃⁿⁿ ∪ Vᵢ ∪ Vₑ
+
+（アノテーション・イベント言及・エンティティ言及・文脈付き実体・普遍的実体など）と
+すると、生成関係（hmkia:generatedBy）は V_know から解釈行為への全域関数
+
+　　γ : V_know → Interpretation Act
+
+を与える。これが「原則としてすべてのデータに生成コンテキストが付与される」（3.2.4 項）
+ことの形式的内容であり、γ の定義域が前三層のノード全体、値域が解釈行為層 Vₐ に完全に
+収まる、という事実が「解釈行為が三層を横断する」ことの厳密な言い換えである。各解釈行為
+は生成主体（Agent, hmkia:Agent）と生成日時（hmkia:hasDate）を保持し、解釈行為どうしは
+支持・批判・修正の関係
+
+　　R_A ⊆ Interpretation Act²,
+　　R_A = supports ⊔ critiques ⊔ revises
+
+によって再帰的に接続される（hmkia:supports, hmkia:critiques, hmkia:revises；
+CiTO/HiCO に対応）。
+
+　〔記述論理による対応（実装）〕
+　　V_know ⊑ =1 generatedBy.InterpretationAct　（γ の全域性・一意性）
+
+
+■ 全体の要約
+
+　以上をまとめると、HIMIKO は次の四つの構成要素の合成として一意に定まる。
+
+　　(C, next) ──μ──▶ (Micro Knowledge, R_rel) ──κ──▶
+　　　　　　　　　　　(Entity In Context → Entity) ──γ──▶ Interpretation Act
+
+　　　　※ μ は Micro Knowledge から (C, next) の文字集合への接地写像。
+
+すなわち、文字を最小単位とする線形順序、その部分集合に接地するイベント言及のグラフ、
+文脈付き実体を経由して普遍的実体へ収束する参照構造、そして前三層のすべてのリソースを
+解釈行為へ写す生成関数 γ の四者である。とりわけ、next・contextualAspectOf・
+generatedBy などの関数性（Func）が、物理層を線形順序に、外在層を普遍的実体への写像に、
+解釈行為を全リソース上の全域関数に確定させており、これらがモデルの骨格をなす。
+
+
+────────────────────────────────────────────────────────────────────
+ 使用した Unicode 記号の凡例（Word で文字化けした場合の確認用）
+────────────────────────────────────────────────────────────────────
+　⊆ 部分集合　　× 直積　　⊔ 非交和　　∪ 和集合　　∈ 属する
+　→ 写像（全域）　⇀ 部分写像　　↦ 元の対応　　◀▶ 矢印（要約図）
+　𝒞 クラス集合（花文字C）　𝒫 べき集合（花文字P）　ℕ 自然数
+　τ タウ（型付け関数）　μ ミュー　κ カッパ　γ ガンマ　ρ ロー　o 位置写像
+　≤ 以下　< 未満　≥ 以上　≠ 等しくない
+　⊑ 包摂（DL）　∃ 存在　∀ 全称　=1／≤1 基数制約（DL）
+　Vₚ Vᵢ Vₑ Vₐ 下付き（物理/内在/外在/解釈）　Cₜ 下付き t　κ⁻¹ 逆像
+　Vₚᵃⁿⁿ 上付き ann　Act² 上付き 2　R_rel R_≺ R_cause R_prec R_A 関係（下付きは _ で表記）
+════════════════════════════════════════════════════════════════════
