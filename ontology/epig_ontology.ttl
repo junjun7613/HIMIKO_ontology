@@ -1,4 +1,5 @@
 @prefix epig:    <http://epigraphic-careers.org/ontology#> .
+@prefix epigf:   <http://epigraphic-careers.org/ontology/funding/> .
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
@@ -70,6 +71,43 @@ epig:BenefactionStatement a owl:Class ;
     rdfs:label "Benefaction Statement"@en , "寄進言及"@ja ;
     rdfs:comment "碑文中で言及される寄進・恩恵行為。hmki:Statement のサブクラス。"@ja ;
     rdfs:subClassOf hmki:Statement .
+
+epig:FundingType a owl:Class ;
+    rdfs:label "Funding Type"@en , "財源種別"@ja ;
+    rdfs:comment "財源の抽象カテゴリを表すコントロールドボキャブラリ。epigf: 名前空間（http://epigraphic-careers.org/ontology/funding/）下のURIとして定義。"@ja ;
+    rdfs:subClassOf skos:Concept .
+
+#    FundingType — コントロールドボキャブラリ個体
+
+epigf:private a epig:FundingType ;
+    rdfs:label "private funds"@en , "私財"@ja ;
+    skos:notation "private" ;
+    skos:definition "個人の私財から支出。sua pecunia, ex sua liberalitate, de sua pecunia, impensa sua 等に対応。"@ja .
+
+epigf:public a epig:FundingType ;
+    rdfs:label "public funds"@en , "公金"@ja ;
+    skos:notation "public" ;
+    skos:definition "公共財源から支出。pecunia publica, de publico 等に対応。"@ja .
+
+epigf:honorarium a epig:FundingType ;
+    rdfs:label "honorarium"@en , "就任謝礼"@ja ;
+    skos:notation "honorarium" ;
+    skos:definition "就任時の謝礼金から支出。ex summa honoraria, ob honorem 等に対応。"@ja .
+
+epigf:interest a epig:FundingType ;
+    rdfs:label "interest income"@en , "利子収益"@ja ;
+    skos:notation "interest" ;
+    skos:definition "元本寄付の利子収益から支出。ex usuris, ex reditu, ex reditibus 等に対応。"@ja .
+
+epigf:bequest a epig:FundingType ;
+    rdfs:label "bequest"@en , "遺贈"@ja ;
+    skos:notation "bequest" ;
+    skos:definition "遺言による財産移転。testamento, ex testamento 等に対応。"@ja .
+
+epigf:fine a epig:FundingType ;
+    rdfs:label "fine"@en , "罰金"@ja ;
+    skos:notation "fine" ;
+    skos:definition "罰金から支出。ex multis, ex multa 等に対応。"@ja .
 
 epig:RelationshipStatement a owl:Class ;
     rdfs:label "Relationship Statement"@en , "関係言及"@ja ;
@@ -487,6 +525,33 @@ epig:recipientsEnrichedBy a owl:ObjectProperty ;
     rdfs:comment "旧スタイル: バージョン付き Statement + prov:wasRevisionOf に移行済み。"@ja ;
     rdfs:domain epig:BenefactionStatement ; rdfs:range hmkia:InterpretationAct ;
     owl:deprecated true .
+
+#################################################################
+#    財源プロパティ  —  BenefactionStatement
+#################################################################
+# 恵与の記述は「誰が、誰／共同体に、何を」の三項関係を軸とし、
+# epig:BenefactionStatement 単層で表現する。複式簿記由来の
+# Transaction / Transfer / Account 層は、元本と果実が分離する基金碑文
+# （全体の 0.5% 未満）以外では単一ノードを包むだけで情報を持たないため、
+# 財源に関する属性のみを Statement に直接付与する形に整理した。
+
+epig:fundingType a owl:ObjectProperty ;
+    rdfs:label "funding type"@en , "財源種別"@ja ;
+    rdfs:comment "財源の抽象カテゴリ。複数値可（例：private かつ bequest）。値は epig:FundingType のコントロールドボキャブラリ（epigf:private 等）を使用。碑文に財源が明示されない場合は本プロパティを付与しない。"@ja ;
+    rdfs:domain epig:BenefactionStatement ;
+    rdfs:range  epig:FundingType .
+
+epig:fundingEvidence a owl:DatatypeProperty ;
+    rdfs:label "funding evidence"@en , "財源根拠原文"@ja ;
+    rdfs:comment "財源種別の根拠となる碑文原文（ラテン語）。epig:fundingType の抽象カテゴリに対する証拠テキスト。例：'ex sua liberalitate', 'ex usuris', 'testamento'。epig:fundingType を伴う場合にのみ付与する。"@ja ;
+    rdfs:domain epig:BenefactionStatement ;
+    rdfs:range  xsd:string .
+
+epig:recurrence a owl:DatatypeProperty ;
+    rdfs:label "recurrence"@en , "反復性"@ja ;
+    rdfs:comment "行為の反復性。'annual'（毎年）/ 'perpetual'（永続）のいずれか。quotannis, in perpetuum 等の定型句が碑文に認められる場合にのみ付与し、言及がない場合は一度限りと断定せず本プロパティを省略する。"@ja ;
+    rdfs:domain epig:BenefactionStatement ;
+    rdfs:range  xsd:string .
 
 #################################################################
 #    Datatype Properties  —  RelationshipStatement
