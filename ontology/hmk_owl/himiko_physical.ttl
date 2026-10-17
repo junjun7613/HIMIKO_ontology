@@ -24,7 +24,7 @@ ATAG (Annotated Text and Graphs) の考え方に基づく。
 TEI/EDCS など特定フォーマット由来の細目 (アノテーション種別・欠損理由・単位など) は、
 本コアには含めず TEI 変換プロファイル (urn:himiko:ontology:physical:tei, hmktei:) に分離する。"""@ja ;
     dcterms:creator "HIMIKO project" ;
-    owl:versionInfo "1.1.0" .
+    owl:versionInfo "1.2.0" .
 
 #################################################################
 #    Classes
@@ -47,7 +47,8 @@ hmkp:Source a owl:Class ;
     rdfs:label "Source"@en , "史料"@ja ;
     rdfs:comment """史料そのものが有する物質的実体 (碑文の石材、パピルス、写本の紙・冊子など)。
 テキスト情報を担う物理的な媒体を表現する。1 つの Source は hmkp:bears によって Text を担う。
-また、hmkp:mentions によって史料内在知識層の Statement (イベント言及) に直接接続される。"""@ja .
+また、hmkp:mentions によって史料内在知識層の Statement (イベント言及) および
+EntityReference (エンティティ言及) に直接接続される。"""@ja .
 
 #################################################################
 #    Object Properties  (structural links)
@@ -78,13 +79,17 @@ hmkp:bears a owl:ObjectProperty ;
     rdfs:range hmkp:Text .
 
 hmkp:mentions a owl:ObjectProperty ;
-    rdfs:label "mentions (source → statement)"@en , "言及する"@ja ;
-    rdfs:comment """Source がその内容として言及するイベント (Statement)。
-史料が物理的レベルで意味的内容 (史料内在知識層の Statement) に接続することを示す抽象的関係。
+    rdfs:label "mentions (source → statement / entity reference)"@en , "言及する"@ja ;
+    rdfs:comment """Source がその内容として言及するイベント (Statement) またはエンティティ言及 (EntityReference)。
+史料が物理的レベルで意味的内容 (史料内在知識層) に接続することを示す抽象的関係。
 Statement が実際にどの Character 範囲を指しているかは、Statement 側の hmki:mentions
-プロパティで表現される (Statement は複数の Character を指すため多重関係)。"""@ja ;
+プロパティで表現される (Statement は複数の Character を指すため多重関係)。
+range に EntityReference を含めるのは、いかなる Statement にも参加しないエンティティ言及
+(例: 碑文中で単に名を挙げられるだけの共同体) が存在するためで、そうした言及は
+Statement 経由では史料に接続できない。EntityReference がどの Character 範囲を指すかは
+EntityReference 側の hmki:hasRange で表現される。"""@ja ;
     rdfs:domain hmkp:Source ;
-    rdfs:range hmki:Statement .
+    rdfs:range [ a owl:Class ; owl:unionOf ( hmki:Statement hmki:EntityReference ) ] .
 
 hmkp:hasRange a owl:ObjectProperty ;
     rdfs:label "has range (character)"@en , "Character 範囲を持つ"@ja ;
