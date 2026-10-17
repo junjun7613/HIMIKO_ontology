@@ -1,5 +1,8 @@
 @prefix epig:    <http://epigraphic-careers.org/ontology#> .
 @prefix epigf:   <http://epigraphic-careers.org/ontology/funding/> .
+@prefix epigo:   <http://epigraphic-careers.org/ontology/object/> .
+@prefix epigs:   <http://epigraphic-careers.org/ontology/status/> .
+@prefix epigp:   <http://epigraphic-careers.org/ontology/position/> .
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:     <http://www.w3.org/2002/07/owl#> .
@@ -72,6 +75,16 @@ epig:BenefactionStatement a owl:Class ;
     rdfs:comment "碑文中で言及される寄進・恩恵行為。hmki:Statement のサブクラス。"@ja ;
     rdfs:subClassOf hmki:Statement .
 
+epig:BenefactionObjectStatement a owl:Class ;
+    rdfs:label "Benefaction Object Statement"@en , "寄進対象物言明"@ja ;
+    rdfs:comment "寄進言及が複数の対象物を挙げる場合の、対象物1件ごとの言明。hmki:Statement のサブクラス。1つの寄進が複数のカテゴリにまたがる対象物を含む場合（arcus と gymnasium 等）、カテゴリとサブタイプを epig:BenefactionStatement に直接付与すると対応関係が失われるため、対象物ごとにノードを分けて記述する。対象物が1件のみの寄進では本ノードを作らず epig:BenefactionStatement に直接付与する。旧 epig:BenefactionObject（非推奨）とは別クラスであり、Statement 層に属する。"@ja ;
+    rdfs:subClassOf hmki:Statement .
+
+epig:SocialStatusStatement a owl:Class ;
+    rdfs:label "Social Status Statement"@en , "身分言明"@ja ;
+    rdfs:comment "碑文中で言及される人物の社会的身分の言明。hmki:Statement のサブクラス。1人物が法的身分・身分階層・職業等の複数の軸に同時に属しうるため、人物ごとに複数の言明を持つ。各言明は根拠となる原文（epig:statusEvidence）と、それが明示か推論かの区別（epig:statusCertainty）を伴う。"@ja ;
+    rdfs:subClassOf hmki:Statement .
+
 epig:FundingType a owl:Class ;
     rdfs:label "Funding Type"@en , "財源種別"@ja ;
     rdfs:comment "財源の抽象カテゴリを表すコントロールドボキャブラリ。epigf: 名前空間（http://epigraphic-careers.org/ontology/funding/）下のURIとして定義。"@ja ;
@@ -108,6 +121,334 @@ epigf:fine a epig:FundingType ;
     rdfs:label "fine"@en , "罰金"@ja ;
     skos:notation "fine" ;
     skos:definition "罰金から支出。ex multis, ex multa 等に対応。"@ja .
+
+epig:ObjectCategory a owl:Class ;
+    rdfs:label "Object Category"@en , "寄進対象カテゴリ"@ja ;
+    rdfs:comment "寄進対象の抽象カテゴリを表すコントロールドボキャブラリ。epigo: 名前空間（http://epigraphic-careers.org/ontology/object/）下のURIとして定義。第1階層（9種・固定）と第2階層（拡張可能）の2階層からなり、階層関係は skos:broader で表す。第2階層の個体はすべて第1階層のいずれかを skos:broader に持つため、第1階層への集約は skos:broader を辿ることで行える。"@ja ;
+    rdfs:subClassOf skos:Concept .
+
+#    ObjectCategory — 第1階層（9種・固定）
+#    碑文が対象物を特定できない場合も「分類していない」ではなく
+#    「史料側の限界により分類できない」ことを示す値を与える。
+
+epigo:structure a epig:ObjectCategory ;
+    rdfs:label "structure"@en , "建造物"@ja ;
+    skos:notation "structure" ;
+    skos:definition "建造物・建築物およびその部材。神殿, 浴場, 柱廊, 列柱, 舗床等。"@ja .
+
+epigo:monument a epig:ObjectCategory ;
+    rdfs:label "monument"@en , "記念物"@ja ;
+    skos:notation "monument" ;
+    skos:definition "像・祭壇・銘文その他の記念物。建造物としての規模を持たず、顕彰・奉献のしるしとして立てられるもの。"@ja .
+
+epigo:funerary a epig:ObjectCategory ;
+    rdfs:label "funerary"@en , "墓・埋葬関連"@ja ;
+    skos:notation "funerary" ;
+    skos:definition "墓および埋葬に関わる構築物。sepulcrum, tumulus, mensa 等。"@ja .
+
+epigo:infrastructure a epig:ObjectCategory ;
+    rdfs:label "infrastructure"@en , "インフラ"@ja ;
+    skos:notation "infrastructure" ;
+    skos:definition "道路・水道・橋・里程標等の公共インフラ。個別の建造物ではなく、都市間・都市内の機能を担う施設。"@ja .
+
+epigo:distribution a epig:ObjectCategory ;
+    rdfs:label "distribution"@en , "分配・施与"@ja ;
+    skos:notation "distribution" ;
+    skos:definition "金銭・食糧・饗宴等の分配。受益者に消費されるもので、恒久的な物体を残さない。"@ja .
+
+epigo:spectacle a epig:ObjectCategory ;
+    rdfs:label "spectacle"@en , "興行"@ja ;
+    skos:notation "spectacle" ;
+    skos:definition "剣闘士競技・演劇等の興行。distribution と同じく物体を残さないが、催行という行為自体が寄進内容となる。"@ja .
+
+epigo:offering a epig:ObjectCategory ;
+    rdfs:label "offering"@en , "奉献・供犠"@ja ;
+    skos:notation "offering" ;
+    skos:definition "神格に対する供犠・奉献物。monument との差は、奉献の対象物ではなく奉献行為そのものが記録されている点にある。"@ja .
+
+epigo:privilege a epig:ObjectCategory ;
+    rdfs:label "privilege"@en , "特権・法的身分"@ja ;
+    skos:notation "privilege" ;
+    skos:definition "法的身分・特権および土地の付与。物理的対象ではないため第1階層で分離し、物体の分析から除外できるようにする。"@ja .
+
+epigo:unknown a epig:ObjectCategory ;
+    rdfs:label "unknown"@en , "特定不能"@ja ;
+    skos:notation "unknown" ;
+    skos:definition "碑文の破損・欠落、または目的語の不在により対象を特定できないもの。分類の失敗ではなく史料側の情報欠落を表す。分析時には除外対象となりうる。"@ja .
+
+#    ObjectCategory — 第2階層（拡張可能・null 許容）
+#    第1階層と異なり網羅性を要求しない。確定できない場合は
+#    epig:objectSubtype を付与せず、第1階層のみで記述する。
+
+epigo:structure.temple a epig:ObjectCategory ;
+    rdfs:label "temple"@en , "神殿"@ja ;
+    skos:notation "structure.temple" ;
+    skos:definition "神殿・聖所。templum, aedes, aedicula, sacellum, delubrum, fanum 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.bath a epig:ObjectCategory ;
+    rdfs:label "bath"@en , "浴場"@ja ;
+    skos:notation "structure.bath" ;
+    skos:definition "浴場。balneum, thermae, lavacrum 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.portico a epig:ObjectCategory ;
+    rdfs:label "portico"@en , "柱廊"@ja ;
+    skos:notation "structure.portico" ;
+    skos:definition "柱廊・列柱廊。porticus, peristylium 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.basilica a epig:ObjectCategory ;
+    rdfs:label "basilica"@en , "バシリカ"@ja ;
+    skos:notation "structure.basilica" ;
+    skos:definition "バシリカ（公共集会堂）。キリスト教聖堂は structure.church に分ける。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.theater a epig:ObjectCategory ;
+    rdfs:label "theater"@en , "劇場・闘技場"@ja ;
+    skos:notation "structure.theater" ;
+    skos:definition "劇場・円形闘技場・競走場。theatrum, amphitheatrum, odeum, circus 等。興行そのものは spectacle に分ける。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.arch a epig:ObjectCategory ;
+    rdfs:label "arch"@en , "アーチ・門"@ja ;
+    skos:notation "structure.arch" ;
+    skos:definition "凱旋門・門。arcus, ianua, porta 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.forum a epig:ObjectCategory ;
+    rdfs:label "forum"@en , "フォルム・広場"@ja ;
+    skos:notation "structure.forum" ;
+    skos:definition "フォルム・広場。forum, platea, area 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.wall a epig:ObjectCategory ;
+    rdfs:label "wall and fortification"@en , "城壁・防備施設"@ja ;
+    skos:notation "structure.wall" ;
+    skos:definition "城壁・塔・防備施設。murus, moenia, turris, maceria, vallum, castellum 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.gymnasium a epig:ObjectCategory ;
+    rdfs:label "gymnasium and cultural building"@en , "教育・文化施設"@ja ;
+    skos:notation "structure.gymnasium" ;
+    skos:definition "体育場・教育文化施設。gymnasium, xystus, schola, bibliotheca, palaestra 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.civic a epig:ObjectCategory ;
+    rdfs:label "civic building"@en , "公共政務施設"@ja ;
+    skos:notation "structure.civic" ;
+    skos:definition "政務・集会のための施設。curia, tribunal, rostra, comitium, senaculum 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.domestic a epig:ObjectCategory ;
+    rdfs:label "domestic building"@en , "住居"@ja ;
+    skos:notation "structure.domestic" ;
+    skos:definition "住居・邸宅。domus, villa, insula, praetorium, cubiculum 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.utility a epig:ObjectCategory ;
+    rdfs:label "utility building"@en , "実用施設"@ja ;
+    skos:notation "structure.utility" ;
+    skos:definition "倉庫・市場・店舗等の実用施設。macellum, horreum, taberna, apotheca, pistrinum 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.water a epig:ObjectCategory ;
+    rdfs:label "water facility"@en , "水利施設"@ja ;
+    skos:notation "structure.water" ;
+    skos:definition "貯水槽・泉水施設。cisterna, piscina, nymphaeum, fons, lacus 等。都市間水道は infrastructure.aqueduct に分ける。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.element a epig:ObjectCategory ;
+    rdfs:label "architectural element"@en , "建築部材"@ja ;
+    skos:notation "structure.element" ;
+    skos:definition "建造物の部材・仕上げ。columna, pila, fundamentum, gradus, marmor, pavimentum 等。建物全体ではなくその一部が寄進された場合に用いる。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:structure.church a epig:ObjectCategory ;
+    rdfs:label "church"@en , "キリスト教聖堂"@ja ;
+    skos:notation "structure.church" ;
+    skos:definition "キリスト教の聖堂。ecclesia, basilica christiana 等。"@ja ;
+    skos:broader epigo:structure .
+
+epigo:monument.statue a epig:ObjectCategory ;
+    rdfs:label "statue"@en , "彫像"@ja ;
+    skos:notation "monument.statue" ;
+    skos:definition "彫像・肖像。statua, signum, simulacrum, effigies, imago 等。"@ja ;
+    skos:broader epigo:monument .
+
+epigo:monument.altar a epig:ObjectCategory ;
+    rdfs:label "altar"@en , "祭壇"@ja ;
+    skos:notation "monument.altar" ;
+    skos:definition "祭壇。ara, altare 等。祭壇上で行われた供犠は offering.sacrifice に分ける。"@ja ;
+    skos:broader epigo:monument .
+
+epigo:monument.inscription a epig:ObjectCategory ;
+    rdfs:label "inscription"@en , "銘文・銘板"@ja ;
+    skos:notation "monument.inscription" ;
+    skos:definition "銘文・銘板そのもの。titulus, tabula, cippus, stele, carmen, elogium 等。"@ja ;
+    skos:broader epigo:monument .
+
+epigo:monument.decoration a epig:ObjectCategory ;
+    rdfs:label "decoration"@en , "装飾"@ja ;
+    skos:notation "monument.decoration" ;
+    skos:definition "装飾・付属品。ornamenta, clipeus, corona, palma, pictura, opus musivum, horologium 等。"@ja ;
+    skos:broader epigo:monument .
+
+epigo:monument.vessel a epig:ObjectCategory ;
+    rdfs:label "vessel and equipment"@en , "器物・祭具"@ja ;
+    skos:notation "monument.vessel" ;
+    skos:definition "器物・祭具。urceus, patera, vas, candelabrum, lucerna 等。"@ja ;
+    skos:broader epigo:monument .
+
+epigo:monument.unspecified a epig:ObjectCategory ;
+    rdfs:label "unspecified monument"@en , "記念物（種別不明）"@ja ;
+    skos:notation "monument.unspecified" ;
+    skos:definition "原文が monumentum / memoria としか記さず、記念物であることは確実だが墓・建物・像のいずれかが原文から決定できないもの。史料側の限界を表す値であり、unknown.illegible（情報欠落）とは区別する。人工的ハブとなるため分析時に除外できるようにする。"@ja ;
+    skos:broader epigo:monument .
+
+epigo:funerary.tomb a epig:ObjectCategory ;
+    rdfs:label "tomb"@en , "墓"@ja ;
+    skos:notation "funerary.tomb" ;
+    skos:definition "墓一般。原文が墓であることを明示するもの。"@ja ;
+    skos:broader epigo:funerary .
+
+epigo:funerary.tomb_structure a epig:ObjectCategory ;
+    rdfs:label "tomb structure"@en , "墓構築物"@ja ;
+    skos:notation "funerary.tomb_structure" ;
+    skos:definition "墓の構築物。sepulcrum, tumulus, cupula, sarcophagus, mausoleum, ossuarium 等。"@ja ;
+    skos:broader epigo:funerary .
+
+epigo:funerary.mensa a epig:ObjectCategory ;
+    rdfs:label "funerary table"@en , "供餐卓"@ja ;
+    skos:notation "funerary.mensa" ;
+    skos:definition "墓前の供餐卓。mensa, mensa martyrum 等。"@ja ;
+    skos:broader epigo:funerary .
+
+epigo:funerary.memoria a epig:ObjectCategory ;
+    rdfs:label "memoria"@en , "追悼記念物"@ja ;
+    skos:notation "funerary.memoria" ;
+    skos:definition "追悼記念物。memoria。墓との区別が原文から明示される場合に用いる。"@ja ;
+    skos:broader epigo:funerary .
+
+epigo:infrastructure.road a epig:ObjectCategory ;
+    rdfs:label "road"@en , "道路"@ja ;
+    skos:notation "infrastructure.road" ;
+    skos:definition "道路。via, iter, semita 等。"@ja ;
+    skos:broader epigo:infrastructure .
+
+epigo:infrastructure.aqueduct a epig:ObjectCategory ;
+    rdfs:label "aqueduct"@en , "水道"@ja ;
+    skos:notation "infrastructure.aqueduct" ;
+    skos:definition "水道。aquaeductus, aquam perducere, specus 等。"@ja ;
+    skos:broader epigo:infrastructure .
+
+epigo:infrastructure.bridge a epig:ObjectCategory ;
+    rdfs:label "bridge"@en , "橋"@ja ;
+    skos:notation "infrastructure.bridge" ;
+    skos:definition "橋。pons, pontes 等。"@ja ;
+    skos:broader epigo:infrastructure .
+
+epigo:infrastructure.water a epig:ObjectCategory ;
+    rdfs:label "water infrastructure"@en , "水利インフラ"@ja ;
+    skos:notation "infrastructure.water" ;
+    skos:definition "水道・橋に分類されない水利インフラ。都市内の貯水施設は structure.water に分ける。"@ja ;
+    skos:broader epigo:infrastructure .
+
+epigo:infrastructure.milestone a epig:ObjectCategory ;
+    rdfs:label "milestone"@en , "里程標"@ja ;
+    skos:notation "infrastructure.milestone" ;
+    skos:definition "里程標。miliarium, mille passus 等。"@ja ;
+    skos:broader epigo:infrastructure .
+
+epigo:infrastructure.military a epig:ObjectCategory ;
+    rdfs:label "military infrastructure"@en , "軍事インフラ"@ja ;
+    skos:notation "infrastructure.military" ;
+    skos:definition "軍事目的のインフラ。城壁・防備施設は structure.wall に分ける。"@ja ;
+    skos:broader epigo:infrastructure .
+
+epigo:distribution.money a epig:ObjectCategory ;
+    rdfs:label "money"@en , "金銭"@ja ;
+    skos:notation "distribution.money" ;
+    skos:definition "金銭の分配。pecunia, nummi, sestertii, denarii 等。"@ja ;
+    skos:broader epigo:distribution .
+
+epigo:distribution.sportulae a epig:ObjectCategory ;
+    rdfs:label "sportulae"@en , "スポルトゥラ"@ja ;
+    skos:notation "distribution.sportulae" ;
+    skos:definition "定型的な施与金。sportulae, congiarium, divisio 等。"@ja ;
+    skos:broader epigo:distribution .
+
+epigo:distribution.banquet a epig:ObjectCategory ;
+    rdfs:label "public banquet"@en , "公共饗宴"@ja ;
+    skos:notation "distribution.banquet" ;
+    skos:definition "公共饗宴。epulum, convivium, cena, prandium 等。"@ja ;
+    skos:broader epigo:distribution .
+
+epigo:distribution.food a epig:ObjectCategory ;
+    rdfs:label "food distribution"@en , "食糧分配"@ja ;
+    skos:notation "distribution.food" ;
+    skos:definition "食糧・物品の分配。triticum, frumentum, vinum, oleum, annona, alimenta 等。"@ja ;
+    skos:broader epigo:distribution .
+
+epigo:distribution.largesse a epig:ObjectCategory ;
+    rdfs:label "largesse"@en , "散銭・散与"@ja ;
+    skos:notation "distribution.largesse" ;
+    skos:definition "群衆に投げ与える施与。missilia, iactus, largitio 等。"@ja ;
+    skos:broader epigo:distribution .
+
+epigo:spectacle.gladiatorial a epig:ObjectCategory ;
+    rdfs:label "gladiatorial games"@en , "剣闘士競技"@ja ;
+    skos:notation "spectacle.gladiatorial" ;
+    skos:definition "剣闘士競技・猛獣狩り。munus gladiatorium, venatio, ludi gladiatorii 等。"@ja ;
+    skos:broader epigo:spectacle .
+
+epigo:spectacle.theatrical a epig:ObjectCategory ;
+    rdfs:label "theatrical performances"@en , "演劇興行"@ja ;
+    skos:notation "spectacle.theatrical" ;
+    skos:definition "演劇興行。ludi scaenici, pantomimus, histrio 等。"@ja ;
+    skos:broader epigo:spectacle .
+
+epigo:offering.sacrifice a epig:ObjectCategory ;
+    rdfs:label "sacrifice"@en , "供犠"@ja ;
+    skos:notation "offering.sacrifice" ;
+    skos:definition "供犠および供犠動物。agnus, verbex, aries, ovis, vacca, taurus, taurobolium, hostia 等。"@ja ;
+    skos:broader epigo:offering .
+
+epigo:offering.votive a epig:ObjectCategory ;
+    rdfs:label "votive offering"@en , "奉献物"@ja ;
+    skos:notation "offering.votive" ;
+    skos:definition "誓願に基づく奉献物のうち、対象物が特定できるもの。"@ja ;
+    skos:broader epigo:offering .
+
+epigo:offering.unspecified a epig:ObjectCategory ;
+    rdfs:label "unspecified offering"@en , "奉献（内容不明）"@ja ;
+    skos:notation "offering.unspecified" ;
+    skos:definition "原文が votum / sacrum / donum としか記さず、奉献行為であることは確実だが奉献物が原文から決定できないもの。monument.unspecified と同じく史料側の限界を表す値。"@ja ;
+    skos:broader epigo:offering .
+
+epigo:privilege.legal_status a epig:ObjectCategory ;
+    rdfs:label "legal status"@en , "法的身分"@ja ;
+    skos:notation "privilege.legal_status" ;
+    skos:definition "法的身分・特権の付与。civitas, libertas, municipium, ius, honor, immunitas, conubium 等。"@ja ;
+    skos:broader epigo:privilege .
+
+epigo:privilege.land a epig:ObjectCategory ;
+    rdfs:label "land"@en , "土地"@ja ;
+    skos:notation "privilege.land" ;
+    skos:definition "土地・境界の付与。praedium, fundus, ager, fines, territorium, locus 等。"@ja ;
+    skos:broader epigo:privilege .
+
+epigo:unknown.illegible a epig:ObjectCategory ;
+    rdfs:label "illegible"@en , "判読不能"@ja ;
+    skos:notation "unknown.illegible" ;
+    skos:definition "碑文の破損・欠落により対象を特定できないもの。人工的ハブとなるため分析時に除外できるようにする。"@ja ;
+    skos:broader epigo:unknown .
+
+epigo:unknown.verb_only a epig:ObjectCategory ;
+    rdfs:label "verb only"@en , "動詞のみ"@ja ;
+    skos:notation "unknown.verb_only" ;
+    skos:definition "原文に動詞のみが遺り目的語を欠くもの。fecit, posuit, restituit, dedicavit 等。"@ja ;
+    skos:broader epigo:unknown .
 
 epig:RelationshipStatement a owl:Class ;
     rdfs:label "Relationship Statement"@en , "関係言及"@ja ;
@@ -169,9 +510,652 @@ epig:Place a owl:Class ;
     rdfs:comment "碑文の出土地。可能なら owl:sameAs で Pleiades に連結される。"@ja ;
     rdfs:seeAlso schema:Place .
 
+epig:Position a owl:Class ;
+    rdfs:label "Position"@en , "官職"@ja ;
+    rdfs:comment "官職・称号のコントロールドボキャブラリ。epigp: 名前空間（http://epigraphic-careers.org/ontology/position/）下のURIとして定義。epig:ObjectCategory / epig:SocialStatus と異なり全件の統制は行わない。position は役職名そのものでありローマの官職は本来多様であるため、全659種のうち主要な52種（89.7%）のみを定義する。統制対象外は epig:positionAbstract に文字列として残る。階層は原則としてフラットで、skos:broader は pontifex_maximus → pontifex のように意味上の包含が明らかな場合にのみ用いる。"@ja ;
+    rdfs:subClassOf skos:Concept .
+
+epig:PositionType a owl:Class ;
+    rdfs:label "Position Type"@en , "役職種別"@ja ;
+    rdfs:comment "官職を行政単位で区分するコントロールドボキャブラリ（11種・固定）。抽出時点から10種が使われており、2026-10-17 に title を追加した。称号（imperator, pater patriae 等）が役職に混在していた 5,693 件を分離するため。"@ja ;
+    rdfs:subClassOf skos:Concept .
+
+epig:PositionTier a owl:Class ;
+    rdfs:label "Position Tier"@en , "官職の序列"@ja ;
+    rdfs:comment "官職の序列軸（7種）。epig:positionType（行政単位）とは直交する。同じ consul でも属州総督として記録されれば positionType は provincial-administration になるが、tier は常に senatorial である。"@ja ;
+    rdfs:subClassOf skos:Concept .
+
+#################################################################
+#    PositionType — 第1階層（11種・固定）
+#    行政単位による区分。既存データで10種が使われており、
+#    2026-10-17 に title を追加した。
+#################################################################
+
+epigp:imperial_administration a epig:PositionType ;
+    rdfs:label "imperial administration"@en , "帝国行政"@ja ;
+    skos:notation "imperial-administration" ;
+    skos:definition "皇帝・帝国中央の行政。"@ja .
+
+epigp:provincial_administration a epig:PositionType ;
+    rdfs:label "provincial administration"@en , "属州行政"@ja ;
+    skos:notation "provincial-administration" ;
+    skos:definition "属州単位の行政。"@ja .
+
+epigp:local_administration a epig:PositionType ;
+    rdfs:label "local administration"@en , "都市行政"@ja ;
+    skos:notation "local-administration" ;
+    skos:definition "都市・共同体の行政。"@ja .
+
+epigp:imperial_priesthood a epig:PositionType ;
+    rdfs:label "imperial priesthood"@en , "帝国祭司職"@ja ;
+    skos:notation "imperial-priesthood" ;
+    skos:definition "帝国規模の祭司職。pontifex maximus 等。"@ja .
+
+epigp:provincial_priesthood a epig:PositionType ;
+    rdfs:label "provincial priesthood"@en , "属州祭司職"@ja ;
+    skos:notation "provincial-priesthood" ;
+    skos:definition "属州単位の祭司職。"@ja .
+
+epigp:local_priesthood a epig:PositionType ;
+    rdfs:label "local priesthood"@en , "都市祭司職"@ja ;
+    skos:notation "local-priesthood" ;
+    skos:definition "都市・共同体の祭司職。"@ja .
+
+epigp:military a epig:PositionType ;
+    rdfs:label "military"@en , "軍務"@ja ;
+    skos:notation "military" ;
+    skos:definition "軍の階級・職務。"@ja .
+
+epigp:occupation a epig:PositionType ;
+    rdfs:label "occupation"@en , "職業"@ja ;
+    skos:notation "occupation" ;
+    skos:definition "生業・技能に基づく職。"@ja .
+
+epigp:economic a epig:PositionType ;
+    rdfs:label "economic"@en , "経済活動"@ja ;
+    skos:notation "economic" ;
+    skos:definition "経済的役割。"@ja .
+
+epigp:title a epig:PositionType ;
+    rdfs:label "title"@en , "称号"@ja ;
+    skos:notation "title" ;
+    skos:definition "称号・権限。職務ではない。2026-10-17 に追加。称号が役職に混在していた 5,693 件（27.4%）を分離するため。"@ja .
+
+epigp:other a epig:PositionType ;
+    rdfs:label "other"@en , "その他"@ja ;
+    skos:notation "other" ;
+    skos:definition "上記に収まらないもの。"@ja .
+
+#################################################################
+#    PositionTier — 官職の序列軸（7種）
+#    epig:positionType（行政単位）とは直交する。同じ consul でも
+#    属州総督として記録されれば positionType は
+#    provincial-administration だが tier は常に senatorial。
+#################################################################
+
+epigp:tier_title a epig:PositionTier ;
+    rdfs:label "title"@en , "称号"@ja ;
+    skos:notation "title" ;
+    skos:definition "称号・権限。職務ではないが career_path に記録されるもの。"@ja .
+
+epigp:tier_senatorial a epig:PositionTier ;
+    rdfs:label "senatorial"@en , "元老院身分"@ja ;
+    skos:notation "senatorial" ;
+    skos:definition "元老院議員が就く官職。"@ja .
+
+epigp:tier_equestrian a epig:PositionTier ;
+    rdfs:label "equestrian"@en , "騎士身分"@ja ;
+    skos:notation "equestrian" ;
+    skos:definition "騎士身分が就く官職。"@ja .
+
+epigp:tier_municipal a epig:PositionTier ;
+    rdfs:label "municipal"@en , "都市"@ja ;
+    skos:notation "municipal" ;
+    skos:definition "都市の官職・名誉職。"@ja .
+
+epigp:tier_military a epig:PositionTier ;
+    rdfs:label "military"@en , "軍務"@ja ;
+    skos:notation "military" ;
+    skos:definition "軍の階級・職務。"@ja .
+
+epigp:tier_priesthood a epig:PositionTier ;
+    rdfs:label "priesthood"@en , "祭司職"@ja ;
+    skos:notation "priesthood" ;
+    skos:definition "祭司職。帝国・属州・都市のいずれかを問わない。"@ja .
+
+epigp:tier_occupation a epig:PositionTier ;
+    rdfs:label "occupation"@en , "職業"@ja ;
+    skos:notation "occupation" ;
+    skos:definition "生業・技能に基づく職。"@ja .
+
+#################################################################
+#    Position — 官職・称号（52種）
+#    全659種のうち主要なもののみ。89.7% をカバーする。
+#    統制対象外は epig:positionAbstract に文字列として残る。
+#################################################################
+
+epigp:adiutor a epig:Position ;
+    rdfs:label "adiutor"@en , "補佐官"@ja ;
+    skos:notation "adiutor" ;
+    epig:positionTier epigp:tier_equestrian .
+
+epigp:adlectus a epig:Position ;
+    rdfs:label "adlectus"@en , "元老院編入者"@ja ;
+    skos:notation "adlectus" ;
+    rdfs:comment "元老院への編入。官職ではなく身分変更"@ja ;
+    epig:positionTier epigp:tier_senatorial .
+
+epigp:advocatus a epig:Position ;
+    rdfs:label "advocatus"@en , "弁護士"@ja ;
+    skos:notation "advocatus" ;
+    epig:positionTier epigp:tier_equestrian .
+
+epigp:aedilis a epig:Position ;
+    rdfs:label "aedilis"@en , "造営官"@ja ;
+    skos:notation "aedilis" ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:augur a epig:Position ;
+    rdfs:label "augur"@en , "鳥占官"@ja ;
+    skos:notation "augur" ;
+    epig:positionTier epigp:tier_priesthood .
+
+epigp:augustus a epig:Position ;
+    rdfs:label "augustus"@en , "アウグストゥス"@ja ;
+    skos:notation "augustus" ;
+    epig:positionTier epigp:tier_title .
+
+epigp:beneficiarius a epig:Position ;
+    rdfs:label "beneficiarius"@en , "ベネフィキアリウス"@ja ;
+    skos:notation "beneficiarius" ;
+    epig:positionTier epigp:tier_military .
+
+epigp:caesar a epig:Position ;
+    rdfs:label "caesar"@en , "カエサル"@ja ;
+    skos:notation "caesar" ;
+    epig:positionTier epigp:tier_title .
+
+epigp:centurio a epig:Position ;
+    rdfs:label "centurio"@en , "百人隊長"@ja ;
+    skos:notation "centurio" ;
+    epig:positionTier epigp:tier_military .
+
+epigp:consul a epig:Position ;
+    rdfs:label "consul"@en , "執政官"@ja ;
+    skos:notation "consul" ;
+    epig:positionTier epigp:tier_senatorial .
+
+epigp:consularis a epig:Position ;
+    rdfs:label "consularis"@en , "執政官級属州総督"@ja ;
+    skos:notation "consularis" ;
+    rdfs:comment "執政官経験者としての属州総督"@ja ;
+    epig:positionTier epigp:tier_senatorial .
+
+epigp:cornicularius a epig:Position ;
+    rdfs:label "cornicularius"@en , "書記官"@ja ;
+    skos:notation "cornicularius" ;
+    epig:positionTier epigp:tier_military .
+
+epigp:curator a epig:Position ;
+    rdfs:label "curator"@en , "管理官"@ja ;
+    skos:notation "curator" ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:decurio a epig:Position ;
+    rdfs:label "decurio"@en , "decurio（参事会員または騎兵小隊長）"@ja ;
+    skos:notation "decurio" ;
+    rdfs:comment "【要精緻化】都市参事会員と騎兵小隊長の同綴異義。SOCIAL_STATUS_INVENTORY.md §4-2 と同じ問題"@ja ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:diaconus a epig:Position ;
+    rdfs:label "diaconus"@en , "助祭"@ja ;
+    skos:notation "diaconus" ;
+    rdfs:comment "キリスト教"@ja ;
+    epig:positionTier epigp:tier_priesthood .
+
+epigp:duovir a epig:Position ;
+    rdfs:label "duovir"@en , "二人組高位官"@ja ;
+    skos:notation "duovir" ;
+    rdfs:comment "表記ゆれを統合: duovir / duumvir。duovir の別表記"@ja ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:episcopus a epig:Position ;
+    rdfs:label "episcopus"@en , "司教"@ja ;
+    skos:notation "episcopus" ;
+    rdfs:comment "表記ゆれを統合: Episcopus / episcopus。キリスト教表記ゆれ"@ja ;
+    epig:positionTier epigp:tier_priesthood .
+
+epigp:eques a epig:Position ;
+    rdfs:label "eques"@en , "eques（騎兵または騎士）"@ja ;
+    skos:notation "eques" ;
+    rdfs:comment "【要精緻化】騎兵と騎士身分の同綴異義"@ja ;
+    epig:positionTier epigp:tier_military .
+
+epigp:flamen a epig:Position ;
+    rdfs:label "flamen"@en , "フラメン"@ja ;
+    skos:notation "flamen" ;
+    rdfs:comment "表記ゆれを統合: flamen / flaminica。flamen の女性形。gender で区別するため統合"@ja ;
+    epig:positionTier epigp:tier_priesthood .
+
+epigp:honores a epig:Position ;
+    rdfs:label "honores"@en , "官職（不特定）"@ja ;
+    skos:notation "honores" ;
+    rdfs:comment "官職一般。具体名なし"@ja ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:imperator a epig:Position ;
+    rdfs:label "imperator"@en , "インペラトル"@ja ;
+    skos:notation "imperator" ;
+    rdfs:comment "表記ゆれを統合: Imperator / imperator。表記ゆれ軍の最高司令権。勝利のたびに加算される"@ja ;
+    epig:positionTier epigp:tier_title .
+
+epigp:legatus a epig:Position ;
+    rdfs:label "legatus"@en , "legatus（総督または軍団長）"@ja ;
+    skos:notation "legatus" ;
+    rdfs:comment "【要精緻化】legatus Augusti pro praetore（総督）と legatus legionis（軍団長）を区別できない。原文での判定が要る"@ja ;
+    epig:positionTier epigp:tier_senatorial .
+
+epigp:magister a epig:Position ;
+    rdfs:label "magister"@en , "長・監督"@ja ;
+    skos:notation "magister" ;
+    rdfs:comment "【要精緻化】magister vici / collegii / militum 等で性質が異なる"@ja ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:medicus a epig:Position ;
+    rdfs:label "medicus"@en , "医師"@ja ;
+    skos:notation "medicus" ;
+    rdfs:comment "【注意】大文字の Medicus（勝利称号）とは別物"@ja ;
+    epig:positionTier epigp:tier_occupation .
+
+epigp:miles a epig:Position ;
+    rdfs:label "miles"@en , "兵士"@ja ;
+    skos:notation "miles" ;
+    epig:positionTier epigp:tier_military .
+
+epigp:municipal_magistrate a epig:Position ;
+    rdfs:label "municipal magistrate"@en , "都市高位官（不特定）"@ja ;
+    skos:notation "municipal_magistrate" ;
+    rdfs:comment "具体的官職名が不明な場合の上位語"@ja ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:officinator a epig:Position ;
+    rdfs:label "officinator"@en , "工房管理者"@ja ;
+    skos:notation "officinator" ;
+    rdfs:comment "表記ゆれを統合: officina / officinator。工房。officinator と同一視工房の管理者"@ja ;
+    epig:positionTier epigp:tier_occupation .
+
+epigp:optio a epig:Position ;
+    rdfs:label "optio"@en , "副官"@ja ;
+    skos:notation "optio" ;
+    epig:positionTier epigp:tier_military .
+
+epigp:pater_patriae a epig:Position ;
+    rdfs:label "pater patriae"@en , "祖国の父"@ja ;
+    skos:notation "pater_patriae" ;
+    rdfs:comment "表記ゆれを統合: Pater Patriae / pater patriae。表記ゆれ"@ja ;
+    epig:positionTier epigp:tier_title .
+
+epigp:patronus a epig:Position ;
+    rdfs:label "patronus"@en , "保護者"@ja ;
+    skos:notation "patronus" ;
+    rdfs:comment "都市の保護者。官職ではなく関係"@ja ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:pontifex a epig:Position ;
+    rdfs:label "pontifex"@en , "神祇官"@ja ;
+    skos:notation "pontifex" ;
+    epig:positionTier epigp:tier_priesthood .
+
+epigp:pontifex_maximus a epig:Position ;
+    rdfs:label "pontifex maximus"@en , "大神祇官"@ja ;
+    skos:notation "pontifex_maximus" ;
+    skos:broader epigp:pontifex ;
+    rdfs:comment "皇帝の大神祇官。pontifex とは別個体とする"@ja ;
+    epig:positionTier epigp:tier_priesthood .
+
+epigp:praefectus a epig:Position ;
+    rdfs:label "praefectus"@en , "長官"@ja ;
+    skos:notation "praefectus" ;
+    rdfs:comment "【要精緻化】praefectus praetorio / aegypti / cohortis 等で階層が大きく異なる"@ja ;
+    epig:positionTier epigp:tier_equestrian .
+
+epigp:praepositus a epig:Position ;
+    rdfs:label "praepositus"@en , "指揮官"@ja ;
+    skos:notation "praepositus" ;
+    epig:positionTier epigp:tier_military .
+
+epigp:praeses a epig:Position ;
+    rdfs:label "praeses"@en , "属州長官"@ja ;
+    skos:notation "praeses" ;
+    epig:positionTier epigp:tier_senatorial .
+
+epigp:praetor a epig:Position ;
+    rdfs:label "praetor"@en , "法務官"@ja ;
+    skos:notation "praetor" ;
+    epig:positionTier epigp:tier_senatorial .
+
+epigp:presbyter a epig:Position ;
+    rdfs:label "presbyter"@en , "司祭"@ja ;
+    skos:notation "presbyter" ;
+    rdfs:comment "キリスト教"@ja ;
+    epig:positionTier epigp:tier_priesthood .
+
+epigp:primus_pilus a epig:Position ;
+    rdfs:label "primus pilus"@en , "首席百人隊長"@ja ;
+    skos:notation "primus_pilus" ;
+    rdfs:comment "軍団首席百人隊長"@ja ;
+    epig:positionTier epigp:tier_military .
+
+epigp:princeps a epig:Position ;
+    rdfs:label "princeps"@en , "首席"@ja ;
+    skos:notation "princeps" ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:princeps_iuventutis a epig:Position ;
+    rdfs:label "princeps iuventutis"@en , "青年団の長"@ja ;
+    skos:notation "princeps_iuventutis" ;
+    rdfs:comment "表記ゆれを統合: Princeps iuventutis / princeps iuventutis。表記ゆれ"@ja ;
+    epig:positionTier epigp:tier_title .
+
+epigp:proconsul a epig:Position ;
+    rdfs:label "proconsul"@en , "前執政官・属州総督"@ja ;
+    skos:notation "proconsul" ;
+    epig:positionTier epigp:tier_senatorial .
+
+epigp:procurator a epig:Position ;
+    rdfs:label "procurator"@en , "財務官・代官"@ja ;
+    skos:notation "procurator" ;
+    epig:positionTier epigp:tier_equestrian .
+
+epigp:quaestor a epig:Position ;
+    rdfs:label "quaestor"@en , "財務官"@ja ;
+    skos:notation "quaestor" ;
+    rdfs:comment "【要精緻化】都市のクァエストルと元老院のクァエストルがある"@ja ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:quinquennalis a epig:Position ;
+    rdfs:label "quinquennalis"@en , "五年官"@ja ;
+    skos:notation "quinquennalis" ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:sacerdos a epig:Position ;
+    rdfs:label "sacerdos"@en , "祭司"@ja ;
+    skos:notation "sacerdos" ;
+    rdfs:comment "祭司一般"@ja ;
+    epig:positionTier epigp:tier_priesthood .
+
+epigp:signifer a epig:Position ;
+    rdfs:label "signifer"@en , "旗手"@ja ;
+    skos:notation "signifer" ;
+    epig:positionTier epigp:tier_military .
+
+epigp:sufes a epig:Position ;
+    rdfs:label "sufes"@en , "スフェス"@ja ;
+    skos:notation "sufes" ;
+    rdfs:comment "ポエニ系都市の最高官職"@ja ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:tribunicia_potestas a epig:Position ;
+    rdfs:label "tribunicia potestas"@en , "護民官職権"@ja ;
+    skos:notation "tribunicia_potestas" ;
+    rdfs:comment "護民官職権。官職ではなく権限"@ja ;
+    epig:positionTier epigp:tier_title .
+
+epigp:tribunus a epig:Position ;
+    rdfs:label "tribunus"@en , "tribunus（軍団幕僚または護民官）"@ja ;
+    skos:notation "tribunus" ;
+    rdfs:comment "【要精緻化】tribunus militum と tribunus plebis は別物"@ja ;
+    epig:positionTier epigp:tier_military .
+
+epigp:triumvir a epig:Position ;
+    rdfs:label "triumvir"@en , "三人委員"@ja ;
+    skos:notation "triumvir" ;
+    epig:positionTier epigp:tier_municipal .
+
+epigp:veteranus a epig:Position ;
+    rdfs:label "veteranus"@en , "退役兵"@ja ;
+    skos:notation "veteranus" ;
+    rdfs:comment "退役。経歴であって官職ではない"@ja ;
+    epig:positionTier epigp:tier_military .
+
+epigp:victory_title a epig:Position ;
+    rdfs:label "victory title"@en , "勝利称号"@ja ;
+    skos:notation "victory_title" ;
+    rdfs:comment "表記ゆれを統合: Adiabenicus / Armeniacus / Britannicus / Dacicus / Germanicus / Medicus / Parthicus / Sarmaticus。【注意】小文字の medicus（医師）とは別物。同綴異義のため小文字化で統合してはならない"@ja ;
+    epig:positionTier epigp:tier_title .
+
 epig:SocialStatus a owl:Class ;
     rdfs:label "Social Status"@en , "社会的身分"@ja ;
-    rdfs:comment "人物の社会的身分の共有リソース (例: decurio)。"@ja .
+    rdfs:comment "人物の社会的身分を表すコントロールドボキャブラリ。epigs: 名前空間（http://epigraphic-careers.org/ontology/status/）下のURIとして定義。第1階層（6種・固定）と第2階層（拡張可能）の2階層からなり、階層関係は skos:broader で表す。epig:ObjectCategory と異なり、1人物が複数の身分を同時に持ちうるため、epig:SocialStatusStatement を介して多値で記述する。役職（aedilis, flamen 等）は本語彙では扱わず epig:CareerStatement / epig:CareerPosition に委ねる。宗教については『役職』を career_path に、『立場』（martyr, monk 等）を本語彙の epigs:religious に振り分ける。"@ja ;
+    rdfs:subClassOf skos:Concept .
+
+#################################################################
+#    SocialStatus — 第1階層（6種・固定）
+#    1人物が複数の軸に同時に属しうるため、epig:SocialStatusStatement
+#    を介して多値で記述する。役職は epig:CareerPosition に委ねる。
+#################################################################
+
+epigs:legal a epig:SocialStatus ;
+    rdfs:label "legal status"@en , "法的身分"@ja ;
+    skos:notation "legal" ;
+    skos:definition "ローマ法上の身分。市民権の有無と隷属状態を表す。碑文では tribus 名・filiation・libertus 表記等から判定される。"@ja .
+
+epigs:ordo a epig:SocialStatus ;
+    rdfs:label "social order"@en , "身分階層"@ja ;
+    skos:notation "ordo" ;
+    skos:definition "元首・元老院・騎士・都市参事会といった序列化された身分階層。位階（clarissimus 等）は epig:statusRank で別に記述する。"@ja .
+
+epigs:military a epig:SocialStatus ;
+    rdfs:label "military status"@en , "軍事的身分"@ja ;
+    skos:notation "military" ;
+    skos:definition "兵士・退役兵・百人隊長等の軍務に由来する身分。具体的な部隊・官職名は epig:CareerPosition に委ねる。"@ja .
+
+epigs:religious a epig:SocialStatus ;
+    rdfs:label "religious standing"@en , "宗教的立場"@ja ;
+    skos:notation "religious" ;
+    skos:definition "宗教に関わる立場のうち、役職ではないもの。殉教者・修道士・奉献された処女・信徒等。祭司職（flamen, pontifex 等）は役職であるため epig:CareerPosition に委ね、本カテゴリには含めない。"@ja .
+
+epigs:occupation a epig:SocialStatus ;
+    rdfs:label "occupation"@en , "職業"@ja ;
+    skos:notation "occupation" ;
+    skos:definition "生業・技能に基づく区分。手工業者・商人・医師・剣闘士等。"@ja .
+
+epigs:unknown a epig:SocialStatus ;
+    rdfs:label "unknown"@en , "特定不能"@ja ;
+    skos:notation "unknown" ;
+    skos:definition "碑文の破損または言及の欠落により身分を特定できないもの。分類の失敗ではなく史料側の情報欠落を表す。"@ja .
+
+#################################################################
+#    SocialStatus — 第2階層（拡張可能・null 許容）
+#    第1階層と異なり網羅性を要求しない。確定できない場合は
+#    epig:socialStatusSubtype を付与せず第1階層のみで記述する。
+#################################################################
+
+epigs:legal.citizen a epig:SocialStatus ;
+    rdfs:label "citizen"@en , "ローマ市民"@ja ;
+    skos:notation "legal.citizen" ;
+    skos:definition "ローマ市民権保持者。tribus 名や filiation から推論される場合が多く、その際は epig:statusCertainty を 'inferred' とする。"@ja ;
+    skos:broader epigs:legal .
+
+epigs:legal.freeborn a epig:SocialStatus ;
+    rdfs:label "freeborn"@en , "生来自由人"@ja ;
+    skos:notation "legal.freeborn" ;
+    skos:definition "生まれながらの自由人。ingenuus。"@ja ;
+    skos:broader epigs:legal .
+
+epigs:legal.freedman a epig:SocialStatus ;
+    rdfs:label "freedman"@en , "解放奴隷"@ja ;
+    skos:notation "legal.freedman" ;
+    skos:definition "解放された奴隷。libertus/liberta。性別は epig:gender で記述するため語彙は統合する。"@ja ;
+    skos:broader epigs:legal .
+
+epigs:legal.imperial_slave a epig:SocialStatus ;
+    rdfs:label "imperial slave"@en , "皇帝奴隷"@ja ;
+    skos:notation "legal.imperial_slave" ;
+    skos:definition "皇帝家に属する奴隷。Caesaris servus / Augusti servus。"@ja ;
+    skos:broader epigs:legal .
+
+epigs:legal.slave a epig:SocialStatus ;
+    rdfs:label "slave"@en , "奴隷"@ja ;
+    skos:notation "legal.slave" ;
+    skos:definition "隷属状態にある者。servus/serva。"@ja ;
+    skos:broader epigs:legal .
+
+epigs:ordo.decurio_cavalry a epig:SocialStatus ;
+    rdfs:label "cavalry decurion"@en , "騎兵小隊長"@ja ;
+    skos:notation "ordo.decurio_cavalry" ;
+    skos:definition "騎兵部隊の小隊長。decurio alae 等。都市参事会員と同綴であるため文脈により判別する。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.decurio_municipal a epig:SocialStatus ;
+    rdfs:label "municipal decurion"@en , "都市参事会員"@ja ;
+    skos:notation "ordo.decurio_municipal" ;
+    skos:definition "都市参事会（ordo decurionum）の構成員。同綴の騎兵小隊長と区別するため別個体とする。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.emperor a epig:SocialStatus ;
+    rdfs:label "emperor"@en , "皇帝"@ja ;
+    skos:notation "ordo.emperor" ;
+    skos:definition "ローマ皇帝。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.empress a epig:SocialStatus ;
+    rdfs:label "empress"@en , "皇后"@ja ;
+    skos:notation "ordo.empress" ;
+    skos:definition "皇后およびアウグスタ称号保持者。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.equestrian a epig:SocialStatus ;
+    rdfs:label "equestrian"@en , "騎士身分"@ja ;
+    skos:notation "ordo.equestrian" ;
+    skos:definition "騎士身分。位階（perfectissimus, egregius 等）は epig:statusRank で記述する。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.foreign_ruler a epig:SocialStatus ;
+    rdfs:label "foreign ruler"@en , "外部支配者"@ja ;
+    skos:notation "ordo.foreign_ruler" ;
+    skos:definition "ローマ身分体系の外にある王・首長等。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.imperial_family a epig:SocialStatus ;
+    rdfs:label "imperial family"@en , "皇帝一族"@ja ;
+    skos:notation "ordo.imperial_family" ;
+    skos:definition "皇帝の家族・一門に属する者。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.municipal_elite a epig:SocialStatus ;
+    rdfs:label "municipal elite"@en , "都市有力者"@ja ;
+    skos:notation "ordo.municipal_elite" ;
+    skos:definition "都市の有力者層。参事会員と断定できないが地域エリートと判断されるもの。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.patrician a epig:SocialStatus ;
+    rdfs:label "patrician"@en , "パトリキ"@ja ;
+    skos:notation "ordo.patrician" ;
+    skos:definition "パトリキ身分。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:ordo.senator a epig:SocialStatus ;
+    rdfs:label "senator"@en , "元老院議員"@ja ;
+    skos:notation "ordo.senator" ;
+    skos:definition "元老院身分。位階（clarissimus, consularis, praetorius）は epig:statusRank で記述する。"@ja ;
+    skos:broader epigs:ordo .
+
+epigs:military.centurio a epig:SocialStatus ;
+    rdfs:label "centurion"@en , "百人隊長"@ja ;
+    skos:notation "military.centurio" ;
+    skos:definition "百人隊長。centurio。"@ja ;
+    skos:broader epigs:military .
+
+epigs:military.soldier a epig:SocialStatus ;
+    rdfs:label "soldier"@en , "兵士"@ja ;
+    skos:notation "military.soldier" ;
+    skos:definition "現役の兵士。miles。"@ja ;
+    skos:broader epigs:military .
+
+epigs:military.veteran a epig:SocialStatus ;
+    rdfs:label "veteran"@en , "退役兵"@ja ;
+    skos:notation "military.veteran" ;
+    skos:definition "除隊した兵士。veteranus。経歴に由来する身分として扱う。"@ja ;
+    skos:broader epigs:military .
+
+epigs:religious.consecrated_virgin a epig:SocialStatus ;
+    rdfs:label "consecrated virgin"@en , "奉献された処女"@ja ;
+    skos:notation "religious.consecrated_virgin" ;
+    skos:definition "神に奉献された処女。virgo sacrata, sanctimonialis 等。"@ja ;
+    skos:broader epigs:religious .
+
+epigs:religious.faithful a epig:SocialStatus ;
+    rdfs:label "faithful"@en , "信徒"@ja ;
+    skos:notation "religious.faithful" ;
+    skos:definition "キリスト教の信徒一般。fidelis。役職を伴わない信仰上の立場。"@ja ;
+    skos:broader epigs:religious .
+
+epigs:religious.martyr a epig:SocialStatus ;
+    rdfs:label "martyr"@en , "殉教者"@ja ;
+    skos:notation "religious.martyr" ;
+    skos:definition "殉教者として記念される者。役職ではなく死後の評価による立場。"@ja ;
+    skos:broader epigs:religious .
+
+epigs:religious.monk a epig:SocialStatus ;
+    rdfs:label "monk"@en , "修道士"@ja ;
+    skos:notation "religious.monk" ;
+    skos:definition "修道生活者。"@ja ;
+    skos:broader epigs:religious .
+
+epigs:religious.priesthood_unspecified a epig:SocialStatus ;
+    rdfs:label "unspecified priesthood"@en , "祭司職(不特定)"@ja ;
+    skos:notation "religious.priesthood_unspecified" ;
+    skos:definition "祭司職に就いていたことは示されるが具体的な役職名が不明なもの。役職名が判明する場合は epig:CareerPosition に記述する。"@ja ;
+    skos:broader epigs:religious .
+
+epigs:religious.venerated a epig:SocialStatus ;
+    rdfs:label "venerated"@en , "尊崇される者"@ja ;
+    skos:notation "religious.venerated" ;
+    skos:definition "sancta/sanctus 等、死後に尊崇を受ける立場。"@ja ;
+    skos:broader epigs:religious .
+
+epigs:occupation.artisan a epig:SocialStatus ;
+    rdfs:label "artisan"@en , "手工業者"@ja ;
+    skos:notation "occupation.artisan" ;
+    skos:definition "手工業・職人。"@ja ;
+    skos:broader epigs:occupation .
+
+epigs:occupation.contractor a epig:SocialStatus ;
+    rdfs:label "contractor"@en , "請負人"@ja ;
+    skos:notation "occupation.contractor" ;
+    skos:definition "公共工事等の請負人。redemptor 等。"@ja ;
+    skos:broader epigs:occupation .
+
+epigs:occupation.gladiator a epig:SocialStatus ;
+    rdfs:label "gladiator"@en , "剣闘士"@ja ;
+    skos:notation "occupation.gladiator" ;
+    skos:definition "剣闘士。"@ja ;
+    skos:broader epigs:occupation .
+
+epigs:occupation.medicus a epig:SocialStatus ;
+    rdfs:label "physician"@en , "医師"@ja ;
+    skos:notation "occupation.medicus" ;
+    skos:definition "医師。medicus。"@ja ;
+    skos:broader epigs:occupation .
+
+epigs:occupation.merchant a epig:SocialStatus ;
+    rdfs:label "merchant"@en , "商人"@ja ;
+    skos:notation "occupation.merchant" ;
+    skos:definition "商業従事者。negotiator, mercator 等。"@ja ;
+    skos:broader epigs:occupation .
+
+epigs:occupation.performer a epig:SocialStatus ;
+    rdfs:label "performer"@en , "芸能者"@ja ;
+    skos:notation "occupation.performer" ;
+    skos:definition "俳優・戦車競走者・楽師等の興行従事者。"@ja ;
+    skos:broader epigs:occupation .
+
+epigs:unknown.unspecified a epig:SocialStatus ;
+    rdfs:label "unspecified"@en , "不特定"@ja ;
+    skos:notation "unknown.unspecified" ;
+    skos:definition "身分への言及が特定できないもの。"@ja ;
+    skos:broader epigs:unknown .
 
 epig:DivinityType a owl:Class ;
     rdfs:label "Divinity Type"@en , "神格タイプ"@ja ;
@@ -247,7 +1231,57 @@ epig:target a owl:ObjectProperty ;
 
 epig:socialStatus a owl:DatatypeProperty ;
     rdfs:label "social status"@en , "社会的身分"@ja ;
+    rdfs:comment "抽出時点の社会的身分（統制されていない自由文字列）。91種に発散しており多軸を表現できないため、分類には epig:hasSocialStatusStatement を用いる。本プロパティは抽出の生成来歴を保持するために温存する（epig:objectType と epig:objectCategory の関係と同じ）。"@ja ;
     rdfs:domain epig:PersonReference ; rdfs:range xsd:string .
+
+epig:hasObjectStatement a owl:ObjectProperty ;
+    rdfs:label "has object statement"@en , "対象物言明を持つ"@ja ;
+    rdfs:comment "寄進言及が挙げる対象物ごとの言明。対象物が複数ありカテゴリが分かれる場合にのみ用いる。"@ja ;
+    rdfs:domain epig:BenefactionStatement ;
+    rdfs:range  epig:BenefactionObjectStatement .
+
+epig:hasSocialStatusStatement a owl:ObjectProperty ;
+    rdfs:label "has social status statement"@en , "身分言明を持つ"@ja ;
+    rdfs:comment "人物の社会的身分の言明。1人物が法的身分・身分階層・職業等の複数の軸に同時に属しうるため多値をとる。各言明は根拠となる原文と確信度を伴う。"@ja ;
+    rdfs:domain epig:PersonReference ;
+    rdfs:range  epig:SocialStatusStatement .
+
+epig:socialStatusCategory a owl:ObjectProperty ;
+    rdfs:label "social status category"@en , "身分カテゴリ"@ja ;
+    rdfs:comment "身分の第1階層カテゴリ。値は epig:SocialStatus のうち第1階層の6個体（epigs:legal 等）を使用する。言明には必ず付与する。確定できない場合は epigs:unknown 配下の値を用い、本プロパティ自体の省略は行わない。"@ja ;
+    rdfs:domain epig:SocialStatusStatement ;
+    rdfs:range  epig:SocialStatus .
+
+epig:socialStatusSubtype a owl:ObjectProperty ;
+    rdfs:label "social status subtype"@en , "身分サブタイプ"@ja ;
+    rdfs:comment "身分の第2階層カテゴリ。値は skos:broader で第1階層に接続する個体（epigs:legal.freedman 等）を使用する。原文から細分が確定できない場合は無理に付与せず省略し、第1階層のみで記述する。"@ja ;
+    rdfs:domain epig:SocialStatusStatement ;
+    rdfs:range  epig:SocialStatus .
+
+epig:statusRank a owl:DatatypeProperty ;
+    rdfs:label "status rank"@en , "位階"@ja ;
+    rdfs:comment "身分階層内の位階。clarissimus, consularis, praetorius, perfectissimus, egregius 等。身分（epigs:ordo.senator 等）とは別の軸であるため分離して記述する。"@ja ;
+    rdfs:domain epig:SocialStatusStatement ; rdfs:range xsd:string .
+
+epig:statusCertainty a owl:DatatypeProperty ;
+    rdfs:label "status certainty"@en , "身分判定の確信度"@ja ;
+    rdfs:comment "身分が碑文に明示されているか推論によるかの区別。'explicit'（原文に当該身分が明示）/ 'inferred'（名前・投票部族・filiation 等からの推論）のいずれか。市民権の多くは tribus 名からの推論であり、明示された身分と区別して集計できるようにするために付与する。"@ja ;
+    rdfs:domain epig:SocialStatusStatement ; rdfs:range xsd:string .
+
+epig:statusEvidence a owl:DatatypeProperty ;
+    rdfs:label "status evidence"@en , "身分の根拠(原文)"@ja ;
+    rdfs:comment "当該身分の根拠となる碑文原文の逐語引用。軸ごとに分割して記録する。推論による判定の場合、原文部分のみを本プロパティに入れ、解釈は epig:statusReasoning に分離する。"@ja ;
+    rdfs:domain epig:SocialStatusStatement ; rdfs:range xsd:string .
+
+epig:statusReasoning a owl:DatatypeProperty ;
+    rdfs:label "status reasoning"@en , "身分判定の理由"@ja ;
+    rdfs:comment "epig:statusCertainty が 'inferred' の場合の推論内容。原文ではないため epig:statusEvidence とは分けて記述する。"@ja ;
+    rdfs:domain epig:SocialStatusStatement ; rdfs:range xsd:string .
+
+epig:socialStatusSource a owl:DatatypeProperty ;
+    rdfs:label "social status source"@en , "身分判定の来歴"@ja ;
+    rdfs:comment "身分カテゴリをどの経路で決定したかの識別子。'direct'（旧 social_status からの対応付け）/ 'ambiguous'（文脈依存の既知形）/ 'llm'（文脈判定）/ 'pending_llm'（未判定）のいずれか。機械的規則による分類と文脈解釈による分類を事後に区別するために付与する。"@ja ;
+    rdfs:domain epig:SocialStatusStatement ; rdfs:range xsd:string .
 
 epig:divinityType a owl:ObjectProperty ;
     rdfs:label "divinity type"@en , "神格タイプ"@ja ;
@@ -439,10 +1473,35 @@ epig:positionNormalized a owl:DatatypeProperty ;
 
 epig:positionAbstract a owl:DatatypeProperty ;
     rdfs:label "position (abstract)"@en , "役職(抽象化)"@ja ;
+    rdfs:comment "抽出時点の役職名（統制されていない自由文字列）。659種に及ぶ。主要な52種については epig:positionCanonical が統制語彙を与えるが、残りは本プロパティにのみ現れる。抽出の生成来歴を保持するため温存する（epig:objectType と epig:objectCategory の関係と同じ）。"@ja ;
     rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
 
-epig:positionType a owl:DatatypeProperty ;
+epig:positionType a owl:ObjectProperty ;
     rdfs:label "position type"@en , "役職種別"@ja ;
+    rdfs:comment "官職の行政単位による区分。値は epig:PositionType の11個体（epigp:imperial_administration 等）を使用する。2026-10-17 に xsd:string から本クラスへ range を変更した。抽出時点で実質10種に統制されていたが、スキーマ上は自由文字列であり、どれが統制語彙かオントロジーから判別できなかったため。"@ja ;
+    rdfs:domain epig:CareerStatement ;
+    rdfs:range  epig:PositionType .
+
+epig:positionCanonical a owl:ObjectProperty ;
+    rdfs:label "position (canonical)"@en , "官職(統制語彙)"@ja ;
+    rdfs:comment "官職・称号の統制語彙。値は epig:Position の個体（epigp:consul 等）。全659種のうち主要な52種のみを定義しているため、統制語彙に対応しない役職には付与しない。その場合は epig:positionAbstract のみで記述する。"@ja ;
+    rdfs:domain epig:CareerStatement ;
+    rdfs:range  epig:Position .
+
+epig:positionTier a owl:ObjectProperty ;
+    rdfs:label "position tier"@en , "官職の序列"@ja ;
+    rdfs:comment "官職の序列軸。epig:positionType とは直交する。epig:Position 個体に対して定義されるため、epig:positionCanonical を辿れば得られるが、集計の便宜のため epig:CareerStatement にも直接付与しうる。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( epig:CareerStatement epig:Position ) ] ;
+    rdfs:range  epig:PositionTier .
+
+epig:positionCanonicalSource a owl:DatatypeProperty ;
+    rdfs:label "position canonical source"@en , "官職判定の来歴"@ja ;
+    rdfs:comment "epig:positionCanonical をどの経路で決定したかの識別子。'direct'（position_abstract からの対応付け）/ 'variant'（表記ゆれの統合）/ 'llm'（文脈判定）/ 'pending_llm'（未判定）のいずれか。機械的規則による分類と文脈解釈による分類を事後に区別するために付与する。"@ja ;
+    rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
+
+epig:victoryTitle a owl:DatatypeProperty ;
+    rdfs:label "victory title"@en , "勝利称号の対象"@ja ;
+    rdfs:comment "epigp:victory_title の具体的な対象地域（Germania, Parthia, Dacia 等）。勝利称号は新たな征服のたびに増えうるため個体を分けず、本プロパティで区別する。"@ja ;
     rdfs:domain epig:CareerStatement ; rdfs:range xsd:string .
 
 epig:positionDescription a owl:DatatypeProperty ;
@@ -554,6 +1613,33 @@ epig:recurrence a owl:DatatypeProperty ;
     rdfs:range  xsd:string .
 
 #################################################################
+#    寄進対象カテゴリプロパティ  —  BenefactionStatement
+#################################################################
+# epig:objectType（抽出 LLM が付与する自由文字列）は、語彙の重複・
+# 分類軸の混在・判定のぶれを含むため、分析用の統制語彙として
+# epig:objectCategory / epig:objectSubtype を別プロパティとして設けた。
+# objectType は抽出時点の値および人手校訂の対象として保持し、
+# 本プロパティで上書きはしない。両者は生成来歴が異なる別の主張である。
+
+epig:objectCategory a owl:ObjectProperty ;
+    rdfs:label "object category"@en , "寄進対象カテゴリ"@ja ;
+    rdfs:comment "寄進対象の第1階層カテゴリ。値は epig:ObjectCategory のコントロールドボキャブラリのうち第1階層の9個体（epigo:structure 等）を使用する。分類が確定した対象には必ず付与する。カテゴリが確定できない場合は epigo:unknown 配下の値を用い、本プロパティ自体の省略は行わない。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( epig:BenefactionStatement epig:BenefactionObjectStatement ) ] ;
+    rdfs:range  epig:ObjectCategory .
+
+epig:objectSubtype a owl:ObjectProperty ;
+    rdfs:label "object subtype"@en , "寄進対象サブタイプ"@ja ;
+    rdfs:comment "寄進対象の第2階層カテゴリ。値は skos:broader で第1階層に接続する個体（epigo:structure.portico 等）を使用する。原文から細分が確定できない場合は無理に付与せず省略し、第1階層のみで記述する。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( epig:BenefactionStatement epig:BenefactionObjectStatement ) ] ;
+    rdfs:range  epig:ObjectCategory .
+
+epig:objectCategorySource a owl:DatatypeProperty ;
+    rdfs:label "object category source"@en , "カテゴリ判定の来歴"@ja ;
+    rdfs:comment "epig:objectCategory / epig:objectSubtype をどの経路で決定したかの識別子。'surface:<rule_id>'（表層形ルール）/ 'ambiguous'（既知の多重割当形）/ 'direct'（旧 object_type からの対応付け）/ 'llm'（文脈判定）のいずれか。機械的規則による分類と文脈解釈による分類を事後に区別するために付与する。"@ja ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( epig:BenefactionStatement epig:BenefactionObjectStatement ) ] ;
+    rdfs:range  xsd:string .
+
+#################################################################
 #    Datatype Properties  —  RelationshipStatement
 #################################################################
 
@@ -571,8 +1657,12 @@ epig:relationshipProperty a owl:DatatypeProperty ;
 
 epig:normalizedName a owl:DatatypeProperty ;
     rdfs:label "normalized name"@en , "正規化名"@ja ;
+    rdfs:comment """EntityReference の正規化表記 (旧スタイル RDF)。hmki:normalizedForm を使用すること。
+人物には epig:normalizedName、共同体には hmki:normalizedForm という二系統に分裂しており、
+正規化表記を横断して取得するクエリが両者の UNION を要する状態だったため統合した。"""@ja ;
     rdfs:domain [ a owl:Class ; owl:unionOf ( epig:PersonReference epig:CommunityReference ) ] ;
-    rdfs:range xsd:string .
+    rdfs:range xsd:string ;
+    owl:deprecated true .
 
 epig:evidence a owl:DatatypeProperty ;
     rdfs:label "evidence"@en , "根拠テキスト"@ja ;
