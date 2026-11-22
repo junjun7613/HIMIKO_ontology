@@ -640,10 +640,9 @@ epigp:adiutor a epig:Position ;
     epig:positionTier epigp:tier_equestrian .
 
 epigp:adlectus a epig:Position ;
-    rdfs:label "adlectus"@en , "元老院編入者"@ja ;
+    rdfs:label "adlectus"@en , "編入者"@ja ;
     skos:notation "adlectus" ;
-    rdfs:comment "元老院への編入。官職ではなく身分変更"@ja ;
-    epig:positionTier epigp:tier_senatorial .
+    rdfs:comment "編入（adlectio）。官職ではなく身分変更。編入先（元老院・騎士身分・陪審員団・都市参事会・軍団）によって序列が変わるため、この個体には epig:positionTier を与えない。序列は個々の epig:CareerStatement に付与する。"@ja .
 
 epigp:advocatus a epig:Position ;
     rdfs:label "advocatus"@en , "弁護士"@ja ;
@@ -1490,7 +1489,7 @@ epig:positionCanonical a owl:ObjectProperty ;
 
 epig:positionTier a owl:ObjectProperty ;
     rdfs:label "position tier"@en , "官職の序列"@ja ;
-    rdfs:comment "官職の序列軸。epig:positionType とは直交する。epig:Position 個体に対して定義されるため、epig:positionCanonical を辿れば得られるが、集計の便宜のため epig:CareerStatement にも直接付与しうる。"@ja ;
+    rdfs:comment "官職の序列軸。epig:positionType とは直交する。多くの官職では epig:Position 個体に対して定義され、epig:positionCanonical を辿れば得られる。集計の便宜のため epig:CareerStatement にも直接付与しうる。序列が文脈で変わる官職（epigp:adlectus）は個体に序列を持たず、epig:CareerStatement にのみ付与する。"@ja ;
     rdfs:domain [ a owl:Class ; owl:unionOf ( epig:CareerStatement epig:Position ) ] ;
     rdfs:range  epig:PositionTier .
 
