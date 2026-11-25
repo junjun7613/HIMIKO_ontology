@@ -206,3 +206,67 @@ hmkia:agentType a owl:DatatypeProperty ;
     rdfs:comment "Agent の種別 (person / team / software など)。"@ja ;
     rdfs:domain hmkia:Agent ;
     rdfs:range xsd:string .
+
+#################################################################
+#    Assessment  —  抽出結果の評価と評価状態
+#################################################################
+
+hmkia:AssessmentAct a owl:Class ;
+    rdfs:label "Assessment Act"@en , "評価行為"@ja ;
+    rdfs:comment """既存の知識リソース (Statement, EntityReference, Inscription など) の妥当性を評価する解釈行為。
+LLM による判定 (hmkia:hasType "llm_judge") と人による確認 (hmkia:hasType "human_review") を含む。
+評価対象は hmkia:assesses で参照する。評価そのものはリソースを生成も更新もしない点で
+InterpretationCreationAct / InterpretationUpdateAct と区別される。人による値の修正は
+InterpretationUpdateAct として記録し、評価行為には含めない。W3C EARL の earl:Assertion に対応する。"""@ja ;
+    rdfs:subClassOf hmkia:InterpretationAct ;
+    rdfs:seeAlso <http://www.w3.org/ns/earl#Assertion> .
+
+hmkia:AssessmentStatus a owl:Class ;
+    rdfs:label "Assessment Status"@en , "評価状態"@ja ;
+    rdfs:comment """リソースの現在の値がどこまで評価されているかを示す段階。評価行為の記録から計算される派生値であり、
+値が評価後に変わると下の段階に戻る。上位から human_corrected > human_reviewed > llm_judged > unassessed。"""@ja .
+
+hmkia:status_unassessed a hmkia:AssessmentStatus ;
+    rdfs:label "unassessed"@en , "未評価"@ja ;
+    rdfs:comment "現在の値に対して有効な評価がない。"@ja .
+
+hmkia:status_llm_judged a hmkia:AssessmentStatus ;
+    rdfs:label "LLM judged"@en , "LLM判定済み"@ja ;
+    rdfs:comment "現在の値が、指定されたすべての LLM judge によって判定されている。"@ja .
+
+hmkia:status_human_reviewed a hmkia:AssessmentStatus ;
+    rdfs:label "human reviewed"@en , "人手確認済み"@ja ;
+    rdfs:comment "現在の値を人が確認し、判定を記録している。"@ja .
+
+hmkia:status_human_corrected a hmkia:AssessmentStatus ;
+    rdfs:label "human corrected"@en , "人手校訂済み"@ja ;
+    rdfs:comment "現在の値が人の校訂によって入力されたものである。"@ja .
+
+hmkia:assesses a owl:ObjectProperty ;
+    rdfs:label "assesses"@en , "評価対象"@ja ;
+    rdfs:comment "この評価行為が評価したリソース。earl:subject に対応する。"@ja ;
+    rdfs:domain hmkia:AssessmentAct ;
+    rdfs:seeAlso <http://www.w3.org/ns/earl#subject> .
+
+hmkia:assessmentStatus a owl:ObjectProperty ;
+    rdfs:label "assessment status"@en , "評価状態"@ja ;
+    rdfs:comment """リソースの現在の評価状態。複数の項目からなるリソースでは、含まれる項目のうち最も低い状態を示す。
+評価行為の記録から計算され、データを再生成するたびに作り直される。"""@ja ;
+    rdfs:range hmkia:AssessmentStatus .
+
+hmkia:staleAssessmentStatus a owl:ObjectProperty ;
+    rdfs:label "stale assessment status"@en , "失効した評価状態"@ja ;
+    rdfs:comment "評価後に値が変わったため失効した、最も高い評価状態。現在の hmkia:assessmentStatus より上の段階のみを示す。"@ja ;
+    rdfs:range hmkia:AssessmentStatus .
+
+hmkia:assessmentOutcome a owl:DatatypeProperty ;
+    rdfs:label "assessment outcome"@en , "評価結果"@ja ;
+    rdfs:comment "評価行為の結果の区分 (例: LLM judge の合意区分 'agree_all', 'minor_only', 'clean')。"@ja ;
+    rdfs:domain hmkia:AssessmentAct ;
+    rdfs:range xsd:string .
+
+hmkia:assessmentCurrent a owl:DatatypeProperty ;
+    rdfs:label "assessment current"@en , "評価の有効性"@ja ;
+    rdfs:comment "この評価行為が対象の現在の値に対してなお有効か (評価後に値が変わっていれば false)。"@ja ;
+    rdfs:domain hmkia:AssessmentAct ;
+    rdfs:range xsd:boolean .

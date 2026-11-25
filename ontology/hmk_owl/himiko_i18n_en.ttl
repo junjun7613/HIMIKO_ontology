@@ -214,3 +214,25 @@ hmkia:note rdfs:comment "Free-form remarks about the interpretation act."@en .
 hmkia:agentName rdfs:comment "Name of the Agent (researcher name, team name, or model name)."@en .
 
 hmkia:agentType rdfs:comment "Type of the Agent (person / team / software, etc.)."@en .
+
+hmkia:AssessmentAct rdfs:comment """An interpretation act that assesses the validity of existing knowledge resources (Statements, EntityReferences, Inscriptions, and so on). Covers judgement by an LLM (hmkia:hasType "llm_judge") and checking by a person (hmkia:hasType "human_review"). The assessed resource is referenced with hmkia:assesses. It is distinguished from InterpretationCreationAct / InterpretationUpdateAct in that it neither creates nor updates resources; a human correction of a value is recorded as an InterpretationUpdateAct, not as an assessment. Corresponds to W3C EARL earl:Assertion."""@en .
+
+hmkia:AssessmentStatus rdfs:comment """The level to which the current value of a resource has been assessed. A derived value computed from the record of assessment acts; when a value changes after assessment it falls back to a lower level. From highest: human_corrected > human_reviewed > llm_judged > unassessed."""@en .
+
+hmkia:status_unassessed rdfs:comment "No assessment applies to the current value."@en .
+
+hmkia:status_llm_judged rdfs:comment "The current value has been judged by every designated LLM judge."@en .
+
+hmkia:status_human_reviewed rdfs:comment "A person has checked the current value and recorded a verdict."@en .
+
+hmkia:status_human_corrected rdfs:comment "The current value was entered by a human correction."@en .
+
+hmkia:assesses rdfs:comment "The resource assessed by this assessment act. Corresponds to earl:subject."@en .
+
+hmkia:assessmentStatus rdfs:comment """The current assessment status of a resource. For a resource made of several fields, the lowest status among them. Computed from the record of assessment acts and rebuilt each time the data is regenerated."""@en .
+
+hmkia:staleAssessmentStatus rdfs:comment "The highest assessment status that lapsed because the value changed after assessment. Only levels above the current hmkia:assessmentStatus are given."@en .
+
+hmkia:assessmentOutcome rdfs:comment "The outcome class of an assessment act (e.g. the LLM-judge agreement tier 'agree_all', 'minor_only', 'clean')."@en .
+
+hmkia:assessmentCurrent rdfs:comment "Whether this assessment act still applies to the current value of its subject (false if the value changed after assessment)."@en .
