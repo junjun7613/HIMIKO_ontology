@@ -236,3 +236,21 @@ hmkia:staleAssessmentStatus rdfs:comment "The highest assessment status that lap
 hmkia:assessmentOutcome rdfs:comment "The outcome class of an assessment act (e.g. the LLM-judge agreement tier 'agree_all', 'minor_only', 'clean')."@en .
 
 hmkia:assessmentCurrent rdfs:comment "Whether this assessment act still applies to the current value of its subject (false if the value changed after assessment)."@en .
+
+hmkia:JudgeOutcome rdfs:comment """The class of verdict that the LLM judges gave on the current value of a resource. Judges report problems only, so outcome_no_finding means "no judge reported a problem", not "confirmed correct". For a resource made of several fields, the most severe class among them. From most severe: major_incorrect > major_mixed > major_omission > major_uncertain > major_single > minor > no_finding. The major_* classes (except single) are cases where two or more judges called the field major, split by the kind of verdict."""@en .
+
+hmkia:outcome_major_incorrect rdfs:comment "Every judge that called it major judged it incorrect."@en .
+
+hmkia:outcome_major_mixed rdfs:comment "Two or more judges called it major, but the kind of verdict (incorrect / uncertain / omission) differed."@en .
+
+hmkia:outcome_major_omission rdfs:comment "Every judge that called it major judged something to be missing."@en .
+
+hmkia:outcome_major_uncertain rdfs:comment "Every judge that called it major said it could not be determined. Not necessarily an error."@en .
+
+hmkia:outcome_major_single rdfs:comment "Only one judge called it major."@en .
+
+hmkia:outcome_minor rdfs:comment "Only minor findings."@en .
+
+hmkia:outcome_no_finding rdfs:comment "No judge reported a problem. Does not mean confirmed correct."@en .
+
+hmkia:judgeOutcome rdfs:comment """The verdict class of the latest LLM judge run on the current value of a resource, kept apart from the assessment status (hmkia:assessmentStatus): the status says how far the value has been checked, the outcome what the judges said. On an AssessmentAct, the most severe class in that act."""@en .

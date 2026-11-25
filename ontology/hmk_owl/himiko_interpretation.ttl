@@ -270,3 +270,45 @@ hmkia:assessmentCurrent a owl:DatatypeProperty ;
     rdfs:comment "この評価行為が対象の現在の値に対してなお有効か (評価後に値が変わっていれば false)。"@ja ;
     rdfs:domain hmkia:AssessmentAct ;
     rdfs:range xsd:boolean .
+
+hmkia:JudgeOutcome a owl:Class ;
+    rdfs:label "Judge Outcome"@en , "判定結果"@ja ;
+    rdfs:comment """LLM judge がリソースの現在の値について下した判定の区分。judge は問題だけを報告するため、
+outcome_no_finding は「正しいと確認した」ではなく「どの judge も問題を報告しなかった」を意味する。
+複数の項目からなるリソースでは、含まれる項目のうち最も重い区分を示す。重い順に
+major_incorrect > major_mixed > major_omission > major_uncertain > major_single > minor > no_finding。
+major_* (single を除く) は 2 つ以上の judge が重大 (major) とした場合で、その判定の種類で分ける。"""@ja .
+
+hmkia:outcome_major_incorrect a hmkia:JudgeOutcome ;
+    rdfs:label "major: incorrect"@en , "重大・誤り"@ja ;
+    rdfs:comment "重大とした judge がすべて「誤り」と判定した。"@ja .
+
+hmkia:outcome_major_mixed a hmkia:JudgeOutcome ;
+    rdfs:label "major: mixed"@en , "重大・判定が混在"@ja ;
+    rdfs:comment "2 つ以上の judge が重大としたが、判定の種類 (誤り・判断不能・抜け) が分かれた。"@ja .
+
+hmkia:outcome_major_omission a hmkia:JudgeOutcome ;
+    rdfs:label "major: omission"@en , "重大・抜け"@ja ;
+    rdfs:comment "重大とした judge がすべて「抜けている」と判定した。"@ja .
+
+hmkia:outcome_major_uncertain a hmkia:JudgeOutcome ;
+    rdfs:label "major: uncertain"@en , "重大・判断不能"@ja ;
+    rdfs:comment "重大とした judge がすべて「判断できない」と判定した。誤りとは限らない。"@ja .
+
+hmkia:outcome_major_single a hmkia:JudgeOutcome ;
+    rdfs:label "major: single judge"@en , "重大・1 judge のみ"@ja ;
+    rdfs:comment "重大とした judge が 1 つだけだった。"@ja .
+
+hmkia:outcome_minor a hmkia:JudgeOutcome ;
+    rdfs:label "minor"@en , "軽微"@ja ;
+    rdfs:comment "軽微 (minor) な指摘のみがあった。"@ja .
+
+hmkia:outcome_no_finding a hmkia:JudgeOutcome ;
+    rdfs:label "no finding"@en , "指摘なし"@ja ;
+    rdfs:comment "どの judge も問題を報告しなかった。正しいと確認したことを意味しない。"@ja .
+
+hmkia:judgeOutcome a owl:ObjectProperty ;
+    rdfs:label "judge outcome"@en , "判定結果"@ja ;
+    rdfs:comment """リソースの現在の値に対する最新の LLM judge の判定区分。評価状態 (hmkia:assessmentStatus) とは別に持つ。
+状態は「どこまで確かめたか」、判定結果は「何と言われたか」を示す。AssessmentAct に付く場合は、その判定行為全体で最も重い区分を示す。"""@ja ;
+    rdfs:range hmkia:JudgeOutcome .
